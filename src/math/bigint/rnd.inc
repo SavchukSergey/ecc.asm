@@ -1,3 +1,5 @@
+include '../rnd.inc'
+
 macro BigIntegerRnd bits {
 
 ;Randomize bi value
