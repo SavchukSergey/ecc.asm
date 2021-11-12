@@ -3,6 +3,7 @@ include 'bigint/cmp.inc'
 include 'bigint/extend_1.inc'
 include 'bigint/extend_2.inc'
 include 'bigint/extend_u64.inc'
+include 'bigint/read_hex.inc'
 include 'bigint/rnd.inc'
 include 'bigint/sub.inc'
 include 'bigint/write_hex.inc'
@@ -35,6 +36,7 @@ BigIntegerCmp bits
 BigIntegerExtend1 bits
 BigIntegerExtend2 bits
 BigIntegerExtendU64 bits
+BigIntegerReadHex bits
 BigIntegerRnd bits
 BigIntegerSub bits
 BigIntegerWriteHex bits

@@ -1,3 +1,5 @@
+include '../../text/hex_format_digit.inc'
+
 macro BigIntegerWriteHex bits {
 
 ;Formats bi as hex string
@@ -11,13 +13,13 @@ __bi_write_hex_#bits:
 .loop:
         mov     al, [rbx + rcx - 1]
         shr     al, 4
-        call    __bi_get_hex_digit
+        call    hex_format_digit
         mov     [rdi], al
         inc     rdi
 
         mov     al, [rbx + rcx - 1]
         and     al, 0x0f
-        call    __bi_get_hex_digit
+        call    hex_format_digit
         mov     [rdi], al
         inc     rdi
 
@@ -26,16 +28,3 @@ __bi_write_hex_#bits:
         ret
 
 }
-
-;input
-;al - byte
-;output
-;al - hex character
-__bi_get_hex_digit:
-        cmp     al, 10
-        jae     .letter
-        add     al, '0'
-        ret
-.letter:
-        add     al, 'A' - 10
-        ret

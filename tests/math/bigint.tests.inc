@@ -1,4 +1,5 @@
 include 'bigint/add.tests.inc'
+include 'bigint/read_hex.tests.inc'
 include 'bigint/rnd.tests.inc'
 include 'bigint/sub.tests.inc'
 include 'bigint/zero.tests.inc'
@@ -9,6 +10,8 @@ align 16
 __bi_tests_#bits:
         dq __bi_add_test_#bits
         db 'add', 0
+        dq __bi_read_hex_test_#bits
+        db 'read_hex', 0
         dq __bi_rnd_test_#bits
         db 'rnd', 0
         dq __bi_sub_neg_test_#bits
@@ -21,6 +24,7 @@ __bi_tests_#bits:
 
 
 BigIntegerAddTests bits
+BigIntegerReadHexTests bits
 BigIntegerRndTests bits
 BigIntegerSubTests bits
 BigIntegerZeroTests bits

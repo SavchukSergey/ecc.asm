@@ -89,7 +89,8 @@ run_test_fixture:
 include 'math/bigint.tests.inc'
 include '../src/math/rnd.inc'
 include '../src/math/bigint.inc'
-include '../src/console/console.inc'
+include '../src/console/write_string.inc'
+include '../src/console/write_line.inc'
 
 section '.idata' import data readable writeable
 

@@ -55,7 +55,8 @@ start:
 
 include 'math/rnd.inc'
 include 'math/bigint.inc'
-include 'console/console.inc'
+include 'console/write_string.inc'
+include 'console/write_line.inc'
 
 section '.data' data readable writeable
 align 16
