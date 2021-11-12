@@ -5,6 +5,7 @@ include 'bigint/extend_2.inc'
 include 'bigint/extend_u64.inc'
 include 'bigint/read_hex.inc'
 include 'bigint/rnd.inc'
+include 'bigint/shr.inc'
 include 'bigint/sub.inc'
 include 'bigint/write_hex.inc'
 include 'bigint/zero.inc'
@@ -38,6 +39,7 @@ BigIntegerExtend2 bits
 BigIntegerExtendU64 bits
 BigIntegerReadHex bits
 BigIntegerRnd bits
+BigIntegerShr bits
 BigIntegerSub bits
 BigIntegerWriteHex bits
 BigIntegerZero bits
