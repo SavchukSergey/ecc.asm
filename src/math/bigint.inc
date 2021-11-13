@@ -1,5 +1,5 @@
 include 'bigint/cmp.inc'
-include 'bigint/extend_1.inc'
+include 'bigint/extend_low/extend_low_1.inc'
 include 'bigint/extend_2.inc'
 include 'bigint/extend_u64.inc'
 include 'bigint/read_hex.inc'
@@ -32,7 +32,7 @@ struct BigIntegerHex#bits
 ends
 
 BigIntegerCmp bits
-BigIntegerExtend1 bits
+BigIntegerExtendLow1 bits
 BigIntegerExtend2 bits
 BigIntegerExtendU64 bits
 BigIntegerReadHex bits

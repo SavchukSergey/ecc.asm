@@ -1,7 +1,7 @@
 macro BigIntegerDump bits {
 
-include '../console/write_line.inc'
-include '../console/write_string.inc'
+include '../../console/write_line.inc'
+include '../../console/write_string.inc'
 
 ;Dumps bi to console
 ;input
