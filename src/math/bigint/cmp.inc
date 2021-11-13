@@ -13,27 +13,27 @@ end virtual
 virtual at rbx
   .right BigInteger#bits
 end virtual
-virtual at rdi
-  .result BigInteger#bits
-end virtual
         push    rdx
         repeat  __BIG_INTEGER_QWORDS_#bits
-        mov     rdx, [.left + (% - 1) * 8]
-        cmp     rdx, [.right + (% - 1) * 8]
+        mov     rdx, [.left + __BIG_INTEGER_BYTES_#bits - % * 8]
+        cmp     rdx, [.right + __BIG_INTEGER_BYTES_#bits - % * 8]
         jb      .less
         ja      .greater
         end repeat
 .equal:
-        xor     rax, rax
+        ;keep CPU flags
         pop     rdx
+        mov     rax, 0
         ret
 .less:
-        mov     rax, -1
+        ;keep CPU flags
         pop     rdx
+        mov     rax, -1
         ret
 .greater:
-        mov     rax, 1
+        ;keep CPU flags
         pop     rdx
+        mov     rax, 1
         ret
 
 }

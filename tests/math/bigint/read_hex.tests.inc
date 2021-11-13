@@ -7,7 +7,7 @@ virtual at rsp
   .value rb __BIG_INTEGER_BYTES_#bits
 end virtual
         sub     rsp, __BIG_INTEGER_BYTES_#bits
-        mov     rsi, .src
+        mov     rsi, __bi_read_hex_test.src
         lea     rdi, [.value]
         call    __bi_read_hex_#bits
 
@@ -70,7 +70,7 @@ end if
         clc
         ret
 
-.src db 'f48fde758282cfc7b9eaa5430d7d4b7ee163b92ddb2e9eda9eb7eb7bbfbe7a5a757dc8285a7fbfffe5b0869bff50623edee8cf79d6a34a3b6ef93f35798a00a7'
-
-
 }
+
+__bi_read_hex_test:
+.src db 'f48fde758282cfc7b9eaa5430d7d4b7ee163b92ddb2e9eda9eb7eb7bbfbe7a5a757dc8285a7fbfffe5b0869bff50623edee8cf79d6a34a3b6ef93f35798a00a7'

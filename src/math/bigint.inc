@@ -49,9 +49,9 @@ BigIntegerCode 128
 BigIntegerCode 256
 BigIntegerCode 512
 
-include 'bigint/add_128.inc'
-include 'bigint/add_256.inc'
-include 'bigint/add_512.inc'
+include 'bigint/add/add_128.inc'
+include 'bigint/add/add_256.inc'
+include 'bigint/add/add_512.inc'
 
 ;+-----------------+
 ;| Rexport methods |
