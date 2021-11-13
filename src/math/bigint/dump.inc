@@ -1,9 +1,12 @@
 macro BigIntegerDump bits {
 
+include '../console/write_line.inc'
+include '../console/write_string.inc'
+
 ;Dumps bi to console
 ;input
 ; rax - pointer to biginteger
-__bi_test_dump_#bits:
+__bi_dump_#bits:
         push    rsi rdi
         sub     rsp, __BIG_INTEGER_HEX_DIGITS_#bits + 8
         lea     rdi, [rsp]

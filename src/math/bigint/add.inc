@@ -1,5 +1,7 @@
 macro BigIntegerAdd bits {
 
+if ~ definite __bi_add_#bits
+
 ;Adds two bi values
 ;input
 ; rax - left value
@@ -24,5 +26,7 @@ end virtual
         end repeat
         pop     rdx
         ret
+
+end if
 
 }
