@@ -2,7 +2,7 @@ macro BigIntegerDivRem bits {
 
 if ~ definite __bi_div_rem_#bits
 
-include '../extend_high/extend_high.inc'
+include '../src/math/bigint/extend_high/extend_high.inc'
 
 ;Divides two bi values
 ;input
