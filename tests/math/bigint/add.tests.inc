@@ -1,5 +1,8 @@
 macro BigIntegerAddTests bits {
 
+include '../src/math/bigint/add/add.inc'
+BigIntegerAdd bits
+
 __bi_add_test_#bits:
 virtual at rsp
   .left rb __BIG_INTEGER_BYTES_#bits

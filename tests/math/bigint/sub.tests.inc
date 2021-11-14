@@ -1,5 +1,8 @@
 macro BigIntegerSubTests bits {
 
+include '../src/math/bigint/sub/sub.inc'
+BigIntegerSub bits
+
 __bi_sub_neg_test_#bits:
 virtual at rsp
   .left rb __BIG_INTEGER_BYTES_#bits
