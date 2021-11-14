@@ -1,7 +1,8 @@
 macro BigIntegerCmpTests bits {
 
-include '../src/math/bigint/dump/dump.inc'
-BigIntegerDump bits
+include '../src/math/bigint/cmp/cmp.inc'
+
+BigIntegerCmp bits
 
 __bi_cmp_test_#bits:
         mov     rbp, rsp

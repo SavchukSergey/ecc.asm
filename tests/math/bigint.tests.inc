@@ -1,6 +1,7 @@
 include 'bigint/add.tests.inc'
 include 'bigint/cmp.tests.inc'
 include 'bigint/extend_high.tests.inc'
+include 'bigint/extend_low.tests.inc'
 include 'bigint/read_hex.tests.inc'
 include 'bigint/rnd.tests.inc'
 include 'bigint/sub.tests.inc'
@@ -22,6 +23,8 @@ __bi_tests_#bits:
 
         dq __bi_extend_high_test_#bits
         db 'extend_high', 0
+        dq __bi_extend_low_test_#bits
+        db 'extend_low', 0
 
         dq __bi_read_hex_test_#bits
         db 'read_hex', 0
@@ -39,6 +42,7 @@ __bi_tests_#bits:
 BigIntegerAddTests bits
 BigIntegerCmpTests bits
 BigIntegerExtendHighTests bits
+BigIntegerExtendLowTests bits
 BigIntegerReadHexTests bits
 BigIntegerRndTests bits
 BigIntegerSubTests bits

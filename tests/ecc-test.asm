@@ -86,9 +86,9 @@ run_test_fixture:
 .failed db ' FAILED', 0
 .passed db ' PASSED', 0
 
+include '../src/math/bigint.inc'
 include 'math/bigint.tests.inc'
 include '../src/math/rnd.inc'
-include '../src/math/bigint.inc'
 include '../src/console/write_string.inc'
 include '../src/console/write_line.inc'
 

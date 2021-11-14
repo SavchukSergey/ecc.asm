@@ -1,5 +1,7 @@
 macro BigIntegerCmp bits {
 
+if ~ definite __bi_cmp_#bits
+
 ;Compares two bi values
 ;input
 ; rax - left value
@@ -35,5 +37,7 @@ end virtual
         pop     rdx
         mov     rax, 1
         ret
+
+end if
 
 }

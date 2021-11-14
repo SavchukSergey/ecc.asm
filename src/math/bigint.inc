@@ -1,14 +1,10 @@
-include 'bigint/cmp.inc'
-include 'bigint/extend_low/extend_low_1.inc'
-include 'bigint/extend_2.inc'
-include 'bigint/extend_u64.inc'
+include 'bigint/extend_low/extend_low.inc'
+include 'bigint/extend_low/extend_low_2.inc'
+include 'bigint/extend_low/extend_low_u64.inc'
 include 'bigint/read_hex.inc'
-include 'bigint/rnd.inc'
 include 'bigint/shr.inc'
 include 'bigint/sub.inc'
 include 'bigint/write_hex.inc'
-include 'bigint/zero.inc'
-
 
 macro BigIntegerCode bits {
 __BIG_INTEGER_BITS_#bits = #bits
@@ -31,16 +27,12 @@ struct BigIntegerHex#bits
   data rb __BIG_INTEGER_HEX_DIGITS_#bits
 ends
 
-BigIntegerCmp bits
-BigIntegerExtendLow1 bits
 BigIntegerExtend2 bits
 BigIntegerExtendU64 bits
 BigIntegerReadHex bits
-BigIntegerRnd bits
 BigIntegerShr bits
 BigIntegerSub bits
 BigIntegerWriteHex bits
-BigIntegerZero bits
 }
 
 

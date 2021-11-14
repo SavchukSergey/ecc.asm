@@ -1,5 +1,9 @@
 macro BigIntegerRndTests bits {
 
+include '../src/math/bigint/rnd/rnd.inc'
+
+BigIntegerRnd bits
+
 __bi_rnd_test_#bits:
         sub     rsp, __BIG_INTEGER_BYTES_#bits
         mov     rax, rsp

@@ -10,29 +10,21 @@ proc DllEntryPoint hinstDLL,fdwReason,lpvReserved
         ret
 endp
 
-macro BigIntegerWin64RndProc bits {
-proc BigIntegerRnd_#bits result
-        push     rax
-        mov      rax, rcx
-        call     __bi_rnd_#bits
-        pop      rax
-        ret
-endp
-}
-
-macro BigIntegerWin64Procs bits {
-        BigIntegerWin64RndProc bits
-}
-
-BigIntegerWin64Procs 128
-BigIntegerWin64Procs 256
-BigIntegerWin64Procs 512
 
 include 'math/bigint.inc'
+include 'ecc_win64_api.inc'
+
+
 
 section '.edata' export data readable
 
   export 'ecc.dll',\
+         BigIntegerCmp_128, 'bi128_cmp', \
+         BigIntegerCmp_256, 'bi256_cmp', \
+         BigIntegerCmp_512, 'bi512_cmp', \
          BigIntegerRnd_128, 'bi128_rnd', \
          BigIntegerRnd_256, 'bi256_rnd', \
-         BigIntegerRnd_512, 'bi512_rnd'
+         BigIntegerRnd_512, 'bi512_rnd', \
+         BigIntegerZero_128, 'bi128_zero', \
+         BigIntegerZero_256, 'bi256_zero', \
+         BigIntegerZero_512, 'bi512_zero'

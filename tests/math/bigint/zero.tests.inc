@@ -1,5 +1,9 @@
 macro BigIntegerZeroTests bits {
 
+include '../src/math/bigint/zero/zero.inc'
+
+BigIntegerZero bits
+
 __bi_zero_test_#bits:
         sub     rsp, __BIG_INTEGER_BYTES_#bits
         mov     rax, rsp
