@@ -9,7 +9,6 @@ include '../src/math/bigint/shl/shl.inc'
 include '../src/math/bigint/sub/sub.inc'
 include '../src/math/bigint/bit_set/bit_set.inc'
 include '../src/math/bigint/bit_clear/bit_clear.inc'
-include '../src/math/bigint/dump/dump.inc'
 
 BigIntegerSub dbits
 BigIntegerShl dbits
@@ -18,7 +17,6 @@ BigIntegerExtendLow1 dbits
 BigIntegerExtendHigh1 dbits
 BigIntegerBitSet bits
 BigIntegerBitClear bits
-BigIntegerDump dbits
 
 ;Divides two bi values
 ;input
@@ -43,7 +41,7 @@ end virtual
         mov     [.divident_arg], rax
         mov     [.divisor_arg], rbx
         mov     [.quotient_arg], rdi
-        mov     [.reminder_arg], rdi
+        mov     [.reminder_arg], rsi
 
         mov     rax, [.divident_arg]
         lea     rdi, [.divident]
@@ -55,43 +53,35 @@ end virtual
 
         mov     rcx, __BIG_INTEGER_BITS_#bits
 .loop:
-        call    Console_WriteLine
-        lea     rax, [.divident]
-        call    __bi_dump_#dbits
-        lea     rax, [.divisor]
-        call    __bi_dump_#dbits
-        call    Console_WriteLine
-
         lea     rax, [.divident]
         call    __bi_shl_#dbits
 
         lea     rax, [.divident]
         lea     rbx, [.divisor]
         call    __bi_cmp_#dbits
-        jc      .below
+        jb      .below
  .above:
         lea     rax, [.divident]
         lea     rbx, [.divisor]
         lea     rdi, [.divident]
         call    __bi_sub_#dbits
-        jc      .below
 
         mov     rax, [.quotient_arg]
-        mov     rbx, __BIG_INTEGER_BITS_#bits
-        sub     rbx, rcx
+        mov     rbx, rcx
+        dec     rbx
         call    __bi_bit_set_#bits
         jmp     .continue
 .below:
         mov     rax, [.quotient_arg]
-        mov     rbx, __BIG_INTEGER_BITS_#bits
-        sub     rbx, rcx
+        mov     rbx, rcx
+        dec     rbx
         call    __bi_bit_clear_#bits
 .continue:
         loop    .loop
 
-        lea     rsi, [.divident + __BIG_INTEGER_BITS_#bits]
-        mov     rdi, [.quotient_arg]
-        MemoryCopyStatic rsi, rdi, __BIG_INTEGER_BITS_#bits / 8 ;todo: special shrink method
+        lea     rsi, [.divident + __BIG_INTEGER_BYTES_#bits]
+        mov     rdi, [.reminder_arg]
+        MemoryCopyStatic rsi, rdi, __BIG_INTEGER_BYTES_#bits ;todo: special shrink method
 
 
         add     rsp, .locals_end - .locals_start

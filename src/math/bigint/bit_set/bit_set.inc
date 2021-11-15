@@ -3,11 +3,12 @@ macro BigIntegerBitSet bits {
 if ~ definite __bi_bit_set_#bits
 
 __bi_bit_set_#bits:
-        push    rcx
+        push    rbx rcx
         mov     rcx, rbx
-        shr     rcx, 8
-        bts     [rax + rcx], rbx
-        pop     rcx
+        shr     rcx, 6
+        and     rbx, 0x3f
+        bts     qword [rax + 8 * rcx], rbx
+        pop     rcx rbx
         ret
 
 end if
