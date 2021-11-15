@@ -5,6 +5,8 @@ include 'win64a.inc'
 
 section '.text' code readable executable
 start:
+        call    enable_vt_processing
+
         sub     rsp, 0x28
         mov     rsi, .welcome
         call    Console_WriteString
@@ -28,6 +30,8 @@ start:
 .bi128_fixture_name db 'bi128', 0
 .bi256_fixture_name db 'bi256', 0
 .bi512_fixture_name db 'bi512', 0
+
+include '../src/console/enable_vt_processing.inc'
 
 run_test_fixture:
         push    rax rbx rsi
@@ -80,11 +84,12 @@ run_test_fixture:
 .end:
         pop     rsi rbx rax
         ret
+
 .tests_suffix db ' tests', 0
 .test_prefix db '    ', 0
 .test_suffix db ' test', 0
-.failed db ' FAILED', 0
-.passed db ' PASSED', 0
+.failed db TEXT_COLOR_ERROR, ' FAILED', TEXT_COLOR_DEFAULT, 0
+.passed db TEXT_COLOR_SUCCESS, ' PASSED', TEXT_COLOR_DEFAULT, 0
 
 include '../src/math/bigint.inc'
 include 'math/bigint.tests.inc'
@@ -99,4 +104,6 @@ section '.idata' import data readable writeable
   import kernel,\
          ExitProcess,'ExitProcess', \
          GetStdHandle, 'GetStdHandle', \
+         GetConsoleMode, 'GetConsoleMode', \
+         SetConsoleMode, 'SetConsoleMode', \
          WriteFile, 'WriteFile'
