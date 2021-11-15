@@ -33,6 +33,10 @@ section '.edata' export data readable
          BigIntegerCmp_256, 'bi256_cmp', \
          BigIntegerCmp_512, 'bi512_cmp', \
 \
+         BigIntegerDivRem_128, 'bi128_div_rem', \
+         BigIntegerDivRem_256, 'bi256_div_rem', \
+         BigIntegerDivRem_512, 'bi512_div_rem', \
+\
          BigIntegerExtendHigh1_128, 'bi128_extend_bi64_high', \
          BigIntegerExtendHigh1_256, 'bi256_extend_bi128_high', \
          BigIntegerExtendHigh1_512, 'bi512_extend_bi256_high', \

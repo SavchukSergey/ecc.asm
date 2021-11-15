@@ -2,6 +2,7 @@ include 'math/bigint/add/add.inc'
 include 'math/bigint/bit_clear/bit_clear.inc'
 include 'math/bigint/bit_set/bit_set.inc'
 include 'math/bigint/cmp/cmp.inc'
+include 'math/bigint/div_rem/div_rem.inc'
 include 'math/bigint/extend_low/extend_low_1.inc'
 include 'math/bigint/extend_low/extend_low_2.inc'
 include 'math/bigint/extend_low/extend_low_u64.inc'
@@ -65,6 +66,22 @@ BigIntegerCmp_#bits:
         pop      rbx
         ret
 }
+
+macro BigIntegerWin64DivRemProc bits, dbits {
+
+BigIntegerDivRem bits, dbits
+
+BigIntegerDivRem_#bits:
+        push     rax rbx rdi rsi
+        mov      rax, rcx
+        mov      rbx, rdx
+        mov      rdi, r8
+        mov      rsi, r9
+        call     __bi_div_rem_#bits
+        pop      rsi rdi rbx rax
+        ret
+}
+
 
 macro BigIntegerWin64ExtendHigh1Proc bits {
 
@@ -217,11 +234,12 @@ BigIntegerZero_#bits:
 
 }
 
-macro BigIntegerWin64Procs bits {
+macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64AddProc bits
         BigIntegerWin64BitClearProc bits
         BigIntegerWin64BitSetProc bits
         BigIntegerWin64CmpProc bits
+        BigIntegerWin64DivRemProc bits, dbits
         BigIntegerWin64ExtendHigh1Proc bits
         BigIntegerWin64ExtendHigh2Proc bits
         BigIntegerWin64ExtendHighU64Proc bits
@@ -235,6 +253,6 @@ macro BigIntegerWin64Procs bits {
         BigIntegerWin64ZeroProc bits
 }
 
-BigIntegerWin64Procs 128
-BigIntegerWin64Procs 256
-BigIntegerWin64Procs 512
+BigIntegerWin64Procs 128, 256
+BigIntegerWin64Procs 256, 512
+BigIntegerWin64Procs 512, 1024
