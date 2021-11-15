@@ -10,7 +10,7 @@ if ~ definite __bi_extend_high_2_#bits
 ; output
 ; rdi - pointer to destination value
 __bi_extend_high_2_#bits:
-        BigIntegerExtendHighCode bits / 4, bits
+        BigIntegerExtendHighCode (bits) / 4, bits
 end if
 
 }

@@ -10,7 +10,7 @@ if ~ definite __bi_extend_low_2_#bits
 ; output
 ; rdi - pointer to destination value
 __bi_extend_low_2_#bits:
-        BigIntegerExtendLowCode bits / 4, bits
+        BigIntegerExtendLowCode (bits) / 4, bits
 end if
 
 }

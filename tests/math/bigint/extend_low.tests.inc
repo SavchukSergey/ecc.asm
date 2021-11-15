@@ -1,4 +1,4 @@
-macro BigIntegerExtendLowTests bits {
+macro BigIntegerExtendLowTests bits, dbits {
 
 include '../src/math/bigint/extend_low/extend_low_1.inc'
 

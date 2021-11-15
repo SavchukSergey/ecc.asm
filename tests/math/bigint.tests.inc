@@ -56,8 +56,8 @@ BigIntegerBitSetTests bits
 BigIntegerBitClearTests bits
 BigIntegerCmpTests bits
 BigIntegerDivRemTests bits, dbits
-BigIntegerExtendHighTests bits
-BigIntegerExtendLowTests bits
+BigIntegerExtendHighTests bits, dbits
+BigIntegerExtendLowTests bits, dbits
 BigIntegerReadHexTests bits
 BigIntegerRndTests bits
 BigIntegerSubTests bits

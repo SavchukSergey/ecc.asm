@@ -13,7 +13,7 @@ virtual at rdi
   .result BigInteger#bits
 end virtual
         mov     [.result + (bits - 64) / 8], rax
-        MemoryZeroStatic rdi + 8, (bits - 8)
+        MemoryZeroStatic rdi + 8, (bits - 64) / 8
         ret
 end if
 
