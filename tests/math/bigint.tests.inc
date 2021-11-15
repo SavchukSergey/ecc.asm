@@ -65,5 +65,5 @@ BigIntegerZeroTests bits
 }
 
 BigIntegerTests 128, 256
-BigIntegerTests 256, 512
-BigIntegerTests 512, 1024
+;BigIntegerTests 256, 512
+;BigIntegerTests 512, 1024

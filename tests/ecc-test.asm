@@ -15,13 +15,13 @@ start:
         mov     rsi, .bi128_fixture_name
         call    run_test_fixture
 
-        mov     rax, __bi_tests_256
-        mov     rsi, .bi256_fixture_name
-        call    run_test_fixture
+;        mov     rax, __bi_tests_256
+;        mov     rsi, .bi256_fixture_name
+;        call    run_test_fixture
 
-        mov     rax, __bi_tests_512
-        mov     rsi, .bi512_fixture_name
-        call    run_test_fixture
+;        mov     rax, __bi_tests_512
+;        mov     rsi, .bi512_fixture_name
+;        call    run_test_fixture
 
         invoke  ExitProcess, 0
         add     rsp, 0x28

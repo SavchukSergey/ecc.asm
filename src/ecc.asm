@@ -61,6 +61,14 @@ section '.edata' export data readable
          BigIntegerRnd_256, 'bi256_rnd', \
          BigIntegerRnd_512, 'bi512_rnd', \
 \
+         BigIntegerShl_128, 'bi128_shl', \
+         BigIntegerShl_256, 'bi256_shl', \
+         BigIntegerShl_512, 'bi512_shl', \
+\
+         BigIntegerShr_128, 'bi128_shr', \
+         BigIntegerShr_256, 'bi256_shr', \
+         BigIntegerShr_512, 'bi512_shr', \
+\
          BigIntegerSub_128, 'bi128_sub', \
          BigIntegerSub_256, 'bi256_sub', \
          BigIntegerSub_512, 'bi512_sub', \

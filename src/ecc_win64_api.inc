@@ -9,6 +9,8 @@ include 'math/bigint/extend_high/extend_high_1.inc'
 include 'math/bigint/extend_high/extend_high_2.inc'
 include 'math/bigint/extend_high/extend_high_u64.inc'
 include 'math/bigint/rnd/rnd.inc'
+include 'math/bigint/shl/shl.inc'
+include 'math/bigint/shr/shr.inc'
 include 'math/bigint/sub/sub.inc'
 include 'math/bigint/zero/zero.inc'
 
@@ -163,6 +165,32 @@ BigIntegerRnd_#bits:
 
 }
 
+macro BigIntegerWin64ShlProc bits {
+
+BigIntegerShl bits
+
+BigIntegerShl_#bits:
+        push     rax rbx
+        mov      rax, rcx
+        mov      rbx, rdx
+        call     __bi_shl_#bits
+        pop      rbx rax
+        ret
+}
+
+macro BigIntegerWin64ShrProc bits {
+
+BigIntegerShr bits
+
+BigIntegerShr_#bits:
+        push     rax rbx
+        mov      rax, rcx
+        mov      rbx, rdx
+        call     __bi_shr_#bits
+        pop      rbx rax
+        ret
+}
+
 macro BigIntegerWin64SubProc bits {
 
 BigIntegerSub bits
@@ -201,6 +229,8 @@ macro BigIntegerWin64Procs bits {
         BigIntegerWin64ExtendLow2Proc bits
         BigIntegerWin64ExtendLowU64Proc bits
         BigIntegerWin64RndProc bits
+        BigIntegerWin64ShlProc bits
+        BigIntegerWin64ShrProc bits
         BigIntegerWin64SubProc bits
         BigIntegerWin64ZeroProc bits
 }

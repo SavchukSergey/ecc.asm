@@ -2,8 +2,8 @@ macro MemoryCopyStatic source, destination, count {
         push    rdx
 
         repeat  (count) shr 3
-        mov     rdx, [source + (% - 1) * 8]
-        mov     [destination + (% - 1) * 8], rdx
+        mov     rdx, qword [source + (% - 1) * 8]
+        mov     qword [destination + (% - 1) * 8], rdx
         end repeat
 
         repeat  ((count) and 0x07) shr 2

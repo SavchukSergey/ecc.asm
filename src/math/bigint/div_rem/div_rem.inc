@@ -6,14 +6,19 @@ include '../src/math/bigint/extend_low/extend_low_1.inc'
 include '../src/math/bigint/extend_high/extend_high_1.inc'
 include '../src/math/bigint/cmp/cmp.inc'
 include '../src/math/bigint/shl/shl.inc'
+include '../src/math/bigint/sub/sub.inc'
 include '../src/math/bigint/bit_set/bit_set.inc'
 include '../src/math/bigint/bit_clear/bit_clear.inc'
+include '../src/math/bigint/dump/dump.inc'
 
+BigIntegerSub dbits
 BigIntegerShl dbits
-BigIntegerExtendLow1 bits
-BigIntegerExtendHigh1 bits
+BigIntegerCmp dbits
+BigIntegerExtendLow1 dbits
+BigIntegerExtendHigh1 dbits
 BigIntegerBitSet bits
 BigIntegerBitClear bits
+BigIntegerDump dbits
 
 ;Divides two bi values
 ;input
@@ -23,47 +28,73 @@ BigIntegerBitClear bits
 ; rsi - reminder value
 __bi_div_rem_#bits:
 virtual at rbp
-  .divident rb __BIG_INTEGER_BYTES_#dbits
-  .divisor rb __BIG_INTEGER_BYTES_#dbits
+  label .locals_start
+  .divident rb 2 * __BIG_INTEGER_BYTES_#bits
+  .divisor rb 2* __BIG_INTEGER_BYTES_#bits
+  .divident_arg rq 1
+  .divisor_arg rq 1
+  .quotient_arg rq 1
+  .reminder_arg rq 1
+  label .locals_end
 end virtual
         push    rbp
-        sub     rsp, __BIG_INTEGER_BYTES_#dbits * 2
+        sub     rsp, .locals_end - .locals_start
         mov     rbp, rsp
+        mov     [.divident_arg], rax
+        mov     [.divisor_arg], rbx
+        mov     [.quotient_arg], rdi
+        mov     [.reminder_arg], rdi
 
-        push    rdi
+        mov     rax, [.divident_arg]
         lea     rdi, [.divident]
-        call    __bi_extend_low_#bits
+        call    __bi_extend_low_#dbits
 
-        mov     rax, rbx
+        mov     rax, [.divisor_arg]
         lea     rdi, [.divisor]
-        call    __bi_extend_high_#bits
-        pop     rdi
+        call    __bi_extend_high_#dbits
 
         mov     rcx, __BIG_INTEGER_BITS_#bits
 .loop:
+        call    Console_WriteLine
+        lea     rax, [.divident]
+        call    __bi_dump_#dbits
+        lea     rax, [.divisor]
+        call    __bi_dump_#dbits
+        call    Console_WriteLine
+
         lea     rax, [.divident]
         call    __bi_shl_#dbits
 
         lea     rax, [.divident]
         lea     rbx, [.divisor]
-        call    __bi_cmp_#bits
+        call    __bi_cmp_#dbits
         jc      .below
  .above:
-        mov     rax, rdi
+        lea     rax, [.divident]
+        lea     rbx, [.divisor]
+        lea     rdi, [.divident]
+        call    __bi_sub_#dbits
+        jc      .below
+
+        mov     rax, [.quotient_arg]
         mov     rbx, __BIG_INTEGER_BITS_#bits
         sub     rbx, rcx
         call    __bi_bit_set_#bits
         jmp     .continue
 .below:
-        mov     rax, rdi
+        mov     rax, [.quotient_arg]
         mov     rbx, __BIG_INTEGER_BITS_#bits
         sub     rbx, rcx
         call    __bi_bit_clear_#bits
 .continue:
         loop    .loop
 
+        lea     rsi, [.divident + __BIG_INTEGER_BITS_#bits]
+        mov     rdi, [.quotient_arg]
+        MemoryCopyStatic rsi, rdi, __BIG_INTEGER_BITS_#bits / 8 ;todo: special shrink method
 
-        add     rsp, __BIG_INTEGER_BYTES_#dbits * 2
+
+        add     rsp, .locals_end - .locals_start
         pop     rbp
         ret
 

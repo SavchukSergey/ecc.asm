@@ -1,5 +1,7 @@
 macro BigIntegerDump bits {
 
+if ~ definite __bi_dump_#bits
+
 include '../src/console/write_line.inc'
 include '../src/console/write_string.inc'
 
@@ -18,4 +20,7 @@ __bi_dump_#bits:
         add     rsp, __BIG_INTEGER_HEX_DIGITS_#bits + 8
         pop     rdi rsi
         ret
+
+end if
+
 }
