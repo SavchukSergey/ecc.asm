@@ -1,4 +1,6 @@
 include 'bigint/add.tests.inc'
+include 'bigint/bit_clear.tests.inc'
+include 'bigint/bit_set.tests.inc'
 include 'bigint/cmp.tests.inc'
 include 'bigint/div_rem.tests.inc'
 include 'bigint/extend_high.tests.inc'
@@ -14,6 +16,12 @@ align 16
 __bi_tests_#bits:
         dq __bi_add_test_#bits
         db 'add', 0
+
+        dq __bi_bit_clear_test_#bits
+        db 'bit_clear', 0
+
+        dq __bi_bit_set_test_#bits
+        db 'bit_set', 0
 
         dq __bi_cmp_equal_test_#bits
         db 'cmp_equal', 0
@@ -44,6 +52,8 @@ __bi_tests_#bits:
 
 
 BigIntegerAddTests bits
+BigIntegerBitSetTests bits
+BigIntegerBitClearTests bits
 BigIntegerCmpTests bits
 BigIntegerDivRemTests bits, dbits
 BigIntegerExtendHighTests bits

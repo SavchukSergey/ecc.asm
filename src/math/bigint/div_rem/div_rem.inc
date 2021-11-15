@@ -6,8 +6,14 @@ include '../src/math/bigint/extend_low/extend_low.inc'
 include '../src/math/bigint/extend_high/extend_high.inc'
 include '../src/math/bigint/cmp/cmp.inc'
 include '../src/math/bigint/shl/shl.inc'
+include '../src/math/bigint/bit_set/bit_set.inc'
+include '../src/math/bigint/bit_clear/bit_clear.inc'
 
 BigIntegerShl dbits
+BigIntegerExtendLow bits
+BigIntegerExtendHigh bits
+BigIntegerBitSet bits
+BigIntegerBitClear bits
 
 ;Divides two bi values
 ;input
@@ -26,11 +32,11 @@ end virtual
 
         push    rdi
         lea     rdi, [.divident]
-        call    __bi_extend_low_#dbits
+        call    __bi_extend_low_#bits
 
         mov     rax, rbx
         lea     rdi, [.divisor]
-        call    __bi_extend_high_#dbits
+        call    __bi_extend_high_#bits
         pop     rdi
 
         mov     rcx, __BIG_INTEGER_BITS_#bits
@@ -46,13 +52,13 @@ end virtual
         mov     rax, rdi
         mov     rbx, __BIG_INTEGER_BITS_#bits
         sub     rbx, rcx
-        call    __bi_set_bit_#bits
+        call    __bi_bit_set_#bits
         jmp     .continue
 .below:
         mov     rax, rdi
         mov     rbx, __BIG_INTEGER_BITS_#bits
         sub     rbx, rcx
-        call    __bi_clear_bit_#bits
+        call    __bi_bit_clear_#bits
 .continue:
         loop    .loop
 
