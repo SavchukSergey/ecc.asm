@@ -2,7 +2,6 @@ include 'bigint/extend_low/extend_low.inc'
 include 'bigint/extend_low/extend_low_2.inc'
 include 'bigint/extend_low/extend_low_u64.inc'
 include 'bigint/read_hex.inc'
-include 'bigint/shr.inc'
 include 'bigint/write_hex.inc'
 
 macro BigIntegerCode bits {
@@ -29,15 +28,14 @@ ends
 BigIntegerExtend2 bits
 BigIntegerExtendU64 bits
 BigIntegerReadHex bits
-BigIntegerShr bits
 BigIntegerWriteHex bits
 }
-
 
 
 BigIntegerCode 128
 BigIntegerCode 256
 BigIntegerCode 512
+BigIntegerCode 1024
 
 ;+-----------------+
 ;| Rexport methods |

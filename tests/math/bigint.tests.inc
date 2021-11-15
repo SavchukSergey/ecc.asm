@@ -8,7 +8,7 @@ include 'bigint/rnd.tests.inc'
 include 'bigint/sub.tests.inc'
 include 'bigint/zero.tests.inc'
 
-macro BigIntegerTests bits {
+macro BigIntegerTests bits, dbits {
 
 align 16
 __bi_tests_#bits:
@@ -45,7 +45,7 @@ __bi_tests_#bits:
 
 BigIntegerAddTests bits
 BigIntegerCmpTests bits
-BigIntegerDivRemTests bits
+BigIntegerDivRemTests bits, dbits
 BigIntegerExtendHighTests bits
 BigIntegerExtendLowTests bits
 BigIntegerReadHexTests bits
@@ -54,6 +54,6 @@ BigIntegerSubTests bits
 BigIntegerZeroTests bits
 }
 
-BigIntegerTests 128
-BigIntegerTests 256
-BigIntegerTests 512
+BigIntegerTests 128, 256
+BigIntegerTests 256, 512
+BigIntegerTests 512, 1024
