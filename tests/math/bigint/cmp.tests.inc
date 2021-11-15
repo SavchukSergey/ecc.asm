@@ -1,8 +1,10 @@
 macro BigIntegerCmpTests bits {
 
 include '../src/math/bigint/cmp/cmp.inc'
+include '../src/math/bigint/read_hex.inc'
 
 BigIntegerCmp bits
+BigIntegerReadHex bits
 
 __bi_cmp_test_#bits:
         mov     rbp, rsp

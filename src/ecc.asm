@@ -21,6 +21,10 @@ section '.edata' export data readable
          BigIntegerAdd_256, 'bi256_add', \
          BigIntegerAdd_512, 'bi512_add', \
 \
+         BigIntegerBitCheck_128, 'bi128_bit_check', \
+         BigIntegerBitCheck_256, 'bi256_bit_check', \
+         BigIntegerBitCheck_512, 'bi512_bit_check', \
+\
          BigIntegerBitClear_128, 'bi128_bit_clear', \
          BigIntegerBitClear_256, 'bi256_bit_clear', \
          BigIntegerBitClear_512, 'bi512_bit_clear', \

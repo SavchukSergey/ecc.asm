@@ -1,4 +1,5 @@
 include 'math/bigint/add/add.inc'
+include 'math/bigint/bit_check/bit_check.inc'
 include 'math/bigint/bit_clear/bit_clear.inc'
 include 'math/bigint/bit_set/bit_set.inc'
 include 'math/bigint/cmp/cmp.inc'
@@ -24,6 +25,19 @@ BigIntegerAdd_#bits:
         mov      rax, rcx
         mov      rbx, rdx
         call     __bi_add_#bits
+        pop      rbx rax
+        ret
+}
+
+macro BigIntegerWin64BitCheckProc bits {
+
+BigIntegerBitCheck bits
+
+BigIntegerBitCheck_#bits:
+        push     rax rbx
+        mov      rax, rcx
+        mov      rbx, rdx
+        call     __bi_bit_check_#bits
         pop      rbx rax
         ret
 }
@@ -236,6 +250,7 @@ BigIntegerZero_#bits:
 
 macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64AddProc bits
+        BigIntegerWin64BitCheckProc bits
         BigIntegerWin64BitClearProc bits
         BigIntegerWin64BitSetProc bits
         BigIntegerWin64CmpProc bits
