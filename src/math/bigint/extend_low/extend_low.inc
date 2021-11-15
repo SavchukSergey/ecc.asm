@@ -1,19 +1,14 @@
 include '../src/mem/copy_static.inc'
 include '../src/mem/zero_static.inc'
 
-macro BigIntegerExtendLow bits {
-
-if ~ definite __bi_extend_low_#bits
-
-;Extends value from smaller bi
-;input
-; rax - source value
-; rdi - destination value
-__bi_extend_low_#bits:
-        MemoryCopyStatic rax, rdi, __BIG_INTEGER_BYTES_#bits
-        MemoryZeroStatic rdi + __BIG_INTEGER_BYTES_#bits, __BIG_INTEGER_BYTES_#bits
+macro BigIntegerExtendLowCode source_bits, target_bits {
+      if source_bits <= target_bits
+        MemoryCopyStatic rax, rdi, source_bits / 8
+        MemoryZeroStatic rdi + source_bits / 8, (target_bits - source_bits) / 8
         ret
-        
-end if
+      else
+        display 'source_bits cannot be greater then target_bits'
+      end if
 
 }
+

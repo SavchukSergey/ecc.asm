@@ -1,19 +1,14 @@
-include '../../../mem/copy_static.inc'
-include '../../../mem/zero_static.inc'
+include '../src/mem/copy_static.inc'
+include '../src/mem/zero_static.inc'
 
-macro BigIntegerExtendHigh bits {
-
-if ~ definite __bi_extend_high_#bits
-
-;Extend to high
-;input
-; rax - source value
-; rdi - destination value
-__bi_extend_high_#bits:
-        MemoryZeroStatic rdi, __BIG_INTEGER_BYTES_#bits
-        MemoryCopyStatic rax, rdi + __BIG_INTEGER_BYTES_#bits, __BIG_INTEGER_BYTES_#bits
+macro BigIntegerExtendHighCode source_bits, target_bits {
+      if source_bits <= target_bits
+        MemoryCopyStatic rax, rdi + (target_bits - source_bits) / 8, source_bits / 8
+        MemoryZeroStatic rdi, (target_bits - source_bits) / 8
         ret
-
-end if
+      else
+        display 'source_bits cannot be greater then target_bits'
+      end if
 
 }
+

@@ -1,8 +1,8 @@
 macro BigIntegerExtendLowTests bits {
 
-include '../src/math/bigint/extend_low/extend_low.inc'
+include '../src/math/bigint/extend_low/extend_low_1.inc'
 
-BigIntegerExtendLow bits
+BigIntegerExtendLow1 bits
 
 __bi_extend_low_test_#bits:
 virtual at rsp

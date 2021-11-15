@@ -1,8 +1,8 @@
 macro BigIntegerExtendHighTests bits {
 
-include '../src/math/bigint/extend_high/extend_high.inc'
+include '../src/math/bigint/extend_high/extend_high_1.inc'
 
-BigIntegerExtendHigh bits
+BigIntegerExtendHigh1 bits
 
 __bi_extend_high_test_#bits:
 virtual at rsp

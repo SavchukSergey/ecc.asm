@@ -2,16 +2,16 @@ macro BigIntegerDivRem bits, dbits {
 
 if ~ definite __bi_div_rem_#bits
 
-include '../src/math/bigint/extend_low/extend_low.inc'
-include '../src/math/bigint/extend_high/extend_high.inc'
+include '../src/math/bigint/extend_low/extend_low_1.inc'
+include '../src/math/bigint/extend_high/extend_high_1.inc'
 include '../src/math/bigint/cmp/cmp.inc'
 include '../src/math/bigint/shl/shl.inc'
 include '../src/math/bigint/bit_set/bit_set.inc'
 include '../src/math/bigint/bit_clear/bit_clear.inc'
 
 BigIntegerShl dbits
-BigIntegerExtendLow bits
-BigIntegerExtendHigh bits
+BigIntegerExtendLow1 bits
+BigIntegerExtendHigh1 bits
 BigIntegerBitSet bits
 BigIntegerBitClear bits
 

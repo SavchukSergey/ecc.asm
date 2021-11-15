@@ -1,6 +1,3 @@
-include 'bigint/extend_low/extend_low.inc'
-include 'bigint/extend_low/extend_low_2.inc'
-include 'bigint/extend_low/extend_low_u64.inc'
 include 'bigint/read_hex.inc'
 include 'bigint/write_hex.inc'
 
@@ -25,8 +22,6 @@ struct BigIntegerHex#bits
   data rb __BIG_INTEGER_HEX_DIGITS_#bits
 ends
 
-BigIntegerExtend2 bits
-BigIntegerExtendU64 bits
 BigIntegerReadHex bits
 BigIntegerWriteHex bits
 }
