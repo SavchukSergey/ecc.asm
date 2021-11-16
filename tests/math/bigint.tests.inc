@@ -17,11 +17,23 @@ __bi_tests_#bits:
         dq __bi_add_test_#bits
         db 'add', 0
 
-        dq __bi_bit_clear_test_#bits
-        db 'bit_clear', 0
+        dq __bi_bit_clear_first_test_#bits
+        db 'bit_clear_first', 0
+        dq __bi_bit_clear_last_test_#bits
+        db 'bit_clear_last', 0
+        dq __bi_bit_clear_middle_test_#bits
+        db 'bit_set_middle', 0
+        dq __bi_bit_clear_twice_test_#bits
+        db 'bit_clear_twice', 0
 
-        dq __bi_bit_set_test_#bits
-        db 'bit_set', 0
+        dq __bi_bit_set_first_test_#bits
+        db 'bit_set_first', 0
+        dq __bi_bit_set_last_test_#bits
+        db 'bit_set_last', 0
+        dq __bi_bit_set_middle_test_#bits
+        db 'bit_set_middle', 0
+        dq __bi_bit_set_twice_test_#bits
+        db 'bit_set_twice', 0
 
         dq __bi_cmp_equal_test_#bits
         db 'cmp_equal', 0
