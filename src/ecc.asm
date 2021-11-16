@@ -65,6 +65,10 @@ section '.edata' export data readable
          BigIntegerExtendLowU64_256, 'bi256_extend_u64_low', \
          BigIntegerExtendLowU64_512, 'bi512_extend_u64_low', \
 \
+         BigIntegerMul_128, 'bi128_mul', \
+         BigIntegerMul_256, 'bi256_mul', \
+         BigIntegerMul_512, 'bi512_mul', \
+\
          BigIntegerRnd_128, 'bi128_rnd', \
          BigIntegerRnd_256, 'bi256_rnd', \
          BigIntegerRnd_512, 'bi512_rnd', \

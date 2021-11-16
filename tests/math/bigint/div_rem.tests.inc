@@ -44,7 +44,7 @@ end virtual
         lea     rax, [.expected_quotient]
         lea     rbx, [.actual_quotient]
         call    __bi_cmp_#bits
-        jne     .failed
+        je     .failed
 
         lea     rax, [.expected_reminder]
         lea     bx, [.actual_reminder]

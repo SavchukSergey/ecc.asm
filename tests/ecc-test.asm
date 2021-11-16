@@ -128,7 +128,7 @@ end virtual
         mov     [.test_max_duration], rax
 
         inc     [.test_count]
-        cmp     qword [.test_count], 64
+        cmp     qword [.test_count], 6400
         jb      .count_loop
 
 

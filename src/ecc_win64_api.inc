@@ -10,6 +10,7 @@ include 'math/bigint/extend_low/extend_low_u64.inc'
 include 'math/bigint/extend_high/extend_high_1.inc'
 include 'math/bigint/extend_high/extend_high_2.inc'
 include 'math/bigint/extend_high/extend_high_u64.inc'
+include 'math/bigint/mul/mul.inc'
 include 'math/bigint/rnd/rnd.inc'
 include 'math/bigint/shl/shl.inc'
 include 'math/bigint/shr/shr.inc'
@@ -96,7 +97,6 @@ BigIntegerDivRem_#bits:
         ret
 }
 
-
 macro BigIntegerWin64ExtendHigh1Proc bits {
 
 BigIntegerExtendHigh1 bits
@@ -108,7 +108,6 @@ BigIntegerExtendHigh1_#bits:
         call     __bi_extend_high_#bits
         pop      rdi rax
         ret
-
 }
 
 macro BigIntegerWin64ExtendHigh2Proc bits {
@@ -122,7 +121,6 @@ BigIntegerExtendHigh2_#bits:
         call     __bi_extend_high_2_#bits
         pop      rdi rax
         ret
-
 }
 
 macro BigIntegerWin64ExtendHighU64Proc bits {
@@ -136,7 +134,6 @@ BigIntegerExtendHighU64_#bits:
         call     __bi_extend_high_u64_#bits
         pop      rdi rax
         ret
-
 }
 
 
@@ -151,7 +148,6 @@ BigIntegerExtendLow1_#bits:
         call     __bi_extend_low_#bits
         pop      rdi rax
         ret
-
 }
 
 macro BigIntegerWin64ExtendLow2Proc bits {
@@ -165,7 +161,6 @@ BigIntegerExtendLow2_#bits:
         call     __bi_extend_low_2_#bits
         pop      rdi rax
         ret
-
 }
 
 macro BigIntegerWin64ExtendLowU64Proc bits {
@@ -179,9 +174,22 @@ BigIntegerExtendLowU64_#bits:
         call     __bi_extend_low_u64_#bits
         pop      rdi rax
         ret
-
 }
 
+
+macro BigIntegerWin64MulProc bits {
+
+BigIntegerMul bits
+
+BigIntegerMul_#bits:
+        push     rax rbx r8
+        mov      rax, rcx
+        mov      rbx, rdx
+        mov      rdi, r8
+        call     __bi_mul_#bits
+        pop      r8 rbx rax
+        ret
+}
 
 macro BigIntegerWin64RndProc bits {
 
@@ -193,7 +201,6 @@ BigIntegerRnd_#bits:
         call     __bi_rnd_#bits
         pop      rax
         ret
-
 }
 
 macro BigIntegerWin64ShlProc bits {
@@ -245,7 +252,6 @@ BigIntegerZero_#bits:
         call     __bi_zero_#bits
         pop      rax
         ret
-
 }
 
 macro BigIntegerWin64Procs bits, dbits {
@@ -261,6 +267,7 @@ macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64ExtendLow1Proc bits
         BigIntegerWin64ExtendLow2Proc bits
         BigIntegerWin64ExtendLowU64Proc bits
+        BigIntegerWin64MulProc bits
         BigIntegerWin64RndProc bits
         BigIntegerWin64ShlProc bits
         BigIntegerWin64ShrProc bits
