@@ -22,7 +22,7 @@ __bi_tests_#bits:
         dq __bi_bit_clear_last_test_#bits
         db 'bit_clear_last', 0
         dq __bi_bit_clear_middle_test_#bits
-        db 'bit_set_middle', 0
+        db 'bit_clear_middle', 0
         dq __bi_bit_clear_twice_test_#bits
         db 'bit_clear_twice', 0
 

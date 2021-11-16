@@ -82,13 +82,15 @@ __bi_bit_clear_middle_test_#bits:
         lea     rax, [rsp]
         mov     rcx, (__BIG_INTEGER_BYTES_#bits / 2) - 1
 .check_loop_1:
-        mov     byte [rax + rcx - 1], 0xff
+        cmp     byte [rax + rcx - 1], 0xff
+        jne     .failed
         loop    .check_loop_1
 
-        lea     rax, [rsp + __BIG_INTEGER_BITS_#bits / 2 + 1]
+        lea     rax, [rsp + __BIG_INTEGER_BYTES_#bits / 2 + 1]
         mov     rcx, (__BIG_INTEGER_BYTES_#bits / 2) - 1
 .check_loop_2:
-        mov     byte [rax + rcx - 1], 0xff
+        cmp     byte [rax + rcx - 1], 0xff
+        jne     .failed
         loop    .check_loop_2
 
 .passed:

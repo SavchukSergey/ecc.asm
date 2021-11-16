@@ -8,6 +8,7 @@ start:
         call    enable_vt_processing
 
         sub     rsp, 0x28
+
         mov     rsi, .welcome
         call    Console_WriteString
 
@@ -23,10 +24,14 @@ start:
         mov     rsi, .bi512_fixture_name
         call    run_test_fixture
 
+        mov     rsi, .bye
+        call    Console_WriteString
+
         invoke  ExitProcess, 0
         add     rsp, 0x28
         ret
 .welcome db 'ecc.js tests', 13, 10, 0
+.bye db 'finished', 13, 10, 0
 .bi128_fixture_name db 'bi128', 0
 .bi256_fixture_name db 'bi256', 0
 .bi512_fixture_name db 'bi512', 0
@@ -51,7 +56,13 @@ virtual at rsp
   .test_proc rq 1
   .test_start_timestamp rq 1
   .test_end_timestamp rq 1
+  .test_duration rq 1
+  .test_min_duration rq 1
+  .test_max_duration rq 1
   .test_result rq 1
+  .test_count rq 1
+  .test_successes rq 1
+  .test_failures rq 1
   .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0
@@ -64,6 +75,9 @@ end virtual
 
         call    Console_WriteLine
 
+        mov     rsi, .tests_header
+        call    Console_WriteString
+
 .loop:
         mov     rax, [.test]
         mov     rbx, [rax]
@@ -72,11 +86,13 @@ end virtual
         mov     [.test_proc], rbx
         add     qword [.test], 8
 
-        mov     rsi, .test_prefix
+        mov     rsi, .test_name_prefix
         call    Console_WriteString
-
         mov     rsi, [.test]
         call    Console_WriteString
+        mov     rsi, .test_name_suffix
+        call    Console_WriteString
+
 .test_name_end_loop:
         mov     rax, [.test]
         cmp     byte [rax], 0
@@ -86,17 +102,48 @@ end virtual
 .test_name_end:
         inc     [.test]
 
-        mov     rsi, .test_suffix
-        call    Console_WriteString
+        mov     qword [.test_count], 0
+        mov     qword [.test_successes], 0
+        mov     qword [.test_failures], 0
+        mov     qword [.test_min_duration], -1
+        mov     qword [.test_max_duration], 0
 
+.count_loop:
         call    get_cpu_timestamp
         mov     [.test_start_timestamp], rax
         call    [.test_proc]
         setc    byte [.test_result]
         call    get_cpu_timestamp
         mov     [.test_end_timestamp], rax
-
         cmp     byte [.test_result], 0x00
+        je      .count_pass
+.count_fail:
+        inc     qword [.test_failures]
+        jmp     .count_continue
+.count_pass:
+        inc     qword [.test_successes]
+        jmp     .count_continue
+.count_continue:
+        mov     rax, [.test_end_timestamp]
+        sub     rax, [.test_start_timestamp]
+        mov     [.test_duration], rax
+
+        mov     rax, [.test_min_duration]
+        cmp     rax, [.test_duration]
+        cmova   rax, [.test_duration]
+        mov     [.test_min_duration], rax
+
+        mov     rax, [.test_max_duration]
+        cmp     rax, [.test_duration]
+        cmovb   rax, [.test_duration]
+        mov     [.test_max_duration], rax
+
+        inc     [.test_count]
+        cmp     qword [.test_count], 64
+        jb      .count_loop
+
+
+        cmp     [.test_failures], 0x00
         je      .test_ok
 .test_fail:
         mov     rsi, .failed
@@ -107,28 +154,50 @@ end virtual
         call    Console_WriteString
         jmp     .test_end
 .test_end:
-        mov     rsi, .time_prefix
+        mov     rsi, .time_min_prefix
         call    Console_WriteString
-        mov     rax, [.test_end_timestamp]
-        sub     rax, [.test_start_timestamp]
+        mov     rax, [.test_min_duration]
         call    Console_WriteUInt64
-        mov     rsi, .time_suffix
+        mov     rsi, .time_min_suffix
         call    Console_WriteString
+
+        mov     rsi, .time_max_prefix
+        call    Console_WriteString
+        mov     rax, [.test_max_duration]
+        call    Console_WriteUInt64
+        mov     rsi, .time_max_suffix
+        call    Console_WriteString
+
         call    Console_WriteLine
 
         jmp     .loop
 .end:
+        mov     rsi, .tests_footer
+        call    Console_WriteString
+
         leave
         pop     rsi rbx rax
         ret
 
 .tests_suffix db ' tests', 0
-.test_prefix db '    ', 0
-.test_suffix db ' test', 0
-.failed db TEXT_COLOR_ERROR, ' FAILED', TEXT_COLOR_DEFAULT, 0
-.passed db TEXT_COLOR_SUCCESS, ' PASSED', TEXT_COLOR_DEFAULT, 0
-.time_prefix db ' (', 0
-.time_suffix db ' cpu ticks)', 0
+.tests_header db \
+'+------------------------+--------+---------------+---------------+', 13, 10, \
+'| Name                   | Status | Min CPU ticks | Max CPU ticks |', 13, 10, \
+'+------------------------+--------+---------------+---------------+', 13, 10, \
+0
+.tests_footer db \
+'+------------------------+--------+---------------+---------------+', 13, 10, \
+0
+
+.test_name_prefix db '| ', 0
+.test_name_suffix db 0x1b, '[25G', ' |', 0
+
+.failed db TEXT_COLOR_ERROR, ' FAILED ', TEXT_COLOR_DEFAULT, '|', 0
+.passed db TEXT_COLOR_SUCCESS, ' PASSED ', TEXT_COLOR_DEFAULT, '|', 0
+.time_min_prefix db 0x1b, '[37G', 0
+.time_min_suffix db 0x1b, '[50G |', 0
+.time_max_prefix db 0x1b, '[52G ', 0
+.time_max_suffix db 0x1b, '[66G |', 0
 
 include '../src/math/bigint.inc'
 include 'math/bigint.tests.inc'
