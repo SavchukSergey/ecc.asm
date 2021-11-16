@@ -7,6 +7,7 @@ BigIntegerCmp bits
 BigIntegerReadHex bits
 
 __bi_cmp_test_#bits:
+        push    rbp
         mov     rbp, rsp
         sub     rsp, 2 * __BIG_INTEGER_BYTES_#bits
 
@@ -22,6 +23,7 @@ __bi_cmp_test_#bits:
         lea     rbx, [rsp + __BIG_INTEGER_BYTES_#bits]
         call    __bi_cmp_#bits
         mov     rsp, rbp
+        pop     rbp
         ret
 
 __bi_cmp_equal_test_#bits:

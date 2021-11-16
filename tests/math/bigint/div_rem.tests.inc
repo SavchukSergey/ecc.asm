@@ -5,7 +5,7 @@ include '../src/math/bigint/div_rem/div_rem.inc'
 BigIntegerDivRem bits, dbits
 
 __bi_div_rem_test_#bits:
-virtual at rbp
+virtual at rsp
 .locals_start:
   .divident rb __BIG_INTEGER_BYTES_#bits
   .divisor rb __BIG_INTEGER_BYTES_#bits
@@ -15,9 +15,7 @@ virtual at rbp
   .expected_reminder rb __BIG_INTEGER_BYTES_#bits
 .locals_end:
 end virtual
-
-        sub   rsp, .locals_end - .locals_start
-        mov   rbp, rsp
+        enter   .locals_end - .locals_start, 0
 
         mov   rsi, __bi_div_rem_test.divident_#bits
         lea   rdi, [.divident]
@@ -51,11 +49,11 @@ end virtual
         call    __bi_cmp_#bits
         jne     .failed
 .passed:
-        add   rsp, .locals_end - .locals_start
+        leave
         clc
         ret
 .failed:
-        add   rsp, .locals_end - .locals_start
+        leave
         stc
         ret
 }
