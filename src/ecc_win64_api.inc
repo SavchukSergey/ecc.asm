@@ -177,9 +177,9 @@ BigIntegerExtendLowU64_#bits:
 }
 
 
-macro BigIntegerWin64MulProc bits {
+macro BigIntegerWin64MulProc bits, dbits {
 
-BigIntegerMul bits
+BigIntegerMul bits, dbits
 
 BigIntegerMul_#bits:
         push     rax rbx r8
@@ -267,7 +267,7 @@ macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64ExtendLow1Proc bits
         BigIntegerWin64ExtendLow2Proc bits
         BigIntegerWin64ExtendLowU64Proc bits
-        BigIntegerWin64MulProc bits
+        BigIntegerWin64MulProc bits, dbits
         BigIntegerWin64RndProc bits
         BigIntegerWin64ShlProc bits
         BigIntegerWin64ShrProc bits

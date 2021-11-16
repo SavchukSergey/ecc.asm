@@ -48,8 +48,7 @@ end virtual
 
         mov     rax, [.result_arg]
         lea     rbx, qword [.walker]
-        mov     rdi, [.result_arg]
-        call    __bi_add_#dbits
+        call    __bi_add_assign_#dbits
 .no_add:
         lea     rax, qword [.walker]
         call    __bi_shl_#dbits
