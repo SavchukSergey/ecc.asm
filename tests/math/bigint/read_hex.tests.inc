@@ -9,7 +9,9 @@ end virtual
         sub     rsp, __BIG_INTEGER_BYTES_#bits
         mov     rsi, __bi_read_hex_test.src
         lea     rdi, [.value]
+        call    test_context_start_measure
         call    __bi_read_hex_#bits
+        call    test_context_end_measure
 
         jc      .fail
 

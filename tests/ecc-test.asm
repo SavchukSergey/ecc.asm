@@ -38,15 +38,7 @@ start:
 
 include '../src/console/enable_vt_processing.inc'
 include '../src/console/write_u64.inc'
-
-get_cpu_timestamp:
-        push    rdx
-        rdtsc
-        shl     rdx, 32
-        or      rdx, rax
-        mov     rdx, rax
-        pop     rdx
-        ret
+include 'test_context.inc'
 
 run_test_fixture:
         push    rax rbx rsi
@@ -54,8 +46,6 @@ virtual at rsp
   .locals_start:
   .test rq 1
   .test_proc rq 1
-  .test_start_timestamp rq 1
-  .test_end_timestamp rq 1
   .test_duration rq 1
   .test_min_duration rq 1
   .test_max_duration rq 1
@@ -63,6 +53,7 @@ virtual at rsp
   .test_count rq 1
   .test_successes rq 1
   .test_failures rq 1
+  .result TestContext
   .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0
@@ -108,13 +99,11 @@ end virtual
         mov     qword [.test_min_duration], -1
         mov     qword [.test_max_duration], 0
 
+        lea     r8, [.result]
 .count_loop:
-        call    get_cpu_timestamp
-        mov     [.test_start_timestamp], rax
+        call    test_context_init
         call    [.test_proc]
         setc    byte [.test_result]
-        call    get_cpu_timestamp
-        mov     [.test_end_timestamp], rax
         cmp     byte [.test_result], 0x00
         je      .count_pass
 .count_fail:
@@ -124,8 +113,8 @@ end virtual
         inc     qword [.test_successes]
         jmp     .count_continue
 .count_continue:
-        mov     rax, [.test_end_timestamp]
-        sub     rax, [.test_start_timestamp]
+        mov     rax, [.result.measure_end]
+        sub     rax, [.result.measure_start]
         mov     [.test_duration], rax
 
         mov     rax, [.test_min_duration]
@@ -178,6 +167,13 @@ end virtual
         leave
         pop     rsi rbx rax
         ret
+
+.measure_start:
+        push    rax
+        call    get_cpu_timestamp
+        pop     rax
+        ret
+
 
 .tests_suffix db ' tests', 0
 .tests_header db \

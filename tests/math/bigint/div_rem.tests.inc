@@ -37,7 +37,9 @@ end virtual
         lea   rbx, [.divisor]
         lea   rdi, [.actual_quotient]
         lea   rsi, [.actual_reminder]
+        call  test_context_start_measure
         call  __bi_div_rem_#bits
+        call  test_context_end_measure
 
         lea     rax, [.expected_quotient]
         lea     rbx, [.actual_quotient]

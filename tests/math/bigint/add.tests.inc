@@ -31,7 +31,9 @@ end if
         lea     rax, [.left]
         lea     rbx, [.right]
         lea     rdi, [.result]
+        call    test_context_start_measure
         call    __bi_add_#bits
+        call    test_context_end_measure
 
         cmp      dword [.result + 0], 0x3456789A
         jne      .fail

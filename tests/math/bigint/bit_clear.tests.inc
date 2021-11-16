@@ -13,7 +13,9 @@ __bi_bit_clear_first_test_#bits:
 
         lea     rax, [rsp]
         mov     rbx, 0
+        call    test_context_start_measure
         call    __bi_bit_clear_#bits
+        call    test_context_end_measure
 
         lea     rax, [rsp]
         cmp     byte [rax], 0xfe
@@ -43,7 +45,9 @@ __bi_bit_clear_last_test_#bits:
 
         lea     rax, [rsp]
         mov     rbx,  __BIG_INTEGER_BITS_#bits - 1
+        call    test_context_start_measure
         call    __bi_bit_clear_#bits
+        call    test_context_end_measure
 
         lea     rax, [rsp]
         cmp     byte [rax + __BIG_INTEGER_BYTES_#bits - 1], 0x7f
@@ -73,7 +77,9 @@ __bi_bit_clear_middle_test_#bits:
 
         lea     rax, [rsp]
         mov     rbx, __BIG_INTEGER_BITS_#bits / 2
+        call    test_context_start_measure
         call    __bi_bit_clear_#bits
+        call    test_context_end_measure
 
         lea     rax, [rsp]
         cmp     byte [rax + __BIG_INTEGER_BYTES_#bits / 2], 0xff xor (1 shl ( (__BIG_INTEGER_BITS_#bits / 2) mod 8))
@@ -114,7 +120,9 @@ __bi_bit_clear_twice_test_#bits:
 
         lea     rax, [rsp]
         mov     rbx, 0
+        call    test_context_start_measure
         call    __bi_bit_clear_#bits
+        call    test_context_end_measure
 
         lea     rax, [rsp]
         cmp     byte [rax], 0xfe

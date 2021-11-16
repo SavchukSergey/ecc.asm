@@ -18,7 +18,9 @@ end virtual
 
         lea     rax, [.src]
         lea     rdi, [.result]
+        call    test_context_start_measure
         call    __bi_extend_high_#bits
+        call    test_context_end_measure
 
         mov     rcx, __BIG_INTEGER_BYTES_#bits / 2
 .high_loop:

@@ -21,7 +21,9 @@ __bi_cmp_test_#bits:
 
         lea     rax, [rsp + 0]
         lea     rbx, [rsp + __BIG_INTEGER_BYTES_#bits]
+        call    test_context_start_measure
         call    __bi_cmp_#bits
+        call    test_context_end_measure
         mov     rsp, rbp
         pop     rbp
         ret
