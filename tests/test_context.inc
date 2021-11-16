@@ -44,4 +44,61 @@ end virtual
         pop     rax
         ret
 
+macro ExpectBigIntegerEqualsHex bits {
 
+include '../src/math/bigint/read_hex.inc'
+include '../src/math/bigint/dump/dump.inc'
+BigIntegerReadHex bits
+BigIntegerDump bits
+
+expect_bi_equals_hex_#bits:
+        push    rax rbx
+virtual at rsp
+.locals_start:
+        .expected_arg rq 1
+        .actual_arg rq 1
+        .expected rb __BIG_INTEGER_BYTES_#bits
+.locals_end:
+end virtual
+        enter   .locals_end - .locals_start, 0
+        mov     [.actual_arg], rax
+        mov     [.expected_arg], rbx
+
+        mov     rsi, [.expected_arg]
+        lea     rdi, [.expected]
+        call    __bi_read_hex_#bits
+
+        mov     rax, [.actual_arg]
+        lea     rbx, [.expected]
+        call    __bi_cmp_#bits
+        jne     .failed
+.passed:
+        leave
+        pop     rbx rax
+        clc
+        ret
+.failed:
+        call    Console_WriteLine
+        mov     rsi, expect_msgs.equals_failed
+        call    Console_WriteString
+
+        lea     rax, [.expected]
+        call    __bi_dump_#bits
+        call    Console_WriteLine
+
+        mov     rax, [.actual_arg]
+        call    __bi_dump_#bits
+        call    Console_WriteLine
+        leave
+        pop     rbx rax
+        stc
+        ret
+}
+
+expect_msgs:
+  .equals_failed db TEXT_COLOR_ERROR, 'equals failed ', 13, 10, 0
+
+ExpectBigIntegerEqualsHex 128
+ExpectBigIntegerEqualsHex 256
+ExpectBigIntegerEqualsHex 512
+ExpectBigIntegerEqualsHex 1024

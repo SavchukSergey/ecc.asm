@@ -2,6 +2,8 @@ include '../../text/hex_parse_reverse_bytes.inc'
 
 macro BigIntegerReadHex bits {
 
+if ~ definite __bi_read_hex_#bits
+
 ;Reads bi as hex string
 ;input
 ; rsi - pointer to __BIG_INTEGER_HEX_DIGITS_#bits string
@@ -20,6 +22,7 @@ __bi_read_hex_#bits:
         stc
         ret
 
+end if
 
 }
 
