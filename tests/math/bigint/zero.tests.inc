@@ -15,7 +15,7 @@ __bi_zero_test_#bits:
 
         mov     rcx, __BIG_INTEGER_QWORDS_#bits
 .loop:
-        cmp     qword [rax], 0
+        cmp     qword [rax + 8 * rcx - 8], 0
         jne     .fail
         loop    .loop
 .pass:

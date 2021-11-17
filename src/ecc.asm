@@ -69,6 +69,10 @@ section '.edata' export data readable
          BigIntegerMul_256, 'bi256_mul', \
          BigIntegerMul_512, 'bi512_mul', \
 \
+         BigIntegerOne_128, 'bi128_one', \
+         BigIntegerOne_256, 'bi256_one', \
+         BigIntegerOne_512, 'bi512_one', \
+\
          BigIntegerRnd_128, 'bi128_rnd', \
          BigIntegerRnd_256, 'bi256_rnd', \
          BigIntegerRnd_512, 'bi512_rnd', \
