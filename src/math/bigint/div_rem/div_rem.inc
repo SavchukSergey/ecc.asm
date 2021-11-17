@@ -63,8 +63,7 @@ end virtual
  .above:
         lea     rax, [.divident]
         lea     rbx, [.divisor]
-        lea     rdi, [.divident]
-        call    __bi_sub_#dbits
+        call    __bi_sub_assign_#dbits
 
         mov     rax, [.quotient_arg]
         mov     rbx, rcx

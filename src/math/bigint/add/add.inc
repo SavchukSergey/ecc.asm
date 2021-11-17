@@ -18,10 +18,13 @@ virtual at rdi
   .result BigInteger#bits
 end virtual
         push    rdx
-        clc
         repeat  __BIG_INTEGER_QWORDS_#bits
         mov     rdx, [.left + (% - 1) * 8]
+        if % = 1
+        add     rdx, [.right + (% - 1) * 8]
+        else
         adc     rdx, [.right + (% - 1) * 8]
+        end if
         mov     [.result + (% - 1) * 8], rdx
         end repeat
         pop     rdx
@@ -42,10 +45,13 @@ virtual at rdi
   .result BigInteger#bits
 end virtual
         push    rdx
-        clc
         repeat  __BIG_INTEGER_QWORDS_#bits
         mov     rdx, [.right + (% - 1) * 8]
+        if % = 1
+        add     [.left + (% - 1) * 8], rdx
+        else
         adc     [.left + (% - 1) * 8], rdx
+        end if
         end repeat
         pop     rdx
         ret

@@ -24,7 +24,7 @@ virtual at rsp
   .walker rb __BIG_INTEGER_BYTES_#dbits
 .locals_end:
 end virtual
-        push    rbx rcx
+        push    rbx rcx rdi
         enter   .locals_end - .locals_start, 0
 
         mov     [.left_arg], rax
@@ -38,12 +38,11 @@ end virtual
         lea     rdi, [.walker]
         call    __bi_extend_low_#dbits
 
-        mov     rcx, __BIG_INTEGER_BITS_#bits
+        mov     rcx, 0
 .loop:
         mov     rax, [.left_arg]
-        mov     rbx, __BIG_INTEGER_BITS_#bits
-        sub     rbx, rcx
-        call    __bi_bit_check_#bits
+        bt      [rax], rcx
+;        call    __bi_bit_check_#bits
         jnc     .no_add
 
         mov     rax, [.result_arg]
@@ -52,10 +51,13 @@ end virtual
 .no_add:
         lea     rax, qword [.walker]
         call    __bi_shl_#dbits
-        loop    .loop
+
+        inc     rcx
+        cmp     rcx, __BIG_INTEGER_BITS_#bits
+        jb      .loop
 
         leave
-        pop     rcx rbx
+        pop     rdi rcx rbx
         ret
 
 end if
