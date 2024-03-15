@@ -1,4 +1,4 @@
-include '../src/math/bigint/extend_high/extend_high.inc'
+include 'extend_high.inc'
 
 macro BigIntegerExtendHigh1 bits {
 

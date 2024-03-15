@@ -28,6 +28,7 @@ virtual at TestContextReg
 end virtual
         push    rax
         pushfq
+        mfence
         call    get_cpu_timestamp
         mov     [.context.measure_start], rax
         popfq

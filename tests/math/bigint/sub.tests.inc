@@ -1,114 +1,146 @@
-macro BigIntegerSubTests bits {
-
 include '../src/math/bigint/sub/sub.inc'
-BigIntegerSub bits
+include '../../assert.inc'
 
-__bi_sub_neg_test_#bits:
+__bi_sub_128_128_test:
 virtual at rsp
-  .left rb __BIG_INTEGER_BYTES_#bits
-  .right rb __BIG_INTEGER_BYTES_#bits
-  .result rb __BIG_INTEGER_BYTES_#bits
+  .left rb __BIG_INTEGER_BYTES_128
+  .right rb __BIG_INTEGER_BYTES_128
+  .expected rb __BIG_INTEGER_BYTES_128
+  .result rb __BIG_INTEGER_BYTES_128
 end virtual
-        sub     rsp, 3 * __BIG_INTEGER_BYTES_#bits
-        lea     rax, [.left]
-        call    __bi_zero_#bits
-        lea     rax, [.right]
-        call    __bi_zero_#bits
-        lea     rax, [.result]
-        call    __bi_zero_#bits
+        sub     rsp, 4 * __BIG_INTEGER_BYTES_128
 
-        mov     dword [.left + 0], 0x01234567
-        mov     dword [.left + 4], 0x89abcdef
-        mov     dword [.right + 0], 0x33333333
-        mov     dword [.right + 4], 0x44444444
-if bits >= 128
-        mov     dword [.left + 8], 0x11111111
-        mov     dword [.left + 12], 0x22222222
-        mov     dword [.right + 8], 0x55555555
-        mov     dword [.right + 12], 0x66666666
-end if
+        lea     rcx, [.left_hex]
+        lea     rdx, [.left]
+        call    bi_try_read_hex_128
 
-        lea     rax, [.left]
-        lea     rbx, [.right]
-        lea     rdi, [.result]
+        lea     rcx, [.right_hex]
+        lea     rdx, [.right]
+        call    bi_try_read_hex_128
+
+        lea     rcx, [.expected_hex]
+        lea     rdx, [.expected]
+        call    bi_try_read_hex_128
+
+        lea     rcx, [.left]
+        lea     rdx, [.right]
+        lea     r8, [.result]
         call    test_context_start_measure
-        call    __bi_sub_#bits
+        call    bi_sub_128_128
         call    test_context_end_measure
 
-        cmp      dword [.result + 0], 0xCDF01234
-        jne      .fail
-        cmp      dword [.result + 4], 0x456789AA
-        jne      .fail
-if bits >= 128
-        cmp      dword [.result + 8], 0xBBBBBBBC
-        jne      .fail
-        cmp      dword [.result + 12], 0xBBBBBBBB
-        jne      .fail
-end if
+        lea     rcx, [.expected]
+        lea     rdx, [.result]
+        call    bi_assert_equal_128
 
         jmp     .pass
 
 .fail:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_#bits
+        add     rsp, 4 * __BIG_INTEGER_BYTES_128
         stc
         ret
 .pass:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_#bits
+        add     rsp, 4 * __BIG_INTEGER_BYTES_128
         clc
         ret
+.left_hex       db '08c5a3ca7598576d5074b535eff1147f'
+.right_hex      db '54fbe3f5a695828adc6b0e3849d201a8'
+.expected_hex   db 'B3C9BFD4CF02D4E27409A6FDA61F12D7'
 
-__bi_sub_pos_test_#bits:
+
+
+
+__bi_sub_256_256_test:
 virtual at rsp
-  .left rb __BIG_INTEGER_BYTES_#bits
-  .right rb __BIG_INTEGER_BYTES_#bits
-  .result rb __BIG_INTEGER_BYTES_#bits
+  .left rb __BIG_INTEGER_BYTES_256
+  .right rb __BIG_INTEGER_BYTES_256
+  .expected rb __BIG_INTEGER_BYTES_256
+  .result rb __BIG_INTEGER_BYTES_256
 end virtual
-        sub     rsp, 3 * __BIG_INTEGER_BYTES_#bits
-        lea     rax, [.left]
-        call    __bi_zero_#bits
-        lea     rax, [.right]
-        call    __bi_zero_#bits
-        lea     rax, [.result]
-        call    __bi_zero_#bits
+        sub     rsp, 4 * __BIG_INTEGER_BYTES_256
 
-        mov     dword [.left + 0], 0x01234567
-        mov     dword [.left + 4], 0x89abcdef
-        mov     dword [.right + 0], 0x33333333
-        mov     dword [.right + 4], 0x44444444
-if bits >= 128
-        mov     dword [.left + 8], 0x11111111
-        mov     dword [.left + 12], 0x22222222
-        mov     dword [.right + 8], 0x55555555
-        mov     dword [.right + 12], 0x66666666
-end if
+        lea     rcx, [.left_hex]
+        lea     rdx, [.left]
+        call    bi_try_read_hex_256
 
-        lea     rax, [.right]
-        lea     rbx, [.left]
-        lea     rdi, [.result]
+        lea     rcx, [.right_hex]
+        lea     rdx, [.right]
+        call    bi_try_read_hex_256
+
+        lea     rcx, [.expected_hex]
+        lea     rdx, [.expected]
+        call    bi_try_read_hex_256
+
+        lea     rcx, [.left]
+        lea     rdx, [.right]
+        lea     r8, [.result]
         call    test_context_start_measure
-        call    __bi_sub_#bits
+        call    bi_sub_256_256
         call    test_context_end_measure
 
-        cmp      dword [.result + 0], 0x320FEDCC
-        jne      .fail
-        cmp      dword [.result + 4], 0xBA987655
-        jne      .fail
-if bits >= 128
-        cmp      dword [.result + 8], 0x44444443
-        jne      .fail
-        cmp      dword [.result + 12], 0x44444444
-        jne      .fail
-end if
+        lea     rcx, [.expected]
+        lea     rdx, [.result]
+        call    bi_assert_equal_256
 
         jmp     .pass
 
 .fail:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_#bits
+        add     rsp, 4 * __BIG_INTEGER_BYTES_256
         stc
         ret
 .pass:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_#bits
+        add     rsp, 4 * __BIG_INTEGER_BYTES_256
         clc
         ret
+.left_hex       db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
+.right_hex      db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b48'
+.expected_hex   db 'B3C9BFD4CF02D4E27409A6FDA61F12D69E310AD79498C7019A9E321C8477F688'
 
-}
+
+
+
+__bi_sub_512_512_test:
+virtual at rsp
+  .left rb __BIG_INTEGER_BYTES_512
+  .right rb __BIG_INTEGER_BYTES_512
+  .expected rb __BIG_INTEGER_BYTES_512
+  .result rb __BIG_INTEGER_BYTES_512
+end virtual
+        sub     rsp, 4 * __BIG_INTEGER_BYTES_512
+
+        lea     rcx, [.left_hex]
+        lea     rdx, [.left]
+        call    bi_try_read_hex_512
+
+        lea     rcx, [.right_hex]
+        lea     rdx, [.right]
+        call    bi_try_read_hex_512
+
+        lea     rcx, [.expected_hex]
+        lea     rdx, [.expected]
+        call    bi_try_read_hex_512
+
+        lea     rcx, [.left]
+        lea     rdx, [.right]
+        lea     r8, [.result]
+        call    test_context_start_measure
+        call    bi_sub_512_512
+        call    test_context_end_measure
+
+        lea     rcx, [.expected]
+        lea     rdx, [.result]
+        call    bi_assert_equal_512
+
+        jmp     .pass
+
+.fail:
+        add     rsp, 4 * __BIG_INTEGER_BYTES_512
+        stc
+        ret
+.pass:
+        add     rsp, 4 * __BIG_INTEGER_BYTES_512
+        clc
+        ret
+.left_hex       db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'
+.right_hex      db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b4863400c3d833bdc3acb34eca9e788cf6d34474fe4e7de10de2a02d02c66609139'
+.expected_hex   db 'B3C9BFD4CF02D4E27409A6FDA61F12D69E310AD79498C7019A9E321C8477F687FE7B4E113DD24B1C3857ACD96833320CFD56A5421403D0E75B5EA79E9813CAFA'

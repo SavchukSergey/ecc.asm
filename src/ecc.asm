@@ -12,6 +12,9 @@ endp
 
 
 include 'math/bigint.inc'
+include 'math/bigint/add/add.inc'
+include 'math/bigint/sub/sub.inc'
+include 'math/bigint/cmp/cmp.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
@@ -21,6 +24,10 @@ section '.edata' export data readable
          bi_zero_256, 'bi_zero_256', \
          bi_zero_512, 'bi_zero_512', \
 \
+         bi_try_read_hex_128, 'bi_try_read_hex_128', \
+         bi_try_read_hex_256, 'bi_try_read_hex_256', \
+         bi_try_read_hex_512, 'bi_try_read_hex_512', \
+\
          bi_add_128_128, 'bi_add_128_128', \
          bi_add_256_256, 'bi_add_256_256', \
          bi_add_512_512, 'bi_add_512_512', \
@@ -28,6 +35,18 @@ section '.edata' export data readable
          bi_add_assign_128_128, 'bi_add_assign_128_128', \
          bi_add_assign_256_256, 'bi_add_assign_256_256', \
          bi_add_assign_512_512, 'bi_add_assign_512_512', \
+\
+         bi_sub_128_128, 'bi_sub_128_128', \
+         bi_sub_256_256, 'bi_sub_256_256', \
+         bi_sub_512_512, 'bi_sub_512_512', \
+\
+         bi_sub_assign_128_128, 'bi_sub_assign_128_128', \
+         bi_sub_assign_256_256, 'bi_sub_assign_256_256', \
+         bi_sub_assign_512_512, 'bi_sub_assign_512_512', \
+\
+         bi_cmp_128_128, 'bi_cmp_128_128', \
+         bi_cmp_256_256, 'bi_cmp_256_256', \
+         bi_cmp_512_512, 'bi_cmp_512_512', \
 \
          bi_mul_128_128, 'bi_mul_128_128'
 
@@ -43,10 +62,6 @@ section '.edata' export data readable
 ;         BigIntegerBitSet_128, 'bi128_bit_set', \
 ;         BigIntegerBitSet_256, 'bi256_bit_set', \
 ;;         BigIntegerBitSet_512, 'bi512_bit_set', \
-;\
-;         BigIntegerCmp_128, 'bi128_cmp', \
-;         BigIntegerCmp_256, 'bi256_cmp', \
-;         BigIntegerCmp_512, 'bi512_cmp', \
 ;\
 ;         BigIntegerDivRem_128, 'bi128_div_rem', \
 ;         BigIntegerDivRem_256, 'bi256_div_rem', \

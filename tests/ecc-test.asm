@@ -24,9 +24,9 @@ start:
         mov     rsi, .bi256_fixture_name
         call    run_test_fixture
 
-;        mov     rax, __bi_tests_512
-;        mov     rsi, .bi512_fixture_name
-;        call    run_test_fixture
+        mov     rax, __bi_tests_512
+        mov     rsi, .bi512_fixture_name
+        call    run_test_fixture
 
         mov     rsi, .bye
         call    Console_WriteString

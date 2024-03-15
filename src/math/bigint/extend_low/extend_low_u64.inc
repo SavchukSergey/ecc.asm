@@ -1,4 +1,4 @@
-include '../src/mem/zero_static.inc'
+include '../../../mem/zero_static.inc'
 
 macro BigIntegerExtendLowU64 bits {
 

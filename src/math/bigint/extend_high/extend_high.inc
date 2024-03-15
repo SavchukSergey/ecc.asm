@@ -1,5 +1,5 @@
-include '../src/mem/copy_static.inc'
-include '../src/mem/zero_static.inc'
+include '../../../mem/copy_static.inc'
+include '../../../mem/zero_static.inc'
 
 macro BigIntegerExtendHighCode source_bits, target_bits {
       if (source_bits) <= (target_bits)

@@ -1,7 +1,8 @@
 include 'bigint/add.tests.inc'
+include 'bigint/sub.tests.inc'
+include 'bigint/cmp.tests.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
-;include 'bigint/cmp.tests.inc'
 ;include 'bigint/div_rem.tests.inc'
 ;include 'bigint/extend_high.tests.inc'
 ;include 'bigint/extend_low.tests.inc'
@@ -9,7 +10,6 @@ include 'bigint/add.tests.inc'
 ;include 'bigint/one.tests.inc'
 ;include 'bigint/read_hex.tests.inc'
 ;include 'bigint/rnd.tests.inc'
-;include 'bigint/sub.tests.inc'
 ;include 'bigint/zero.tests.inc'
 
 align 16
@@ -35,12 +35,12 @@ __bi_tests_128:
 ;        dq __bi_bit_set_twice_test_#bits
 ;        db 'bit_set_twice', 0
 
-;        dq __bi_cmp_equal_test_#bits
-;        db 'cmp_equal', 0
-;        dq __bi_cmp_less_test_#bits
-;        db 'cmp_less', 0
-;        dq __bi_cmp_greater_test_#bits
-;        db 'cmp_greater', 0
+        dq __bi_cmp_128_128_equal_test
+        db 'cmp_equal', 0
+        dq __bi_cmp_128_128_less_test
+        db 'cmp_less', 0
+        dq __bi_cmp_128_128_greater_test
+        db 'cmp_greater', 0
 
 ;        dq __bi_div_rem_test_#bits
 ;        db 'div_rem', 0
@@ -56,14 +56,14 @@ __bi_tests_128:
 ;        dq __bi_one_test_#bits
 ;        db 'one', 0
 
+;todo: sub positive, sub equal
+        dq __bi_sub_128_128_test
+        db 'sub negative', 0
+
 ;        dq __bi_read_hex_test_#bits
 ;        db 'read_hex', 0
 ;        dq __bi_rnd_test_#bits
 ;        db 'rnd', 0
-;        dq __bi_sub_neg_test_#bits
-;        db 'sub negative', 0
-;        dq __bi_sub_pos_test_#bits
-;        db 'sub positive', 0
 ;        dq __bi_zero_test_#bits
 ;        db 'zero', 0
         dq 0
@@ -72,18 +72,41 @@ align 16
 __bi_tests_256:
         dq __bi_add_256_256_test
         db 'add', 0
+        dq __bi_cmp_256_256_equal_test
+        db 'cmp_equal', 0
+        dq __bi_cmp_256_256_less_test
+        db 'cmp_less', 0
+        dq __bi_cmp_256_256_greater_test
+        db 'cmp_greater', 0
+;todo: sub positive, sub equal
+        dq __bi_sub_256_256_test
+        db 'sub negative', 0
+
         dq 0
 
+align 16
+__bi_tests_512:
+        dq __bi_add_512_512_test
+        db 'add', 0
+        dq __bi_cmp_512_512_equal_test
+        db 'cmp_equal', 0
+        dq __bi_cmp_512_512_less_test
+        db 'cmp_less', 0
+        dq __bi_cmp_512_512_greater_test
+        db 'cmp_greater', 0
+;todo: sub positive, sub equal
+        dq __bi_sub_512_512_test
+        db 'sub negative', 0
+
+        dq 0
 
 macro BigIntegerTests bits, dbits {
 
 
 
 
-BigIntegerAddTests bits
 ;BigIntegerBitSetTests bits
 ;BigIntegerBitClearTests bits
-;BigIntegerCmpTests bits
 ;BigIntegerDivRemTests bits, dbits
 ;BigIntegerExtendHighTests bits, dbits
 ;BigIntegerExtendLowTests bits, dbits

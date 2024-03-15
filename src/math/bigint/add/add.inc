@@ -107,6 +107,8 @@ if ~ definite bi_add_assign_128_128
 bi_add_assign_128_128:
         mov     rax, [rcx]
         add     [rdx], rax
+        mov     rax, [rcx + 8]
+        adc     [rdx + 8], rax
         setc    al
         movzx   rax, al
         ret
@@ -124,6 +126,10 @@ bi_add_assign_256_256:
         add     [rdx], rax
         mov     rax, [rcx + 8]
         adc     [rdx + 8], rax
+        mov     rax, [rcx + 16]
+        adc     [rdx + 16], rax
+        mov     rax, [rcx + 24]
+        adc     [rdx + 24], rax
         setc    al
         movzx   rax, al
         ret
@@ -146,6 +152,14 @@ bi_add_assign_512_512:
         adc     [rdx + 16], rax
         mov     rax, [rcx + 24]
         adc     [rdx + 24], rax
+        mov     rax, [rcx + 32]
+        adc     [rdx + 32], rax
+        mov     rax, [rcx + 40]
+        adc     [rdx + 40], rax
+        mov     rax, [rcx + 48]
+        adc     [rdx + 48], rax
+        mov     rax, [rcx + 56]
+        adc     [rdx + 56], rax
         setc    al
         movzx   rax, al
         ret

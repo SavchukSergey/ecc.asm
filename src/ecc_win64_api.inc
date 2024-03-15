@@ -1,8 +1,6 @@
-include 'math/bigint/add/add.inc'
 include 'math/bigint/bit_check/bit_check.inc'
 include 'math/bigint/bit_clear/bit_clear.inc'
 include 'math/bigint/bit_set/bit_set.inc'
-include 'math/bigint/cmp/cmp.inc'
 include 'math/bigint/div_rem/div_rem.inc'
 include 'math/bigint/extend_low/extend_low_1.inc'
 include 'math/bigint/extend_low/extend_low_2.inc'
@@ -15,8 +13,8 @@ include 'math/bigint/one/one.inc'
 include 'math/bigint/rnd/rnd.inc'
 include 'math/bigint/shl/shl.inc'
 include 'math/bigint/shr/shr.inc'
-include 'math/bigint/sub/sub.inc'
 include 'math/bigint/zero/zero.inc'
+include 'math/bigint/read_hex.inc'
 
 macro BigIntegerWin64BitCheckProc bits {
 
@@ -54,19 +52,6 @@ BigIntegerBitSet_#bits:
         mov      rbx, rdx
         call     __bi_bit_set_#bits
         pop      rbx rax
-        ret
-}
-
-macro BigIntegerWin64CmpProc bits {
-
-BigIntegerCmp bits
-
-BigIntegerCmp_#bits:
-        push     rbx
-        mov      rax, rcx
-        mov      rbx, rdx
-        call     __bi_cmp_#bits
-        pop      rbx
         ret
 }
 
@@ -229,36 +214,10 @@ BigIntegerShr_#bits:
         ret
 }
 
-macro BigIntegerWin64SubProc bits {
-
-BigIntegerSub bits
-
-BigIntegerSub_#bits:
-        push     rax rbx
-        mov      rax, rcx
-        mov      rbx, rdx
-        call     __bi_sub_#bits
-        pop      rbx rax
-        ret
-}
-
-macro BigIntegerWin64ZeroProc bits {
-
-BigIntegerZero bits
-
-BigIntegerZero_#bits:
-        push     rax
-        mov      rax, rcx
-        call     __bi_zero_#bits
-        pop      rax
-        ret
-}
-
 macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64BitCheckProc bits
         BigIntegerWin64BitClearProc bits
         BigIntegerWin64BitSetProc bits
-        BigIntegerWin64CmpProc bits
         BigIntegerWin64DivRemProc bits, dbits
         BigIntegerWin64ExtendHigh1Proc bits
         BigIntegerWin64ExtendHigh2Proc bits
@@ -266,13 +225,10 @@ macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64ExtendLow1Proc bits
         BigIntegerWin64ExtendLow2Proc bits
         BigIntegerWin64ExtendLowU64Proc bits
-        BigIntegerWin64MulProc bits, dbits
         BigIntegerWin64OneProc bits
         BigIntegerWin64RndProc bits
         BigIntegerWin64ShlProc bits
         BigIntegerWin64ShrProc bits
-        BigIntegerWin64SubProc bits
-        BigIntegerWin64ZeroProc bits
 }
 
 

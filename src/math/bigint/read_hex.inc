@@ -1,28 +1,67 @@
 include '../../text/hex_parse_reverse_bytes.inc'
 
-macro BigIntegerReadHex bits {
-
-if ~ definite __bi_read_hex_#bits
+if ~ definite __bi_read_hex_128
 
 ;Reads bi as hex string
 ;input
-; rsi - pointer to __BIG_INTEGER_HEX_DIGITS_#bits string
-; rdi - destination
-__bi_read_hex_#bits:
-        push    rcx
-        mov     rcx, __BIG_INTEGER_BYTES_#bits
+; rcx - pointer to __BIG_INTEGER_HEX_DIGITS_128 string
+; rdx - destination
+;output
+;  rax - 1 success
+;  rax - 0 failure
+bi_try_read_hex_128:
+        push    rsi rdi rcx
+        mov     rsi, rcx
+        mov     rdi, rdx
+        mov     rcx, __BIG_INTEGER_BYTES_128
         call    hex_parse_reverse_bytes
-        jc      .error
-
-        pop     rcx
-        clc
+        setc    al
+        xor     al, 0x01
+        movzx   rax, al
+        pop     rcx rdi rsi
         ret
-.error:
-        pop     rcx
-        stc
-        ret
-
 end if
 
-}
+if ~ definite __bi_read_hex_256
 
+;Reads bi as hex string
+;input
+; rcx - pointer to __BIG_INTEGER_HEX_DIGITS_128 string
+; rdx - destination
+;output
+;  rax - 1 success
+;  rax - 0 failure
+bi_try_read_hex_256:
+        push    rsi rdi rcx
+        mov     rsi, rcx
+        mov     rdi, rdx
+        mov     rcx, __BIG_INTEGER_BYTES_256
+        call    hex_parse_reverse_bytes
+        setc    al
+        xor     al, 0x01
+        movzx   rax, al
+        pop     rcx rdi rsi
+        ret
+end if
+
+if ~ definite __bi_read_hex_512
+
+;Reads bi as hex string
+;input
+; rcx - pointer to __BIG_INTEGER_HEX_DIGITS_128 string
+; rdx - destination
+;output
+;  rax - 1 success
+;  rax - 0 failure
+bi_try_read_hex_512:
+        push    rsi rdi rcx
+        mov     rsi, rcx
+        mov     rdi, rdx
+        mov     rcx, __BIG_INTEGER_BYTES_512
+        call    hex_parse_reverse_bytes
+        setc    al
+        xor     al, 0x01
+        movzx   rax, al
+        pop     rcx rdi rsi
+        ret
+end if
