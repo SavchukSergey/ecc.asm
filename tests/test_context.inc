@@ -7,7 +7,8 @@ TestContextReg equ r9
 
 get_cpu_timestamp:
         push    rcx rdx
-        rdtscp
+        lfence
+        rdtsc
         shl     rdx, 32
         or      rdx, rax
         mov     rdx, rax
@@ -28,7 +29,6 @@ virtual at TestContextReg
 end virtual
         push    rax
         pushfq
-        mfence
         call    get_cpu_timestamp
         mov     [.context.measure_start], rax
         popfq

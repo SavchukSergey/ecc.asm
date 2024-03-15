@@ -5,10 +5,9 @@ __bi_sub_128_128_test:
 virtual at rsp
   .left rb __BIG_INTEGER_BYTES_128
   .right rb __BIG_INTEGER_BYTES_128
-  .expected rb __BIG_INTEGER_BYTES_128
   .result rb __BIG_INTEGER_BYTES_128
 end virtual
-        sub     rsp, 4 * __BIG_INTEGER_BYTES_128
+        sub     rsp, 3 * __BIG_INTEGER_BYTES_128
 
         lea     rcx, [.left_hex]
         lea     rdx, [.left]
@@ -18,10 +17,6 @@ end virtual
         lea     rdx, [.right]
         call    bi_try_read_hex_128
 
-        lea     rcx, [.expected_hex]
-        lea     rdx, [.expected]
-        call    bi_try_read_hex_128
-
         lea     rcx, [.left]
         lea     rdx, [.right]
         lea     r8, [.result]
@@ -29,18 +24,18 @@ end virtual
         call    bi_sub_128_128
         call    test_context_end_measure
 
-        lea     rcx, [.expected]
+        lea     rcx, [.expected_hex]
         lea     rdx, [.result]
-        call    bi_assert_equal_128
+        call    bi_assert_equal_hex_128
 
         jmp     .pass
 
 .fail:
-        add     rsp, 4 * __BIG_INTEGER_BYTES_128
+        add     rsp, 3 * __BIG_INTEGER_BYTES_128
         stc
         ret
 .pass:
-        add     rsp, 4 * __BIG_INTEGER_BYTES_128
+        add     rsp, 3 * __BIG_INTEGER_BYTES_128
         clc
         ret
 .left_hex       db '08c5a3ca7598576d5074b535eff1147f'
@@ -54,10 +49,9 @@ __bi_sub_256_256_test:
 virtual at rsp
   .left rb __BIG_INTEGER_BYTES_256
   .right rb __BIG_INTEGER_BYTES_256
-  .expected rb __BIG_INTEGER_BYTES_256
   .result rb __BIG_INTEGER_BYTES_256
 end virtual
-        sub     rsp, 4 * __BIG_INTEGER_BYTES_256
+        sub     rsp, 3 * __BIG_INTEGER_BYTES_256
 
         lea     rcx, [.left_hex]
         lea     rdx, [.left]
@@ -67,10 +61,6 @@ end virtual
         lea     rdx, [.right]
         call    bi_try_read_hex_256
 
-        lea     rcx, [.expected_hex]
-        lea     rdx, [.expected]
-        call    bi_try_read_hex_256
-
         lea     rcx, [.left]
         lea     rdx, [.right]
         lea     r8, [.result]
@@ -78,18 +68,18 @@ end virtual
         call    bi_sub_256_256
         call    test_context_end_measure
 
-        lea     rcx, [.expected]
+        lea     rcx, [.expected_hex]
         lea     rdx, [.result]
-        call    bi_assert_equal_256
+        call    bi_assert_equal_hex_256
 
         jmp     .pass
 
 .fail:
-        add     rsp, 4 * __BIG_INTEGER_BYTES_256
+        add     rsp, 3 * __BIG_INTEGER_BYTES_256
         stc
         ret
 .pass:
-        add     rsp, 4 * __BIG_INTEGER_BYTES_256
+        add     rsp, 3 * __BIG_INTEGER_BYTES_256
         clc
         ret
 .left_hex       db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
@@ -103,10 +93,9 @@ __bi_sub_512_512_test:
 virtual at rsp
   .left rb __BIG_INTEGER_BYTES_512
   .right rb __BIG_INTEGER_BYTES_512
-  .expected rb __BIG_INTEGER_BYTES_512
   .result rb __BIG_INTEGER_BYTES_512
 end virtual
-        sub     rsp, 4 * __BIG_INTEGER_BYTES_512
+        sub     rsp, 3 * __BIG_INTEGER_BYTES_512
 
         lea     rcx, [.left_hex]
         lea     rdx, [.left]
@@ -116,10 +105,6 @@ end virtual
         lea     rdx, [.right]
         call    bi_try_read_hex_512
 
-        lea     rcx, [.expected_hex]
-        lea     rdx, [.expected]
-        call    bi_try_read_hex_512
-
         lea     rcx, [.left]
         lea     rdx, [.right]
         lea     r8, [.result]
@@ -127,18 +112,18 @@ end virtual
         call    bi_sub_512_512
         call    test_context_end_measure
 
-        lea     rcx, [.expected]
+        lea     rcx, [.expected_hex]
         lea     rdx, [.result]
-        call    bi_assert_equal_512
+        call    bi_assert_equal_hex_512
 
         jmp     .pass
 
 .fail:
-        add     rsp, 4 * __BIG_INTEGER_BYTES_512
+        add     rsp, 3 * __BIG_INTEGER_BYTES_512
         stc
         ret
 .pass:
-        add     rsp, 4 * __BIG_INTEGER_BYTES_512
+        add     rsp, 3 * __BIG_INTEGER_BYTES_512
         clc
         ret
 .left_hex       db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'

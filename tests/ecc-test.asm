@@ -12,9 +12,7 @@ start:
         mov     rsi, .welcome
         call    Console_WriteString
 
-        mov     rax, __test_context_calibrate
-        mov     rsi, .empty_fixture_name
-        call    run_test_fixture
+        call    run_test_calibrate
 
         mov     rax, __bi_tests_128
         mov     rsi, .bi128_fixture_name
@@ -45,14 +43,39 @@ include '../src/console/enable_vt_processing.inc'
 include '../src/console/write_u64.inc'
 include 'test_context.inc'
 
-__test_context_calibrate:
-        dq __test_context_calibrate_empty
-        db 'empty', 0
-        dq 0
+run_test_calibrate:
+virtual at rsp
+  .locals_start:
+    .result TestContext
+  .locals_end:
+end virtual
+        enter   .locals_end - .locals_start, 0
+        lea     TestContextReg, [.result]
+        mov     [calibration_shift], 0
+        dec     [calibration_shift]
+        mov     rcx, 1000
+.count_loop:
+        push    rcx
+        call    test_context_init
+        call    [.empty_ref]
+        pop     rcx
 
-__test_context_calibrate_empty:
-        clc
+        mov     rax, [.result.measure_end]
+        sub     rax, [.result.measure_start]
+
+        cmp     rax, [calibration_shift]
+        jae     .longer
+        mov     [calibration_shift], rax
+.longer:
+        loop    .count_loop
+
+        leave
         ret
+.empty:
+        call    test_context_start_measure
+        call    test_context_end_measure
+        ret
+.empty_ref dq .empty
 
 run_test_fixture:
         push    rax rbx rsi
@@ -129,6 +152,7 @@ end virtual
 .count_continue:
         mov     rax, [.result.measure_end]
         sub     rax, [.result.measure_start]
+        sub     rax, [calibration_shift]
         mov     [.test_duration], rax
 
         mov     rax, [.test_min_duration]
@@ -185,13 +209,6 @@ end virtual
         pop     rsi rbx rax
         ret
 
-.measure_start:
-        push    rax
-        call    get_cpu_timestamp
-        pop     rax
-        ret
-
-
 .tests_suffix db ' tests', 0
 .tests_header db \
 '+------------------------+--------+---------------+---------------+', 13, 10, \
@@ -217,6 +234,10 @@ include 'math/bigint.tests.inc'
 include '../src/math/rnd.inc'
 include '../src/console/write_string.inc'
 include '../src/console/write_line.inc'
+
+section '.bss' data readable writeable
+calibration_shift rq 1
+
 
 section '.idata' import data readable writeable
 

@@ -2,6 +2,7 @@ include '../src/console/write_u128_hex.inc'
 include '../src/console/write_u256_hex.inc'
 include '../src/console/write_u512_hex.inc'
 include '../src/math/bigint/cmp/cmp.inc'
+
 if ~ definite bi_assert_equal_128
 
 ;Zeroes bi value
@@ -115,5 +116,83 @@ bi_assert_equal_512:
 .msg_1 db TEXT_COLOR_ERROR, 'Expected bi512:', 13, 10, 'A: ', 0
 .msg_2 db 13, 10, 'E: ', 0
 .msg_3 db 13, 10, 0
+
+end if
+
+
+if ~ definite bi_assert_equal_hex_128
+
+;Zeroes bi value
+;input
+; rcx - expected hex
+; rdx - actual
+bi_assert_equal_hex_128:
+        push    rbp
+        sub     rsp, __BIG_INTEGER_BYTES_128
+        mov     rbp, rsp
+
+        push    rcx rdx
+        lea     rdx, [rbp]
+        call    bi_try_read_hex_128
+        pop     rdx rcx
+
+        lea     rcx, [rbp]
+        call    bi_assert_equal_128
+
+        add     rsp, __BIG_INTEGER_BYTES_128
+        pop     rbp
+        ret
+
+end if
+
+
+if ~ definite bi_assert_equal_hex_256
+
+;Zeroes bi value
+;input
+; rcx - expected hex
+; rdx - actual
+bi_assert_equal_hex_256:
+        push    rbp
+        sub     rsp, __BIG_INTEGER_BYTES_256
+        mov     rbp, rsp
+
+        push    rcx rdx
+        lea     rdx, [rbp]
+        call    bi_try_read_hex_256
+        pop     rdx rcx
+
+        lea     rcx, [rbp]
+        call    bi_assert_equal_256
+
+        add     rsp, __BIG_INTEGER_BYTES_256
+        pop     rbp
+        ret
+
+end if
+
+
+if ~ definite bi_assert_equal_hex_512
+
+;Zeroes bi value
+;input
+; rcx - expected hex
+; rdx - actual
+bi_assert_equal_hex_512:
+        push    rbp
+        sub     rsp, __BIG_INTEGER_BYTES_512
+        mov     rbp, rsp
+
+        push    rcx rdx
+        lea     rdx, [rbp]
+        call    bi_try_read_hex_512
+        pop     rdx rcx
+
+        lea     rcx, [rbp]
+        call    bi_assert_equal_512
+
+        add     rsp, __BIG_INTEGER_BYTES_512
+        pop     rbp
+        ret
 
 end if
