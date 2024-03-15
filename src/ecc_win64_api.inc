@@ -18,19 +18,6 @@ include 'math/bigint/shr/shr.inc'
 include 'math/bigint/sub/sub.inc'
 include 'math/bigint/zero/zero.inc'
 
-macro BigIntegerWin64AddProc bits {
-
-BigIntegerAdd bits
-
-BigIntegerAdd_#bits:
-        push     rax rbx
-        mov      rax, rcx
-        mov      rbx, rdx
-        call     __bi_add_#bits
-        pop      rbx rax
-        ret
-}
-
 macro BigIntegerWin64BitCheckProc bits {
 
 BigIntegerBitCheck bits
@@ -268,7 +255,6 @@ BigIntegerZero_#bits:
 }
 
 macro BigIntegerWin64Procs bits, dbits {
-        BigIntegerWin64AddProc bits
         BigIntegerWin64BitCheckProc bits
         BigIntegerWin64BitClearProc bits
         BigIntegerWin64BitSetProc bits
@@ -289,6 +275,7 @@ macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64ZeroProc bits
 }
 
-BigIntegerWin64Procs 128, 256
-BigIntegerWin64Procs 256, 512
-BigIntegerWin64Procs 512, 1024
+
+;BigIntegerWin64Procs 128, 256
+;BigIntegerWin64Procs 256, 512
+;BigIntegerWin64Procs 512, 1024

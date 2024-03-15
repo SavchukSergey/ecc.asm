@@ -5,6 +5,7 @@ if ~ definite hex_format_digit
 ;output
 ;al - hex character
 hex_format_digit:
+        and     al, 0x0f
         cmp     al, 10
         jae     .letter
         add     al, '0'

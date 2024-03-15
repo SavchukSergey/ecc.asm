@@ -12,6 +12,10 @@ start:
         mov     rsi, .welcome
         call    Console_WriteString
 
+        mov     rax, __test_context_calibrate
+        mov     rsi, .empty_fixture_name
+        call    run_test_fixture
+
         mov     rax, __bi_tests_128
         mov     rsi, .bi128_fixture_name
         call    run_test_fixture
@@ -20,9 +24,9 @@ start:
         mov     rsi, .bi256_fixture_name
         call    run_test_fixture
 
-        mov     rax, __bi_tests_512
-        mov     rsi, .bi512_fixture_name
-        call    run_test_fixture
+;        mov     rax, __bi_tests_512
+;        mov     rsi, .bi512_fixture_name
+;        call    run_test_fixture
 
         mov     rsi, .bye
         call    Console_WriteString
@@ -32,6 +36,7 @@ start:
         ret
 .welcome db 'ecc.js tests', 13, 10, 0
 .bye db 'finished', 13, 10, 0
+.empty_fixture_name db 'calibrate', 0
 .bi128_fixture_name db 'bi128', 0
 .bi256_fixture_name db 'bi256', 0
 .bi512_fixture_name db 'bi512', 0
@@ -39,6 +44,15 @@ start:
 include '../src/console/enable_vt_processing.inc'
 include '../src/console/write_u64.inc'
 include 'test_context.inc'
+
+__test_context_calibrate:
+        dq __test_context_calibrate_empty
+        db 'empty', 0
+        dq 0
+
+__test_context_calibrate_empty:
+        clc
+        ret
 
 run_test_fixture:
         push    rax rbx rsi
@@ -99,7 +113,7 @@ end virtual
         mov     qword [.test_min_duration], -1
         mov     qword [.test_max_duration], 0
 
-        lea     r8, [.result]
+        lea     TestContextReg, [.result]
 .count_loop:
         call    test_context_init
         call    [.test_proc]

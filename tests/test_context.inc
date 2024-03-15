@@ -3,6 +3,8 @@ struct TestContext
   measure_end rq 1
 ends
 
+TestContextReg equ r9
+
 get_cpu_timestamp:
         push    rcx rdx
         rdtscp
@@ -13,7 +15,7 @@ get_cpu_timestamp:
         ret
 
 test_context_init:
-virtual at r8
+virtual at TestContextReg
   .context TestContext
 end virtual
         mov     qword [.context.measure_start], 0
@@ -21,7 +23,7 @@ end virtual
         ret
 
 test_context_start_measure:
-virtual at r8
+virtual at TestContextReg
   .context TestContext
 end virtual
         push    rax
@@ -33,7 +35,7 @@ end virtual
         ret
 
 test_context_end_measure:
-virtual at r8
+virtual at TestContextReg
   .context TestContext
 end virtual
         push    rax
@@ -98,7 +100,7 @@ end virtual
 expect_msgs:
   .equals_failed db TEXT_COLOR_ERROR, 'equals failed ', 13, 10, 0
 
-ExpectBigIntegerEqualsHex 128
-ExpectBigIntegerEqualsHex 256
-ExpectBigIntegerEqualsHex 512
-ExpectBigIntegerEqualsHex 1024
+;ExpectBigIntegerEqualsHex 128
+;ExpectBigIntegerEqualsHex 256
+;ExpectBigIntegerEqualsHex 512
+;ExpectBigIntegerEqualsHex 1024

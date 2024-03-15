@@ -1,3 +1,37 @@
+
+if ~ definite bi_mul_128_128
+
+;Multiplies two bi128 values
+;input
+; rcx - left value
+; rdx - right value
+; r8 - result value
+bi_mul_128_128:
+        mov     rax, rcx
+        mul     rdx
+        mov     [r8], rax
+        mov     [r8 + 8], rdx
+
+        ret
+end if
+
+if ~ definite bi_mul_256_256
+
+;Multiplies two bi256 values
+;input
+; rcx - left value
+; rdx - right value
+; r8 - result value
+bi_mul_256_256:
+        mov     rax, rcx
+        mul     rdx
+        mov     [r8], rax
+        mov     [r8 + 8], rdx
+
+        ret
+end if
+
+
 macro BigIntegerMul bits, dbits {
 
 if ~ definite __bi_mul_#bits
@@ -9,6 +43,10 @@ include '../src/math/bigint/add/add.inc'
 BigIntegerBitCheck bits
 BigIntegerZero dbits
 BigIntegerAdd dbits
+
+
+
+
 
 ;Multiplies two bi values
 ;input

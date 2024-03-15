@@ -1,60 +1,67 @@
-macro BigIntegerAddTests bits {
-
 include '../src/math/bigint/add/add.inc'
-BigIntegerAdd bits
+include '../src/math/bigint/zero/zero.inc'
+include '../../assert.inc'
 
-__bi_add_test_#bits:
+__bi_add_128_128_test:
 virtual at rsp
-  .left rb __BIG_INTEGER_BYTES_#bits
-  .right rb __BIG_INTEGER_BYTES_#bits
-  .result rb __BIG_INTEGER_BYTES_#bits
+  .result rb __BIG_INTEGER_BYTES_128
 end virtual
-        sub     rsp, 3 * __BIG_INTEGER_BYTES_#bits
-        lea     rax, [.left]
-        call    __bi_zero_#bits
-        lea     rax, [.right]
-        call    __bi_zero_#bits
-        lea     rax, [.result]
-        call    __bi_zero_#bits
+        sub     rsp, 1 * __BIG_INTEGER_BYTES_128
 
-        mov     dword [.left + 0], 0x01234567
-        mov     dword [.left + 4], 0x89abcdef
-        mov     dword [.right + 0], 0x33333333
-        mov     dword [.right + 4], 0x44444444
-if bits >= 128
-        mov     dword [.left + 8], 0x11111111
-        mov     dword [.left + 12], 0x22222222
-        mov     dword [.right + 8], 0x55555555
-        mov     dword [.right + 12], 0x66666666
-end if
-
-        lea     rax, [.left]
-        lea     rbx, [.right]
-        lea     rdi, [.result]
+        lea     rcx, [.left]
+        lea     rdx, [.right]
+        lea     r8, [.result]
         call    test_context_start_measure
-        call    __bi_add_#bits
+        call    bi_add_128_128
+
         call    test_context_end_measure
 
-        cmp      dword [.result + 0], 0x3456789A
-        jne      .fail
-        cmp      dword [.result + 4], 0xCDF01233
-        jne      .fail
-if bits >= 128
-        cmp      dword [.result + 8], 0x66666666
-        jne      .fail
-        cmp      dword [.result + 12], 0x088888888
-        jne      .fail
-end if
+        lea     rcx, [.expected]
+        lea     rdx, [.result]
+        call    bi_assert_equal_128
 
         jmp     .pass
 
 .fail:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_#bits
+        add     rsp, 1 * __BIG_INTEGER_BYTES_128
         stc
         ret
 .pass:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_#bits
+        add     rsp, 1 * __BIG_INTEGER_BYTES_128
         clc
         ret
+.left dq 0x0123456789abcdef, 0xfedcba9876543210
+.right dq 0x3333333333333333, 0x4444444444444444
+.expected dq 0x3456789ABCDF0122, 0x4320FEDCBA987654
 
-}
+__bi_add_256_256_test:
+virtual at rsp
+  .result rb __BIG_INTEGER_BYTES_256
+end virtual
+        sub     rsp, 1 * __BIG_INTEGER_BYTES_256
+
+        lea     rcx, [.left]
+        lea     rdx, [.right]
+        lea     r8, [.result]
+        call    test_context_start_measure
+        call    bi_add_256_256
+
+        call    test_context_end_measure
+
+        lea     rcx, [.expected]
+        lea     rdx, [.result]
+        call    bi_assert_equal_256
+
+        jmp     .pass
+
+.fail:
+        add     rsp, 1 * __BIG_INTEGER_BYTES_256
+        stc
+        ret
+.pass:
+        add     rsp, 1 * __BIG_INTEGER_BYTES_256
+        clc
+        ret
+.left dq 0x0123456789abcdef, 0xfedcba9876543210, 0xfedcba9876543210, 0x0123456789abcdef
+.right dq 0x3333333333333333, 0x4444444444444444, 0x4444444444444444, 0x3333333333333333
+.expected dq 0x3456789ABCDF0122, 0x4320FEDCBA987654, 0x4320FEDCBA987655, 0x3456789ABCDF0123

@@ -1,3 +1,5 @@
+include 'write_char.inc'
+
 ;input
 ; rax - value to dump
 Console_WriteUInt64:
