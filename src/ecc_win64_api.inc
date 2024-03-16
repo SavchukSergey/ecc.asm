@@ -8,12 +8,8 @@ include 'math/bigint/extend_low/extend_low_u64.inc'
 include 'math/bigint/extend_high/extend_high_1.inc'
 include 'math/bigint/extend_high/extend_high_2.inc'
 include 'math/bigint/extend_high/extend_high_u64.inc'
-include 'math/bigint/mul/mul.inc'
 include 'math/bigint/one/one.inc'
 include 'math/bigint/rnd/rnd.inc'
-include 'math/bigint/shl/shl.inc'
-include 'math/bigint/shr/shr.inc'
-include 'math/bigint/zero/zero.inc'
 include 'math/bigint/read_hex.inc'
 
 macro BigIntegerWin64BitCheckProc bits {
@@ -150,20 +146,6 @@ BigIntegerExtendLowU64_#bits:
 }
 
 
-macro BigIntegerWin64MulProc bits, dbits {
-
-BigIntegerMul bits, dbits
-
-BigIntegerMul_#bits:
-        push     rax rbx r8
-        mov      rax, rcx
-        mov      rbx, rdx
-        mov      rdi, r8
-        call     __bi_mul_#bits
-        pop      r8 rbx rax
-        ret
-}
-
 macro BigIntegerWin64OneProc bits {
 
 BigIntegerOne bits
@@ -188,31 +170,6 @@ BigIntegerRnd_#bits:
         ret
 }
 
-macro BigIntegerWin64ShlProc bits {
-
-BigIntegerShl bits
-
-BigIntegerShl_#bits:
-        push     rax rbx
-        mov      rax, rcx
-        mov      rbx, rdx
-        call     __bi_shl_#bits
-        pop      rbx rax
-        ret
-}
-
-macro BigIntegerWin64ShrProc bits {
-
-BigIntegerShr bits
-
-BigIntegerShr_#bits:
-        push     rax rbx
-        mov      rax, rcx
-        mov      rbx, rdx
-        call     __bi_shr_#bits
-        pop      rbx rax
-        ret
-}
 
 macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64BitCheckProc bits
@@ -227,8 +184,6 @@ macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64ExtendLowU64Proc bits
         BigIntegerWin64OneProc bits
         BigIntegerWin64RndProc bits
-        BigIntegerWin64ShlProc bits
-        BigIntegerWin64ShrProc bits
 }
 
 

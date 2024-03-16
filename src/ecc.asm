@@ -12,9 +12,13 @@ endp
 
 
 include 'math/bigint.inc'
+include 'math/bigint/zero/zero.inc'
 include 'math/bigint/add/add.inc'
 include 'math/bigint/sub/sub.inc'
 include 'math/bigint/cmp/cmp.inc'
+include 'math/bigint/shl/shl.inc'
+include 'math/bigint/shr/shr.inc'
+include 'math/bigint/mul/mul.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
@@ -51,6 +55,14 @@ section '.edata' export data readable
          bi_cmp_256_256, 'bi_cmp_256_256', \
          bi_cmp_512_512, 'bi_cmp_512_512', \
          bi_cmp_1024_1024, 'bi_cmp_1024_1024', \
+\
+         bi_shl_assign_128_1, 'bi_shl_assign_128_1', \
+         bi_shl_assign_256_1, 'bi_shl_assign_256_1', \
+         bi_shl_assign_512_1, 'bi_shl_assign_512_1', \
+\
+         bi_shr_assign_128_1, 'bi_shr_assign_128_1', \
+         bi_shr_assign_256_1, 'bi_shr_assign_256_1', \
+         bi_shr_assign_512_1, 'bi_shr_assign_512_1', \
 \
          bi_mul_64_64, 'bi_mul_64_64', \
          bi_mul_128_128, 'bi_mul_128_128', \
@@ -109,14 +121,6 @@ section '.edata' export data readable
 ;         BigIntegerRnd_128, 'bi128_rnd', \
 ;         BigIntegerRnd_256, 'bi256_rnd', \
 ;         BigIntegerRnd_512, 'bi512_rnd', \
-;\
-;         BigIntegerShl_128, 'bi128_shl', \
-;         BigIntegerShl_256, 'bi256_shl', \
-;         BigIntegerShl_512, 'bi512_shl', \
-;\
-;         BigIntegerShr_128, 'bi128_shr', \
-;         BigIntegerShr_256, 'bi256_shr', \
-;         BigIntegerShr_512, 'bi512_shr', \
 ;\
 ;         BigIntegerSub_128, 'bi128_sub', \
 ;         BigIntegerSub_256, 'bi256_sub', \

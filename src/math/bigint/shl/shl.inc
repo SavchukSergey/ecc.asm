@@ -1,19 +1,46 @@
-macro BigIntegerShl bits {
-
-if ~ definite __bi_shl_#bits
+if ~ definite bi_shl_assign_128_1
 
 ; Shifts right
 ;input
-; rax - value
-__bi_shl_#bits:
-virtual at rax
-  .value BigInteger#bits
-end virtual
+; rcx - value
+bi_shl_assign_128_1:
         clc
-        repeat  __BIG_INTEGER_QWORDS_#bits
-        rcl     qword [.value + (% - 1) * 8], 1
-        end repeat
+        rcl     qword [rcx], 1
+        rcl     qword [rcx + 8], 1
         ret
 
 end if
-}
+
+if ~ definite bi_shl_assign_256_1
+
+; Shifts right
+;input
+; rcx - value
+bi_shl_assign_256_1:
+        clc
+        rcl     qword [rcx], 1
+        rcl     qword [rcx + 8], 1
+        rcl     qword [rcx + 16], 1
+        rcl     qword [rcx + 24], 1
+        ret
+
+end if
+
+if ~ definite bi_shl_assign_512_1
+
+; Shifts right
+;input
+; rcx - value
+bi_shl_assign_512_1:
+        clc
+        rcl     qword [rcx], 1
+        rcl     qword [rcx + 8], 1
+        rcl     qword [rcx + 16], 1
+        rcl     qword [rcx + 24], 1
+        rcl     qword [rcx + 32], 1
+        rcl     qword [rcx + 40], 1
+        rcl     qword [rcx + 48], 1
+        rcl     qword [rcx + 56], 1
+        ret
+
+end if

@@ -2,6 +2,8 @@ include 'bigint/add.tests.inc'
 include 'bigint/sub.tests.inc'
 include 'bigint/cmp.tests.inc'
 include 'bigint/mul.tests.inc'
+include 'bigint/shl.tests.inc'
+include 'bigint/shr.tests.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
 ;include 'bigint/div_rem.tests.inc'
@@ -44,6 +46,11 @@ __bi_tests_128:
         dq __bi_cmp_128_128_close_test
         db 'cmp_close', 0
 
+        dq __bi_shl_assign_128_1_test
+        db '<<= 1', 0
+        dq __bi_shr_assign_128_1_test
+        db '>>= 1', 0
+
 ;        dq __bi_div_rem_test_#bits
 ;        db 'div_rem', 0
 
@@ -85,6 +92,12 @@ __bi_tests_256:
         db 'cmp_greater', 0
         dq __bi_cmp_256_256_close_test
         db 'cmp_close', 0
+
+        dq __bi_shl_assign_256_1_test
+        db '<<= 1', 0
+        dq __bi_shr_assign_256_1_test
+        db '>>= 1', 0
+
 ;todo: sub positive, sub equal
         dq __bi_sub_256_256_test
         db 'sub negative', 0
@@ -108,6 +121,12 @@ __bi_tests_512:
         db 'cmp_greater', 0
         dq __bi_cmp_512_512_close_test
         db 'cmp_close', 0
+
+        dq __bi_shl_assign_512_1_test
+        db '<<= 1', 0
+        dq __bi_shr_assign_512_1_test
+        db '>>= 1', 0
+
 ;todo: sub positive, sub equal
         dq __bi_sub_512_512_test
         db 'sub negative', 0
