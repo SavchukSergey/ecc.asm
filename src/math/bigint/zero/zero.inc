@@ -44,3 +44,16 @@ bi_zero_512:
         ret
 
 end if
+
+if ~ definite bi_zero_1024
+
+;Zeroes bi value
+;input
+; rcx - integer to result
+bi_zero_1024:
+        call    bi_zero_512
+        add     rcx, 64
+        call    bi_zero_512
+        sub     rcx, 64
+        ret
+end if

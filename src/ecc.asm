@@ -23,10 +23,12 @@ section '.edata' export data readable
          bi_zero_128, 'bi_zero_128', \
          bi_zero_256, 'bi_zero_256', \
          bi_zero_512, 'bi_zero_512', \
+         bi_zero_1024, 'bi_zero_1024', \
 \
          bi_try_read_hex_128, 'bi_try_read_hex_128', \
          bi_try_read_hex_256, 'bi_try_read_hex_256', \
          bi_try_read_hex_512, 'bi_try_read_hex_512', \
+         bi_try_read_hex_1024, 'bi_try_read_hex_1024', \
 \
          bi_add_128_128, 'bi_add_128_128', \
          bi_add_256_256, 'bi_add_256_256', \
@@ -35,6 +37,7 @@ section '.edata' export data readable
          bi_add_assign_128_128, 'bi_add_assign_128_128', \
          bi_add_assign_256_256, 'bi_add_assign_256_256', \
          bi_add_assign_512_512, 'bi_add_assign_512_512', \
+         bi_add_assign_1024_1024, 'bi_add_assign_1024_1024', \
 \
          bi_sub_128_128, 'bi_sub_128_128', \
          bi_sub_256_256, 'bi_sub_256_256', \
@@ -47,8 +50,12 @@ section '.edata' export data readable
          bi_cmp_128_128, 'bi_cmp_128_128', \
          bi_cmp_256_256, 'bi_cmp_256_256', \
          bi_cmp_512_512, 'bi_cmp_512_512', \
+         bi_cmp_1024_1024, 'bi_cmp_1024_1024', \
 \
-         bi_mul_128_128, 'bi_mul_128_128'
+         bi_mul_64_64, 'bi_mul_64_64', \
+         bi_mul_128_128, 'bi_mul_128_128', \
+         bi_mul_256_256, 'bi_mul_256_256', \
+         bi_mul_512_512, 'bi_mul_512_512'
 
 ;\
 ;         BigIntegerBitCheck_128, 'bi128_bit_check', \

@@ -1,12 +1,12 @@
 include 'bigint/add.tests.inc'
 include 'bigint/sub.tests.inc'
 include 'bigint/cmp.tests.inc'
+include 'bigint/mul.tests.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
 ;include 'bigint/div_rem.tests.inc'
 ;include 'bigint/extend_high.tests.inc'
 ;include 'bigint/extend_low.tests.inc'
-;include 'bigint/mul.tests.inc'
 ;include 'bigint/one.tests.inc'
 ;include 'bigint/read_hex.tests.inc'
 ;include 'bigint/rnd.tests.inc'
@@ -41,6 +41,8 @@ __bi_tests_128:
         db 'cmp_less', 0
         dq __bi_cmp_128_128_greater_test
         db 'cmp_greater', 0
+        dq __bi_cmp_128_128_close_test
+        db 'cmp_close', 0
 
 ;        dq __bi_div_rem_test_#bits
 ;        db 'div_rem', 0
@@ -50,15 +52,18 @@ __bi_tests_128:
 ;        dq __bi_extend_low_test_#bits
 ;        db 'extend_low', 0
 
-;        dq __bi_mul_test_#bits
-;        db 'mul', 0
-
 ;        dq __bi_one_test_#bits
 ;        db 'one', 0
 
 ;todo: sub positive, sub equal
         dq __bi_sub_128_128_test
         db 'sub negative', 0
+
+        dq __bi_mul_128_128_test
+        db 'mul', 0
+
+        dq __bi_mul_128_128_max_test
+        db 'mul max', 0
 
 ;        dq __bi_read_hex_test_#bits
 ;        db 'read_hex', 0
@@ -78,9 +83,16 @@ __bi_tests_256:
         db 'cmp_less', 0
         dq __bi_cmp_256_256_greater_test
         db 'cmp_greater', 0
+        dq __bi_cmp_256_256_close_test
+        db 'cmp_close', 0
 ;todo: sub positive, sub equal
         dq __bi_sub_256_256_test
         db 'sub negative', 0
+
+        dq __bi_mul_256_256_test
+        db 'mul', 0
+        dq __bi_mul_256_256_max_test
+        db 'mul max', 0
 
         dq 0
 
@@ -94,9 +106,16 @@ __bi_tests_512:
         db 'cmp_less', 0
         dq __bi_cmp_512_512_greater_test
         db 'cmp_greater', 0
+        dq __bi_cmp_512_512_close_test
+        db 'cmp_close', 0
 ;todo: sub positive, sub equal
         dq __bi_sub_512_512_test
         db 'sub negative', 0
+
+        dq __bi_mul_512_512_test
+        db 'mul', 0
+        dq __bi_mul_512_512_max_test
+        db 'mul max', 0
 
         dq 0
 
@@ -110,7 +129,6 @@ macro BigIntegerTests bits, dbits {
 ;BigIntegerDivRemTests bits, dbits
 ;BigIntegerExtendHighTests bits, dbits
 ;BigIntegerExtendLowTests bits, dbits
-;BigIntegerMulTests bits, dbits
 ;BigIntegerOneTests bits
 ;BigIntegerReadHexTests bits
 ;BigIntegerRndTests bits
