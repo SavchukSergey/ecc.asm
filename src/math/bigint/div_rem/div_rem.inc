@@ -1,92 +1,78 @@
-macro BigIntegerDivRem bits, dbits {
+include '../extend_low/extend_low.inc'
+include '../bit_set/bit_set.inc'
+include '../copy/copy.inc'
 
-if ~ definite __bi_div_rem_#bits
+if ~ definite bi_div_rem_128_128
 
-include '../src/math/bigint/extend_low/extend_low_1.inc'
-include '../src/math/bigint/extend_high/extend_high_1.inc'
-include '../src/math/bigint/cmp/cmp.inc'
-include '../src/math/bigint/shl/shl.inc'
-include '../src/math/bigint/sub/sub.inc'
-include '../src/math/bigint/bit_set/bit_set.inc'
-include '../src/math/bigint/bit_clear/bit_clear.inc'
+bi_div_rem_128_128:
+;todo:
+        ret
+end if
 
-BigIntegerSub dbits
-BigIntegerShl dbits
-BigIntegerCmp dbits
-BigIntegerExtendLow1 dbits
-BigIntegerExtendHigh1 dbits
-BigIntegerBitSet bits
-BigIntegerBitClear bits
+if ~ definite bi_div_rem_512_512
 
-;Divides two bi values
-;input
-; rax - divident value
-; rbx - divisor value
-; rdi - quotient value
-; rsi - reminder value
-__bi_div_rem_#bits:
-virtual at rbp
+bi_div_rem_512_512:
+;todo:
+        ret
+end if
+
+
+if ~ definite bi_div_rem_256_256
+
+bi_div_rem_256_256:
+virtual at rsp
   label .locals_start
-  .divident rb 2 * __BIG_INTEGER_BYTES_#bits
-  .divisor rb 2* __BIG_INTEGER_BYTES_#bits
-  .divident_arg rq 1
-  .divisor_arg rq 1
-  .quotient_arg rq 1
-  .reminder_arg rq 1
+  .value rb __BIG_INTEGER_BYTES_512
+  .dividend rq 1
+  .divisor rq 1
+  .quotient rq 1
+  .remainder rq 1
+  .bit rq 1
   label .locals_end
 end virtual
-        push    rbp
-        sub     rsp, .locals_end - .locals_start
-        mov     rbp, rsp
-        mov     [.divident_arg], rax
-        mov     [.divisor_arg], rbx
-        mov     [.quotient_arg], rdi
-        mov     [.reminder_arg], rsi
+        enter   .locals_end - .locals_start, 0
+        mov     [.dividend], rcx
+        mov     [.divisor], rdx
+        mov     [.quotient], r8
+        mov     [.remainder], r9
 
-        mov     rax, [.divident_arg]
-        lea     rdi, [.divident]
-        call    __bi_extend_low_#dbits
+        lea     rcx, [.value]
+        mov     rdx, [.dividend]
+        call    bi_extend_512_256
 
-        mov     rax, [.divisor_arg]
-        lea     rdi, [.divisor]
-        call    __bi_extend_high_#dbits
+        mov     rcx, [.quotient]
+        call    bi_zero_256
 
-        mov     rcx, __BIG_INTEGER_BITS_#bits
+        mov     [.bit], 255
+
 .loop:
-        lea     rax, [.divident]
-        call    __bi_shl_#dbits
+        ;todo: shift just 256-bit value with carry like as "rol" opcode where carry is read from dividend
+        lea     rcx, [.value]
+        call    bi_shl_assign_512_1
 
-        lea     rax, [.divident]
-        lea     rbx, [.divisor]
-        call    __bi_cmp_#dbits
-        jb      .below
- .above:
-        lea     rax, [.divident]
-        lea     rbx, [.divisor]
-        call    __bi_sub_assign_#dbits
+        lea     rcx, [.value + 32]
+        mov     rdx, [.divisor]
+        call    bi_cmp_256_256
+        cmp     al, -1
+        je      .below
+        lea     rcx, [.value + 32]
+        mov     rdx, [.divisor]
+        call    bi_sub_assign_256_256
 
-        mov     rax, [.quotient_arg]
-        mov     rbx, rcx
-        dec     rbx
-        call    __bi_bit_set_#bits
-        jmp     .continue
+        mov     rcx, [.quotient]
+        mov     rdx, [.bit]
+        call    bi_bit_set_256
 .below:
-        mov     rax, [.quotient_arg]
-        mov     rbx, rcx
-        dec     rbx
-        call    __bi_bit_clear_#bits
-.continue:
-        loop    .loop
+        sub     [.bit], 1
+        jnc     .loop
 
-        lea     rsi, [.divident + __BIG_INTEGER_BYTES_#bits]
-        mov     rdi, [.reminder_arg]
-        MemoryCopyStatic rsi, rdi, __BIG_INTEGER_BYTES_#bits ;todo: special shrink method
+        mov     rcx, [.remainder]
+        lea     rdx, [.value + 32]
+        call    bi_copy_256
 
-
-        add     rsp, .locals_end - .locals_start
-        pop     rbp
+        leave
         ret
 
 end if
 
-}
+

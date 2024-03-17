@@ -1,6 +1,74 @@
-macro BigIntegerDivRemTests bits, dbits {
-
 include '../src/math/bigint/div_rem/div_rem.inc'
+
+__bi_div_rem_256_256_test_core:
+virtual at rsp
+.locals_start:
+  .dividend_hex rq 1
+  .divisor_hex rq 1
+  .expected_quotient_hex rq 1
+  .expected_remainder_hex rq 1
+  .dividend rb __BIG_INTEGER_BYTES_256
+  .divisor rb __BIG_INTEGER_BYTES_256
+  .quotient rb __BIG_INTEGER_BYTES_256
+  .remainder rb __BIG_INTEGER_BYTES_256
+.locals_end:
+end virtual
+        enter   .locals_end - .locals_start, 0
+        mov     [.dividend_hex], rcx
+        mov     [.divisor_hex], rdx
+        mov     [.expected_quotient_hex], r8
+        mov     [.expected_remainder_hex], r9
+
+        mov     rcx, [.dividend_hex]
+        lea     rdx, [.dividend]
+        call    bi_try_read_hex_256
+
+        mov     rcx, [.divisor_hex]
+        lea     rdx, [.divisor]
+        call    bi_try_read_hex_256
+
+        lea     rcx, [.dividend]
+        lea     rdx, [.divisor]
+        lea     r8, [.quotient]
+        lea     r9, [.remainder]
+        call    test_context_start_measure
+        call    bi_div_rem_256_256
+        call    test_context_end_measure
+
+        mov     rcx, [.expected_quotient_hex]
+        lea     rdx, [.quotient]
+        call    bi_assert_equal_hex_256
+
+        mov     rcx, [.expected_remainder_hex]
+        lea     rdx, [.remainder]
+        call    bi_assert_equal_hex_256
+
+        jmp     .pass
+
+.fail:
+        leave
+        stc
+        ret
+.pass:
+        leave
+        clc
+        ret
+
+
+__bi_div_rem_256_256_test:
+        lea     rcx, [.dividend_hex]
+        lea     rdx, [.divisor_hex]
+        lea     r8, [.expected_quotient_hex]
+        lea     r9, [.expected_remainder_hex]
+        call    __bi_div_rem_256_256_test_core
+        ret
+.dividend_hex       db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
+.divisor_hex        db '000000000000000006e3be8abd2e089ed812475be9b51c3cfcc1a04fafa2ddb6'
+.expected_quotient_hex   db '00000000000000000000000000000000000000000000001dd15d2c949aeda9ea'
+.expected_remainder_hex  db '0000000000000000027d46af53ee1002fbb6e3e86950400123835264ed349189'
+
+
+macro BigIntegerDivRemTests bits, dbits {
 
 BigIntegerDivRem bits, dbits
 
@@ -31,14 +99,14 @@ end virtual
         call    __bi_div_rem_#bits
         call    test_context_end_measure
 
-        lea     rax, [.actual_quotient]
-        mov     rbx, __bi_div_rem_test.quotient_#bits
-        call    expect_bi_equals_hex_#bits
+        lea     rcx, [.actual_quotient]
+        mov     rdx, __bi_div_rem_test.quotient_#bits
+        call    bi_assert_equal__#bits
         jc      .failed
 
-        lea     rax, [.actual_reminder]
-        mov     rbx, __bi_div_rem_test.reminder_#bits
-        call    expect_bi_equals_hex_#bits
+        lea     rcx, [.actual_reminder]
+        mov     rdx, __bi_div_rem_test.reminder_#bits
+        call    bi_assert_equal__#bits
         jc      .failed
 
 .passed:

@@ -38,33 +38,6 @@ BigIntegerBitClear_#bits:
         ret
 }
 
-macro BigIntegerWin64BitSetProc bits {
-
-BigIntegerBitSet bits
-
-BigIntegerBitSet_#bits:
-        push     rax rbx
-        mov      rax, rcx
-        mov      rbx, rdx
-        call     __bi_bit_set_#bits
-        pop      rbx rax
-        ret
-}
-
-macro BigIntegerWin64DivRemProc bits, dbits {
-
-BigIntegerDivRem bits, dbits
-
-BigIntegerDivRem_#bits:
-        push     rax rbx rdi rsi
-        mov      rax, rcx
-        mov      rbx, rdx
-        mov      rdi, r8
-        mov      rsi, r9
-        call     __bi_div_rem_#bits
-        pop      rsi rdi rbx rax
-        ret
-}
 
 macro BigIntegerWin64ExtendHigh1Proc bits {
 
@@ -175,7 +148,6 @@ macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64BitCheckProc bits
         BigIntegerWin64BitClearProc bits
         BigIntegerWin64BitSetProc bits
-        BigIntegerWin64DivRemProc bits, dbits
         BigIntegerWin64ExtendHigh1Proc bits
         BigIntegerWin64ExtendHigh2Proc bits
         BigIntegerWin64ExtendHighU64Proc bits

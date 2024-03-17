@@ -105,10 +105,10 @@ if ~ definite bi_sub_assign_128_128
 ; rdx - right value
 ; rax - set to 1 if overflow
 bi_sub_assign_128_128:
-        mov     rax, [rcx]
-        sub     [rdx], rax
-        mov     rax, [rcx + 8]
-        sbb     [rdx + 8], rax
+        mov     rax, [rdx]
+        sub     [rcx], rax
+        mov     rax, [rdx + 8]
+        sbb     [rcx + 8], rax
         setc    al
         movzx   rax, al
         ret
@@ -122,14 +122,14 @@ if ~ definite bi_sub_assign_256_256
 ; rdx - right value
 ; rax - set to 1 if overflow
 bi_sub_assign_256_256:
-        mov     rax, [rcx]
-        sub     [rdx], rax
-        mov     rax, [rcx + 8]
-        sbb     [rdx + 8], rax
-        mov     rax, [rcx + 16]
-        sbb     [rdx + 16], rax
-        mov     rax, [rcx + 24]
-        sbb     [rdx + 24], rax
+        mov     rax, [rdx]
+        sub     [rcx], rax
+        mov     rax, [rdx + 8]
+        sbb     [rcx + 8], rax
+        mov     rax, [rdx + 16]
+        sbb     [rcx + 16], rax
+        mov     rax, [rdx + 24]
+        sbb     [rcx + 24], rax
         setc    al
         movzx   rax, al
         ret
@@ -144,22 +144,22 @@ if ~ definite bi_sub_assign_512_512
 ; r8 - result value
 ; rax - set to 1 if overflow
 bi_sub_assign_512_512:
-        mov     rax, [rcx]
-        sub     [rdx], rax
-        mov     rax, [rcx + 8]
-        sbb     [rdx + 8], rax
-        mov     rax, [rcx + 16]
-        sbb     [rdx + 16], rax
-        mov     rax, [rcx + 24]
-        sbb     [rdx + 24], rax
-        mov     rax, [rcx + 32]
-        sbb     [rdx + 32], rax
-        mov     rax, [rcx + 40]
-        sbb     [rdx + 40], rax
-        mov     rax, [rcx + 48]
-        sbb     [rdx + 48], rax
-        mov     rax, [rcx + 56]
-        sbb     [rdx + 56], rax
+        mov     rax, [rdx]
+        sub     [rcx], rax
+        mov     rax, [rdx + 8]
+        sbb     [rcx + 8], rax
+        mov     rax, [rdx + 16]
+        sbb     [rcx + 16], rax
+        mov     rax, [rdx + 24]
+        sbb     [rcx + 24], rax
+        mov     rax, [rdx + 32]
+        sbb     [rcx + 32], rax
+        mov     rax, [rdx + 40]
+        sbb     [rcx + 40], rax
+        mov     rax, [rdx + 48]
+        sbb     [rcx + 48], rax
+        mov     rax, [rdx + 56]
+        sbb     [rcx + 56], rax
         setc    al
         movzx   rax, al
         ret

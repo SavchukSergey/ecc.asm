@@ -1,12 +1,12 @@
 include 'bigint/add.tests.inc'
 include 'bigint/sub.tests.inc'
 include 'bigint/cmp.tests.inc'
-include 'bigint/mul.tests.inc'
 include 'bigint/shl.tests.inc'
 include 'bigint/shr.tests.inc'
+include 'bigint/mul.tests.inc'
+include 'bigint/div_rem.tests.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
-;include 'bigint/div_rem.tests.inc'
 ;include 'bigint/extend_high.tests.inc'
 ;include 'bigint/extend_low.tests.inc'
 ;include 'bigint/one.tests.inc'
@@ -50,6 +50,10 @@ __bi_tests_128:
         db '<<= 1', 0
         dq __bi_shr_assign_128_1_test
         db '>>= 1', 0
+
+        dq __bi_shl_assign_128_test
+        db '<<=', 0
+
 
 ;        dq __bi_div_rem_test_#bits
 ;        db 'div_rem', 0
@@ -98,6 +102,9 @@ __bi_tests_256:
         dq __bi_shr_assign_256_1_test
         db '>>= 1', 0
 
+        dq __bi_shl_assign_256_test
+        db '<<=', 0
+
 ;todo: sub positive, sub equal
         dq __bi_sub_256_256_test
         db 'sub negative', 0
@@ -106,6 +113,9 @@ __bi_tests_256:
         db 'mul', 0
         dq __bi_mul_256_256_max_test
         db 'mul max', 0
+
+        dq __bi_div_rem_256_256_test
+        db 'div_rem', 0
 
         dq 0
 
@@ -126,6 +136,9 @@ __bi_tests_512:
         db '<<= 1', 0
         dq __bi_shr_assign_512_1_test
         db '>>= 1', 0
+
+        dq __bi_shl_assign_512_test
+        db '<<=', 0
 
 ;todo: sub positive, sub equal
         dq __bi_sub_512_512_test
@@ -151,8 +164,6 @@ macro BigIntegerTests bits, dbits {
 ;BigIntegerOneTests bits
 ;BigIntegerReadHexTests bits
 ;BigIntegerRndTests bits
-;BigIntegerSubTests bits
-;BigIntegerZeroTests bits
 }
 
 ;BigIntegerTests 128, 256

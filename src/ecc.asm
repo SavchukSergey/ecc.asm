@@ -60,6 +60,10 @@ section '.edata' export data readable
          bi_shl_assign_256_1, 'bi_shl_assign_256_1', \
          bi_shl_assign_512_1, 'bi_shl_assign_512_1', \
 \
+         bi_shl_assign_128, 'bi_shl_assign_128', \
+         bi_shl_assign_256, 'bi_shl_assign_256', \
+         bi_shl_assign_512, 'bi_shl_assign_512', \
+\
          bi_shr_assign_128_1, 'bi_shr_assign_128_1', \
          bi_shr_assign_256_1, 'bi_shr_assign_256_1', \
          bi_shr_assign_512_1, 'bi_shr_assign_512_1', \
@@ -67,8 +71,12 @@ section '.edata' export data readable
          bi_mul_64_64, 'bi_mul_64_64', \
          bi_mul_128_128, 'bi_mul_128_128', \
          bi_mul_256_256, 'bi_mul_256_256', \
-         bi_mul_512_512, 'bi_mul_512_512'
-
+         bi_mul_512_512, 'bi_mul_512_512' ,\
+\
+         bi_div_rem_128_128, 'bi_div_rem_128_128', \
+         bi_div_rem_256_256, 'bi_div_rem_256_256', \
+         bi_div_rem_512_512, 'bi_div_rem_512_512'
+;\
 ;\
 ;         BigIntegerBitCheck_128, 'bi128_bit_check', \
 ;         BigIntegerBitCheck_256, 'bi256_bit_check', \
@@ -81,10 +89,6 @@ section '.edata' export data readable
 ;         BigIntegerBitSet_128, 'bi128_bit_set', \
 ;         BigIntegerBitSet_256, 'bi256_bit_set', \
 ;;         BigIntegerBitSet_512, 'bi512_bit_set', \
-;\
-;         BigIntegerDivRem_128, 'bi128_div_rem', \
-;         BigIntegerDivRem_256, 'bi256_div_rem', \
-;         BigIntegerDivRem_512, 'bi512_div_rem', \
 ;\
 ;         BigIntegerExtendHigh1_128, 'bi128_extend_bi64_high', \
 ;         BigIntegerExtendHigh1_256, 'bi256_extend_bi128_high', \

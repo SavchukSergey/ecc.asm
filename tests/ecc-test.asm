@@ -52,23 +52,21 @@ end virtual
         enter   .locals_end - .locals_start, 0
         lea     TestContextReg, [.result]
         mov     [calibration_shift], 0
-        dec     [calibration_shift]
-        mov     rcx, 1000
+        mov     rbx, -1
+        mov     rcx, 10000
 .count_loop:
-        push    rcx
+        push    rbx rcx
         call    test_context_init
         call    [.empty_ref]
-        pop     rcx
+        pop     rcx rbx
 
-        mov     rax, [.result.measure_end]
-        sub     rax, [.result.measure_start]
+        mov     rax, [.result.measures_avg]
 
-        cmp     rax, [calibration_shift]
-        jae     .longer
-        mov     [calibration_shift], rax
-.longer:
+        cmp     rax, rbx
+        cmovb   rbx, rax
         loop    .count_loop
 
+        mov     [calibration_shift], rbx
         leave
         ret
 .empty:
@@ -150,9 +148,7 @@ end virtual
         inc     qword [.test_successes]
         jmp     .count_continue
 .count_continue:
-        mov     rax, [.result.measure_end]
-        sub     rax, [.result.measure_start]
-        sub     rax, [calibration_shift]
+        mov     rax, [.result.measures_avg]
         mov     [.test_duration], rax
 
         mov     rax, [.test_min_duration]

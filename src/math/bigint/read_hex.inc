@@ -1,3 +1,5 @@
+;todo: swap params so first param is writeable using same approach everywhere
+
 include '../../text/hex_parse_reverse_bytes.inc'
 
 if ~ definite __bi_read_hex_128
