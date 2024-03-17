@@ -1,4 +1,4 @@
-include '../src/math/bigint/mul/mul.inc'
+include '../src/math/bigint/mul/index.inc'
 include '../../assert.inc'
 
 __bi_mul_128_128_test_core:

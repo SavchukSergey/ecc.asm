@@ -1,4 +1,4 @@
-include '../src/math/bigint/add/add.inc'
+include '../src/math/bigint/add/index.inc'
 include '../../assert.inc'
 
 __bi_add_128_128_test:

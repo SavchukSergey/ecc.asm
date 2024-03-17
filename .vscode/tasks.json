@@ -6,7 +6,7 @@
         {
             "label": "echo",
             "type": "process",
-            "command": "fasm.exe",
+            "command": "${env:FASM_PATH}/fasm.exe",
             "args": [
                 "${workspaceFolder}/src/ecc.asm"
             ],

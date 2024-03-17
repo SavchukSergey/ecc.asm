@@ -12,13 +12,13 @@ endp
 
 
 include 'math/bigint.inc'
-include 'math/bigint/zero/zero.inc'
-include 'math/bigint/add/add.inc'
-include 'math/bigint/sub/sub.inc'
+include 'math/bigint/zero/index.inc'
+include 'math/bigint/add/index.inc'
+include 'math/bigint/sub/index.inc'
 include 'math/bigint/cmp/cmp.inc'
 include 'math/bigint/shl/shl.inc'
 include 'math/bigint/shr/shr.inc'
-include 'math/bigint/mul/mul.inc'
+include 'math/bigint/mul/index.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable

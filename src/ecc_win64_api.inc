@@ -147,7 +147,6 @@ BigIntegerRnd_#bits:
 macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64BitCheckProc bits
         BigIntegerWin64BitClearProc bits
-        BigIntegerWin64BitSetProc bits
         BigIntegerWin64ExtendHigh1Proc bits
         BigIntegerWin64ExtendHigh2Proc bits
         BigIntegerWin64ExtendHighU64Proc bits
