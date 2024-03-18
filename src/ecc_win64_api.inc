@@ -3,7 +3,6 @@ include 'math/bigint/extend_low/extend_low_u64.inc'
 include 'math/bigint/extend_high/extend_high_1.inc'
 include 'math/bigint/extend_high/extend_high_2.inc'
 include 'math/bigint/extend_high/extend_high_u64.inc'
-include 'math/bigint/one/one.inc'
 include 'math/bigint/rnd/rnd.inc'
 include 'math/bigint/read_hex.inc'
 
@@ -99,19 +98,6 @@ BigIntegerExtendLowU64_#bits:
         ret
 }
 
-
-macro BigIntegerWin64OneProc bits {
-
-BigIntegerOne bits
-
-BigIntegerOne_#bits:
-        push     rax
-        mov      rax, rcx
-        call     __bi_one_#bits
-        pop      rax
-        ret
-}
-
 macro BigIntegerWin64RndProc bits {
 
 BigIntegerRnd bits
@@ -134,7 +120,6 @@ macro BigIntegerWin64Procs bits, dbits {
         BigIntegerWin64ExtendLow1Proc bits
         BigIntegerWin64ExtendLow2Proc bits
         BigIntegerWin64ExtendLowU64Proc bits
-        BigIntegerWin64OneProc bits
         BigIntegerWin64RndProc bits
 }
 

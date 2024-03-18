@@ -13,11 +13,12 @@ endp
 
 include 'math/bigint.inc'
 include 'math/bigint/zero/index.inc'
+include 'math/bigint/one/index.inc'
 include 'math/bigint/add/index.inc'
 include 'math/bigint/sub/index.inc'
 include 'math/bigint/cmp/index.inc'
 include 'math/bigint/shl/index.inc'
-include 'math/bigint/shr/shr.inc'
+include 'math/bigint/shr/index.inc'
 include 'math/bigint/mul/index.inc'
 include 'math/bigint/div_rem/div_rem.inc'
 include 'math/bigint/bit_clear/bi_bit_clear_256.inc'
@@ -33,6 +34,11 @@ section '.edata' export data readable
          bi_zero_256, 'bi_zero_256', \
          bi_zero_512, 'bi_zero_512', \
          bi_zero_1024, 'bi_zero_1024', \
+\
+         bi_one_128, 'bi_one_128', \
+         bi_one_256, 'bi_one_256', \
+         bi_one_512, 'bi_one_512', \
+         bi_one_1024, 'bi_one_1024', \
 \
          bi_try_read_hex_128, 'bi_try_read_hex_128', \
          bi_try_read_hex_256, 'bi_try_read_hex_256', \
@@ -128,23 +134,7 @@ section '.edata' export data readable
 ;         BigIntegerExtendLowU64_256, 'bi256_extend_u64_low', \
 ;         BigIntegerExtendLowU64_512, 'bi512_extend_u64_low', \
 ;\
-;         BigIntegerMul_128, 'bi128_mul', \
-;         BigIntegerMul_256, 'bi256_mul', \
-;         BigIntegerMul_512, 'bi512_mul', \
-;\
-;         BigIntegerOne_128, 'bi128_one', \
-;         BigIntegerOne_256, 'bi256_one', \
-;         BigIntegerOne_512, 'bi512_one', \
-;\
 ;         BigIntegerRnd_128, 'bi128_rnd', \
 ;         BigIntegerRnd_256, 'bi256_rnd', \
 ;         BigIntegerRnd_512, 'bi512_rnd', \
 ;\
-;         BigIntegerSub_128, 'bi128_sub', \
-;         BigIntegerSub_256, 'bi256_sub', \
-;         BigIntegerSub_512, 'bi512_sub', \
-;\
-;         BigIntegerZero_128, 'bi128_zero', \
-;         BigIntegerZero_256, 'bi256_zero', \
-;         BigIntegerZero_512, 'bi512_zero'
-;
