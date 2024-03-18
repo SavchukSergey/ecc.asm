@@ -2,10 +2,12 @@ if ~ definite bi_sub_256_256
 
 ;Subtracts two bi256 values
 ;input
-; rcx - left value
-; rdx - right value
-; r8 - result value
-; rax - set to 1 if overflow
+;  rcx - left value
+;  rdx - right value
+;  r8 - result value
+;output
+;  rax - set to 1 if borrow
+;  CF - set to 1 if borrow
 bi_sub_256_256:
         mov     rax, [rcx]
         sub     rax, [rdx]

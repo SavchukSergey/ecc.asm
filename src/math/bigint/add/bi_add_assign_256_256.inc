@@ -6,6 +6,7 @@ if ~ definite bi_add_assign_256_256
 ;  rdx - right value
 ;output:
 ;  rax - set to 1 if overflow
+;  CF - set to 1 if overflow
 bi_add_assign_256_256:
         mov     rax, [rdx]
         add     [rcx], rax

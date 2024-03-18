@@ -22,6 +22,8 @@ include 'math/bigint/mul/index.inc'
 include 'math/bigint/div_rem/div_rem.inc'
 include 'math/bigint/bit_clear/bi_bit_clear_256.inc'
 include 'math/bigint/bit_set/bi_bit_set_256.inc'
+include 'math/bigint/mod_add/index.inc'
+include 'math/bigint/mod_sub/index.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
@@ -84,7 +86,12 @@ section '.edata' export data readable
 \
          bi_bit_set_256, 'bi_bit_set_256',\
 \
-         bi_extend_512_256, 'bi_extend_512_256'
+         bi_extend_512_256, 'bi_extend_512_256',\
+\
+         bi_mod_add_assign_256_256, 'bi_mod_add_assign_256_256',\
+\
+         bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256'
+
 
 ;\
 ;\
