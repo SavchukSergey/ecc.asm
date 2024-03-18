@@ -2,7 +2,7 @@ include '../src/console/write_u128_hex.inc'
 include '../src/console/write_u256_hex.inc'
 include '../src/console/write_u512_hex.inc'
 include '../src/console/write_u1024_hex.inc'
-include '../src/math/bigint/cmp/cmp.inc'
+include '../src/math/bigint/cmp/index.inc'
 
 if ~ definite bi_assert_equal_128
 

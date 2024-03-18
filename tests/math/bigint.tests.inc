@@ -5,6 +5,7 @@ include 'bigint/shl.tests.inc'
 include 'bigint/shr.tests.inc'
 include 'bigint/mul.tests.inc'
 include 'bigint/div_rem.tests.inc'
+include 'bigint/zero.tests.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
 ;include 'bigint/extend_high.tests.inc'
@@ -12,10 +13,12 @@ include 'bigint/div_rem.tests.inc'
 ;include 'bigint/one.tests.inc'
 ;include 'bigint/read_hex.tests.inc'
 ;include 'bigint/rnd.tests.inc'
-;include 'bigint/zero.tests.inc'
 
 align 16
 __bi_tests_128:
+        dq __bi_zero_128_test
+        db 'zero', 0
+
         dq __bi_add_128_128_test
         db 'add', 0
 
@@ -80,8 +83,6 @@ __bi_tests_128:
 ;        db 'read_hex', 0
 ;        dq __bi_rnd_test_#bits
 ;        db 'rnd', 0
-;        dq __bi_zero_test_#bits
-;        db 'zero', 0
         dq 0
 
 align 16
@@ -118,6 +119,8 @@ __bi_tests_256:
         db 'div_rem', 0
 
         dq 0
+;        dq __bi_zero_test_#bits
+;        db 'zero', 0
 
 align 16
 __bi_tests_512:

@@ -15,8 +15,8 @@ include 'math/bigint.inc'
 include 'math/bigint/zero/index.inc'
 include 'math/bigint/add/index.inc'
 include 'math/bigint/sub/index.inc'
-include 'math/bigint/cmp/cmp.inc'
-include 'math/bigint/shl/shl.inc'
+include 'math/bigint/cmp/index.inc'
+include 'math/bigint/shl/index.inc'
 include 'math/bigint/shr/shr.inc'
 include 'math/bigint/mul/index.inc'
 include 'ecc_win64_api.inc'
@@ -75,7 +75,12 @@ section '.edata' export data readable
 \
          bi_div_rem_128_128, 'bi_div_rem_128_128', \
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
-         bi_div_rem_512_512, 'bi_div_rem_512_512'
+         bi_div_rem_512_512, 'bi_div_rem_512_512', \
+\
+         bi_bit_set_256, 'bi_bit_set_256',\
+\
+         bi_extend_512_256, 'bi_extend_512_256'
+
 ;\
 ;\
 ;         BigIntegerBitCheck_128, 'bi128_bit_check', \
@@ -87,7 +92,6 @@ section '.edata' export data readable
 ;         BigIntegerBitClear_512, 'bi512_bit_clear', \
 ;\
 ;         BigIntegerBitSet_128, 'bi128_bit_set', \
-;         BigIntegerBitSet_256, 'bi256_bit_set', \
 ;;         BigIntegerBitSet_512, 'bi512_bit_set', \
 ;\
 ;         BigIntegerExtendHigh1_128, 'bi128_extend_bi64_high', \
@@ -103,7 +107,6 @@ section '.edata' export data readable
 ;         BigIntegerExtendHighU64_512, 'bi512_extend_u64_high', \
 ;\
 ;         BigIntegerExtendLow1_128, 'bi128_extend_bi64_low', \
-;         BigIntegerExtendLow1_256, 'bi256_extend_bi128_low', \
 ;         BigIntegerExtendLow1_512, 'bi512_extend_bi256_low', \
 ;\
 ;         BigIntegerExtendLow2_128, 'bi128_extend_bi32_low', \

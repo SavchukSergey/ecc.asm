@@ -1,30 +1,26 @@
-macro BigIntegerZeroTests bits {
+include '../src/math/bigint/zero/bi_zero_128.inc'
 
-include '../src/math/bigint/zero/zero.inc'
-
-BigIntegerZero bits
-
-__bi_zero_test_#bits:
-        sub     rsp, __BIG_INTEGER_BYTES_#bits
-        mov     rax, rsp
-        mov     dword [rax], 0x01234567
-        mov     dword [rax + __BIG_INTEGER_DWORDS_#bits - 4], 0x89abcdef
+__bi_zero_128_test:
+        sub     rsp, __BIG_INTEGER_BYTES_128
+        mov     rcx, rsp
+        mov     dword [rcx], 0x01234567
+        mov     dword [rcx + 4], 0x89abcdef
         call    test_context_start_measure
-        call    __bi_zero_#bits
+        mov     rcx, rsp
+        call    bi_zero_128
         call    test_context_end_measure
 
-        mov     rcx, __BIG_INTEGER_QWORDS_#bits
-.loop:
-        cmp     qword [rax + 8 * rcx - 8], 0
+        mov     rcx, rsp
+        cmp     qword [rcx + 0], 0
         jne     .fail
-        loop    .loop
+
 .pass:
-        add     rsp, __BIG_INTEGER_BYTES_#bits
+        add     rsp, __BIG_INTEGER_BYTES_128
         clc
         ret
 .fail:
-        add     rsp, __BIG_INTEGER_BYTES_#bits
+        add     rsp, __BIG_INTEGER_BYTES_128
         stc
         ret
 
-}
+

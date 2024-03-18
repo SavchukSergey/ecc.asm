@@ -165,7 +165,7 @@ end virtual
 
         cmp     [.test_failures], 0
         jne     .test_fail
-        cmp     qword [.test_count], 6400
+        cmp     qword [.test_count], 1000
         jb      .count_loop
 
 

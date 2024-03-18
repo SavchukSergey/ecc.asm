@@ -1,4 +1,4 @@
-include '../src/math/bigint/shl/shl.inc'
+include '../src/math/bigint/shl/index.inc'
 include '../../assert.inc'
 
 __bi_shl_assign_128_1_test:

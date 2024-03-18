@@ -1,4 +1,4 @@
-include '../src/math/bigint/cmp/cmp.inc'
+include '../src/math/bigint/cmp/index.inc'
 include '../src/math/bigint/read_hex.inc'
 
 __bi_cmp_test_128:
