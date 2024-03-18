@@ -3,8 +3,6 @@ macro BigIntegerBitClearTests bits {
 include '../src/math/bigint/bit_clear/bit_clear.inc'
 include '../src/mem/fill_static.inc'
 
-BigIntegerBitClear bits
-
 __bi_bit_clear_first_test_#bits:
         sub     rsp, __BIG_INTEGER_BYTES_#bits
 

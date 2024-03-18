@@ -1,6 +1,4 @@
 include 'math/bigint/bit_check/bit_check.inc'
-include 'math/bigint/bit_clear/bit_clear.inc'
-include 'math/bigint/div_rem/div_rem.inc'
 include 'math/bigint/extend_low/extend_low_u64.inc'
 include 'math/bigint/extend_high/extend_high_1.inc'
 include 'math/bigint/extend_high/extend_high_2.inc'
@@ -21,20 +19,6 @@ BigIntegerBitCheck_#bits:
         pop      rbx rax
         ret
 }
-
-macro BigIntegerWin64BitClearProc bits {
-
-BigIntegerBitClear bits
-
-BigIntegerBitClear_#bits:
-        push     rax rbx
-        mov      rax, rcx
-        mov      rbx, rdx
-        call     __bi_bit_clear_#bits
-        pop      rbx rax
-        ret
-}
-
 
 macro BigIntegerWin64ExtendHigh1Proc bits {
 

@@ -19,6 +19,9 @@ include 'math/bigint/cmp/index.inc'
 include 'math/bigint/shl/index.inc'
 include 'math/bigint/shr/shr.inc'
 include 'math/bigint/mul/index.inc'
+include 'math/bigint/div_rem/div_rem.inc'
+include 'math/bigint/bit_clear/bi_bit_clear_256.inc'
+include 'math/bigint/bit_set/bi_bit_set_256.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
@@ -77,6 +80,8 @@ section '.edata' export data readable
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
          bi_div_rem_512_512, 'bi_div_rem_512_512', \
 \
+         bi_bit_clear_256, 'bi_bit_clear_256',\
+\
          bi_bit_set_256, 'bi_bit_set_256',\
 \
          bi_extend_512_256, 'bi_extend_512_256'
@@ -88,7 +93,6 @@ section '.edata' export data readable
 ;         BigIntegerBitCheck_512, 'bi512_bit_check', \
 ;;\
 ;         BigIntegerBitClear_128, 'bi128_bit_clear', \
-;         BigIntegerBitClear_256, 'bi256_bit_clear', \
 ;         BigIntegerBitClear_512, 'bi512_bit_clear', \
 ;\
 ;         BigIntegerBitSet_128, 'bi128_bit_set', \
