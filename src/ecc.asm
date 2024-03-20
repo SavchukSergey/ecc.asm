@@ -17,6 +17,8 @@ include 'math/bigint/is_zero/index.inc'
 include 'math/bigint/one/index.inc'
 include 'math/bigint/add/index.inc'
 include 'math/bigint/sub/index.inc'
+include 'math/bigint/inc/index.inc'
+include 'math/bigint/dec/index.inc'
 include 'math/bigint/cmp/index.inc'
 include 'math/bigint/shl/index.inc'
 include 'math/bigint/shr/index.inc'
@@ -29,6 +31,7 @@ include 'math/bigint/bit_set/index.inc'
 include 'math/bigint/bit_check/index.inc'
 include 'math/bigint/mod_add/index.inc'
 include 'math/bigint/mod_sub/index.inc'
+include 'math/bigint/mod_mul/index.inc'
 include 'math/bigint/mod_inverse/index.inc'
 include 'math/bigint/euclid_ext/index.inc'
 include 'ecc_win64_api.inc'
@@ -69,6 +72,10 @@ section '.edata' export data readable
          bi_sub_assign_128_128, 'bi_sub_assign_128_128', \
          bi_sub_assign_256_256, 'bi_sub_assign_256_256', \
          bi_sub_assign_512_512, 'bi_sub_assign_512_512', \
+\
+         bi_inc_assign_256, 'bi_inc_assign_256', \
+\
+         bi_dec_assign_256, 'bi_dec_assign_256', \
 \
          bi_cmp_128_128, 'bi_cmp_128_128', \
          bi_cmp_256_256, 'bi_cmp_256_256', \
@@ -121,7 +128,11 @@ section '.edata' export data readable
 \
          bi_mod_add_assign_256_256, 'bi_mod_add_assign_256_256',\
 \
+         bi_mod_double_assign_256_256, 'bi_mod_double_assign_256_256',\
+\
          bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256',\
+\
+         bi_mod_mul_256_256, 'bi_mod_mul_256_256',\
 \
          bi_mod_inverse_256, 'bi_mod_inverse_256',\
 \
