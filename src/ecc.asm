@@ -13,6 +13,7 @@ endp
 
 include 'math/bigint.inc'
 include 'math/bigint/zero/index.inc'
+include 'math/bigint/is_zero/index.inc'
 include 'math/bigint/one/index.inc'
 include 'math/bigint/add/index.inc'
 include 'math/bigint/sub/index.inc'
@@ -20,11 +21,16 @@ include 'math/bigint/cmp/index.inc'
 include 'math/bigint/shl/index.inc'
 include 'math/bigint/shr/index.inc'
 include 'math/bigint/mul/index.inc'
+include 'math/bigint/mul_low/index.inc'
+include 'math/bigint/extend_low/index.inc'
 include 'math/bigint/div_rem/div_rem.inc'
-include 'math/bigint/bit_clear/bi_bit_clear_256.inc'
-include 'math/bigint/bit_set/bi_bit_set_256.inc'
+include 'math/bigint/bit_clear/index.inc'
+include 'math/bigint/bit_set/index.inc'
+include 'math/bigint/bit_check/index.inc'
 include 'math/bigint/mod_add/index.inc'
 include 'math/bigint/mod_sub/index.inc'
+include 'math/bigint/mod_inverse/index.inc'
+include 'math/bigint/euclid_ext/index.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
@@ -39,6 +45,8 @@ section '.edata' export data readable
          bi_one_256, 'bi_one_256', \
          bi_one_512, 'bi_one_512', \
          bi_one_1024, 'bi_one_1024', \
+\
+         bi_is_zero_256, 'bi_is_zero_256', \
 \
          bi_try_read_hex_128, 'bi_try_read_hex_128', \
          bi_try_read_hex_256, 'bi_try_read_hex_256', \
@@ -84,19 +92,40 @@ section '.edata' export data readable
          bi_mul_256_256, 'bi_mul_256_256', \
          bi_mul_512_512, 'bi_mul_512_512' ,\
 \
+         bi_mul_low_64_64, 'bi_mul_low_64_64', \
+         bi_mul_low_128_128, 'bi_mul_low_128_128', \
+         bi_mul_low_256_256, 'bi_mul_low_256_256', \
+         bi_mul_low_512_512, 'bi_mul_low_512_512' ,\
+\
          bi_div_rem_128_128, 'bi_div_rem_128_128', \
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
          bi_div_rem_512_512, 'bi_div_rem_512_512', \
 \
+         bi_bit_clear_128, 'bi_bit_clear_128',\
          bi_bit_clear_256, 'bi_bit_clear_256',\
+         bi_bit_clear_512, 'bi_bit_clear_512',\
 \
+         bi_bit_set_128, 'bi_bit_set_128',\
          bi_bit_set_256, 'bi_bit_set_256',\
+         bi_bit_set_512, 'bi_bit_set_512',\
 \
+         bi_bit_check_128, 'bi_bit_check_128',\
+         bi_bit_check_256, 'bi_bit_check_256',\
+         bi_bit_check_512, 'bi_bit_check_512',\
+\
+         bi_extend_128_64, 'bi_extend_128_64',\
+         bi_extend_256_64, 'bi_extend_256_64',\
+         bi_extend_256_128, 'bi_extend_256_128',\
+         bi_extend_512_64, 'bi_extend_512_64',\
          bi_extend_512_256, 'bi_extend_512_256',\
 \
          bi_mod_add_assign_256_256, 'bi_mod_add_assign_256_256',\
 \
-         bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256'
+         bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256',\
+\
+         bi_mod_inverse_256, 'bi_mod_inverse_256',\
+\
+         bi_euclid_ext_256, 'bi_euclid_ext_256'
 
 
 ;\
@@ -104,12 +133,6 @@ section '.edata' export data readable
 ;         BigIntegerBitCheck_128, 'bi128_bit_check', \
 ;         BigIntegerBitCheck_256, 'bi256_bit_check', \
 ;         BigIntegerBitCheck_512, 'bi512_bit_check', \
-;;\
-;         BigIntegerBitClear_128, 'bi128_bit_clear', \
-;         BigIntegerBitClear_512, 'bi512_bit_clear', \
-;\
-;         BigIntegerBitSet_128, 'bi128_bit_set', \
-;;         BigIntegerBitSet_512, 'bi512_bit_set', \
 ;\
 ;         BigIntegerExtendHigh1_128, 'bi128_extend_bi64_high', \
 ;         BigIntegerExtendHigh1_256, 'bi256_extend_bi128_high', \
@@ -122,17 +145,6 @@ section '.edata' export data readable
 ;         BigIntegerExtendHighU64_128, 'bi128_extend_u64_high', \
 ;         BigIntegerExtendHighU64_256, 'bi256_extend_u64_high', \
 ;         BigIntegerExtendHighU64_512, 'bi512_extend_u64_high', \
-;\
-;         BigIntegerExtendLow1_128, 'bi128_extend_bi64_low', \
-;         BigIntegerExtendLow1_512, 'bi512_extend_bi256_low', \
-;\
-;         BigIntegerExtendLow2_128, 'bi128_extend_bi32_low', \
-;         BigIntegerExtendLow2_256, 'bi256_extend_bi64_low', \
-;         BigIntegerExtendLow2_512, 'bi512_extend_bi128_low', \
-;\
-;         BigIntegerExtendLowU64_128, 'bi128_extend_u64_low', \
-;         BigIntegerExtendLowU64_256, 'bi256_extend_u64_low', \
-;         BigIntegerExtendLowU64_512, 'bi512_extend_u64_low', \
 ;\
 ;         BigIntegerRnd_128, 'bi128_rnd', \
 ;         BigIntegerRnd_256, 'bi256_rnd', \

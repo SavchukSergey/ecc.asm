@@ -27,3 +27,15 @@ BigIntegerCode 512
 BigIntegerCode 1024
 
 
+struc BezoutIdentity256 {
+  .a rb __BIG_INTEGER_BYTES_256
+  .b rb __BIG_INTEGER_BYTES_256
+  .x rb __BIG_INTEGER_BYTES_256
+  .y rb __BIG_INTEGER_BYTES_256
+}
+
+BezoutIdentity256.sizeof = 4 * __BIG_INTEGER_BYTES_256
+
+virtual at 0
+  BezoutIdentity256 BezoutIdentity256
+end virtual

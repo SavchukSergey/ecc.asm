@@ -3,11 +3,13 @@ include 'bigint/sub.tests.inc'
 include 'bigint/cmp.tests.inc'
 include 'bigint/shl.tests.inc'
 include 'bigint/shr.tests.inc'
-include 'bigint/mul.tests.inc'
+include 'bigint/mul/index.inc'
+include 'bigint/mul_low/index.inc'
 include 'bigint/div_rem.tests.inc'
 include 'bigint/zero.tests.inc'
 include 'bigint/mod_add/index.inc'
 include 'bigint/mod_sub.tests.inc'
+include 'bigint/mod_inverse/index.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
 ;include 'bigint/extend_high.tests.inc'
@@ -77,9 +79,13 @@ __bi_tests_128:
 
 	dq __bi_mul_128_128_test
 	db 'mul', 0
-
 	dq __bi_mul_128_128_max_test
 	db 'mul max', 0
+
+	dq __bi_mul_low_128_128_test
+	db 'mul_low', 0
+	dq __bi_mul_low_128_128_max_test
+	db 'mul_low max', 0
 
 ;	 dq __bi_read_hex_test_#bits
 ;	 db 'read_hex', 0
@@ -116,6 +122,10 @@ __bi_tests_256:
 	db 'mul', 0
 	dq __bi_mul_256_256_max_test
 	db 'mul max', 0
+	dq __bi_mul_low_256_256_test
+	db 'mul_low', 0
+	dq __bi_mul_low_256_256_max_test
+	db 'mul_low max', 0
 
 	dq __bi_div_rem_256_256_test
 	db 'div_rem', 0
@@ -124,6 +134,8 @@ __bi_tests_256:
 	db 'mod_add', 0
 	dq __bi_mod_sub_assign_256_256_test
 	db 'mod_sub', 0
+	dq __bi_mod_inverse_256_test
+	db 'mod_inverse', 0
 	dq 0
 ;	 dq __bi_zero_test_#bits
 ;	 db 'zero', 0
@@ -157,6 +169,11 @@ __bi_tests_512:
 	db 'mul', 0
 	dq __bi_mul_512_512_max_test
 	db 'mul max', 0
+
+	dq __bi_mul_low_512_512_test
+	db 'mul_low', 0
+	dq __bi_mul_low_512_512_max_test
+	db 'mul_low max', 0
 
 	dq 0
 
