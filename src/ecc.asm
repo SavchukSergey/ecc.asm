@@ -25,7 +25,6 @@ include 'math/bigint/shr/index.inc'
 include 'math/bigint/mul/index.inc'
 include 'math/bigint/mul_low/index.inc'
 include 'math/bigint/extend_low/index.inc'
-include 'math/bigint/div_rem/div_rem.inc'
 include 'math/bigint/bit_clear/index.inc'
 include 'math/bigint/bit_set/index.inc'
 include 'math/bigint/bit_check/index.inc'
@@ -34,6 +33,7 @@ include 'math/bigint/mod_sub/index.inc'
 include 'math/bigint/mod_mul/index.inc'
 include 'math/bigint/mod_inverse/index.inc'
 include 'math/bigint/euclid_ext/index.inc'
+include 'math/bigint/index.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
@@ -90,6 +90,8 @@ section '.edata' export data readable
          bi_shl_assign_256, 'bi_shl_assign_256', \
          bi_shl_assign_512, 'bi_shl_assign_512', \
 \
+         bi_shl_256, 'bi_shl_256', \
+\
          bi_shr_assign_128_1, 'bi_shr_assign_128_1', \
          bi_shr_assign_256_1, 'bi_shr_assign_256_1', \
          bi_shr_assign_512_1, 'bi_shr_assign_512_1', \
@@ -119,6 +121,10 @@ section '.edata' export data readable
          bi_bit_check_128, 'bi_bit_check_128',\
          bi_bit_check_256, 'bi_bit_check_256',\
          bi_bit_check_512, 'bi_bit_check_512',\
+\
+         bi_lzcnt_128, 'bi_lzcnt_128',\
+         bi_lzcnt_256, 'bi_lzcnt_256',\
+         bi_lzcnt_512, 'bi_lzcnt_512',\
 \
          bi_extend_128_64, 'bi_extend_128_64',\
          bi_extend_256_64, 'bi_extend_256_64',\

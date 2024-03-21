@@ -1,3 +1,4 @@
+include 'asserts/bi_assert_equal_64.inc'
 include 'asserts/bi_assert_equal_128.inc'
 include 'asserts/bi_assert_equal_256.inc'
 include 'asserts/bi_assert_equal_512.inc'

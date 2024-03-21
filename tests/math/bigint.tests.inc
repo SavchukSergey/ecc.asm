@@ -11,6 +11,7 @@ include 'bigint/mod_add/index.inc'
 include 'bigint/mod_sub.tests.inc'
 include 'bigint/mod_mul/index.inc'
 include 'bigint/mod_inverse/index.inc'
+include 'bigint/lzcnt/index.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
 ;include 'bigint/extend_high.tests.inc'
@@ -139,6 +140,10 @@ __bi_tests_256:
 	db 'mod_mul', 0
 	dq __bi_mod_inverse_256_test
 	db 'mod_inverse', 0
+
+	dq __bi_lzcnt_256_test
+	db 'lzcnt', 0
+
 	dq 0
 ;	 dq __bi_zero_test_#bits
 ;	 db 'zero', 0

@@ -1,0 +1,1 @@
+include 'bi_lzcnt_256_test.inc'
