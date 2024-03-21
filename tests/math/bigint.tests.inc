@@ -192,7 +192,6 @@ macro BigIntegerTests bits, dbits {
 
 ;BigIntegerBitSetTests bits
 ;BigIntegerBitClearTests bits
-;BigIntegerDivRemTests bits, dbits
 ;BigIntegerExtendHighTests bits, dbits
 ;BigIntegerExtendLowTests bits, dbits
 ;BigIntegerOneTests bits

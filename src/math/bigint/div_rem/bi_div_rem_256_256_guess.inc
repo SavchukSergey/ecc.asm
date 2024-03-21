@@ -4,6 +4,8 @@ include '../lzcnt/bi_lzcnt_256.inc'
 include '../zero/bi_zero_256.inc'
 include '../copy/bi_copy_256.inc'
 include '../shl/bi_shl_assign_256.inc'
+include '../mul/bi_mul_256_64.inc'
+include '../extend_low/bi_extend_256_64.inc'
 
 bi_div_rem_256_256_guess:
 virtual at rsp
@@ -21,6 +23,8 @@ virtual at rsp
   .remainder_shifted rb __BIG_INTEGER_BYTES_256
 
   .guess_u64 rq 1
+  .delta rb __BIG_INTEGER_BYTES_256
+  .guess_q rb __BIG_INTEGER_BYTES_256
   .correction rq 1
   label .locals_end
 end virtual
@@ -51,6 +55,11 @@ end virtual
 
 .loop:
         mov     rcx, [.remainder]
+        mov     rdx, [.divisor]
+        call    bi_cmp_256_256
+        jb      .loop_ok
+
+        mov     rcx, [.remainder]
         call    bi_lzcnt_256
         mov     [.remainder_lzcnt], rax
 
@@ -76,6 +85,38 @@ end virtual
         mov     [.correction], 0
 .correction_ok:
 
+        mov     rcx, [.divisor]
+        mov     rdx, [.guess_u64]
+        lea     r8, [.delta]
+        call    bi_mul_256_64
+
+        lea     rcx, [.guess_q]
+        mov     rdx, [.guess_u64]
+        lea     r8, [.delta]
+        call    bi_extend_256_64
+
+        neg     [.correction]
+        cmp     [.correction], 0
+        jae     .correction_2_ok
+
+        lea     rcx, [.delta]
+        mov     rdx, [.correction]
+        call    bi_shl_assign_512
+
+        lea     rcx, [.guess_q]
+        mov     rdx, [.correction]
+        call    bi_shl_assign_256
+
+.correction_2_ok:
+        mov     rcx, [.remainder]
+        lea     rdx, [.delta]
+        call    bi_sub_assign_256_256
+
+        mov     rcx, [.quotient]
+        lea     rdx, [.guess_q]
+        call    bi_add_assign_256_256
+        jmp     .loop
+.loop_ok:
         leave
         ret
 

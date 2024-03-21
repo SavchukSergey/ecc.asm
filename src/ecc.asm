@@ -97,7 +97,9 @@ section '.edata' export data readable
          bi_shr_assign_512_1, 'bi_shr_assign_512_1', \
 \
          bi_mul_64_64, 'bi_mul_64_64', \
+         bi_mul_128_64, 'bi_mul_128_64', \
          bi_mul_128_128, 'bi_mul_128_128', \
+         bi_mul_256_64, 'bi_mul_256_64', \
          bi_mul_256_256, 'bi_mul_256_256', \
          bi_mul_512_512, 'bi_mul_512_512' ,\
 \
