@@ -1,5 +1,6 @@
+include '../src/math/bigint/div_rem/bi_div_rem_256_256.inc'
 
-__bi_div_rem_256_256_test_core:
+__bi_div_rem_256_256_test:
 virtual at rsp
 .locals_start:
   .dividend_hex rq 1
@@ -13,6 +14,16 @@ virtual at rsp
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0
+
+        lea     rbx, [.cases]
+.loop:        
+        lea     rcx, [rbx]
+        lea     rdx, [rbx + 64]
+        lea     r8, [rbx + 128]
+        lea     r9, [rbx + 192]
+
+        push    rbx
+        
         mov     [.dividend_hex], rcx
         mov     [.divisor_hex], rdx
         mov     [.expected_quotient_hex], r8
@@ -37,37 +48,24 @@ end virtual
         mov     rcx, [.expected_quotient_hex]
         lea     rdx, [.quotient]
         call    bi_assert_equal_hex_256
+        jc      .fail
 
         mov     rcx, [.expected_remainder_hex]
         lea     rdx, [.remainder]
         call    bi_assert_equal_hex_256
+        jc      .fail
 
-        jmp     .pass
-
-.fail:
-        leave
-        stc
-        ret
-.pass:
-        leave
-        clc
-        ret
-
-
-__bi_div_rem_256_256_test:
-        lea     rbx, [.cases]
-.loop:        
-        lea     rcx, [rbx]
-        lea     rdx, [rbx + 64]
-        lea     r8, [rbx + 128]
-        lea     r9, [rbx + 192]
-
-        push    rbx
-        call    __bi_div_rem_256_256_test_core
         pop     rbx
         add     rbx, 256
         cmp     rbx, .cases_end
         jb      .loop
+.pass:
+        leave
+        clc
+        ret
+.fail:
+        leave
+        stc
         ret
 
 

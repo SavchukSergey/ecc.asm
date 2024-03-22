@@ -12,6 +12,7 @@ bi_assert_equal_1024:
         call    bi_cmp_1024_1024
         test    rax, rax
         jnz     .fail
+        clc
         jmp     .end
 .fail:
         lea     rsi, [.msg_1]
@@ -29,6 +30,7 @@ bi_assert_equal_1024:
 
         lea     rsi, [.msg_3]
         call    Console_WriteString
+        stc
 .end:
         pop     rsi rax
         ret

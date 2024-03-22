@@ -108,6 +108,7 @@ section '.edata' export data readable
          bi_mul_low_256_256, 'bi_mul_low_256_256', \
          bi_mul_low_512_512, 'bi_mul_low_512_512' ,\
 \
+         bi_div_rem_128_64, 'bi_div_rem_128_64', \
          bi_div_rem_128_128, 'bi_div_rem_128_128', \
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
          bi_div_rem_512_512, 'bi_div_rem_512_512', \
