@@ -4,8 +4,8 @@ if ~ definite bi_div_rem_128_64
 ;input:
 ;   rcx - pointer to bi128 divident
 ;   rdx - u64 divisor
-;   r8 - pointer to quotient
-;   r9 - pointer to u128 remainder (actual result will be u64)
+;   r8 - pointer to bi128 quotient
+;   r9 - pointer to bi128 remainder (actual result will be u64)
 bi_div_rem_128_64:
 virtual at rsp
   label .locals_start

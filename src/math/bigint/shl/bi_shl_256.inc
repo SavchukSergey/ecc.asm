@@ -12,10 +12,11 @@ bi_shl_256:
         call    bi_copy_256
         xchg    rcx, rdx
 
-        push    rdx
+        push    rcx rdx
+        mov     rcx, rdx
         mov     rdx, r8
         call    bi_shl_assign_256
-        pop     rdx
+        pop     rdx rcx
         ret
 
 

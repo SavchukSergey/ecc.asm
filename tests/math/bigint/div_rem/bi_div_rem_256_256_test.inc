@@ -15,7 +15,7 @@ virtual at rsp
 end virtual
         enter   .locals_end - .locals_start, 0
 
-        lea     rbx, [.cases]
+        lea     rbx, [__bi_div_rem_256_256_test_cases]
 .loop:        
         lea     rcx, [rbx]
         lea     rdx, [rbx + 64]
@@ -57,7 +57,7 @@ end virtual
 
         pop     rbx
         add     rbx, 256
-        cmp     rbx, .cases_end
+        cmp     rbx, __bi_div_rem_256_256_test_cases.end
         jb      .loop
 .pass:
         leave
@@ -69,7 +69,7 @@ end virtual
         ret
 
 
-.cases:
+__bi_div_rem_256_256_test_cases:
   db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
   db '0000000000000000000000000000000000000000000000000000000000000006'
   db '223d2bb3ad4647eb58fe9bbec7364ecaf8b3a977d6372d39805b3fc21efd0ffb'
@@ -278,5 +278,5 @@ end virtual
   db '6e3be8abd2e089ed812475be9b51c3cfcc1a04fafa2ddb6ca6869bf272715487'
   db '0000000000000000000000000000000000000000000000000000000000000001'
   db '5f331d8a3cc5259694d330ba0ff414f2081bf3d40b1d33ec5b9ce29a477d0b5e'
-.cases_end:
+.end:
 
