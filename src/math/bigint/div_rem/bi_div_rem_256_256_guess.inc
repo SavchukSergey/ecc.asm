@@ -7,6 +7,9 @@ include '../shl/bi_shl_assign_256.inc'
 include '../mul_low/bi_mul_low_256_128.inc'
 include '../extend_low/bi_extend_256_128.inc'
 include '../div_rem/bi_div_rem_128_64.inc'
+include '../inc/bi_inc_assign_256.inc'
+
+;BI_DEV_REM_256_256_GUESS_DEBUG = 1
 
 bi_div_rem_256_256_guess:
 virtual at rsp
@@ -36,6 +39,21 @@ end virtual
         mov     [.quotient], r8
         mov     [.remainder], r9
 
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        call    Console_WriteLine
+        lea     rsi, [.dividend_msg]
+        call    Console_WriteString
+        mov     rcx, [.dividend]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+
+        lea     rsi, [.divisor_msg]
+        call    Console_WriteString
+        mov     rcx, [.divisor]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+end if
+
         mov     rcx, [.divisor]
         call    bi_lzcnt_256
         mov     [.divisor_lzcnt], rax
@@ -45,10 +63,25 @@ end virtual
         mov     r8, [.divisor_lzcnt]
         call    bi_shl_256
 
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.divisor_shifted_msg]
+        call    Console_WriteString
+        lea     rcx, [.divisor_shifted]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+end if
         mov     rax, qword [.divisor_shifted + 24]
         inc     rax ; todo: check cases 0xffff_ffff_ffff_ffff
         mov     [.divisor_val], rax
 ;2^63 < divisor_val < 2^64. Check overflow
+
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.divisor_val_msg]
+        call    Console_WriteString
+        mov     rcx, [.divisor_val]
+        call    Console_WriteUInt64Hex
+        call    Console_WriteLine
+end if
 
         mov     rcx, [.quotient]
         call    bi_zero_256
@@ -58,10 +91,22 @@ end virtual
         call    bi_copy_256
 
 .loop:
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.loop_msg]
+        call    Console_WriteString
+
+        lea     rsi, [.remainder_msg]
+        call    Console_WriteString
+        mov     rcx, [.remainder]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+end if
+
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
         call    bi_cmp_256_256
         jb      .loop_ok
+        je      .loop_equal
 
         mov     rcx, [.remainder]
         call    bi_lzcnt_256
@@ -72,6 +117,13 @@ end virtual
         mov     r8, [.remainder_lzcnt]
         call    bi_shl_256
 
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.remainder_shifted_msg]
+        call    Console_WriteString
+        lea     rcx, [.remainder_shifted]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+end if
 
         lea     rcx, qword [.remainder_shifted + 16]
         mov     rdx, [.divisor_val]
@@ -79,6 +131,14 @@ end virtual
         lea     r9, [.guess_reminder_128]
         call    bi_div_rem_128_64 ;todo: benchmark 256_64 over 128_64 over 64_32
 ;max guess = (2^128 - 1) / 2^63 = 2^64. Check overflow
+
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.guess_msg]
+        call    Console_WriteString
+        lea     rcx, [.guess_128]
+        call    Console_WriteUInt128Hex
+        call    Console_WriteLine
+end if
 
         mov     rax, [.remainder_lzcnt]
         sub     rax, [.divisor_lzcnt]
@@ -93,10 +153,26 @@ end virtual
         mov     [.correction], 0
 .correction_ok:
 
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.guess_corrected_msg]
+        call    Console_WriteString
+        lea     rcx, [.guess_128]
+        call    Console_WriteUInt128Hex
+        call    Console_WriteLine
+end if
+
         mov     rcx, [.divisor]
         lea     rdx, qword [.guess_128 + 0]
         lea     r8, [.delta]
         call    bi_mul_low_256_128
+
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.delta_msg]
+        call    Console_WriteString
+        lea     rcx, [.delta]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+end if
 
         lea     rcx, [.guess_q]
         lea     rdx, [.guess_128]
@@ -115,6 +191,14 @@ end virtual
         call    bi_shl_assign_256
 .correction_2_ok:
 
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.delta_corrected_msg]
+        call    Console_WriteString
+        lea     rcx, [.delta]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+end if
+
         mov     rcx, [.remainder]
         lea     rdx, [.delta]
         call    bi_sub_assign_256_256
@@ -122,9 +206,40 @@ end virtual
         mov     rcx, [.quotient]
         lea     rdx, [.guess_q]
         call    bi_add_assign_256_256
+
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+        lea     rsi, [.new_remainder_msg]
+        call    Console_WriteString
+        mov     rcx, [.remainder]
+        call    Console_WriteUInt256Hex
+        call    Console_WriteLine
+end if
+
         jmp     .loop
 .loop_ok:
         leave
         ret
+.loop_equal:
+        mov     rcx, [.quotient]
+        call    bi_inc_assign_256
+        mov     rcx, [.remainder]
+        call    bi_zero_256
+        jmp     .loop_ok
+
+if definite BI_DEV_REM_256_256_GUESS_DEBUG
+  .dividend_msg:           db 'dividend:          ', 0
+  .divisor_msg:            db 'divisor:           ', 0
+  .divisor_shifted_msg:    db 'divisor shifted:   ', 0
+  .divisor_val_msg:        db 'divisor val:       ', 0
+  .loop_msg:               db '----------------------------------', 13, 10, 0
+  .remainder_msg:          db 'remainder:         ', 0
+  .remainder_shifted_msg:  db 'remainder shifted: ', 0
+  .guess_msg:              db 'guess:             ', 0
+  .guess_corrected_msg:    db 'guess (corrected): ', 0
+  .delta_msg:              db 'delta:             ', 0
+  .delta_corrected_msg:    db 'delta (corrected): ', 0
+  .new_remainder_msg:      db 'new remainder:     ', 0
+
+end if
 
 end if

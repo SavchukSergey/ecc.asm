@@ -20,7 +20,7 @@ bi_shr_assign_128:
 
         mov     rax, [rdx + 8]
         shrd    [rdx + 0], rax, cl
-        shl     qword [rdx + 8], cl
+        shr     qword [rdx + 8], cl
 
         xchg    rcx, rdx
 
