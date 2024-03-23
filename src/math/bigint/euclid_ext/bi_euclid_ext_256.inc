@@ -3,6 +3,7 @@ if ~ definite bi_euclid_ext_256
 include '../copy/bi_copy_256.inc'
 include '../one/bi_one_256.inc'
 include '../add/bi_add_assign_256_256.inc'
+include '../div_rem/bi_div_rem_256_256.inc'
 include '../is_zero/bi_is_zero_256.inc'
 
 ;Calculates bezout identity using euclid extended algorithm

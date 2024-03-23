@@ -3,10 +3,12 @@ if ~ definite bi_div_rem_256_256_guess
 include '../lzcnt/bi_lzcnt_256.inc'
 include '../zero/bi_zero_256.inc'
 include '../copy/bi_copy_256.inc'
+include '../cmp/bi_cmp_256_256.inc'
+include '../shl/bi_shl_256.inc'
 include '../shl/bi_shl_assign_256.inc'
 include '../mul_low/bi_mul_low_256_128.inc'
 include '../extend_low/bi_extend_256_128.inc'
-include '../div_rem/bi_div_rem_128_64.inc'
+include '../div_rem/bi_div_128_64.inc'
 include '../inc/bi_inc_assign_256.inc'
 
 ;BI_DEV_REM_256_256_GUESS_DEBUG = 1
@@ -27,7 +29,6 @@ virtual at rsp
   .remainder_shifted rb __BIG_INTEGER_BYTES_256
 
   .guess_128 rb __BIG_INTEGER_BYTES_128
-  .guess_reminder_128 rb __BIG_INTEGER_BYTES_128
   .delta rb __BIG_INTEGER_BYTES_256
   .guess_q rb __BIG_INTEGER_BYTES_256
   .correction rq 1
@@ -58,6 +59,17 @@ end if
         call    bi_lzcnt_256
         mov     [.divisor_lzcnt], rax
 
+        cmp     rax, 256 - 64
+        jb      .divisor_large
+        mov     rcx, [.dividend]
+        mov     rdx, [.divisor]
+        mov     rdx, [ rdx + 0]
+        mov     r8, [.quotient]
+        mov     r9, [.remainder]
+        call    bi_div_rem_256_64
+        jmp     .end
+
+.divisor_large:
         mov     rcx, [.divisor]
         lea     rdx, [.divisor_shifted]
         mov     r8, [.divisor_lzcnt]
@@ -128,8 +140,7 @@ end if
         lea     rcx, qword [.remainder_shifted + 16]
         mov     rdx, [.divisor_val]
         lea     r8, [.guess_128]
-        lea     r9, [.guess_reminder_128]
-        call    bi_div_rem_128_64 ;todo: benchmark 256_64 over 128_64 over 64_32
+        call    bi_div_128_64 ;todo: benchmark 256_64 over 128_64 over 64_32
 ;max guess = (2^128 - 1) / 2^63 = 2^64. Check overflow
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
@@ -217,6 +228,7 @@ end if
 
         jmp     .loop
 .loop_ok:
+.end:
         leave
         ret
 .loop_equal:
