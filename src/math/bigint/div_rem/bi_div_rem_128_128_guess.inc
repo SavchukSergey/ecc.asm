@@ -67,6 +67,7 @@ end if
         call    bi_div_rem_128_64
         jmp     .end
 .divisor_large:
+;divisor >= 2^64
 ;quotient will be less than 2^64
 
         mov     rcx, [.quotient]
