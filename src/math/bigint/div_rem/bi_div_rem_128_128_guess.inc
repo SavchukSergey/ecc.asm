@@ -61,7 +61,7 @@ end if
         jb      .divisor_large
         mov     rcx, [.dividend]
         mov     rdx, [.divisor]
-        mov     rdx, [ rdx + 0]
+        mov     rdx, [rdx + 0]
         mov     r8, [.quotient]
         mov     r9, [.remainder]
         call    bi_div_rem_128_64
