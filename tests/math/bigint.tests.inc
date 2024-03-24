@@ -64,10 +64,11 @@ __bi_tests_128:
 	db '<<=', 0
 
 
-;	 dq __bi_div_rem_test_#bits
-;	 db 'div_rem', 0
 	dq __bi_div_rem_128_64_test
 	db 'div_rem u64', 0
+	dq __bi_div_rem_128_128_test
+	db 'div_rem', 0
+
 
 ;	 dq __bi_extend_high_test_#bits
 ;	 db 'extend_high', 0
