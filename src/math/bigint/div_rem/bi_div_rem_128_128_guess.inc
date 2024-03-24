@@ -67,6 +67,15 @@ end if
         call    bi_div_rem_128_64
         jmp     .end
 .divisor_large:
+;quotient will be less than 2^64
+
+        mov     rcx, [.quotient]
+        call    bi_zero_128
+
+        mov     rcx, [.remainder]
+        mov     rdx, [.dividend]
+        call    bi_copy_128
+
 
         mov     rcx, [.divisor]
         lea     rdx, [.divisor_shifted]
@@ -81,7 +90,8 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
         call    Console_WriteLine
 end if
         mov     rax, qword [.divisor_shifted + 8]
-        inc     rax ; todo: check cases 0xffff_ffff_ffff_ffff
+        inc     rax 
+        jz      .recheck_once
         mov     [.divisor_val], rax
 ;2^63 < divisor_val < 2^64. Check overflow
 
@@ -92,13 +102,6 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
         call    Console_WriteUInt64Hex
         call    Console_WriteLine
 end if
-
-        mov     rcx, [.quotient]
-        call    bi_zero_128
-
-        mov     rcx, [.remainder]
-        mov     rdx, [.dividend]
-        call    bi_copy_128
 
 .loop:
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
@@ -113,14 +116,11 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
 end if
 
         mov     rcx, [.remainder]
-        mov     rdx, [.divisor]
-        call    bi_cmp_128_128
-        jb      .loop_ok
-        je      .loop_equal
-
-        mov     rcx, [.remainder]
         call    bi_lzcnt_128
         mov     [.remainder_lzcnt], rax
+
+        cmp     rax, [.divisor_lzcnt]
+        jae     .recheck_once
 
         mov     rcx, [.remainder]
         lea     rdx, [.remainder_shifted]
@@ -164,8 +164,8 @@ end if
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
         lea     rsi, [.guess_corrected_msg]
         call    Console_WriteString
-        lea     rcx, [.guess_128]
-        call    Console_WriteUInt128Hex
+        mov     rcx, qword [.guess_128]
+        call    Console_WriteUInt64Hex
         call    Console_WriteLine
 end if
 
@@ -212,6 +212,12 @@ end if
         call    bi_add_assign_128_128
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
+        lea     rsi, [.new_quotient_msg]
+        call    Console_WriteString
+        mov     rcx, [.quotient]
+        call    Console_WriteUInt128Hex
+        call    Console_WriteLine
+
         lea     rsi, [.new_remainder_msg]
         call    Console_WriteString
         mov     rcx, [.remainder]
@@ -224,12 +230,17 @@ end if
 .end:
         leave
         ret
-.loop_equal:
+.recheck_once:
+        mov     rcx, [.remainder]
+        mov     rdx, [.divisor]
+        call    bi_cmp_128_128
+        jb      .end
         mov     rcx, [.quotient]
         call    bi_inc_assign_128
         mov     rcx, [.remainder]
-        call    bi_zero_128
-        jmp     .loop_ok
+        mov     rdx, [.divisor]
+        call    bi_sub_assign_128_128
+        jmp     .end
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
   .dividend_msg:           db 'dividend:          ', 0
@@ -243,6 +254,7 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
   .guess_corrected_msg:    db 'guess (corrected): ', 0
   .delta_msg:              db 'delta:             ', 0
   .delta_corrected_msg:    db 'delta (corrected): ', 0
+  .new_quotient_msg:       db 'new quotient:      ', 0
   .new_remainder_msg:      db 'new remainder:     ', 0
 
 end if
