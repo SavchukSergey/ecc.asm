@@ -53,12 +53,12 @@ end virtual
         pushfq
         call    get_cpu_timestamp
         mov     [.context.measure_end], rax
-        inc     [.context.measures_count]
         mov     rax, [.context.measure_end]
         sub     rax, [.context.measure_start]
         sub     rax, [calibration_shift]
         jc      .overflow
 .no_overflow:
+        inc     [.context.measures_count]
         add     [.context.measures_total], rax
 
         cmp     rax, [.context.measures_min]

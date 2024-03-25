@@ -56,12 +56,12 @@ __bi_tests_128:
 	db 'cmp_close', 0
 
 	dq __bi_shl_assign_128_1_test
-	db '<<= 1', 0
+	db 'bi_shl_assign_128_1', 0
 	dq __bi_shr_assign_128_1_test
-	db '>>= 1', 0
+	db 'bi_shr_assign_128_1', 0
 
 	dq __bi_shl_assign_128_test
-	db '<<=', 0
+	db 'bi_shl_assign_128', 0
 
 
 	dq __bi_div_rem_128_64_test
@@ -112,12 +112,12 @@ __bi_tests_256:
 	db 'cmp_close', 0
 
 	dq __bi_shl_assign_256_1_test
-	db '<<= 1', 0
+	db 'bi_shl_assign_256_1', 0
 	dq __bi_shr_assign_256_1_test
-	db '>>= 1', 0
+	db 'bi_shr_assign_256_1', 0
 
 	dq __bi_shl_assign_256_test
-	db '<<=', 0
+	db 'bi_shl_assign_256', 0
 
 ;todo: sub positive, sub equal
 	dq __bi_sub_256_256_test
@@ -165,12 +165,12 @@ __bi_tests_512:
 	db 'cmp_close', 0
 
 	dq __bi_shl_assign_512_1_test
-	db '<<= 1', 0
+	db 'bi_shl_assign_512_1', 0
 	dq __bi_shr_assign_512_1_test
-	db '>>= 1', 0
+	db 'bi_shr_assign_512_1', 0
 
 	dq __bi_shl_assign_512_test
-	db '<<=', 0
+	db 'bi_shl_assign_512', 0
 
 ;todo: sub positive, sub equal
 	dq __bi_sub_512_512_test

@@ -1,8 +1,9 @@
 include 'write_char.inc'
 
 ;input
-; rax - value to dump
+; rcx - value to dump
 Console_WriteUInt64:
+        mov     rax, rcx
         test    rax, rax
         jne     .not_zero
         push    rax
