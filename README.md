@@ -8,17 +8,24 @@ Full list of methods:
 | [bi_add_128_128](#bi_add_128_128)           | Adds two `bi128` values              |
 | [bi_sub_128_128](#bi_sub_128_128)           | Subtracts two `bi128` values         |
 | [bi_mul_128_128](#bi_mul_128_128)           | Multiplies two `bi128` values        |
+| [bi_mul_low_128_128](#bi_mul_low_128_128)   | Multiplies two `bi128` values and returns low `bi128` value |
+| [bi_div_rem_128_64](#bi_div_rem_128_64)     | Divides `bi128` by `bi64`            |
+| [bi_div_rem_128_128](#bi_div_rem_128_128)   | Divides `bi128` by `bi128`           |
 | [bi_lzcnt_128](#bi_lzcnt_128)               | Counts leading zero bits of `bi128`  |
 | [bi_shl_assign_128_1](#bi_shl_assign_128_1) | Shifts `bi128` to the left by 1 bit  |
 | [bi_shr_assign_128_1](#bi_shr_assign_128_1) | Shifts `bi128` to the right by 1 bit |
 | [bi_shl_assign_128](#bi_shl_assign_128)     | Shifts `bi128` to the left           |
 | [bi_cmp_128_128](#bi_cmp_128_128)           | Compares two `bi128` values          |
 | [bi_zero_256](#bi_zero_256)                 | Zeroes `bi256` value                 |
+| [bi_is_zero_256](#bi_is_zero_256)           | Check if `bi256` value is zero       |
 | [bi_one_256](#bi_one_256)                   | Sets 1 to `bi256` value              |
 | [bi_copy_256](#bi_copy_256)                 | Copies `bi256` value                 |
 | [bi_add_256_256](#bi_add_256_256)           | Adds two `bi256` values              |
 | [bi_sub_256_256](#bi_sub_256_256)           | Subtracts two `bi256` values         |
 | [bi_mul_256_256](#bi_mul_256_256)           | Multiplies two `bi256` values        |
+| [bi_mul_low_256_256](#bi_mul_low_256_256)   | Multiplies two `bi256` values and returns low `bi256` value |
+| [bi_div_rem_256_128](#bi_div_rem_256_128)   | Divides `bi256` by `bi128`           |
+| [bi_div_rem_256_256](#bi_div_rem_256_256)   | Divides `bi256` by `bi256`           |
 | [bi_lzcnt_256](#bi_lzcnt_256)               | Counts leading zero bits of `bi256`  |
 | [bi_shl_assign_256_1](#bi_shl_assign_256_1) | Shifts `bi256` to the left by 1 bit  |
 | [bi_shr_assign_256_1](#bi_shr_assign_256_1) | Shifts `bi256` to the right by 1 bit |
@@ -83,6 +90,32 @@ Input:
   * `rdx` - pointer to `bi128` right value
   * `r8` - pointer to `bi256` result value
 
+## bi_mul_low_128_128
+Multiplies two `bi128` values and returns low `bi128` value
+
+Input:
+  * `rcx` - pointer to `bi128` left value
+  * `rdx` - pointer to `bi128` right value
+  * `r8` - pointer to `bi128` result value
+
+## bi_div_rem_128_64
+Divides `bi128` by `bi64`
+
+Input:
+  * `rcx` - pointer to `bi128` dividend value
+  * `rdx` - `bi64` divisor value
+  * `r8` - pointer to `bi128` quotient value
+  * `r9` - pointer to `bi128` reminder value (actual result will be `bi64` with zeroed upper half)
+
+## bi_div_rem_128_128
+Divides `bi128` by `bi128`
+
+Input:
+  * `rcx` - pointer to `bi128` dividend value
+  * `rdx` - `bi128` divisor value
+  * `r8` - pointer to `bi128` quotient value
+  * `r9` - pointer to `bi128` reminder value
+
 ## bi_lzcnt_128
 Counts leading zero bits of `bi128` value
 
@@ -129,6 +162,16 @@ Zeroes `bi256` value
 Input:
   * `rcx` - pointer to `bi256` value
 
+## bi_is_zero_256
+Check if `bi256` value is zero
+
+Input:
+  * `rcx` - pointer to `bi256` value
+
+Output:
+  * `rax` - 1 if value is zero, 0 otherwize
+  * `ZF` - flag is set if value is zero
+
 ## bi_one_256
 Sets 1 to `bi256` value
 
@@ -166,6 +209,31 @@ Input:
   * `rdx` - pointer to `bi256` right value
   * `r8` - pointer to `bi512` result value
 
+## bi_mul_low_256_256
+Multiplies two `bi256` values and returns low `bi256` value
+
+Input:
+  * `rcx` - pointer to `bi256` left value
+  * `rdx` - pointer to `bi256` right value
+  * `r8` - pointer to `bi256` result value
+
+## bi_div_rem_256_128
+Divides `bi256` by `bi128`
+
+Input:
+  * `rcx` - pointer to `bi256` dividend value
+  * `rdx` - pointer to `bi128` divisor value
+  * `r8` - pointer to `bi256` quotient value
+  * `r9` - pointer to `bi256` reminder value (actual result will be `bi128` with zeroed upper half)
+
+## bi_div_rem_256_256
+Divides `bi256` by `bi256`
+
+Input:
+  * `rcx` - pointer to `bi256` dividend value
+  * `rdx` - pointer to `bi256` divisor value
+  * `r8` - pointer to `bi256` quotient value
+  * `r9` - pointer to `bi256` reminder value
 
 ## bi_lzcnt_256
 Counts leading zero bits of `bi256` value

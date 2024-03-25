@@ -47,22 +47,25 @@ end virtual
         ret
 
 __bi_mul_low_128_128_test:
-        lea     rcx, [.left_hex]
-        lea     rdx, [.right_hex]
-        lea     r8, [.expected_hex]
+        mov     rbx, __bi_mul_low_128_128_test_cases
+.loop:
+        lea     rcx, [rbx + 0]
+        lea     rdx, [rbx + 32]
+        lea     r8, [rbx + 64]
         call    __bi_mul_low_128_128_test_core
+
+        add     rbx, 32 + 32 + 32
+        cmp     rbx, __bi_mul_low_128_128_test_cases.end
+        jb      .loop
         ret
-.left_hex       db '23e0715c2534cec45e6ac5894b97fccd'
-.right_hex      db '6dce92970406d93ad874a75e73460deb'
-.expected_hex   db 'DC6ED62958AC31543527CE445369792F'
 
 
-__bi_mul_low_128_128_max_test:
-        lea     rcx, [.left_hex]
-        lea     rdx, [.right_hex]
-        lea     r8, [.expected_hex]
-        call    __bi_mul_low_128_128_test_core
-        ret
-.left_hex       db 'ffffffffffffffffffffffffffffffff'
-.right_hex      db 'ffffffffffffffffffffffffffffffff'
-.expected_hex   db '00000000000000000000000000000001'
+__bi_mul_low_128_128_test_cases:
+  db '23e0715c2534cec45e6ac5894b97fccd'
+  db '6dce92970406d93ad874a75e73460deb'
+  db 'DC6ED62958AC31543527CE445369792F'
+
+  db 'ffffffffffffffffffffffffffffffff'
+  db 'ffffffffffffffffffffffffffffffff'
+  db '00000000000000000000000000000001'
+.end:

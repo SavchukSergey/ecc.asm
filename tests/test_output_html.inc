@@ -11,7 +11,7 @@ test_output_start:
 '  <meta name="viewport" content="width=device-width, initial-scale=1">', 13, 10, \
 '  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">', 13, 10, \
 '</head>', 13, 10, \
-'<body>', 13, 10, 0
+'<body data-bs-theme="dark">', 13, 10, 0
 
 test_output_end:
     mov     rsi, .msg
@@ -20,7 +20,7 @@ test_output_end:
     ret
 .msg db \
 '</body>', 13, 10, \
-'<html>', 13, 10, 0
+'</html>', 13, 10, 0
 
 
 test_output_start_chapter:
@@ -42,7 +42,7 @@ test_output_chapter_title:
     call    Console_WriteString
 
     ret
-.prefix db '<h2>', 13, 10, 0
+.prefix db '<h2>', 0
 .suffix db '</h2>', 13, 10, 0
 
 

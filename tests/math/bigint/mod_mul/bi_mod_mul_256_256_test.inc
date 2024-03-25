@@ -43,16 +43,16 @@ end virtual
 	mov     rcx, [.expected_hex]
 	lea     rdx, [.result]
 	call	bi_assert_equal_hex_256
+	jc		.fail
 
-	jmp     .pass
+.pass:
+	leave
+	clc
+	ret
 
 .fail:
 	leave
 	stc
-	ret
-.pass:
-	leave
-	clc
 	ret
 
 __bi_mod_mul_256_256_test:
