@@ -26,7 +26,7 @@ __bi_tests_128:
 	db 'zero', 0
 
 	dq __bi_add_128_128_test
-	db 'add', 0
+	db 'bi_add_128_128', 0
 
 ;	 dq __bi_bit_clear_first_test_#bits
 ;	 db 'bit_clear_first', 0
@@ -69,6 +69,8 @@ __bi_tests_128:
 	dq __bi_div_rem_128_128_test
 	db 'div_rem', 0
 
+	dq __bi_lzcnt_128_test
+	db 'bi_lzcnt_128', 0
 
 ;	 dq __bi_extend_high_test_#bits
 ;	 db 'extend_high', 0
@@ -83,9 +85,7 @@ __bi_tests_128:
 	db 'sub negative', 0
 
 	dq __bi_mul_128_128_test
-	db 'mul', 0
-	dq __bi_mul_128_128_max_test
-	db 'mul max', 0
+	db 'bi_mul_128_128', 0
 
 	dq __bi_mul_low_128_128_test
 	db 'mul_low', 0
@@ -101,7 +101,7 @@ __bi_tests_128:
 align 16
 __bi_tests_256:
 	dq __bi_add_256_256_test
-	db 'add', 0
+	db 'bi_add_256_256', 0
 	dq __bi_cmp_256_256_equal_test
 	db 'cmp_equal', 0
 	dq __bi_cmp_256_256_less_test
@@ -124,9 +124,7 @@ __bi_tests_256:
 	db 'sub negative', 0
 
 	dq __bi_mul_256_256_test
-	db 'mul', 0
-	dq __bi_mul_256_256_max_test
-	db 'mul max', 0
+	db 'bi_mul_256_256', 0
 	dq __bi_mul_low_256_256_test
 	db 'mul_low', 0
 	dq __bi_mul_low_256_256_max_test
@@ -145,7 +143,7 @@ __bi_tests_256:
 	db 'mod_inverse', 0
 
 	dq __bi_lzcnt_256_test
-	db 'lzcnt', 0
+	db 'bi_lzcnt_256', 0
 
 	dq 0
 ;	 dq __bi_zero_test_#bits
@@ -154,7 +152,7 @@ __bi_tests_256:
 align 16
 __bi_tests_512:
 	dq __bi_add_512_512_test
-	db 'add', 0
+	db 'bi_add_512_512', 0
 	dq __bi_cmp_512_512_equal_test
 	db 'cmp_equal', 0
 	dq __bi_cmp_512_512_less_test
@@ -177,9 +175,7 @@ __bi_tests_512:
 	db 'sub negative', 0
 
 	dq __bi_mul_512_512_test
-	db 'mul', 0
-	dq __bi_mul_512_512_max_test
-	db 'mul max', 0
+	db 'bi_mul_512_512', 0
 
 	dq __bi_mul_low_512_512_test
 	db 'mul_low', 0

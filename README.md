@@ -7,6 +7,8 @@ Full list of methods:
 | [bi_copy_128](#bi_copy_128)                 | Copies `bi128` value                 |
 | [bi_add_128_128](#bi_add_128_128)           | Adds two `bi128` values              |
 | [bi_sub_128_128](#bi_sub_128_128)           | Subtracts two `bi128` values         |
+| [bi_mul_128_128](#bi_mul_128_128)           | Multiplies two `bi128` values        |
+| [bi_lzcnt_128](#bi_lzcnt_128)               | Counts leading zero bits of `bi128`  |
 | [bi_shl_assign_128_1](#bi_shl_assign_128_1) | Shifts `bi128` to the left by 1 bit  |
 | [bi_shr_assign_128_1](#bi_shr_assign_128_1) | Shifts `bi128` to the right by 1 bit |
 | [bi_shl_assign_128](#bi_shl_assign_128)     | Shifts `bi128` to the left           |
@@ -16,6 +18,8 @@ Full list of methods:
 | [bi_copy_256](#bi_copy_256)                 | Copies `bi256` value                 |
 | [bi_add_256_256](#bi_add_256_256)           | Adds two `bi256` values              |
 | [bi_sub_256_256](#bi_sub_256_256)           | Subtracts two `bi256` values         |
+| [bi_mul_256_256](#bi_mul_256_256)           | Multiplies two `bi256` values        |
+| [bi_lzcnt_256](#bi_lzcnt_256)               | Counts leading zero bits of `bi256`  |
 | [bi_shl_assign_256_1](#bi_shl_assign_256_1) | Shifts `bi256` to the left by 1 bit  |
 | [bi_shr_assign_256_1](#bi_shr_assign_256_1) | Shifts `bi256` to the right by 1 bit |
 | [bi_shl_assign_256](#bi_shl_assign_256)     | Shifts `bi256` to the left           |
@@ -24,6 +28,8 @@ Full list of methods:
 | [bi_one_512](#bi_one_512)                   | Sets 1 to `bi512` value              |
 | [bi_add_512_512](#bi_add_512_512)           | Adds two `bi512` values              |
 | [bi_sub_512_512](#bi_sub_512_512)           | Subtracts two `bi512` values         |
+| [bi_mul_512_512](#bi_mul_512_512)           | Multiplies two `bi512` values        |
+| [bi_lzcnt_512](#bi_lzcnt_512)               | Counts leading zero bits of `bi512`  |
 | [bi_shl_assign_512_1](#bi_shl_assign_512_1) | Shifts `bi512` to the left by 1 bit  |
 | [bi_shr_assign_512_1](#bi_shr_assign_512_1) | Shifts `bi512` to the right by 1 bit |
 | [bi_shl_assign_512](#bi_shl_assign_512)     | Shifts `bi512` to the left           |
@@ -69,6 +75,22 @@ Input:
   * `rdx` - pointer to `bi128` right value
   * `r8` - pointer to `bi128` result value
 
+## bi_mul_128_128
+Multiplies two `bi128` values
+
+Input:
+  * `rcx` - pointer to `bi128` left value
+  * `rdx` - pointer to `bi128` right value
+  * `r8` - pointer to `bi256` result value
+
+## bi_lzcnt_128
+Counts leading zero bits of `bi128` value
+
+Input:
+  * `rcx` - pointer to `bi128` value
+
+Output:
+  * `rax` - count of leading zero bits
 
 ## bi_shl_assign_128_1
 Shifts `bi128` to the left by 1 bit. Result is stored in left value.
@@ -136,6 +158,24 @@ Input:
   * `rdx` - pointer to `bi256` right value
   * `r8` - pointer to `bi256` result value
 
+## bi_mul_256_256
+Multiplies two `bi256` values
+
+Input:
+  * `rcx` - pointer to `bi256` left value
+  * `rdx` - pointer to `bi256` right value
+  * `r8` - pointer to `bi512` result value
+
+
+## bi_lzcnt_256
+Counts leading zero bits of `bi256` value
+
+Input:
+  * `rcx` - pointer to `bi256` value
+
+Output:
+  * `rax` - count of leading zero bits
+  
 ## bi_shl_assign_256_1
 
 Shifts `bi256` to the left by 1 bit. Result is stored in left value.
@@ -197,6 +237,23 @@ Input:
   * `rdx` - pointer to `bi512` right value
   * `r8` - pointer to `bi512` result value
 
+## bi_mul_512_512
+Multiplies two `bi512` values
+
+Input:
+  * `rcx` - pointer to `bi512` left value
+  * `rdx` - pointer to `bi512` right value
+  * `r8` - pointer to `bi512` result value
+
+## bi_lzcnt_512
+Counts leading zero bits of `bi512` value
+
+Input:
+  * `rcx` - pointer to `bi512` value
+
+Output:
+  * `rax` - count of leading zero bits
+  
 ## bi_shl_assign_512_1
 
 Shifts `bi512` to the left by 1 bit. Result is stored in left value.
