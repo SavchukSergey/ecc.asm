@@ -243,7 +243,7 @@ Multiplies two `bi512` values
 Input:
   * `rcx` - pointer to `bi512` left value
   * `rdx` - pointer to `bi512` right value
-  * `r8` - pointer to `bi512` result value
+  * `r8` - pointer to `bi1024` result value
 
 ## bi_lzcnt_512
 Counts leading zero bits of `bi512` value
