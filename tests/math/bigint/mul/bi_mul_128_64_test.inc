@@ -1,6 +1,6 @@
-include '../src/math/bigint/mul/bi_mul_128_128.inc'
+include '../src/math/bigint/mul/bi_mul_128_64.inc'
 
-__bi_mul_128_128_test_core:
+__bi_mul_128_64_test_core:
 virtual at rsp
 .locals_start:
   .left_hex rq 1
@@ -25,10 +25,10 @@ end virtual
         call    bi_try_read_hex_128
 
         lea     rcx, [.left]
-        lea     rdx, [.right]
+        mov     rdx, qword [.right + 0]
         lea     r8, [.result]
         call    test_context_start_measure
-        call    bi_mul_128_128
+        call    bi_mul_128_64
         call    test_context_end_measure
 
         mov     rcx, [.expected_hex]
@@ -39,15 +39,13 @@ end virtual
         leave
         clc
         ret
-
 .fail:
         leave
         stc
         ret
 
-
-__bi_mul_128_128_test:
-        lea     rbx, [__bi_mul_128_128_test_cases]
+__bi_mul_128_64_test:
+        lea     rbx, [__bi_mul_128_64_test_cases]
 
 .loop:
         push    rbx
@@ -55,22 +53,22 @@ __bi_mul_128_128_test:
         lea     rcx, [rbx]
         lea     rdx, [rbx + 32]
         lea     r8, [rbx + 64]
-        call    __bi_mul_128_128_test_core
+        call    __bi_mul_128_64_test_core
 
         pop     rbx
         add     rbx, 32 + 32 + 64
-        cmp     rbx, __bi_mul_128_128_test_cases.end
+        cmp     rbx, __bi_mul_128_64_test_cases.end
         jb      .loop
 
         ret
 
-__bi_mul_128_128_test_cases:
+__bi_mul_128_64_test_cases:
   db '23e0715c2534cec45e6ac5894b97fccd'
-  db '6dce92970406d93ad874a75e73460deb'
-  db '0F63836A9E974E93A64D9962DE4654E2DC6ED62958AC31543527CE445369792F'
+  db '0000000000000000d874a75e73460deb'
+  db '00000000000000001E55B8CDC3A9CABD359D878C422525E23527CE445369792F'
 
   db 'ffffffffffffffffffffffffffffffff'
-  db 'ffffffffffffffffffffffffffffffff'
-  db 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE00000000000000000000000000000001'
+  db '0000000000000000ffffffffffffffff'
+  db '0000000000000000FFFFFFFFFFFFFFFEFFFFFFFFFFFFFFFF0000000000000001'
 
 .end:

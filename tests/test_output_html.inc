@@ -5,7 +5,7 @@ test_output_start:
     ret
 .msg db \
 '<!doctype html>', 13, 10, \
-'<html>', 13, 10, \
+'<html lang="en">', 13, 10, \
 '<head>', 13, 10, \
 '  <title>ecc.js tests</title>', 13, 10, \
 '  <meta name="viewport" content="width=device-width, initial-scale=1">', 13, 10, \

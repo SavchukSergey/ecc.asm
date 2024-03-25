@@ -1,4 +1,5 @@
 include 'bigint/add/index.inc'
+include 'bigint/sub/index.inc'
 include 'bigint/sub.tests.inc'
 include 'bigint/cmp.tests.inc'
 include 'bigint/shl.tests.inc'
@@ -85,9 +86,10 @@ __bi_tests_128:
         dq __bi_sub_128_128_test
         db 'sub negative', 0
 
+        dq __bi_mul_128_64_test
+        db 'bi_mul_128_64', 0
         dq __bi_mul_128_128_test
         db 'bi_mul_128_128', 0
-
         dq __bi_mul_low_128_128_test
         db 'bi_mul_low_128_128', 0
 
@@ -106,7 +108,11 @@ __bi_tests_256:
         dq __bi_copy_256_test
         db 'bi_copy_256', 0
         dq __bi_add_256_256_test
+
         db 'bi_add_256_256', 0
+        dq __bi_sub_256_256_test
+        db 'bi_sub_256_256', 0
+
         dq __bi_cmp_256_256_equal_test
         db 'cmp_equal', 0
         dq __bi_cmp_256_256_less_test
@@ -123,10 +129,6 @@ __bi_tests_256:
 
         dq __bi_shl_assign_256_test
         db 'bi_shl_assign_256', 0
-
-;todo: sub positive, sub equal
-        dq __bi_sub_256_256_test
-        db 'sub negative', 0
 
         dq __bi_mul_256_256_test
         db 'bi_mul_256_256', 0

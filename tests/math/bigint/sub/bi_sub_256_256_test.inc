@@ -1,7 +1,7 @@
-include '../src/math/bigint/add/bi_add_256_256.inc'
+include '../src/math/bigint/sub/bi_sub_256_256.inc'
 include '../../../assert.inc'
 
-__bi_add_256_256_test:
+__bi_sub_256_256_test:
 virtual at rsp
 .locals_start:
   .left rb __BIG_INTEGER_BYTES_256
@@ -11,7 +11,7 @@ virtual at rsp
 end virtual
         enter   .locals_end - .locals_start, 0
 
-        mov     rbx,  __bi_add_256_256_test_cases 
+        mov     rbx,  __bi_sub_256_256_test_cases 
 .loop:
         lea     rcx, [rbx + 0]
         lea     rdx, [.left]
@@ -25,7 +25,7 @@ end virtual
         lea     rdx, [.right]
         lea     r8, [.result]
         call    test_context_start_measure
-        call    bi_add_256_256
+        call    bi_sub_256_256
         call    test_context_end_measure
 
         lea     rcx, [rbx + 128]
@@ -34,7 +34,7 @@ end virtual
         jc      .fail
 
         add     rbx, 64 + 64 + 64
-        cmp     rbx, __bi_add_256_256_test_cases.end
+        cmp     rbx, __bi_sub_256_256_test_cases.end
         jb      .loop
 
 .pass:
@@ -47,9 +47,17 @@ end virtual
         stc
         ret
 
-__bi_add_256_256_test_cases:
+__bi_sub_256_256_test_cases:
   db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
   db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b48'
-  db '5DC187C01C2DD9F82CDFC36E39C3162883D47F8317CD5F168E094F01C6E28D18'
+  db 'B3C9BFD4CF02D4E27409A6FDA61F12D69E310AD79498C7019A9E321C8477F688'
+
+  db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b48'
+  db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
+  db '4C36402B30FD2B1D8BF6590259E0ED2961CEF5286B6738FE6561CDE37B880978'
+
+  db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b48'
+  db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b48'
+  db '0000000000000000000000000000000000000000000000000000000000000000'
 
 .end:

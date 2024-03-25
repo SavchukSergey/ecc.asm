@@ -1,6 +1,3 @@
-include 'math/bigint/extend_high/extend_high_1.inc'
-include 'math/bigint/extend_high/extend_high_2.inc'
-include 'math/bigint/extend_high/extend_high_u64.inc'
 include 'math/bigint/rnd/rnd.inc'
 include 'math/bigint/read_hex.inc'
 

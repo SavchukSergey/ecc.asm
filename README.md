@@ -7,7 +7,8 @@ Full list of methods:
 | [bi_copy_128](#bi_copy_128)                 | Copies `bi128` value                 |
 | [bi_add_128_128](#bi_add_128_128)           | Adds two `bi128` values              |
 | [bi_sub_128_128](#bi_sub_128_128)           | Subtracts two `bi128` values         |
-| [bi_mul_128_128](#bi_mul_128_128)           | Multiplies two `bi128` values        |
+| [bi_mul_128_64](#bi_mul_128_64)             | Multiplies `bi128` by `bi64` value                          |
+| [bi_mul_128_128](#bi_mul_128_128)           | Multiplies two `bi128` values                               |
 | [bi_mul_low_128_128](#bi_mul_low_128_128)   | Multiplies two `bi128` values and returns low `bi128` value |
 | [bi_div_rem_128_64](#bi_div_rem_128_64)     | Divides `bi128` by `bi64`            |
 | [bi_div_rem_128_128](#bi_div_rem_128_128)   | Divides `bi128` by `bi128`           |
@@ -81,6 +82,14 @@ Input:
   * `rcx` - pointer to `bi128` left value
   * `rdx` - pointer to `bi128` right value
   * `r8` - pointer to `bi128` result value
+
+## bi_mul_128_64
+Multiplies `bi128` by `bi64` value
+
+Input:
+  * `rcx` - pointer to `bi128` left value
+  * `rdx` - `bi64` right value
+  * `r8` - pointer to `bi256` result value
 
 ## bi_mul_128_128
 Multiplies two `bi128` values

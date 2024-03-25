@@ -11,14 +11,14 @@ ends
 TestContextReg equ r12
 
 get_cpu_timestamp:
-        push    rcx rdx
+        push    rbx rcx rdx
         xor     rax, rax
         cpuid
         rdtsc
         shl     rdx, 32
         or      rdx, rax
         mov     rdx, rax
-        pop     rdx rcx
+        pop     rdx rcx rbx
         ret
 
 test_context_init:
