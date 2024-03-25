@@ -2,8 +2,8 @@ if ~ definite bi_add_assign_1024_1024
 
 ;Adds two bi1024 values
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
+;  rcx - pointer to left bi1024 value. The modified value
+;  rdx - pointer to right bi1024 value
 ;output:
 ;  rax - set to 1 if overflow
 bi_add_assign_1024_1024:

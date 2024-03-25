@@ -1,11 +1,10 @@
 if ~ definite bi_mul_64_64
 
-;Multiplies two bi128 values
-; Note: values provided are 64 actual values not references
+;Multiplies two bi64 values
 ;input
-; rcx - left value
-; rdx - right value
-; r8 - pointer to result value
+;  rcx - left bi64 value
+;  rdx - right bi64 value
+;  r8 - pointer to result bi128 value
 bi_mul_64_64:
         mov     rax, rcx
         mul     rdx

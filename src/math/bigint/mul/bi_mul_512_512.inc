@@ -21,7 +21,7 @@ virtual at rsp
   .result rq 1
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
@@ -43,23 +43,20 @@ end virtual
         mov     rcx, [.left]
         mov     rdx, [.right]
         add     rdx, __BIG_INTEGER_BYTES_512 / 2
-        lea     r8, [.z1]
-        add     r8, __BIG_INTEGER_BYTES_512 / 2
+        lea     r8, [.z1 + __BIG_INTEGER_BYTES_512 / 2]
         call    bi_mul_256_256
 
         mov     rcx, [.left]
         add     rcx, __BIG_INTEGER_BYTES_512 / 2
         mov     rdx, [.right]
-        lea     r8, [.z2]
-        add     r8, __BIG_INTEGER_BYTES_512 / 2
+        lea     r8, [.z2 + __BIG_INTEGER_BYTES_512 / 2]
         call    bi_mul_256_256
 
         mov     rcx, [.left]
         add     rcx, __BIG_INTEGER_BYTES_512 / 2
         mov     rdx, [.right]
         add     rdx, __BIG_INTEGER_BYTES_512 / 2
-        lea     r8, [.z3]
-        add     r8, __BIG_INTEGER_BYTES_512
+        lea     r8, [.z3 + __BIG_INTEGER_BYTES_512]
         call    bi_mul_256_256
 
         mov     rcx, [.result]
@@ -74,6 +71,6 @@ end virtual
         lea     rdx, [.z3]
         call    bi_add_assign_1024_1024
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

@@ -2,9 +2,9 @@ if ~ definite bi_div_128_64
 
 ;Divides bi128 by u64
 ;input:
-;   rcx - pointer to bi128 divident
-;   rdx - u64 divisor
-;   r8 - pointer to bi128 quotient
+;  rcx - pointer to bi128 dividend
+;  rdx - u64 divisor
+;  r8 - pointer to bi128 quotient
 bi_div_128_64:
 virtual at rsp
   label .locals_start
@@ -13,7 +13,7 @@ virtual at rsp
   .quotient rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8
@@ -33,6 +33,6 @@ end virtual
         mov     rcx, [.quotient]
         mov     [rcx + 0], rax
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

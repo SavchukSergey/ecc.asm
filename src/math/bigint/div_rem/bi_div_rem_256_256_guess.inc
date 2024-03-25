@@ -7,7 +7,6 @@ include '../cmp/bi_cmp_256_256.inc'
 include '../shl/bi_shl_256.inc'
 include '../shl/bi_shl_assign_256.inc'
 include '../mul_low/bi_mul_low_256_128.inc'
-include '../extend_low/bi_extend_256_128.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../div_rem/bi_div_rem_256_128.inc'
 include '../div_rem/bi_div_rem_256_64.inc'
@@ -32,11 +31,10 @@ virtual at rsp
 
   .guess_128 rb __BIG_INTEGER_BYTES_128
   .delta rb __BIG_INTEGER_BYTES_256
-  .guess_q rb __BIG_INTEGER_BYTES_256
   .correction rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8
@@ -81,6 +79,9 @@ end if
         call    bi_div_rem_256_128
         jmp     .end
 .divisor_large:
+;divisor >= 2^128
+;quotient as well as guess will be less than 2^128
+
         mov     rcx, [.quotient]
         call    bi_zero_256
 
@@ -194,10 +195,6 @@ if definite BI_DEV_REM_256_256_GUESS_DEBUG
         call    Console_WriteLine
 end if
 
-        lea     rcx, [.guess_q]
-        lea     rdx, [.guess_128]
-        call    bi_extend_256_128
-
         cmp     [.correction], 0
         jz     .correction_2_ok
         neg     [.correction]
@@ -206,9 +203,9 @@ end if
         mov     rdx, [.correction]
         call    bi_shl_assign_256
 
-        lea     rcx, [.guess_q]
+        lea     rcx, [.guess_128]
         mov     rdx, [.correction]
-        call    bi_shl_assign_256
+        call    bi_shl_assign_128
 .correction_2_ok:
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
@@ -224,8 +221,8 @@ end if
         call    bi_sub_assign_256_256
 
         mov     rcx, [.quotient]
-        lea     rdx, [.guess_q]
-        call    bi_add_assign_256_256
+        lea     rdx, [.guess_128]
+        call    bi_add_assign_128_128
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
         lea     rsi, [.new_quotient_msg]
@@ -244,7 +241,7 @@ end if
         jmp     .loop
 .loop_ok:
 .end:
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 .recheck_once:
         mov     rcx, [.remainder]
@@ -252,7 +249,7 @@ end if
         call    bi_cmp_256_256
         jb      .end
         mov     rcx, [.quotient]
-        call    bi_inc_assign_256
+        call    bi_inc_assign_128
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
         call    bi_sub_assign_256_256

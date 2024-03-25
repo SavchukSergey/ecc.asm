@@ -3,11 +3,13 @@ include '../../../assert.inc'
 
 __bi_add_512_512_test:
 virtual at rsp
+  label .locals_start
   .left rb __BIG_INTEGER_BYTES_512
   .right rb __BIG_INTEGER_BYTES_512
   .result rb __BIG_INTEGER_BYTES_512
+  label .locals_end
 end virtual
-        sub     rsp, 3 * __BIG_INTEGER_BYTES_512
+        sub     rsp, .locals_end - .locals_start
 
         lea     rcx, [.left_hex]
         lea     rdx, [.left]
@@ -31,11 +33,11 @@ end virtual
         jmp     .pass
 
 .fail:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_512
+        add     rsp, .locals_end - .locals_start
         stc
         ret
 .pass:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_512
+        add     rsp, .locals_end - .locals_start
         clc
         ret
 .left_hex       db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'

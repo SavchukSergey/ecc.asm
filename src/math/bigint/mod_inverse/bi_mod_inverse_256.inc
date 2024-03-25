@@ -17,7 +17,7 @@ virtual at rsp
   .euclid rb BezoutIdentity256.sizeof
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.value], rcx
         mov     [.modulus], rdx
         mov     [.result], r8
@@ -31,6 +31,6 @@ end virtual
         lea     rdx, [.euclid + BezoutIdentity256.x]
         call    bi_copy_256
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

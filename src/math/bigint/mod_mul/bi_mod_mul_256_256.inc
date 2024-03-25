@@ -18,7 +18,7 @@ virtual at rsp
     .bit rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.modulus], r8
@@ -52,7 +52,7 @@ end virtual
         cmp     [.bit], 256
         jb      .loop
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 end if

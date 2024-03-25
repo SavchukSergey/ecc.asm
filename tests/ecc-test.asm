@@ -51,22 +51,21 @@ virtual at rsp
 end virtual
 	enter	.locals_end - .locals_start, 0
 	lea	TestContextReg, [.result]
+	call	test_context_init
+
 	mov	[calibration_shift], 0
 	mov	rbx, -1
 	mov	rcx, 10000
 .count_loop:
 	push	rbx rcx
-	call	test_context_init
 	call	[.empty_ref]
 	pop	rcx rbx
-
-	mov	rax, [.result.measures_avg]
-
-	cmp	rax, rbx
-	cmovb	rbx, rax
 	loop	.count_loop
 
-	mov	[calibration_shift], rbx
+	call	test_context_finalize
+	mov	rax, [.result.measures_min]
+	mov	[calibration_shift], rax
+
 	leave
 	ret
 .empty:
@@ -81,15 +80,14 @@ virtual at rsp
   .locals_start:
   .test rq 1
   .test_proc rq 1
-  .test_duration rq 1
-  .test_min_duration rq 1
-  .test_max_duration rq 1
-  .test_result rq 1
   .test_count rq 1
   .test_successes rq 1
   .test_failures rq 1
   .result TestContext
   .locals_end:
+end virtual
+virtual at TestContextReg
+  .context TestContext
 end virtual
 	enter	.locals_end - .locals_start, 0
 	mov	[.test], rax
@@ -131,16 +129,12 @@ end virtual
 	mov	qword [.test_count], 0
 	mov	qword [.test_successes], 0
 	mov	qword [.test_failures], 0
-	mov	qword [.test_min_duration], -1
-	mov	qword [.test_max_duration], 0
 
 	lea	TestContextReg, [.result]
-.count_loop:
 	call	test_context_init
+.count_loop:
 	call	[.test_proc]
-	setc	byte [.test_result]
-	cmp	byte [.test_result], 0x00
-	je	.count_pass
+	jnc	 .count_pass
 .count_fail:
 	inc	qword [.test_failures]
 	jmp	.count_continue
@@ -148,26 +142,14 @@ end virtual
 	inc	qword [.test_successes]
 	jmp	.count_continue
 .count_continue:
-	mov	rax, [.result.measures_avg]
-	mov	[.test_duration], rax
-
-	mov	rax, [.test_min_duration]
-	cmp	rax, [.test_duration]
-	cmova	rax, [.test_duration]
-	mov	[.test_min_duration], rax
-
-	mov	rax, [.test_max_duration]
-	cmp	rax, [.test_duration]
-	cmovb	rax, [.test_duration]
-	mov	[.test_max_duration], rax
-
 	inc	[.test_count]
-
 	cmp	[.test_failures], 0
-	jne	.test_fail
+	jne	.count_loop_end
 	cmp	qword [.test_count], 5000
 	jb	.count_loop
 
+.count_loop_end:
+	call	test_context_finalize
 
 	cmp	[.test_failures], 0x00
 	je	.test_ok
@@ -182,14 +164,14 @@ end virtual
 .test_end:
 	mov	rsi, .time_min_prefix
 	call	Console_WriteString
-	mov	rax, [.test_min_duration]
+	mov	rax, [.context.measures_min]
 	call	Console_WriteUInt64
 	mov	rsi, .time_min_suffix
 	call	Console_WriteString
 
 	mov	rsi, .time_max_prefix
 	call	Console_WriteString
-	mov	rax, [.test_max_duration]
+	mov	rax, [.context.measures_max]
 	call	Console_WriteUInt64
 	mov	rsi, .time_max_suffix
 	call	Console_WriteString

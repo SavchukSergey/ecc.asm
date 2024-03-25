@@ -16,7 +16,7 @@ virtual at rsp
 
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8
@@ -32,7 +32,7 @@ end virtual
         call    bi_shl_assign_256
 
 ;todo:
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 end if

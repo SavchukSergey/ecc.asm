@@ -6,7 +6,7 @@ include '../copy/bi_copy_128.inc'
 include '../cmp/bi_cmp_128_128.inc'
 include '../shl/bi_shl_128.inc'
 include '../shl/bi_shl_assign_128.inc'
-include '../mul_low/bi_mul_low_128_128.inc'
+include '../mul_low/bi_mul_low_128_64.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../inc/bi_inc_assign_128.inc'
 
@@ -32,7 +32,7 @@ virtual at rsp
   .correction rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8
@@ -68,7 +68,7 @@ end if
         jmp     .end
 .divisor_large:
 ;divisor >= 2^64
-;quotient will be less than 2^64
+;quotient as well as guess will be less than 2^64
 
         mov     rcx, [.quotient]
         call    bi_zero_128
@@ -171,9 +171,9 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
 end if
 
         mov     rcx, [.divisor]
-        lea     rdx, qword [.guess_128]
+        mov     rdx, qword [.guess_128 + 0]
         lea     r8, [.delta]
-        call    bi_mul_low_128_128
+        call    bi_mul_low_128_64
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
         lea     rsi, [.delta_msg]
@@ -191,9 +191,8 @@ end if
         mov     rdx, [.correction]
         call    bi_shl_assign_128
 
-        lea     rcx, [.guess_128]
-        mov     rdx, [.correction]
-        call    bi_shl_assign_128
+        mov     rcx, [.correction]
+        shl     qword [.guess_128 + 0], cl
 .correction_2_ok:
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
@@ -209,8 +208,8 @@ end if
         call    bi_sub_assign_128_128
 
         mov     rcx, [.quotient]
-        lea     rdx, [.guess_128]
-        call    bi_add_assign_128_128
+        mov     rdx, qword [.guess_128 + 0]
+        add     [rcx], rdx
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
         lea     rsi, [.new_quotient_msg]
@@ -229,7 +228,7 @@ end if
         jmp     .loop
 .loop_ok:
 .end:
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 .recheck_once:
         mov     rcx, [.remainder]
@@ -237,7 +236,7 @@ end if
         call    bi_cmp_128_128
         jb      .end
         mov     rcx, [.quotient]
-        call    bi_inc_assign_128
+        inc     qword [rcx + 0]
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
         call    bi_sub_assign_128_128

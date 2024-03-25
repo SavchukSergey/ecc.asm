@@ -16,7 +16,7 @@ virtual at rsp
   .result rq 1
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
@@ -44,6 +44,6 @@ end virtual
         mov     r8, [.result]
         add     [r8 + 8], rax
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

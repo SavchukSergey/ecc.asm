@@ -30,7 +30,7 @@ virtual at rsp
   .cnt rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.a], rcx
         mov     [.b], rdx
         mov     [.result], r8
@@ -148,7 +148,7 @@ end virtual
         jmp     .end
 
 .end:
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 end if

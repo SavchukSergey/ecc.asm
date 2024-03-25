@@ -16,7 +16,7 @@ virtual at rsp
   .z2 rb __BIG_INTEGER_BYTES_512
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
@@ -66,6 +66,6 @@ end virtual
         lea     rdx, [.z2]
         call    bi_add_assign_512_512
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

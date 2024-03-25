@@ -2,10 +2,10 @@ if ~ definite bi_cmp_512_512
 
 ;Compares two bi values
 ;input
-; rcx - left value
-; rdx - right value
-; output
-; rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+;  rcx - pointer to left bi512 value
+;  rdx - pointer to right bi512 value
+;output
+;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_512_512:
         mov     rax, [rcx + 56]

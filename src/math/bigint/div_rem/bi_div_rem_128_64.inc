@@ -15,7 +15,8 @@ virtual at rsp
   .remainder rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8
@@ -40,6 +41,6 @@ end virtual
         mov     qword [rcx + 0], rdx
         mov     qword [rcx + 8], 0
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

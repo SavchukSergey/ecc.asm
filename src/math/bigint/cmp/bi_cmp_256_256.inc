@@ -1,11 +1,11 @@
 if ~ definite bi_cmp_256_256
 
-;Compares two bi values
+;Compares two bi256 values
 ;input
-; rcx - left value
-; rdx - right value
-; output
-; rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+;  rcx - pointer to left bi256 value
+;  rdx - pointer to right bi256 value
+;output
+;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_256_256:
         mov     rax, [rcx + 24]

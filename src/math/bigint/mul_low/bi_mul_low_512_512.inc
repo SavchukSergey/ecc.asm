@@ -6,9 +6,9 @@ include 'bi_mul_low_256_256.inc'
 
 ;Multiplies two bi512 values
 ;input
-; rcx - left value
-; rdx - right value
-; r8 - result value (low 512 bits)
+; rcx - pointer to left bi512 value
+; rdx - pointer to right bi512 value
+; r8 - pointer to bi512 result value (low 512 bits)
 bi_mul_low_512_512:
 virtual at rsp
 .locals_start:
@@ -19,7 +19,7 @@ virtual at rsp
 
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
@@ -51,6 +51,6 @@ end virtual
         lea     rdx, [.temp]
         call    bi_add_assign_256_256
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

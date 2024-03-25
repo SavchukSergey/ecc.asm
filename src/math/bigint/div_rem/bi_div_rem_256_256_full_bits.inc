@@ -19,7 +19,7 @@ virtual at rsp
   .bit rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8
@@ -59,7 +59,7 @@ end virtual
         lea     rdx, [.value + 32]
         call    bi_copy_256
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 end if

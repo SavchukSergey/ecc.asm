@@ -6,9 +6,9 @@ include 'bi_mul_64_64.inc'
 
 ;Multiplies two bi128 values
 ;input
-; rcx - left value
-; rdx - right value
-; r8 - result value
+; rcx - pointer to left bi128 value
+; rdx - pointer to right bi128 value
+; r8 - pointer to result bi256 value
 bi_mul_128_128:
 virtual at rsp
 .locals_start:
@@ -21,7 +21,7 @@ virtual at rsp
   .result rq 1
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
@@ -75,6 +75,6 @@ end virtual
         lea     rdx, [.z3]
         call    bi_add_assign_256_256
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

@@ -19,7 +19,7 @@ virtual at rsp
 
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
@@ -40,6 +40,6 @@ end virtual
         lea     rdx, [.temp]
         call    bi_add_assign_128_128
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 end if

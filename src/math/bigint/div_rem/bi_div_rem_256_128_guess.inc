@@ -35,7 +35,7 @@ virtual at rsp
   .correction rq 1
   label .locals_end
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8
@@ -235,7 +235,7 @@ end if
         jmp     .loop
 .loop_ok:
 .end:
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 .recheck_once:
         mov     rcx, [.remainder]
