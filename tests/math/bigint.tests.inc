@@ -192,6 +192,9 @@ __bi_tests_512:
         dq __bi_mul_low_512_512_max_test
         db 'mul_low max', 0
 
+        dq __bi_div_rem_512_64_test
+        db 'bi_div_rem_512_64', 0
+
         dq 0
 
 align 16

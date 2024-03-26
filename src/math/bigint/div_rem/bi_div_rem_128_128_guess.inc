@@ -23,7 +23,6 @@ virtual at rsp
 
   .divisor_lzcnt rq 1
   .divisor_shifted rb __BIG_INTEGER_BYTES_128
-  .divisor_val rq 1
 
   .remainder_lzcnt rq 1
   .remainder_shifted rb __BIG_INTEGER_BYTES_128
@@ -91,19 +90,6 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
         call    Console_WriteUInt128Hex
         call    Console_WriteLine
 end if
-        mov     rax, qword [.divisor_shifted + 8]
-        inc     rax 
-        jz      .recheck_once
-        mov     [.divisor_val], rax
-;2^63 < divisor_val < 2^64. Check overflow
-
-if definite BI_DEV_REM_128_128_GUESS_DEBUG
-        lea     rsi, [.divisor_val_msg]
-        call    Console_WriteString
-        mov     rcx, [.divisor_val]
-        call    Console_WriteUInt64Hex
-        call    Console_WriteLine
-end if
 
 .loop:
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
@@ -137,10 +123,19 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
         call    Console_WriteLine
 end if
 
+        mov     rdx, qword [.divisor_shifted + 8]
+        inc     rdx
+        jnz     .divisor_not_max
+.divisor_max:
+        mov     rcx, qword [.remainder_shifted + 8]; divide by 2^64
+        mov     qword [.guess_128], rcx
+        mov     qword [.guess_128 + 8], 0
+        jmp     .divisor_ok
+.divisor_not_max:
         lea     rcx, qword [.remainder_shifted + 0]
-        mov     rdx, [.divisor_val]
         lea     r8, [.guess_128]
         call    bi_div_128_64
+.divisor_ok:
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
         lea     rsi, [.guess_msg]
@@ -247,7 +242,6 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
   .dividend_msg:           db 'dividend:          ', 0
   .divisor_msg:            db 'divisor:           ', 0
   .divisor_shifted_msg:    db 'divisor shifted:   ', 0
-  .divisor_val_msg:        db 'divisor val:       ', 0
   .loop_msg:               db '----------------------------------', 13, 10, 0
   .remainder_msg:          db 'remainder:         ', 0
   .remainder_shifted_msg:  db 'remainder shifted: ', 0
