@@ -131,7 +131,8 @@ end virtual
         call    test_context_init
 .count_loop:
         call    [.test_proc]
-        jnc      .count_pass
+        cmp     [.context.assert_fails], 0
+        jz      .count_pass
 .count_fail:
         inc     qword [.test_failures]
         jmp     .count_continue

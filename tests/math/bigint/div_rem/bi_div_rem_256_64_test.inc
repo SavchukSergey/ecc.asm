@@ -1,6 +1,6 @@
-include '../src/math/bigint/div_rem/bi_div_rem_256_128.inc'
+include '../src/math/bigint/div_rem/bi_div_rem_256_64.inc'
 
-__bi_div_rem_256_128_test:
+__bi_div_rem_256_64_test:
 virtual at rsp
 .locals_start:
   .dividend_hex rq 1
@@ -15,7 +15,7 @@ virtual at rsp
 end virtual
         enter   .locals_end - .locals_start, 0
 
-        lea     rbx, [__bi_div_rem_256_128_test_cases]
+        mov     rbx, __bi_div_rem_256_64_test_cases
 .loop:        
         lea     rcx, [rbx]
         lea     rdx, [rbx + 64]
@@ -38,11 +38,11 @@ end virtual
         call    bi_try_read_hex_256
 
         lea     rcx, [.dividend]
-        lea     rdx, [.divisor]
+        mov     rdx, qword [.divisor + 0]
         lea     r8, [.quotient]
         lea     r9, [.remainder]
         call    test_context_start_measure
-        call    bi_div_rem_256_128
+        call    bi_div_rem_256_64
         call    test_context_end_measure
 
         mov     rcx, [.expected_quotient_hex]
@@ -55,13 +55,13 @@ end virtual
 
         pop     rbx
         add     rbx, 256
-        cmp     rbx, __bi_div_rem_256_128_test_cases.end
+        cmp     rbx, __bi_div_rem_256_64_test_cases.end
         jb      .loop
 
         leave
         ret
 
-__bi_div_rem_256_128_test_cases:
+__bi_div_rem_256_64_test_cases:
   db '0000000000000000000000000000000000000000000000000000000000000000'
   db '0000000000000000000000000000000000000000000000000000000000000001'
   db '0000000000000000000000000000000000000000000000000000000000000000'
@@ -87,22 +87,20 @@ __bi_div_rem_256_128_test_cases:
   db '223d2bb3ad4647eb58fe9bbec7364ecaf8b3a977d6372d39805b3fc21efd0ffb'
   db '0000000000000000000000000000000000000000000000000000000000000003'
 
-
   db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
   db '000000000000000000000000000000000000000000000000000000000000006e'
   db '01de19a80e1b1b3212d160ee7a9340ce8fe49039bc8ea5603a3385ce144ef790'
   db '0000000000000000000000000000000000000000000000000000000000000005'
 
+  db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
+  db '0000000000000000000000000000000000000000000000006e3be8abd2e089ed'
+  db '0000000000000001dd15d2c949aedaa0d4b35cadc44954468467b49a95eb45be'
+  db '00000000000000000000000000000000000000000000000006169e38248c20ff'
 
   db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
-  db '000000000000000000000000000000006e3be8abd2e089ed812475be9b51c3cf'
-  db '00000000000000000000000000000001dd15d2c949aeda9ea5c7f77e1c7d2c3b'
-  db '000000000000000000000000000000001294f2aac703fc89ac5cb7b3a05bab30'
-
-  db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
-  db '00000000000000000000000000000000ffffffffffffffffffffffffffffffff'
-  db '00000000000000000000000000000000cd6f06360fa5af8415f7a678ab45d8c2'
-  db '00000000000000000000000000000000a1a4ff0514f0bedd181b2505653438a7'
+  db '000000000000000000000000000000000000000000000000ffffffffffffffff'
+  db '0000000000000000cd6f06360fa5af84e366acaebaeb8846b79ca57dc036979f'
+  db '000000000000000000000000000000000000000000000000b9c0240a7a24f784'
 
   .end:
 

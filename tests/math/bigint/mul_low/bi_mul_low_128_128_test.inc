@@ -35,15 +35,7 @@ end virtual
         lea     rdx, [.result]
         call    bi_assert_equal_hex_128
 
-        jmp     .pass
-
-.fail:
         leave
-        stc
-        ret
-.pass:
-        leave
-        clc
         ret
 
 __bi_mul_low_128_128_test:

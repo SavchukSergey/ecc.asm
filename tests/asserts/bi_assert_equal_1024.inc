@@ -15,6 +15,8 @@ bi_assert_equal_1024:
 	clc
 	jmp	.end
 .fail:
+	call	 test_context_assert_fail
+
 	lea	rsi, [.msg_1]
 	call	Console_WriteString
 

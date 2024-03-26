@@ -1,7 +1,7 @@
 include 'bigint/add/index.inc'
 include 'bigint/sub/index.inc'
-include 'bigint/sub.tests.inc'
 include 'bigint/cmp.tests.inc'
+include 'bigint/shl/index.inc'
 include 'bigint/shl.tests.inc'
 include 'bigint/shr.tests.inc'
 include 'bigint/zero/index.inc'
@@ -11,7 +11,7 @@ include 'bigint/mul/index.inc'
 include 'bigint/mul_low/index.inc'
 include 'bigint/div_rem.tests.inc'
 include 'bigint/mod_add/index.inc'
-include 'bigint/mod_sub.tests.inc'
+include 'bigint/mod_sub/index.inc'
 include 'bigint/mod_mul/index.inc'
 include 'bigint/mod_inverse/index.inc'
 include 'bigint/lzcnt/index.inc'
@@ -29,6 +29,9 @@ __bi_tests_128:
 
         dq __bi_add_128_128_test
         db 'bi_add_128_128', 0
+
+        dq __bi_sub_128_128_test
+        db 'bi_sub_128_128', 0
 
 ;        dq __bi_bit_clear_first_test_#bits
 ;        db 'bit_clear_first', 0
@@ -82,10 +85,6 @@ __bi_tests_128:
 ;        dq __bi_one_test_#bits
 ;        db 'one', 0
 
-;todo: sub positive, sub equal
-        dq __bi_sub_128_128_test
-        db 'sub negative', 0
-
         dq __bi_mul_128_64_test
         db 'bi_mul_128_64', 0
         dq __bi_mul_128_128_test
@@ -135,15 +134,17 @@ __bi_tests_256:
         dq __bi_mul_low_256_256_test
         db 'bi_mul_low_256_256', 0
 
+        dq __bi_div_rem_256_64_test
+        db 'bi_div_rem_256_64', 0
         dq __bi_div_rem_256_128_test
         db 'bi_div_rem_256_128', 0
         dq __bi_div_rem_256_256_test
         db 'bi_div_rem_256_256', 0
 
         dq __bi_mod_add_assign_256_256_test
-        db 'mod_add', 0
+        db 'bi_mod_add_assign_256_256', 0
         dq __bi_mod_sub_assign_256_256_test
-        db 'mod_sub', 0
+        db 'bi_mod_sub_assign_256_256', 0
         dq __bi_mod_mul_256_256_test
         db 'mod_mul', 0
         dq __bi_mod_inverse_256_test
@@ -153,15 +154,19 @@ __bi_tests_256:
         db 'bi_lzcnt_256', 0
 
         dq 0
-;        dq __bi_zero_test_#bits
-;        db 'zero', 0
 
 align 16
 __bi_tests_512:
         dq __bi_zero_512_test
         db 'bi_zero_512', 0
+        dq __bi_copy_512_test
+        db 'bi_copy_512', 0
+        
         dq __bi_add_512_512_test
         db 'bi_add_512_512', 0
+        dq __bi_sub_512_512_test
+        db 'bi_sub_512_512', 0
+
         dq __bi_cmp_512_512_equal_test
         db 'cmp_equal', 0
         dq __bi_cmp_512_512_less_test
@@ -178,10 +183,6 @@ __bi_tests_512:
 
         dq __bi_shl_assign_512_test
         db 'bi_shl_assign_512', 0
-
-;todo: sub positive, sub equal
-        dq __bi_sub_512_512_test
-        db 'sub negative', 0
 
         dq __bi_mul_512_512_test
         db 'bi_mul_512_512', 0

@@ -31,20 +31,12 @@ end virtual
         lea     rcx, [rbx + 128]
         lea     rdx, [.result]
         call    bi_assert_equal_hex_256
-        jc      .fail
 
         add     rbx, 64 + 64 + 64
         cmp     rbx, __bi_sub_256_256_test_cases.end
         jb      .loop
 
-.pass:
         leave
-        clc
-        ret
-
-.fail:
-        leave
-        stc
         ret
 
 __bi_sub_256_256_test_cases:

@@ -11,6 +11,8 @@ bi_assert_equal_64:
 	cmp	rcx, rdx
 	jz	.end
 .fail:
+	call	 test_context_assert_fail
+
 	lea	rsi, [.msg_1]
 	call	Console_WriteString
 

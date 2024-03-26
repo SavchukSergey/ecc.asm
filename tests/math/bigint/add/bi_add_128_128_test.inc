@@ -28,16 +28,9 @@ end virtual
         lea     rdx, [.result]
         call    bi_assert_equal_hex_128
 
-        jmp     .pass
+        add     rsp, 3 * __BIG_INTEGER_BYTES_128
+        ret
 
-.fail:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_128
-        stc
-        ret
-.pass:
-        add     rsp, 3 * __BIG_INTEGER_BYTES_128
-        clc
-        ret
 .left_hex       db '08c5a3ca7598576d5074b535eff1147f'
 .right_hex      db '54fbe3f5a695828adc6b0e3849d201a8'
 .expected_hex   db '5DC187C01C2DD9F82CDFC36E39C31627'

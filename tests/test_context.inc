@@ -6,6 +6,7 @@ struct TestContext
   measures_min rq 1
   measures_max rq 1
   measures_avg rq 1
+  assert_fails rq 1
 ends
 
 TestContextReg equ r12
@@ -31,6 +32,7 @@ end virtual
         mov     qword [.context.measures_total], 0
         mov     qword [.context.measures_min], -1
         mov     qword [.context.measures_max], 0
+        mov     qword [.context.assert_fails], 0
         ret
 
 test_context_start_measure:
@@ -89,4 +91,11 @@ end virtual
         div     qword [.context.measures_count]
         mov     [.context.measures_avg], rax
         pop     rdx
+        ret
+
+test_context_assert_fail:
+virtual at TestContextReg
+  .context TestContext
+end virtual
+        inc     [.context.assert_fails]
         ret

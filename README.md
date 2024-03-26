@@ -24,16 +24,18 @@ Full list of methods:
 | [bi_add_256_256](#bi_add_256_256)           | Adds two `bi256` values              |
 | [bi_sub_256_256](#bi_sub_256_256)           | Subtracts two `bi256` values         |
 | [bi_mul_256_256](#bi_mul_256_256)           | Multiplies two `bi256` values        |
-| [bi_mul_low_256_256](#bi_mul_low_256_256)   | Multiplies two `bi256` values and returns low `bi256` value |
-| [bi_div_rem_256_128](#bi_div_rem_256_128)   | Divides `bi256` by `bi128`           |
-| [bi_div_rem_256_256](#bi_div_rem_256_256)   | Divides `bi256` by `bi256`           |
-| [bi_lzcnt_256](#bi_lzcnt_256)               | Counts leading zero bits of `bi256`  |
-| [bi_shl_assign_256_1](#bi_shl_assign_256_1) | Shifts `bi256` to the left by 1 bit  |
-| [bi_shr_assign_256_1](#bi_shr_assign_256_1) | Shifts `bi256` to the right by 1 bit |
-| [bi_shl_assign_256](#bi_shl_assign_256)     | Shifts `bi256` to the left           |
-| [bi_cmp_256_256](#bi_cmp_256_256)           | Compares two `bi256` values          |
-| [bi_zero_512](#bi_zero_256)                 | Zeroes `bi512` value                 |
-| [bi_one_512](#bi_one_512)                   | Sets 1 to `bi512` value              |
+| [bi_mul_low_256_256](#bi_mul_low_256_256)               | Multiplies two `bi256` values and returns low `bi256` value |
+| [bi_div_rem_256_128](#bi_div_rem_256_128)               | Divides `bi256` by `bi128`                                  |
+| [bi_div_rem_256_256](#bi_div_rem_256_256)               | Divides `bi256` by `bi256`                                  |
+| [bi_lzcnt_256](#bi_lzcnt_256)                           | Counts leading zero bits of `bi256`                         |
+| [bi_shl_assign_256_1](#bi_shl_assign_256_1)             | Shifts `bi256` to the left by 1 bit                         |
+| [bi_shr_assign_256_1](#bi_shr_assign_256_1)             | Shifts `bi256` to the right by 1 bit                        |
+| [bi_shl_assign_256](#bi_shl_assign_256)                 | Shifts `bi256` to the left                                  |
+| [bi_cmp_256_256](#bi_cmp_256_256)                       | Compares two `bi256` values                                 |
+| [bi_mod_add_assign_256_256](#bi_mod_add_assign_256_256) | Adds two `bi256` values with modulo                         |
+| [bi_mod_sub_assign_256_256](#bi_mod_sub_assign_256_256) | Subtracts two `bi256` values with modulo                    |
+| [bi_zero_512](#bi_zero_256)                             | Zeroes `bi512` value                                        |
+| [bi_one_512](#bi_one_512)                               | Sets 1 to `bi512` value                                     |
 | [bi_add_512_512](#bi_add_512_512)           | Adds two `bi512` values              |
 | [bi_sub_512_512](#bi_sub_512_512)           | Subtracts two `bi512` values         |
 | [bi_mul_512_512](#bi_mul_512_512)           | Multiplies two `bi512` values        |
@@ -283,6 +285,24 @@ Input:
 
 Output:
 * `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+
+## bi_mod_add_assign_256_256
+
+Adds two `bi256` values with modulo
+
+Input:
+* `rcx` - pointer to left `bi256` value. This value is modified.
+* `rdx` - pointer to right `bi256` value
+* `r8` - pointer to modulo `bi256` value
+
+## bi_mod_sub_assign_256_256
+
+Subtracts two `bi256` values with modulo
+
+Input:
+* `rcx` - pointer to left `bi256` value. This value is modified.
+* `rdx` - pointer to right `bi256` value
+* `r8` - pointer to modulo `bi256` value
 
 # bi512 operations
 

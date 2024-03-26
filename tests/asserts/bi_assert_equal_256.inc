@@ -15,6 +15,7 @@ bi_assert_equal_256:
 	clc
 	jmp	.end
 .fail:
+	call	 test_context_assert_fail
 	lea	rsi, [.msg_1]
 	call	Console_WriteString
 
@@ -26,10 +27,10 @@ bi_assert_equal_256:
 	lea	rsi, [.msg_2]
 	call	Console_WriteString
 
-	call	Console_WriteUInt256Hex
+	call    Console_WriteUInt256Hex
 
-	lea	rsi, [.msg_3]
-	call	Console_WriteString
+	lea     rsi, [.msg_3]
+	call    Console_WriteString
 	stc
 .end:
 	pop	rsi rax

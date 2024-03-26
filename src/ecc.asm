@@ -53,6 +53,7 @@ section '.edata' export data readable
 \
          bi_copy_128, 'bi_copy_128', \
          bi_copy_256, 'bi_copy_256', \
+         bi_copy_512, 'bi_copy_512', \
 \
          bi_try_read_hex_128, 'bi_try_read_hex_128', \
          bi_try_read_hex_256, 'bi_try_read_hex_256', \
@@ -98,6 +99,7 @@ section '.edata' export data readable
 \
          bi_shl_128, 'bi_shl_128', \
          bi_shl_256, 'bi_shl_256', \
+         bi_shl_512, 'bi_shl_512', \
 \
          bi_shr_assign_128_1, 'bi_shr_assign_128_1', \
          bi_shr_assign_256_1, 'bi_shr_assign_256_1', \

@@ -21,15 +21,8 @@ end virtual
     lea     rcx, [.source_hex]
     lea     rdx, [.target]
     call    bi_assert_equal_hex_256
-    jc      .fail
 
-.pass:
     leave
-    clc
-    ret
-.fail:
-    leave
-    stc
     ret
 
 .source_hex db '6f3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'

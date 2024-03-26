@@ -1,7 +1,7 @@
-include '../src/math/bigint/mod_add/bi_mod_add_assign_256_256.inc'
+include '../src/math/bigint/mod_sub/bi_mod_sub_assign_256_256.inc'
 include '../../../assert.inc'
 
-__bi_mod_add_assign_256_256_test_core:
+__bi_mod_sub_assign_256_256_test_core:
 virtual at rsp
 .locals_start:
   .left_hex rq 1
@@ -31,12 +31,16 @@ end virtual
 	lea	rdx, [.modulus]
 	call	bi_try_read_hex_256
 
-	lea      rcx, [.left]
-	lea      rdx, [.right]
-    lea      r8, [.modulus]
-    call     test_context_start_measure
-    call     bi_mod_add_assign_256_256
+	lea	rcx, [.left]
+	lea	rdx, [.right]
+	lea	r8, [.modulus]
+	call     test_context_start_measure
+	call     bi_mod_sub_assign_256_256
     call     test_context_end_measure
+
+    mov      rcx, [.expected_hex]
+    lea      rdx, [.left]
+    call     bi_assert_equal_hex_256
 
     mov      rcx, [.expected_hex]
     lea      rdx, [.left]
@@ -45,30 +49,30 @@ end virtual
 	leave
 	ret
 
-__bi_mod_add_assign_256_256_test:
-	mov		rbx, __bi_mod_add_assign_256_256_test_cases
+__bi_mod_sub_assign_256_256_test:
+	mov		rbx, __bi_mod_sub_assign_256_256_test_cases
 .loop:
 	lea		rcx, [rbx + 0]
 	lea		rdx, [rbx + 64]
 	lea		r8, [.modulus_hex]
 	lea		r9, [rbx + 128]
-	call	__bi_mod_add_assign_256_256_test_core
+	call	__bi_mod_sub_assign_256_256_test_core
 
 	add		rbx, 64 + 64 + 64
-	cmp		rbx, __bi_mod_add_assign_256_256_test_cases.end
+	cmp		rbx, __bi_mod_sub_assign_256_256_test_cases.end
 	jb		.loop
 
 	ret
 .modulus_hex	db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
 
 
-__bi_mod_add_assign_256_256_test_cases:
+__bi_mod_sub_assign_256_256_test_cases:
   db '6f3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
   db '42ee2737466d172a7dd3ec5c797b49a2f0db3a30fa26418148368b39b9b47053'
-  db 'b22228df3346f1360764b80e1c726d53f87955e1240f87a2fdd877010da44001'
+  db '2C45DA70A66CC2E10BBCDF55297BDA0E16C2E17F2FC304A06D6B608D9A3B5F5B'
 
-  db 'bf3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
-  db 'a2ee2737466d172a7dd3ec5c797b49a2f0db3a30fa26418148368b39b9b47053'
-  db '622228df3346f1360764b80e1c726d53f87955e1240f87a2fdd877020da443d2'
+  db '42ee2737466d172a7dd3ec5c797b49a2f0db3a30fa26418148368b39b9b47053'
+  db '6f3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
+  db 'D3BA258F59933D1EF44320AAD68425F1E93D1E80D03CFB5F92949F7165C49CD4'
 
 .end:
