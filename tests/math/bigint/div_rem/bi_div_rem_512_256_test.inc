@@ -1,6 +1,6 @@
-include '../src/math/bigint/div_rem/bi_div_rem_512_128.inc'
+include '../src/math/bigint/div_rem/bi_div_rem_512_256.inc'
 
-__bi_div_rem_512_128_test_core:
+__bi_div_rem_512_256_test_core:
 virtual at rsp
 .locals_start:
   .dividend_hex rq 1
@@ -14,9 +14,10 @@ virtual at rsp
   .pointer rq 1
 .locals_end:
 end virtual
+
         enter   .locals_end - .locals_start, 0
         mov     [.pointer], rbx
-.loop:
+.loop:        
         mov     rbx, [.pointer]
         cmp     qword [rbx], 0
         je      .end
@@ -44,7 +45,7 @@ end virtual
         lea     r8, [.quotient]
         lea     r9, [.remainder]
         call    test_context_start_measure
-        call    bi_div_rem_512_128
+        call    bi_div_rem_512_256
         call    test_context_end_measure
 
         mov     rcx, [.expected_quotient_hex]
@@ -58,15 +59,18 @@ end virtual
         add     [.pointer], 512
         jmp     .loop
 .end:
+
         leave
         ret
 
-__bi_div_rem_512_128_test:
+__bi_div_rem_512_256_test:
         mov     rbx, __bi_div_rem_512_64_test_cases
-        call    __bi_div_rem_512_128_test_core
+        call    __bi_div_rem_512_256_test_core
 
         mov     rbx, __bi_div_rem_512_128_test_cases
-        call    __bi_div_rem_512_128_test_core
+        call    __bi_div_rem_512_256_test_core
+
+        mov     rbx, __bi_div_rem_512_256_test_cases
+        call    __bi_div_rem_512_256_test_core
 
         ret
-

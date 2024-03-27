@@ -158,11 +158,8 @@ end if
 .correction_ok:
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        lea     rsi, [.guess_corrected_msg]
-        call    Console_WriteString
-        lea     rcx, [.guess_128]
-        call    Console_WriteUInt128Hex
-        call    Console_WriteLine
+        lea     rcx, qword [.guess_128]
+        call    bi_div_rem_dump_guess_corrected_128
 end if
 
         mov     rcx, [.divisor]
@@ -237,7 +234,6 @@ end if
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
   .loop_msg:               db '----------------------------------', 13, 10, 0
-  .guess_corrected_msg:    db 'guess (corrected): ', 0
   .delta_corrected_msg:    db 'delta (corrected): ', 0
   .new_quotient_msg:       db 'new quotient:      ', 0
   .new_remainder_msg:      db 'new remainder:     ', 0

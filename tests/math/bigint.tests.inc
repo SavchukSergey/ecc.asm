@@ -152,7 +152,7 @@ __bi_tests_256:
         dq __bi_mod_mul_256_256_test
         db 'bi_mod_mul_256_256', 0
         dq __bi_mod_inverse_256_test
-        db 'mod_inverse', 0
+        db 'bi_mod_inverse_256', 0
 
         dq __bi_lzcnt_256_test
         db 'bi_lzcnt_256', 0
@@ -201,6 +201,9 @@ __bi_tests_512:
 
         dq __bi_div_rem_512_128_test
         db 'bi_div_rem_512_128', 0
+
+        dq __bi_div_rem_512_256_test
+        db 'bi_div_rem_512_256', 0
 
         dq 0
 
