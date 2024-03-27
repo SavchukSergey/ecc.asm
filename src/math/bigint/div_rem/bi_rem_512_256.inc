@@ -6,7 +6,7 @@ include 'bi_div_rem_512_256.inc'
 bi_rem_512_256:
 virtual at rsp
   label .locals_start
-  .quotient_512 rq 1
+  .quotient_512 rb __BIG_INTEGER_BYTES_512
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start

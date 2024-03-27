@@ -1,12 +1,9 @@
 if ~ definite bi_mod_mul_256_256
 
-include '../zero/bi_zero_256.inc'
+include '../mul/bi_mul_256_256.inc'
+;include '../div_rem/bi_div_rem_512_256.inc'
 include '../copy/bi_copy_256.inc'
-include '../bit_check/bi_bit_check_256.inc'
-include '../mod_add/bi_mod_add_assign_256_256.inc'
-include '../mod_add/bi_mod_double_assign_256_256.inc'
 
-;todo: optimize
 bi_mod_mul_256_256:
 virtual at rsp
   label .locals_start
@@ -14,8 +11,8 @@ virtual at rsp
     .right rq 1
     .modulus rq 1
     .result rq 1
-    .acc rb __BIG_INTEGER_BYTES_256
-    .bit rq 1
+    .result_512 rb __BIG_INTEGER_BYTES_512
+    .reminder_512 rb __BIG_INTEGER_BYTES_512
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
@@ -24,34 +21,20 @@ end virtual
         mov     [.modulus], r8
         mov     [.result], r9
 
-        mov     rcx, [.result]
-        call    bi_zero_256
+        mov     rcx, [.left]
+        mov     rdx, [.right]
+        lea     r8, [.result_512]
+        call    bi_mul_256_256
 
-        lea     rcx, [.acc]
-        mov     rdx, [.left]
-        call    bi_copy_256
-
-        mov     [.bit], 0
-.loop:
-        mov     rcx, [.right]
-        mov     rdx, [.bit]
-        call    bi_bit_check_256
-        test    rax, rax
-        jz      .zero_bit
-
-        mov     rcx, [.result]
-        lea     rdx, [.acc]
-        mov     r8, [.modulus]
-        call    bi_mod_add_assign_256_256
-.zero_bit:
-        lea     rcx, [.acc]
+        lea     rcx, [.result_512]
         mov     rdx, [.modulus]
-        call    bi_mod_double_assign_256_256
+        lea     r8, [.reminder_512]
+        call    bi_rem_512_256
 
-        inc     [.bit]
-        cmp     [.bit], 256
-        jb      .loop
-
+        mov     rcx, [.result]
+        lea     rdx, [.reminder_512]
+        call    bi_copy_256
+;
         add     rsp, .locals_end - .locals_start
         ret
 

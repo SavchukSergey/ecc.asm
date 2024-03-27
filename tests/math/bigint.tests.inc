@@ -150,7 +150,7 @@ __bi_tests_256:
         dq __bi_mod_sub_assign_256_256_test
         db 'bi_mod_sub_assign_256_256', 0
         dq __bi_mod_mul_256_256_test
-        db 'mod_mul', 0
+        db 'bi_mod_mul_256_256', 0
         dq __bi_mod_inverse_256_test
         db 'mod_inverse', 0
 
