@@ -1,22 +1,24 @@
-if ~ definite bi_div_rem_256_128_guess
+if ~ definite bi_div_rem_512_128_guess
 
-include '../lzcnt/bi_lzcnt_256.inc'
-include '../zero/bi_zero_256.inc'
-include '../copy/bi_copy_256.inc'
-include '../cmp/bi_cmp_128_128.inc'
-include '../shl/bi_shl_256.inc'
-include '../shl/bi_shl_assign_256.inc'
-include '../sub/bi_sub_assign_256_128.inc'
-include '../sub/bi_sub_assign_256_256.inc'
-include '../mul_low/bi_mul_low_256_128.inc'
-include '../extend_low/bi_extend_256_128.inc'
+include '../lzcnt/bi_lzcnt_128.inc'
+include '../lzcnt/bi_lzcnt_512.inc'
+include '../zero/bi_zero_512.inc'
+include '../copy/bi_copy_512.inc'
+include '../shl/bi_shl_128.inc'
+include '../shl/bi_shl_512.inc'
+include '../shl/bi_shl_assign_512.inc'
+include '../shr/bi_shr_assign_128.inc'
+include '../sub/bi_sub_assign_512_128.inc'
+include '../add/bi_add_assign_512_512.inc'
+include '../sub/bi_sub_assign_512_512.inc'
+include '../extend_low/bi_extend_512_128.inc'
 include '../div_rem/bi_div_128_64.inc'
-include '../div_rem/bi_div_rem_256_64.inc'
-include '../inc/bi_inc_assign_256.inc'
+include '../div_rem/bi_div_rem_512_64.inc'
+include '../inc/bi_inc_assign_512.inc'
 
-;BI_DEV_REM_256_128_GUESS_DEBUG = 1
+;BI_DEV_REM_512_128_GUESS_DEBUG = 1
 
-bi_div_rem_256_128_guess:
+bi_div_rem_512_128_guess:
 virtual at rsp
   label .locals_start
   .dividend rq 1
@@ -28,11 +30,11 @@ virtual at rsp
   .divisor_shifted rb __BIG_INTEGER_BYTES_128
 
   .remainder_lzcnt rq 1
-  .remainder_shifted rb __BIG_INTEGER_BYTES_256
+  .remainder_shifted rb __BIG_INTEGER_BYTES_512
 
   .guess_128 rb __BIG_INTEGER_BYTES_128
-  .delta rb __BIG_INTEGER_BYTES_256
-  .guess_q rb __BIG_INTEGER_BYTES_256
+  .delta rb __BIG_INTEGER_BYTES_512
+  .guess_q rb __BIG_INTEGER_BYTES_512
   .correction rq 1
   label .locals_end
 end virtual
@@ -42,12 +44,12 @@ end virtual
         mov     [.quotient], r8
         mov     [.remainder], r9
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         call    Console_WriteLine
         lea     rsi, [.dividend_msg]
         call    Console_WriteString
         mov     rcx, [.dividend]
-        call    Console_WriteUInt256Hex
+        call    Console_WriteUInt512Hex
         call    Console_WriteLine
 
         lea     rsi, [.divisor_msg]
@@ -59,34 +61,33 @@ end if
 
         mov     rcx, [.divisor]
         call    bi_lzcnt_128
-        add     rax, 128
+        add     rax, 384
         mov     [.divisor_lzcnt], rax
 
-        cmp     rax, 256 - 64
+        cmp     rax, 512 - 64
         jb      .divisor_large
         mov     rcx, [.dividend]
         mov     rdx, [.divisor]
         mov     rdx, [rdx + 0]
         mov     r8, [.quotient]
         mov     r9, [.remainder]
-        call    bi_div_rem_256_64
+        call    bi_div_rem_512_64
         jmp     .end
 .divisor_large:
         mov     rcx, [.quotient]
-        call    bi_zero_256
+        call    bi_zero_512
 
         mov     rcx, [.remainder]
         mov     rdx, [.dividend]
-        call    bi_copy_256
-
+        call    bi_copy_512
 
         mov     rcx, [.divisor]
         lea     rdx, [.divisor_shifted]
         mov     r8, [.divisor_lzcnt]
-        sub     r8, 128
+        sub     r8, 384
         call    bi_shl_128
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.divisor_shifted_msg]
         call    Console_WriteString
         lea     rcx, [.divisor_shifted]
@@ -95,19 +96,19 @@ if definite BI_DEV_REM_256_128_GUESS_DEBUG
 end if
 
 .loop:
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.loop_msg]
         call    Console_WriteString
 
         lea     rsi, [.remainder_msg]
         call    Console_WriteString
         mov     rcx, [.remainder]
-        call    Console_WriteUInt256Hex
+        call    Console_WriteUInt512Hex
         call    Console_WriteLine
 end if
 
         mov     rcx, [.remainder]
-        call    bi_lzcnt_256
+        call    bi_lzcnt_512
         mov     [.remainder_lzcnt], rax
 
         cmp     rax, [.divisor_lzcnt]
@@ -116,13 +117,13 @@ end if
         mov     rcx, [.remainder]
         lea     rdx, [.remainder_shifted]
         mov     r8, [.remainder_lzcnt]
-        call    bi_shl_256
+        call    bi_shl_512
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.remainder_shifted_msg]
         call    Console_WriteString
         lea     rcx, [.remainder_shifted]
-        call    Console_WriteUInt256Hex
+        call    Console_WriteUInt512Hex
         call    Console_WriteLine
 end if
 
@@ -130,17 +131,17 @@ end if
         inc     rdx
         jnz     .divisor_not_max
 .divisor_max:
-        mov     rcx, qword [.remainder_shifted + 24]; divide by 2^64
+        mov     rcx, qword [.remainder_shifted + 56]; divide by 2^64
         mov     qword [.guess_128], rcx
         mov     qword [.guess_128 + 8], 0
         jmp     .divisor_ok
 .divisor_not_max:
-        lea     rcx, qword [.remainder_shifted + 16]
+        lea     rcx, qword [.remainder_shifted + 48]
         lea     r8, [.guess_128]
         call    bi_div_128_64
 .divisor_ok:
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.guess_msg]
         call    Console_WriteString
         lea     rcx, [.guess_128]
@@ -161,7 +162,7 @@ end if
         mov     [.correction], 0
 .correction_ok:
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.guess_corrected_msg]
         call    Console_WriteString
         lea     rcx, [.guess_128]
@@ -169,22 +170,25 @@ if definite BI_DEV_REM_256_128_GUESS_DEBUG
         call    Console_WriteLine
 end if
 
+        lea     rcx, [.delta]
+        call    bi_zero_512
+
         mov     rcx, [.divisor]
         lea     rdx, qword [.guess_128 + 0]
         lea     r8, [.delta]
         call    bi_mul_128_128
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.delta_msg]
         call    Console_WriteString
         lea     rcx, [.delta]
-        call    Console_WriteUInt256Hex
+        call    Console_WriteUInt512Hex
         call    Console_WriteLine
 end if
 
         lea     rcx, [.guess_q]
         lea     rdx, [.guess_128]
-        call    bi_extend_256_128
+        call    bi_extend_512_128 ;todo: guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
 
         cmp     [.correction], 0
         jz     .correction_2_ok
@@ -192,40 +196,40 @@ end if
 
         lea     rcx, [.delta + 0]
         mov     rdx, [.correction]
-        call    bi_shl_assign_256
+        call    bi_shl_assign_512
 
         lea     rcx, [.guess_q]
         mov     rdx, [.correction]
-        call    bi_shl_assign_256
+        call    bi_shl_assign_512
 .correction_2_ok:
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.delta_corrected_msg]
         call    Console_WriteString
         lea     rcx, [.delta]
-        call    Console_WriteUInt256Hex
+        call    Console_WriteUInt512Hex
         call    Console_WriteLine
 end if
 
         mov     rcx, [.remainder]
         lea     rdx, [.delta]
-        call    bi_sub_assign_256_256
+        call    bi_sub_assign_512_512
 
         mov     rcx, [.quotient]
         lea     rdx, [.guess_q]
-        call    bi_add_assign_256_256
+        call    bi_add_assign_512_512
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.new_quotient_msg]
         call    Console_WriteString
         mov     rcx, [.quotient]
-        call    Console_WriteUInt256Hex
+        call    Console_WriteUInt512Hex
         call    Console_WriteLine
 
         lea     rsi, [.new_remainder_msg]
         call    Console_WriteString
         mov     rcx, [.remainder]
-        call    Console_WriteUInt256Hex
+        call    Console_WriteUInt512Hex
         call    Console_WriteLine
 end if
 
@@ -241,13 +245,13 @@ end if
         call    bi_cmp_128_128
         jb      .end
         mov     rcx, [.quotient]
-        call    bi_inc_assign_256
+        call    bi_inc_assign_512
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
-        call    bi_sub_assign_256_128
+        call    bi_sub_assign_512_128
         jmp     .end
 
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
+if definite BI_DEV_REM_512_128_GUESS_DEBUG
   .dividend_msg:           db 'dividend:          ', 0
   .divisor_msg:            db 'divisor:           ', 0
   .divisor_shifted_msg:    db 'divisor shifted:   ', 0

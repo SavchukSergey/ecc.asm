@@ -5,35 +5,36 @@ include 'win64a.inc'
 
 section '.text' code readable executable
 start:
-        call    enable_vt_processing
+	and	rsp, 0xffff_ffff_ffff_fff0
 
-        sub     rsp, 0x28
+	call	enable_vt_processing
 
-        call    test_output_start
+	call	test_output_start
 
-        call    run_test_calibrate
+	call	run_test_calibrate
 
-        mov     rax, __bi_tests_128
-        mov     rsi, .bi128_fixture_name
-        call    run_test_fixture
+	mov	rax, __bi_tests_128
+	mov	rsi, .bi128_fixture_name
+	call	run_test_fixture
 
-        mov     rax, __bi_tests_256
-        mov     rsi, .bi256_fixture_name
-        call    run_test_fixture
+	mov	rax, __bi_tests_256
+	mov	rsi, .bi256_fixture_name
+	call	run_test_fixture
 
-        mov     rax, __bi_tests_512
-        mov     rsi, .bi512_fixture_name
-        call    run_test_fixture
+	mov	rax, __bi_tests_512
+	mov	rsi, .bi512_fixture_name
+	call	run_test_fixture
 
-        mov     rax, __bi_tests_1024
-        mov     rsi, .bi1024_fixture_name
-        call    run_test_fixture
+	mov	rax, __bi_tests_1024
+	mov	rsi, .bi1024_fixture_name
+	call	run_test_fixture
 
-        call    test_output_end
+	call	test_output_end
 
-        invoke  ExitProcess, 0
-        add     rsp, 0x28
-        ret
+	sub	rsp, 0x28
+	invoke	ExitProcess, 0
+	add	rsp, 0x28
+	ret
 .empty_fixture_name db 'calibrate', 0
 .bi128_fixture_name db 'bi128', 0
 .bi256_fixture_name db 'bi256', 0
@@ -51,33 +52,33 @@ virtual at rsp
     .result TestContext
   .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
-        lea     TestContextReg, [.result]
-        call    test_context_init
+	enter	.locals_end - .locals_start, 0
+	lea	TestContextReg, [.result]
+	call	test_context_init
 
-        mov     [calibration_shift], 0
-        mov     rbx, -1
-        mov     rcx, 10000
+	mov	[calibration_shift], 0
+	mov	rbx, -1
+	mov	rcx, 10000
 .count_loop:
-        push    rbx rcx
-        call    [.empty_ref]
-        pop     rcx rbx
-        loop    .count_loop
+	push	rbx rcx
+	call	[.empty_ref]
+	pop	rcx rbx
+	loop	.count_loop
 
-        call    test_context_finalize
-        mov     rax, [.result.measures_min]
-        mov     [calibration_shift], rax
+	call	test_context_finalize
+	mov	rax, [.result.measures_min]
+	mov	[calibration_shift], rax
 
-        leave
-        ret
+	leave
+	ret
 .empty:
-        call    test_context_start_measure
-        call    test_context_end_measure
-        ret
+	call	test_context_start_measure
+	call	test_context_end_measure
+	ret
 .empty_ref dq .empty
 
 run_test_fixture:
-        push    rax rbx rsi
+	push	rax rbx rsi
 virtual at rsp
   .locals_start:
   .test rq 1
@@ -91,92 +92,92 @@ end virtual
 virtual at TestContextReg
   .context TestContext
 end virtual
-        enter   .locals_end - .locals_start, 0
-        mov     [.test], rax
+	enter	.locals_end - .locals_start, 0
+	mov	[.test], rax
 
-        call    test_output_start_chapter
+	call	test_output_start_chapter
 
-        mov     rcx, rsi
-        call    test_output_chapter_title
+	mov	rcx, rsi
+	call	test_output_chapter_title
 
-        call    test_output_start_chapter_table
+	call	test_output_start_chapter_table
 
 .loop:
-        mov     rax, [.test]
-        mov     rbx, [rax]
-        test    rbx, rbx
-        jz      .end
-        mov     [.test_proc], rbx
-        add     qword [.test], 8
+	mov	rax, [.test]
+	mov	rbx, [rax]
+	test	rbx, rbx
+	jz	.end
+	mov	[.test_proc], rbx
+	add	qword [.test], 8
 
-        call    test_output_start_test
+	call	test_output_start_test
 
-        mov     rcx, [.test]
-        call    test_output_test_name_cell
+	mov	rcx, [.test]
+	call	test_output_test_name_cell
 
 .test_name_end_loop:
-        mov     rax, [.test]
-        cmp     byte [rax], 0
-        je      .test_name_end
-        inc     [.test]
-        jmp     .test_name_end_loop
+	mov	rax, [.test]
+	cmp	byte [rax], 0
+	je	.test_name_end
+	inc	[.test]
+	jmp	.test_name_end_loop
 .test_name_end:
-        inc     [.test]
+	inc	[.test]
 
-        mov     qword [.test_count], 0
-        mov     qword [.test_successes], 0
-        mov     qword [.test_failures], 0
+	mov	qword [.test_count], 0
+	mov	qword [.test_successes], 0
+	mov	qword [.test_failures], 0
 
-        lea     TestContextReg, [.result]
-        call    test_context_init
+	lea	TestContextReg, [.result]
+	call	test_context_init
 .count_loop:
-        call    [.test_proc]
-        cmp     [.context.assert_fails], 0
-        jz      .count_pass
+	call	[.test_proc]
+	cmp	[.context.assert_fails], 0
+	jz	.count_pass
 .count_fail:
-        inc     qword [.test_failures]
-        jmp     .count_continue
+	inc	qword [.test_failures]
+	jmp	.count_continue
 .count_pass:
-        inc     qword [.test_successes]
-        jmp     .count_continue
+	inc	qword [.test_successes]
+	jmp	.count_continue
 .count_continue:
-        inc     [.test_count]
-        cmp     [.test_failures], 0
-        jne     .count_loop_end
-        cmp     qword [.test_count], 5000
-        jb      .count_loop
+	inc	[.test_count]
+	cmp	[.test_failures], 0
+	jne	.count_loop_end
+	cmp	qword [.test_count], 5000
+	jb	.count_loop
 
 .count_loop_end:
-        call    test_context_finalize
+	call	test_context_finalize
 
-        cmp     [.test_failures], 0x00
-        je      .test_ok
+	cmp	[.test_failures], 0x00
+	je	.test_ok
 .test_fail:
-        mov     rcx, 1
-        call    test_output_test_status_cell
-        jmp     .test_end
+	mov	rcx, 1
+	call	test_output_test_status_cell
+	jmp	.test_end
 .test_ok:
-        xor     rcx, rcx
-        call    test_output_test_status_cell
-        jmp     .test_end
+	xor	rcx, rcx
+	call	test_output_test_status_cell
+	jmp	.test_end
 .test_end:
-        mov     rcx, [.context.measures_min]
-        call    test_output_test_min_ticks_cell
+	mov	rcx, [.context.measures_min]
+	call	test_output_test_min_ticks_cell
 
-        mov     rcx, [.context.measures_max]
-        call    test_output_test_max_ticks_cell
+	mov	rcx, [.context.measures_max]
+	call	test_output_test_max_ticks_cell
 
-        call    test_output_end_test
+	call	test_output_end_test
 
-        jmp     .loop
+	jmp	.loop
 .end:
-        call    test_output_end_chapter_table
+	call	test_output_end_chapter_table
 
-        call    test_output_end_chapter
+	call	test_output_end_chapter
 
-        leave
-        pop     rsi rbx rax
-        ret
+	leave
+	pop	rsi rbx rax
+	ret
 
 include '../src/math/bigint.inc'
 include 'math/bigint.tests.inc'
@@ -193,8 +194,8 @@ section '.idata' import data readable writeable
   library kernel,'KERNEL32.DLL'
 
   import kernel,\
-         ExitProcess,'ExitProcess', \
-         GetStdHandle, 'GetStdHandle', \
-         GetConsoleMode, 'GetConsoleMode', \
-         SetConsoleMode, 'SetConsoleMode', \
-         WriteFile, 'WriteFile'
+	 ExitProcess,'ExitProcess', \
+	 GetStdHandle, 'GetStdHandle', \
+	 GetConsoleMode, 'GetConsoleMode', \
+	 SetConsoleMode, 'SetConsoleMode', \
+	 WriteFile, 'WriteFile'

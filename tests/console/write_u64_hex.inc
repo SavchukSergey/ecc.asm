@@ -6,12 +6,12 @@ include '../src/text/hex_format_digit.inc'
 ;input
 ; rcx - i64
 Console_WriteUInt64Hex:
-	push	rcx
-	shr	rcx, 32
-	call	Console_WriteUInt32Hex
-	pop	rcx
-	call	Console_WriteUInt32Hex
-	ret
+    push    rcx
+    shr     rcx, 32
+    call    Console_WriteUInt32Hex
+    pop     rcx
+    call    Console_WriteUInt32Hex
+    ret
 
 
 ;input

@@ -76,16 +76,19 @@ section '.edata' export data readable
          bi_sub_assign_128_128, 'bi_sub_assign_128_128', \
          bi_sub_assign_256_128, 'bi_sub_assign_256_128', \
          bi_sub_assign_256_256, 'bi_sub_assign_256_256', \
+         bi_sub_assign_512_128, 'bi_sub_assign_512_128', \
          bi_sub_assign_512_512, 'bi_sub_assign_512_512', \
 \
          bi_inc_assign_128, 'bi_inc_assign_128', \
          bi_inc_assign_256, 'bi_inc_assign_256', \
+         bi_inc_assign_512, 'bi_inc_assign_512', \
 \
          bi_dec_assign_256, 'bi_dec_assign_256', \
 \
          bi_cmp_128_128, 'bi_cmp_128_128', \
          bi_cmp_256_128, 'bi_cmp_256_128', \
          bi_cmp_256_256, 'bi_cmp_256_256', \
+         bi_cmp_512_128, 'bi_cmp_512_128', \
          bi_cmp_512_512, 'bi_cmp_512_512', \
          bi_cmp_1024_1024, 'bi_cmp_1024_1024', \
 \
@@ -129,6 +132,7 @@ section '.edata' export data readable
          bi_div_rem_256_128, 'bi_div_rem_256_128', \
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
          bi_div_rem_512_64, 'bi_div_rem_512_64', \
+         bi_div_rem_512_128, 'bi_div_rem_512_128', \
          bi_div_rem_512_512, 'bi_div_rem_512_512', \
 \
          bi_bit_clear_128, 'bi_bit_clear_128',\
@@ -151,6 +155,7 @@ section '.edata' export data readable
          bi_extend_256_64, 'bi_extend_256_64',\
          bi_extend_256_128, 'bi_extend_256_128',\
          bi_extend_512_64, 'bi_extend_512_64',\
+         bi_extend_512_128, 'bi_extend_512_128',\
          bi_extend_512_256, 'bi_extend_512_256',\
 \
          bi_mod_add_assign_256_256, 'bi_mod_add_assign_256_256',\
@@ -167,18 +172,6 @@ section '.edata' export data readable
 
 
 ;\
-;\
-;         BigIntegerExtendHigh1_128, 'bi128_extend_bi64_high', \
-;         BigIntegerExtendHigh1_256, 'bi256_extend_bi128_high', \
-;         BigIntegerExtendHigh1_512, 'bi512_extend_bi256_high', \
-;\
-;         BigIntegerExtendHigh2_128, 'bi128_extend_bi32_high', \
-;         BigIntegerExtendHigh2_256, 'bi256_extend_bi64_high', \
-;         BigIntegerExtendHigh2_512, 'bi512_extend_bi128_high', \
-;\
-;         BigIntegerExtendHighU64_128, 'bi128_extend_u64_high', \
-;         BigIntegerExtendHighU64_256, 'bi256_extend_u64_high', \
-;         BigIntegerExtendHighU64_512, 'bi512_extend_u64_high', \
 ;\
 ;         BigIntegerRnd_128, 'bi128_rnd', \
 ;         BigIntegerRnd_256, 'bi256_rnd', \
