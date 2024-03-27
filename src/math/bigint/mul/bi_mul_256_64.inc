@@ -20,7 +20,7 @@ end virtual
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
-
+;todo: optimize
         mov     rcx, [.result]
         call    bi_zero_512
         lea     rcx, [.z0]

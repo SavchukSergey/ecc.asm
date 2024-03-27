@@ -16,6 +16,10 @@ include '../inc/bi_inc_assign_256.inc'
 
 ;BI_DEV_REM_256_128_GUESS_DEBUG = 1
 
+if definite BI_DEV_REM_256_128_GUESS_DEBUG
+  include 'bi_dev_rem_debug.inc'
+end if
+
 bi_div_rem_256_128_guess:
 virtual at rsp
   label .locals_start
@@ -44,17 +48,11 @@ end virtual
 
 if definite BI_DEV_REM_256_128_GUESS_DEBUG
         call    Console_WriteLine
-        lea     rsi, [.dividend_msg]
-        call    Console_WriteString
         mov     rcx, [.dividend]
-        call    Console_WriteUInt256Hex
-        call    Console_WriteLine
+        call    bi_div_rem_dump_dividend_256
 
-        lea     rsi, [.divisor_msg]
-        call    Console_WriteString
         mov     rcx, [.divisor]
-        call    Console_WriteUInt128Hex
-        call    Console_WriteLine
+        call    bi_div_rem_dump_divisor_128
 end if
 
         mov     rcx, [.divisor]
@@ -87,11 +85,8 @@ end if
         call    bi_shl_128
 
 if definite BI_DEV_REM_256_128_GUESS_DEBUG
-        lea     rsi, [.divisor_shifted_msg]
-        call    Console_WriteString
         lea     rcx, [.divisor_shifted]
-        call    Console_WriteUInt128Hex
-        call    Console_WriteLine
+        call    bi_div_rem_dump_divisor_shifted_128
 end if
 
 .loop:
@@ -99,11 +94,8 @@ if definite BI_DEV_REM_256_128_GUESS_DEBUG
         lea     rsi, [.loop_msg]
         call    Console_WriteString
 
-        lea     rsi, [.remainder_msg]
-        call    Console_WriteString
         mov     rcx, [.remainder]
-        call    Console_WriteUInt256Hex
-        call    Console_WriteLine
+        call    bi_div_rem_dump_remainder_256
 end if
 
         mov     rcx, [.remainder]
@@ -119,11 +111,8 @@ end if
         call    bi_shl_256
 
 if definite BI_DEV_REM_256_128_GUESS_DEBUG
-        lea     rsi, [.remainder_shifted_msg]
-        call    Console_WriteString
         lea     rcx, [.remainder_shifted]
-        call    Console_WriteUInt256Hex
-        call    Console_WriteLine
+        call    bi_div_rem_dump_remainder_shifted_256
 end if
 
         mov     rdx, qword [.divisor_shifted + 8]
@@ -141,11 +130,8 @@ end if
 .divisor_ok:
 
 if definite BI_DEV_REM_256_128_GUESS_DEBUG
-        lea     rsi, [.guess_msg]
-        call    Console_WriteString
         lea     rcx, [.guess_128]
-        call    Console_WriteUInt128Hex
-        call    Console_WriteLine
+        call    bi_div_rem_dump_guess_128
 end if
 
         mov     rax, [.remainder_lzcnt]
@@ -175,11 +161,8 @@ end if
         call    bi_mul_128_128
 
 if definite BI_DEV_REM_256_128_GUESS_DEBUG
-        lea     rsi, [.delta_msg]
-        call    Console_WriteString
         lea     rcx, [.delta]
-        call    Console_WriteUInt256Hex
-        call    Console_WriteLine
+        call    bi_div_rem_dump_delta_256
 end if
 
         lea     rcx, [.guess_q]
@@ -248,15 +231,8 @@ end if
         jmp     .end
 
 if definite BI_DEV_REM_256_128_GUESS_DEBUG
-  .dividend_msg:           db 'dividend:          ', 0
-  .divisor_msg:            db 'divisor:           ', 0
-  .divisor_shifted_msg:    db 'divisor shifted:   ', 0
   .loop_msg:               db '----------------------------------', 13, 10, 0
-  .remainder_msg:          db 'remainder:         ', 0
-  .remainder_shifted_msg:  db 'remainder shifted: ', 0
-  .guess_msg:              db 'guess:             ', 0
   .guess_corrected_msg:    db 'guess (corrected): ', 0
-  .delta_msg:              db 'delta:             ', 0
   .delta_corrected_msg:    db 'delta (corrected): ', 0
   .new_quotient_msg:       db 'new quotient:      ', 0
   .new_remainder_msg:      db 'new remainder:     ', 0

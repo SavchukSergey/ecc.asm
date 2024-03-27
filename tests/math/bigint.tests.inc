@@ -129,6 +129,10 @@ __bi_tests_256:
         dq __bi_shl_assign_256_test
         db 'bi_shl_assign_256', 0
 
+        dq __bi_mul_256_64_test
+        db 'bi_mul_256_64', 0
+        dq __bi_mul_256_128_test
+        db 'bi_mul_256_128', 0
         dq __bi_mul_256_256_test
         db 'bi_mul_256_256', 0
         dq __bi_mul_low_256_256_test

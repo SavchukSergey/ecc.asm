@@ -1,6 +1,6 @@
-include '../src/math/bigint/mul/bi_mul_256_256.inc'
+include '../src/math/bigint/mul/bi_mul_256_64.inc'
 
-__bi_mul_256_256_test_core:
+__bi_mul_256_64_test_core:
 virtual at rsp
 .locals_start:
   .left_hex rq 1
@@ -25,10 +25,10 @@ end virtual
         call    bi_try_read_hex_256
 
         lea     rcx, [.left]
-        lea     rdx, [.right]
+        mov     rdx, qword [.right]
         lea     r8, [.result]
         call    test_context_start_measure
-        call    bi_mul_256_256
+        call    bi_mul_256_64
         call    test_context_end_measure
 
         mov     rcx, [.expected_hex]
@@ -39,8 +39,8 @@ end virtual
         ret
 
 
-__bi_mul_256_256_test:
-        lea     rbx, [__bi_mul_256_256_test_cases]
+__bi_mul_256_64_test:
+        lea     rbx, [__bi_mul_256_64_test_cases]
 
 .loop:
         push    rbx
@@ -48,22 +48,22 @@ __bi_mul_256_256_test:
         lea     rcx, [rbx]
         lea     rdx, [rbx + 64]
         lea     r8, [rbx + 128]
-        call    __bi_mul_256_256_test_core
+        call    __bi_mul_256_64_test_core
 
         pop     rbx
         add     rbx, 64 + 64 + 128
-        cmp     rbx, __bi_mul_256_256_test_cases.end
+        cmp     rbx, __bi_mul_256_64_test_cases.end
         jb      .loop
 
         ret
 
-__bi_mul_256_256_test_cases:
+__bi_mul_256_64_test_cases:
   db '6f3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
-  db '42ee2737466d172a7dd3ec5c797b49a2f0db3a30fa26418148368b39b9b47053'
-  db '1D12DBCFC432E89183D10D1EAE34260870F397B818DF8118FC9B9A7A85E7322B04E694CB437F2D9CC15785B06F34EC8FD5A04C896866EB433352AFC9E5F4756A'
+  db '00000000000000000000000000000000000000000000000042ee2737466d172a'
+  db '0000000000000000000000000000000000000000000000001d12dbcfc432e8914d2899c63529058e5d54d3186cfb20cdd8dccf673140075dbe7f07855216b48c'
 
   db 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
-  db 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
-  db 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE0000000000000000000000000000000000000000000000000000000000000001'
+  db '000000000000000000000000000000000000000000000000ffffffffffffffff'
+  db '000000000000000000000000000000000000000000000000fffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffff0000000000000001'
 
 .end:
