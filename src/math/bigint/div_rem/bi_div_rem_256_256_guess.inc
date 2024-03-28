@@ -1,5 +1,7 @@
 if ~ definite bi_div_rem_256_256_guess
 
+include 'bi_div_rem_guess_64.inc'
+
 include '../lzcnt/bi_lzcnt_256.inc'
 include '../zero/bi_zero_256.inc'
 include '../copy/bi_copy_256.inc'
@@ -37,22 +39,8 @@ virtual at rsp
   .correction rq 1
   label .locals_end
 end virtual
-        sub     rsp, .locals_end - .locals_start
-        mov     [.dividend], rcx
-        mov     [.divisor], rdx
-        mov     [.quotient], r8
-        mov     [.remainder], r9
+        DivRemGuess64_Prolog 256, 256
 
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        call    Console_WriteLine
-
-        mov     rcx, [.dividend]
-        call    bi_div_rem_dump_dividend_256
-
-        mov     rcx, [.divisor]
-        call    bi_div_rem_dump_divisor_256
-
-end if
 
         mov     rcx, [.divisor]
         call    bi_lzcnt_256
@@ -89,15 +77,7 @@ end if
         call    bi_copy_256
 
 
-        mov     rcx, [.divisor]
-        lea     rdx, [.divisor_shifted]
-        mov     r8, [.divisor_lzcnt]
-        call    bi_shl_256
-
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        lea     rcx, [.divisor_shifted]
-        call    bi_div_rem_dump_divisor_shifted_256
-end if
+        DivRemGuess64_ShiftDivisor 256, 256
 
 .loop:
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
@@ -108,54 +88,11 @@ if definite BI_DEV_REM_256_256_GUESS_DEBUG
         call    bi_div_rem_dump_remainder_256
 end if
 
-        mov     rcx, [.remainder]
-        call    bi_lzcnt_256
-        mov     [.remainder_lzcnt], rax
-
-        cmp     rax, [.divisor_lzcnt]
-        jae     .recheck_once
-
-        mov     rcx, [.remainder]
-        lea     rdx, [.remainder_shifted]
-        mov     r8, [.remainder_lzcnt]
-        call    bi_shl_256
-
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        lea     rcx, [.remainder_shifted]
-        call    bi_div_rem_dump_remainder_shifted_256
-end if
-
-        mov     rdx, qword [.divisor_shifted + 24]
-        inc     rdx
-        jnz     .divisor_not_max
-.divisor_max:
-        mov     rcx, qword [.remainder_shifted + 24]; divide by 2^64
-        mov     qword [.guess_128], rcx
-        mov     qword [.guess_128 + 8], 0
-        jmp     .divisor_ok
-.divisor_not_max:
-        lea     rcx, qword [.remainder_shifted + 16]
-        lea     r8, [.guess_128]
-        call    bi_div_128_64
-.divisor_ok:
-
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        lea     rcx, [.guess_128]
-        call    bi_div_rem_dump_guess_128
-end if
-
-        mov     rax, [.remainder_lzcnt]
-        sub     rax, [.divisor_lzcnt]
-        add     rax, 64
-        mov     [.correction], rax
-
-        cmp     [.correction], 0
-        jle     .correction_ok
-        lea     rcx, [.guess_128]
-        mov     rdx, [.correction]
-        call    bi_shr_assign_128
-        mov     [.correction], 0
-.correction_ok:
+        DivRemGuess64_ShiftRemainder 256, 256
+        DivRemGuess64_DumpRemainderShifted 256, 256
+        DivRemGuess64_Guess 256, 256
+        DivRemGuess64_DumpGuess 256, 256
+        DivRemGuess64_FixGuess 256, 256
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
         lea     rcx, qword [.guess_128]
@@ -220,17 +157,7 @@ end if
 .end:
         add     rsp, .locals_end - .locals_start
         ret
-.recheck_once:
-        mov     rcx, [.remainder]
-        mov     rdx, [.divisor]
-        call    bi_cmp_256_256
-        jb      .end
-        mov     rcx, [.quotient]
-        call    bi_inc_assign_128
-        mov     rcx, [.remainder]
-        mov     rdx, [.divisor]
-        call    bi_sub_assign_256_256
-        jmp     .end
+        DivRemGuess64_RecheckOnce 256, 256
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
   .loop_msg:               db '----------------------------------', 13, 10, 0

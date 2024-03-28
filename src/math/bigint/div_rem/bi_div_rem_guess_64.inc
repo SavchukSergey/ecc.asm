@@ -1,0 +1,227 @@
+;BI_DEV_REM_GUESS_64_DEBUG = 1
+
+if definite BI_DEV_REM_GUESS_64_DEBUG
+  include 'bi_dev_rem_debug.inc'
+end if
+
+macro DivRemGuess64_Shl bits {
+  if bits = 128
+        call    bi_shl_128
+  end if
+  if bits = 256
+        call    bi_shl_256
+  end if
+  if bits = 512
+        call    bi_shl_512
+  end if
+}
+
+macro DivRemGuess64_IncAssign bits {
+  if bits = 128
+        call    bi_inc_assign_128
+  end if
+  if bits = 256
+        call    bi_inc_assign_256
+  end if
+  if bits = 512
+        call    bi_inc_assign_512
+  end if
+}
+
+macro DivRemGuess64_Lzcnt bits {
+  if bits = 128
+        call    bi_lzcnt_128
+  end if
+  if bits = 256
+        call    bi_lzcnt_256
+  end if
+  if bits = 512
+        call    bi_lzcnt_512
+  end if
+}
+
+macro DivRemGuess64_Cmp bits {
+  if bits = 128
+        call    bi_cmp_128_128
+  end if
+  if bits = 256
+        call    bi_cmp_256_256
+  end if
+  if bits = 512
+        call    bi_cmp_512_512
+  end if
+}
+
+macro DivRemGuess64_SubAssign bits {
+  if bits = 128
+        call    bi_sub_assign_128_128
+  end if
+  if bits = 256
+        call    bi_sub_assign_256_256
+  end if
+  if bits = 512
+        call    bi_sub_assign_512_512
+  end if
+}
+
+macro DivRemGuess64_WriteUIntHex bits {
+  if bits = 128
+        call    Console_WriteUInt128Hex
+  end if
+  if bits = 256
+        call    Console_WriteUInt256Hex
+  end if
+  if bits = 512
+        call    Console_WriteUInt1024Hex
+  end if
+}
+
+macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
+        sub     rsp, .locals_end - .locals_start
+        mov     [.dividend], rcx
+        mov     [.divisor], rdx
+        mov     [.quotient], r8
+        mov     [.remainder], r9
+
+if definite BI_DEV_REM_GUESS_64_DEBUG
+        call    Console_WriteLine
+
+        push    rsi
+        lea     rsi, [bi_div_rem_dump_dividend_msg]
+        call    Console_WriteString
+        pop     rsi
+        
+        mov     rcx, [.dividend]
+        DivRemGuess64_WriteUIntHex dividend_bits
+      
+        call    Console_WriteLine
+
+        push    rsi
+        lea     rsi, [bi_div_rem_dump_divisor_msg]
+        call    Console_WriteString
+        pop     rsi
+
+        mov     rcx, [.divisor]
+        DivRemGuess64_WriteUIntHex divisor_bits
+      
+        call    Console_WriteLine
+end if
+
+}
+
+macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
+;shift divisor to the left, so the most meaningful bit is always the highest bit
+        mov     rcx, [.divisor]
+        lea     rdx, [.divisor_shifted]
+        mov     r8, [.divisor_lzcnt]
+  if dividend_bits <> divisor_bits
+        sub     r8, dividend_bits - divisor_bits ; divisor_lzcnt contains value if divisor_bits were the same as dividend_bits 
+  end if
+        DivRemGuess64_Shl divisor_bits
+
+if definite BI_DEV_REM_GUESS_64_DEBUG
+        push    rsi
+        lea     rsi, [bi_div_rem_dump_divisor_shifted_msg]
+        call    Console_WriteString
+        pop     rsi
+
+        lea     rcx, [.divisor_shifted]
+        DivRemGuess64_WriteUIntHex divisor_bits
+end if
+}
+
+macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
+;shift remainder to the left, so the most meaningful bit is always the highest bit
+        mov     rcx, [.remainder]
+        DivRemGuess64_Lzcnt dividend_bits
+        mov     [.remainder_lzcnt], rax
+
+        cmp     rax, [.divisor_lzcnt]
+        jae     .recheck_once
+
+        mov     rcx, [.remainder]
+        lea     rdx, [.remainder_shifted]
+        mov     r8, [.remainder_lzcnt]
+        DivRemGuess64_Shl dividend_bits
+}
+
+macro DivRemGuess64_DumpRemainderShifted dividend_bits, divisor_bits {
+if definite BI_DEV_REM_GUESS_64_DEBUG
+        lea     rcx, [.remainder_shifted]
+  if dividend_bits = 128
+        call    bi_div_rem_dump_remainder_shifted_128
+  end if
+  if dividend_bits = 256
+        call    bi_div_rem_dump_remainder_shifted_256
+  end if
+  if dividend_bits = 512
+        call    bi_div_rem_dump_remainder_shifted_512
+  end if
+
+end if
+}
+
+macro DivRemGuess64_Guess dividend_bits, divisor_bits {
+;divide highest 128 bit of remainder by highest 64 bit of divisor
+        mov     rdx, qword [.divisor_shifted + (divisor_bits - 64) / 8]
+        inc     rdx ; make pessimistic prediction, so our quotient is never bigger real value
+        jnz     .divisor_not_max
+.divisor_max:
+        mov     rcx, qword [.remainder_shifted + (dividend_bits - 64) / 8]; divide by 2^64
+        mov     qword [.guess_128], rcx
+        mov     qword [.guess_128 + 8], 0
+        jmp     .divisor_ok
+.divisor_not_max:
+        lea     rcx, qword [.remainder_shifted  + (dividend_bits - 128) / 8]
+        lea     r8, [.guess_128]
+        call    bi_div_128_64
+.divisor_ok:
+}
+
+macro DivRemGuess64_DumpGuess dividend_bits, divisor_bits {
+if definite BI_DEV_REM_GUESS_64_DEBUG
+        mov     rcx, [.guess_128]
+        call    bi_div_rem_dump_guess_128
+end if
+}
+
+macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
+        mov     rax, [.remainder_lzcnt]
+        sub     rax, [.divisor_lzcnt]
+        add     rax, 64                    ;partial remainder was 128-bit wide, but partial divisor only 64 bit-wide
+        mov     [.correction], rax
+
+        cmp     [.correction], 0
+        jle     .correction_ok
+;todo: guess_128 is less than 2^65 (not 2^64). Try to optimze everything
+        lea     rcx, [.guess_128]
+        mov     rdx, [.correction]
+        call    bi_shr_assign_128
+        mov     [.correction], 0
+.correction_ok:
+
+}
+
+macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
+.recheck_once:
+;reminder has same leading zeroes count as divisor so we can safely compare lowest divisor_bits bits
+        mov     rcx, [.remainder]
+        mov     rdx, [.divisor]
+        DivRemGuess64_Cmp divisor_bits
+        jb      .end
+        mov     rcx, [.quotient]
+        DivRemGuess64_IncAssign dividend_bits
+        mov     rcx, [.remainder]
+        mov     rdx, [.divisor]
+        DivRemGuess64_SubAssign divisor_bits
+        jmp     .end
+}
+
+if ~ definite bi_div_rem_guess_debug
+
+bi_div_rem_guess_debug:
+bi_div_rem_dump_dividend_msg:          db 'dividend:          ', 0
+bi_div_rem_dump_divisor_msg:           db 'divisor:           ', 0
+bi_div_rem_dump_divisor_shifted_msg:   db 'divisor shifted:   ', 0
+
+end if

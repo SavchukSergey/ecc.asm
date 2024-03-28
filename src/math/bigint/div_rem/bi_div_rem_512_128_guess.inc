@@ -1,5 +1,7 @@
 if ~ definite bi_div_rem_512_128_guess
 
+include 'bi_div_rem_guess_64.inc'
+
 include '../lzcnt/bi_lzcnt_128.inc'
 include '../lzcnt/bi_lzcnt_512.inc'
 include '../zero/bi_zero_512.inc'
@@ -43,21 +45,7 @@ virtual at rsp
   .correction rq 1
   label .locals_end
 end virtual
-        sub     rsp, .locals_end - .locals_start
-        mov     [.dividend], rcx
-        mov     [.divisor], rdx
-        mov     [.quotient], r8
-        mov     [.remainder], r9
-
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        call    Console_WriteLine
-
-        mov     rcx, [.dividend]
-        call    bi_div_rem_dump_dividend_512
-
-        mov     rcx, [.divisor]
-        call    bi_div_rem_dump_divisor_128
-end if
+        DivRemGuess64_Prolog 512, 128
 
         mov     rcx, [.divisor]
         call    bi_lzcnt_128
@@ -81,16 +69,7 @@ end if
         mov     rdx, [.dividend]
         call    bi_copy_512
 
-        mov     rcx, [.divisor]
-        lea     rdx, [.divisor_shifted]
-        mov     r8, [.divisor_lzcnt]
-        sub     r8, 384
-        call    bi_shl_128
-
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        lea     rcx, [.divisor_shifted]
-        call    bi_div_rem_dump_divisor_shifted_128
-end if
+        DivRemGuess64_ShiftDivisor 512, 128
 
 .loop:
 if definite BI_DEV_REM_512_128_GUESS_DEBUG
@@ -101,54 +80,11 @@ if definite BI_DEV_REM_512_128_GUESS_DEBUG
         call    bi_div_rem_dump_remainder_512
 end if
 
-        mov     rcx, [.remainder]
-        call    bi_lzcnt_512
-        mov     [.remainder_lzcnt], rax
-
-        cmp     rax, [.divisor_lzcnt]
-        jae     .recheck_once
-
-        mov     rcx, [.remainder]
-        lea     rdx, [.remainder_shifted]
-        mov     r8, [.remainder_lzcnt]
-        call    bi_shl_512
-
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        lea     rcx, [.remainder_shifted]
-        call    bi_div_rem_dump_remainder_shifted_512
-end if
-
-        mov     rdx, qword [.divisor_shifted + 8]
-        inc     rdx
-        jnz     .divisor_not_max
-.divisor_max:
-        mov     rcx, qword [.remainder_shifted + 56]; divide by 2^64
-        mov     qword [.guess_128], rcx
-        mov     qword [.guess_128 + 8], 0
-        jmp     .divisor_ok
-.divisor_not_max:
-        lea     rcx, qword [.remainder_shifted + 48]
-        lea     r8, [.guess_128]
-        call    bi_div_128_64
-.divisor_ok:
-
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        mov     rcx, [.guess_128]
-        call    bi_div_rem_dump_guess_64
-end if
-
-        mov     rax, [.remainder_lzcnt]
-        sub     rax, [.divisor_lzcnt]
-        add     rax, 64
-        mov     [.correction], rax
-
-        cmp     [.correction], 0
-        jle     .correction_ok
-        lea     rcx, [.guess_128]
-        mov     rdx, [.correction]
-        call    bi_shr_assign_128
-        mov     [.correction], 0
-.correction_ok:
+        DivRemGuess64_ShiftRemainder 512, 128
+        DivRemGuess64_DumpRemainderShifted 512, 128
+        DivRemGuess64_Guess 512, 128
+        DivRemGuess64_DumpGuess 512, 128
+        DivRemGuess64_FixGuess 512, 128
 
 if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rcx, qword [.guess_128]
@@ -220,18 +156,7 @@ end if
 .end:
         add     rsp, .locals_end - .locals_start
         ret
-.recheck_once:
-;reminder has same leading zeroes count as divisor so we can safely compare lowest 128 bits
-        mov     rcx, [.remainder]
-        mov     rdx, [.divisor]
-        call    bi_cmp_128_128
-        jb      .end
-        mov     rcx, [.quotient]
-        call    bi_inc_assign_512
-        mov     rcx, [.remainder]
-        mov     rdx, [.divisor]
-        call    bi_sub_assign_128_128
-        jmp     .end
+        DivRemGuess64_RecheckOnce 512, 128
 
 if definite BI_DEV_REM_512_128_GUESS_DEBUG
   .loop_msg:               db '----------------------------------', 13, 10, 0
