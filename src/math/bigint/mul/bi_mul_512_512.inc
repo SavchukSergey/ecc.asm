@@ -15,7 +15,7 @@ virtual at rsp
   ;Instead of .z0 .result is used to save one zero & copy operation ;.z0 rb __BIG_INTEGER_BYTES_1024
   .z1 rb __BIG_INTEGER_BYTES_1024
   .z2 rb __BIG_INTEGER_BYTES_1024
-  .z3 rb __BIG_INTEGER_BYTES_1024
+  .z3 rb __BIG_INTEGER_BYTES_512
   .left rq 1
   .right rq 1
   .result rq 1
@@ -31,8 +31,6 @@ end virtual
         lea     rcx, [.z1]
         call    bi_zero_1024
         lea     rcx, [.z2]
-        call    bi_zero_1024
-        lea     rcx, [.z3]
         call    bi_zero_1024
 
         mov     rcx, [.left]
@@ -56,7 +54,7 @@ end virtual
         add     rcx, __BIG_INTEGER_BYTES_512 / 2
         mov     rdx, [.right]
         add     rdx, __BIG_INTEGER_BYTES_512 / 2
-        lea     r8, [.z3 + __BIG_INTEGER_BYTES_512]
+        lea     r8, [.z3]
         call    bi_mul_256_256
 
         mov     rcx, [.result]
@@ -68,8 +66,9 @@ end virtual
         call    bi_add_assign_1024_1024
 
         mov     rcx, [.result]
+        add     rcx, __BIG_INTEGER_BYTES_512
         lea     rdx, [.z3]
-        call    bi_add_assign_1024_1024
+        call    bi_add_assign_512_512
 
         add     rsp, .locals_end - .locals_start
         ret

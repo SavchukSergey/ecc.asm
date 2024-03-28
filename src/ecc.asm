@@ -50,6 +50,7 @@ section '.edata' export data readable
          bi_one_1024, 'bi_one_1024', \
 \
          bi_is_zero_256, 'bi_is_zero_256', \
+         bi_is_zero_512, 'bi_is_zero_512', \
 \
          bi_copy_128, 'bi_copy_128', \
          bi_copy_256, 'bi_copy_256', \

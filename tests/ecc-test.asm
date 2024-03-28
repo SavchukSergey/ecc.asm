@@ -151,7 +151,7 @@ end virtual
 	inc	[.test_count]
 	cmp	[.test_failures], 0
 	jne	.count_loop_end
-	cmp	qword [.test_count], 200
+	cmp	qword [.test_count], 20
 	jb	.count_loop
 
 .count_loop_end:

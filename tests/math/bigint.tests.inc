@@ -1,4 +1,7 @@
+include '../src/math/bigint/read_hex.inc'
+
 include 'bigint/add/index.inc'
+include 'bigint/cmp/index.inc'
 include 'bigint/copy/index.inc'
 include 'bigint/div_rem/index.inc'
 include 'bigint/is_zero/index.inc'
@@ -14,7 +17,6 @@ include 'bigint/shr/index.inc'
 include 'bigint/sub/index.inc'
 include 'bigint/zero/index.inc'
 
-include 'bigint/cmp.tests.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
 ;include 'bigint/extend_low.tests.inc'
@@ -29,9 +31,11 @@ __bi_tests_128:
 
         dq __bi_add_128_128_test
         db 'bi_add_128_128', 0
-
         dq __bi_sub_128_128_test
         db 'bi_sub_128_128', 0
+
+        dq __bi_cmp_128_128_test
+        db 'bi_cmp_128_128', 0
 
 ;        dq __bi_bit_clear_first_test_#bits
 ;        db 'bit_clear_first', 0
@@ -50,15 +54,6 @@ __bi_tests_128:
 ;        db 'bit_set_middle', 0
 ;        dq __bi_bit_set_twice_test_#bits
 ;        db 'bit_set_twice', 0
-
-        dq __bi_cmp_128_128_equal_test
-        db 'cmp_equal', 0
-        dq __bi_cmp_128_128_less_test
-        db 'cmp_less', 0
-        dq __bi_cmp_128_128_greater_test
-        db 'cmp_greater', 0
-        dq __bi_cmp_128_128_close_test
-        db 'cmp_close', 0
 
         dq __bi_shl_assign_128_1_test
         db 'bi_shl_assign_128_1', 0
@@ -112,14 +107,8 @@ __bi_tests_256:
         dq __bi_sub_256_256_test
         db 'bi_sub_256_256', 0
 
-        dq __bi_cmp_256_256_equal_test
-        db 'cmp_equal', 0
-        dq __bi_cmp_256_256_less_test
-        db 'cmp_less', 0
-        dq __bi_cmp_256_256_greater_test
-        db 'cmp_greater', 0
-        dq __bi_cmp_256_256_close_test
-        db 'cmp_close', 0
+        dq __bi_cmp_256_256_test
+        db 'bi_cmp_256_256', 0
 
         dq __bi_shl_assign_256_1_test
         db 'bi_shl_assign_256_1', 0
@@ -163,6 +152,8 @@ align 16
 __bi_tests_512:
         dq __bi_zero_512_test
         db 'bi_zero_512', 0
+        dq __bi_is_zero_512_test
+        db 'bi_is_zero_512', 0
         dq __bi_copy_512_test
         db 'bi_copy_512', 0
         
@@ -171,14 +162,8 @@ __bi_tests_512:
         dq __bi_sub_512_512_test
         db 'bi_sub_512_512', 0
 
-        dq __bi_cmp_512_512_equal_test
-        db 'cmp_equal', 0
-        dq __bi_cmp_512_512_less_test
-        db 'cmp_less', 0
-        dq __bi_cmp_512_512_greater_test
-        db 'cmp_greater', 0
-        dq __bi_cmp_512_512_close_test
-        db 'cmp_close', 0
+        dq __bi_cmp_512_512_test
+        db 'bi_cmp_512_512', 0
 
         dq __bi_shl_assign_512_1_test
         db 'bi_shl_assign_512_1', 0

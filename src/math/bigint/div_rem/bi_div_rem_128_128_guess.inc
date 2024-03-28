@@ -129,8 +129,8 @@ end if
 .divisor_ok:
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
-        lea     rcx, [.guess_128]
-        call    bi_div_rem_dump_guess_128
+        mov     rcx, [.guess_128]
+        call    bi_div_rem_dump_guess_64
 end if
 
         mov     rax, [.remainder_lzcnt]

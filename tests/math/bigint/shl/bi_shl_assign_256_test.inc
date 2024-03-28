@@ -19,13 +19,20 @@ end virtual
 
         lea     rcx, [.value]
         mov     rdx, [.count]
-        call    test_context_start_measure
         call    bi_shl_assign_256
-        call    test_context_end_measure
 
         mov     rcx, [.expected_hex]
         lea     rdx, [.value]
         call    bi_assert_equal_hex_256
+
+        call    test_context_start_measure
+.chunk_loop:
+        lea     rcx, [.value]
+        mov     rdx, [.count]
+        call    bi_shl_assign_256
+        call    test_context_measure_dec_chunk
+        jnz     .chunk_loop
+        call    test_context_end_measure
 
         leave
         ret

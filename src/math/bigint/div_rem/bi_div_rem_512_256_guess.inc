@@ -144,8 +144,8 @@ end if
 .divisor_ok:
 
 if definite BI_DEV_REM_512_256_GUESS_DEBUG
-        lea     rcx, [.guess_128]
-        call    bi_div_rem_dump_guess_128
+        mov     rcx, [.guess_128]
+        call    bi_div_rem_dump_guess_64
 end if
 
         mov     rax, [.remainder_lzcnt]
@@ -155,6 +155,7 @@ end if
 
         cmp     [.correction], 0
         jle     .correction_ok
+;todo: guess_128 is less than 2^64. Optmize everything
         lea     rcx, [.guess_128]
         mov     rdx, [.correction]
         call    bi_shr_assign_128
@@ -207,7 +208,7 @@ end if
 
         mov     rcx, [.quotient]
         lea     rdx, [.guess_q]
-        call    bi_add_assign_512_512 ;todo: quotient, guess_q is less tha 256 bit
+        call    bi_add_assign_512_512 ;todo: quotient, guess_q is less than 256 bit
 
 if definite BI_DEV_REM_512_256_GUESS_DEBUG
         lea     rsi, [.new_quotient_msg]

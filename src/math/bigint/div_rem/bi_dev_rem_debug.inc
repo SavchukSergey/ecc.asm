@@ -50,7 +50,7 @@ bi_div_rem_dump_divisor_shifted_256:
     push    rcx rsi
 
     push    rcx
-    lea     rsi, [bi_div_rem_dump_divisor_msg]
+    lea     rsi, [bi_div_rem_dump_divisor_shifted_msg]
     call    Console_WriteString
     pop     rcx
 
@@ -191,6 +191,19 @@ bi_div_rem_dump_remainder_shifted_512:
     ret
 
 
+bi_div_rem_dump_guess_64:
+    push    rcx rsi
+
+    push    rcx
+    lea     rsi, [bi_div_rem_dump_guess_msg]
+    call    Console_WriteString
+    pop     rcx
+
+    call    Console_WriteUInt64Hex
+    call    Console_WriteLine
+
+    pop     rsi rcx
+    ret
 
 
 bi_div_rem_dump_guess_128:
