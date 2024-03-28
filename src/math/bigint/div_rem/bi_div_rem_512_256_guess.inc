@@ -155,7 +155,7 @@ end if
 
         cmp     [.correction], 0
         jle     .correction_ok
-;todo: guess_128 is less than 2^64. Optmize everything
+;todo: guess_128 is less than 2^65 (not 2^64). Try to optimze everything
         lea     rcx, [.guess_128]
         mov     rdx, [.correction]
         call    bi_shr_assign_128
@@ -179,7 +179,7 @@ end if
 
         lea     rcx, [.guess_q]
         lea     rdx, [.guess_128]
-        call    bi_extend_512_128 ;todo: guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
+        call    bi_extend_512_128
 
         cmp     [.correction], 0
         jz     .correction_2_ok
