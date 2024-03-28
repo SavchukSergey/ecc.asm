@@ -1,6 +1,7 @@
 struct TestContext
   measure_start rq 1
   measure_end rq 1
+  measure_loop rq 1
   measures_count rq 1
   measures_total rq 1
   measures_min rq 1
@@ -35,6 +36,16 @@ end virtual
         mov     qword [.context.assert_fails], 0
         ret
 
+TEST_MEASURE_CHUNK = 5000
+
+test_context_measure_dec_chunk:
+virtual at TestContextReg
+  .context TestContext
+end virtual
+        dec     [.context.measure_loop]
+        ret
+
+
 test_context_start_measure:
 virtual at TestContextReg
   .context TestContext
@@ -43,6 +54,7 @@ end virtual
         pushfq
         call    get_cpu_timestamp
         mov     [.context.measure_start], rax
+        mov     [.context.measure_loop], TEST_MEASURE_CHUNK
         popfq
         pop     rax
         ret
@@ -57,6 +69,15 @@ end virtual
         mov     [.context.measure_end], rax
         mov     rax, [.context.measure_end]
         sub     rax, [.context.measure_start]
+        cmp     [.context.measure_loop], TEST_MEASURE_CHUNK
+        je      .single
+        push    rbx
+        xor     rdx, rdx
+        mov     rbx, TEST_MEASURE_CHUNK
+        sub     rbx, [.context.measure_loop]
+        div     rbx
+        pop     rbx
+.single:
         sub     rax, [calibration_shift]
         jc      .overflow
 .no_overflow:

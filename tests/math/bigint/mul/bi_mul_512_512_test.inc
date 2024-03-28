@@ -24,26 +24,21 @@ end virtual
         lea     rdx, [.right]
         call    bi_try_read_hex_512
 
+        call    test_context_start_measure
+.chunk_loop:
         lea     rcx, [.left]
         lea     rdx, [.right]
         lea     r8, [.result]
-        call    test_context_start_measure
         call    bi_mul_512_512
+        call    test_context_measure_dec_chunk
+	jnz     .chunk_loop
         call    test_context_end_measure
 
         mov     rcx, [.expected_hex]
         lea     rdx, [.result]
         call    bi_assert_equal_hex_1024
 
-        jmp     .pass
-
-.fail:
         leave
-        stc
-        ret
-.pass:
-        leave
-        clc
         ret
 
 

@@ -1,7 +1,7 @@
 if ~ definite bi_mod_mul_256_256
 
 include '../mul/bi_mul_256_256.inc'
-;include '../div_rem/bi_div_rem_512_256.inc'
+include '../div_rem/bi_rem_512_256.inc'
 include '../copy/bi_copy_256.inc'
 ;todo: for some reason it is slower than sum of bi_mul_256_256, bi_rem_512_256, bi_copy_256
 bi_mod_mul_256_256:

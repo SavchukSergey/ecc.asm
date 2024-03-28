@@ -17,11 +17,11 @@ Console_WriteUInt64Hex:
 ;input
 ; ecx - i32
 Console_WriteUInt32Hex:
-	push	rcx
-	shr	rcx, 16
-	call	Console_WriteUInt16Hex
-	pop	rcx
-	call	Console_WriteUInt16Hex
+	push    rcx
+	shr     rcx, 16
+	call    Console_WriteUInt16Hex
+	pop     rcx
+	call    Console_WriteUInt16Hex
 	ret
 
 ;input

@@ -58,7 +58,7 @@ end virtual
 
 	mov	[calibration_shift], 0
 	mov	rbx, -1
-	mov	rcx, 10000
+	mov	rcx, 100
 .count_loop:
 	push	rbx rcx
 	call	[.empty_ref]
@@ -71,9 +71,16 @@ end virtual
 
 	leave
 	ret
+.sub_empty:
+	ret
 .empty:
 	call	test_context_start_measure
+.loop:
+	call	.sub_empty
+	call	test_context_measure_dec_chunk
+	jnz	.loop
 	call	test_context_end_measure
+
 	ret
 .empty_ref dq .empty
 
@@ -144,7 +151,7 @@ end virtual
 	inc	[.test_count]
 	cmp	[.test_failures], 0
 	jne	.count_loop_end
-	cmp	qword [.test_count], 5000
+	cmp	qword [.test_count], 200
 	jb	.count_loop
 
 .count_loop_end:

@@ -17,11 +17,14 @@ end virtual
         lea     rdx, [.right]
         call    bi_try_read_hex_128
 
+        call    test_context_start_measure
+.chunk_loop:
         lea     rcx, [.left]
         lea     rdx, [.right]
         lea     r8, [.result]
-        call    test_context_start_measure
         call    bi_add_128_128
+        call    test_context_measure_dec_chunk
+        jnz     .chunk_loop
         call    test_context_end_measure
 
         lea     rcx, [.expected_hex]

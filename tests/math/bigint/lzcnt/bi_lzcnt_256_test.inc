@@ -18,10 +18,13 @@ end virtual
 	lea     rdx, [.value]
 	call	bi_try_read_hex_256
 
-	lea     rcx, [.value]
 	call	test_context_start_measure
+.chunk_loop:
+	lea     rcx, [.value]
 	call	bi_lzcnt_256
 	mov		[.result], rax
+    call    test_context_measure_dec_chunk
+    jnz     .chunk_loop
 	call	test_context_end_measure
 
 	mov     rcx, [.expected]

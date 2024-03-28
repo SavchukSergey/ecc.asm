@@ -1,20 +1,20 @@
 include 'bigint/add/index.inc'
-include 'bigint/sub/index.inc'
-include 'bigint/cmp.tests.inc'
-include 'bigint/shl/index.inc'
-include 'bigint/shl.tests.inc'
-include 'bigint/shr.tests.inc'
-include 'bigint/zero/index.inc'
-include 'bigint/is_zero/index.inc'
 include 'bigint/copy/index.inc'
+include 'bigint/div_rem/index.inc'
+include 'bigint/is_zero/index.inc'
+include 'bigint/lzcnt/index.inc'
+include 'bigint/mod_add/index.inc'
+include 'bigint/mod_inverse/index.inc'
+include 'bigint/mod_mul/index.inc'
+include 'bigint/mod_sub/index.inc'
 include 'bigint/mul/index.inc'
 include 'bigint/mul_low/index.inc'
-include 'bigint/div_rem.tests.inc'
-include 'bigint/mod_add/index.inc'
-include 'bigint/mod_sub/index.inc'
-include 'bigint/mod_mul/index.inc'
-include 'bigint/mod_inverse/index.inc'
-include 'bigint/lzcnt/index.inc'
+include 'bigint/shl/index.inc'
+include 'bigint/shr/index.inc'
+include 'bigint/sub/index.inc'
+include 'bigint/zero/index.inc'
+
+include 'bigint/cmp.tests.inc'
 ;include 'bigint/bit_clear.tests.inc'
 ;include 'bigint/bit_set.tests.inc'
 ;include 'bigint/extend_low.tests.inc'
@@ -192,9 +192,7 @@ __bi_tests_512:
         db 'bi_mul_512_512', 0
 
         dq __bi_mul_low_512_512_test
-        db 'mul_low', 0
-        dq __bi_mul_low_512_512_max_test
-        db 'mul_low max', 0
+	db 'bi_mul_low_512_512', 0
 
         dq __bi_div_rem_512_64_test
         db 'bi_div_rem_512_64', 0

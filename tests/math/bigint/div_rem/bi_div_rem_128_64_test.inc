@@ -37,35 +37,31 @@ end virtual
         lea     rdx, [.divisor]
         call    bi_try_read_hex_128
 
+        call    test_context_start_measure
+.chunk_loop:
         lea     rcx, [.dividend]
         mov     rdx, qword [.divisor + 0] ; take low 64 bit
         lea     r8, [.quotient]
         lea     r9, [.remainder]
-        call    test_context_start_measure
         call    bi_div_rem_128_64
+        call    test_context_measure_dec_chunk
+        jnz     .chunk_loop
         call    test_context_end_measure
 
         mov     rcx, [.expected_quotient_hex]
         lea     rdx, [.quotient]
         call    bi_assert_equal_hex_128
-        jc      .fail
 
         mov     rcx, [.expected_remainder_hex]
         lea     rdx, [.remainder]
         call    bi_assert_equal_hex_128
-        jc      .fail
 
         pop     rbx
         add     rbx, 128
         cmp     rbx, .cases_end
         jb      .loop
-.pass:
+
         leave
-        clc
-        ret
-.fail:
-        leave
-        stc
         ret
 
 

@@ -18,26 +18,21 @@ end virtual
 	lea	    rdx, [.modulus]
 	call    bi_try_read_hex_256
 
+	call    test_context_start_measure
+.chunk_loop:
 	lea	    rcx, [.value]
 	lea	    rdx, [.modulus]
 	lea	    r8, [.result]
-	call    test_context_start_measure
 	call    bi_mod_inverse_256
+    call    test_context_measure_dec_chunk
+    jnz     .chunk_loop
 	call    test_context_end_measure
 
 	lea	    rcx, [.expected_hex]
 	lea	    rdx, [.result]
 	call    bi_assert_equal_hex_256
 
-	jmp	.pass
-
-.fail:
 	leave
-	stc
-	ret
-.pass:
-	leave
-	clc
 	ret
 
 .value_hex	db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'

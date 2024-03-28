@@ -31,12 +31,10 @@ end virtual
 	lea	rdx, [.modulus]
 	call	bi_try_read_hex_256
 
-	lea	rcx, [.left]
-	lea	rdx, [.right]
-	lea	r8, [.modulus]
-	call     test_context_start_measure
+	lea      rcx, [.left]
+	lea      rdx, [.right]
+	lea      r8, [.modulus]
 	call     bi_mod_sub_assign_256_256
-    call     test_context_end_measure
 
     mov      rcx, [.expected_hex]
     lea      rdx, [.left]
@@ -45,6 +43,16 @@ end virtual
     mov      rcx, [.expected_hex]
     lea      rdx, [.left]
     call     bi_assert_equal_hex_256
+
+    call    test_context_start_measure
+.chunk_loop:
+	lea      rcx, [.left]
+	lea      rdx, [.right]
+    lea      r8, [.modulus]
+    call     bi_mod_sub_assign_256_256
+    call    test_context_measure_dec_chunk
+    jnz     .chunk_loop
+    call    test_context_end_measure
 
 	leave
 	ret

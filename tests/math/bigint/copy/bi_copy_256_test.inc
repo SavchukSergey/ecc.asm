@@ -13,9 +13,12 @@ end virtual
     call    bi_try_read_hex_256
 
     call    test_context_start_measure
+.chunk_loop:
     lea     rcx, [.target]
     lea     rdx, [.source]
     call    bi_copy_256
+    call    test_context_measure_dec_chunk
+    jnz     .chunk_loop
     call    test_context_end_measure
 
     lea     rcx, [.source_hex]

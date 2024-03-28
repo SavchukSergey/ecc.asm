@@ -40,12 +40,15 @@ end virtual
         lea     rdx, [.divisor]
         call    bi_try_read_hex_512
 
+        call    test_context_start_measure
+.chunk_loop:
         lea     rcx, [.dividend]
         mov     rdx, qword [.divisor + 0]
         lea     r8, [.quotient]
         lea     r9, [.remainder]
-        call    test_context_start_measure
         call    bi_div_rem_512_64
+        call    test_context_measure_dec_chunk
+        jnz     .chunk_loop
         call    test_context_end_measure
 
         mov     rcx, [.expected_quotient_hex]
