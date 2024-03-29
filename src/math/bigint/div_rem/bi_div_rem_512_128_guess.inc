@@ -92,11 +92,7 @@ end if
         call    bi_zero_512
 
         DivRemGuess64_CalcDelta 512, 128
-
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        lea     rcx, [.delta]
-        call    bi_div_rem_dump_delta_512
-end if
+        DivRemGuess64_DumpDelta 512, 128
 
         lea     rcx, [.guess_q]
         lea     rdx, [.guess_128]

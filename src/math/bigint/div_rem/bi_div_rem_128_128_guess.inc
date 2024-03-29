@@ -85,11 +85,7 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
 end if
 
         DivRemGuess64_CalcDelta 128, 128
-
-if definite BI_DEV_REM_128_128_GUESS_DEBUG
-        lea     rcx, [.delta]
-        call    bi_div_rem_dump_delta_128
-end if
+        DivRemGuess64_DumpDelta 128, 128
 
         cmp     [.correction], 0
         jz     .correction_2_ok

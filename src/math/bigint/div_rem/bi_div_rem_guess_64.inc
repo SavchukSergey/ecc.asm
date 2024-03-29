@@ -213,6 +213,18 @@ macro DivRemGuess64_DumpRemainderShifted dividend_bits, divisor_bits {
   end if
 }
 
+macro DivRemGuess64_DumpDelta dividend_bits, divisor_bits {
+  if definite BI_DEV_REM_GUESS_64_DEBUG
+      push    rsi
+      lea     rsi, [bi_div_rem_dump_delta_msg]
+      call    Console_WriteString
+      pop     rsi
+
+      lea     rcx, [.delta]
+      DivRemGuess64_WriteUIntHex dividend_bits
+  end if
+}
+
 macro DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits {
   if definite BI_DEV_REM_GUESS_64_DEBUG
       push    rsi
@@ -415,6 +427,7 @@ bi_div_rem_dump_divisor_shifted_msg:   db 'divisor shifted:   ', 0
 bi_div_rem_dump_remainder_msg:         db 'remainder:         ', 0
 bi_div_rem_dump_remainder_shifted_msg: db 'remainder shifted: ', 0
 bi_div_rem_dump_guess_msg:             db 'guess:             ', 0
+bi_div_rem_dump_delta_msg:             db 'delta:             ', 0
 bi_div_rem_dump_delta_shifted_msg:     db 'delta shifted:     ', 0
 bi_div_rem_dump_new_quotient_msg:      db 'new quotient:      ', 0
 bi_div_rem_dump_new_remainder_msg:     db 'new remainder:     ', 0
