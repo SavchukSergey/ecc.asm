@@ -70,7 +70,7 @@ end virtual
         call    bi_copy_512
 
         DivRemGuess64_ShiftDivisor 512, 128
-
+        DivRemGuess64_Prepare 512, 128
 .loop:
 if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.loop_msg]
@@ -91,10 +91,7 @@ end if
         lea     rcx, [.delta]
         call    bi_zero_512
 
-        mov     rcx, [.divisor]
-        lea     rdx, [.guess_128]
-        lea     r8, [.delta]
-        call    bi_mul_128_128
+        DivRemGuess64_CalcDelta 512, 128
 
 if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rcx, [.delta]

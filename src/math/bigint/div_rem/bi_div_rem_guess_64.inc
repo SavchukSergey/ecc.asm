@@ -4,6 +4,14 @@ if definite BI_DEV_REM_GUESS_64_DEBUG
   include 'bi_dev_rem_debug.inc'
 end if
 
+macro DisplayDec value {
+  if value > 100
+    display '0' + (value / 100)
+    display '0' + (value mod 100) / 10
+    display '0' + (value mod 10)
+  end if
+}
+
 macro DivRemGuess64_Shl bits {
   if bits = 128
       call    bi_shl_128
@@ -93,9 +101,39 @@ macro DivRemGuess64_AddAssign bits {
       call    bi_add_assign_512_512
   else
       display 'unknown add assign '
-      display 48 + bits/100, 48 + (bits mod 100) / 10, 48 + (bits mod 10)
+      DisplayDec bits
       display 13, 10
-      error 
+      err 
+  end if
+}
+
+macro DivRemGuess64_MulX128 bits {
+  if bits = 128
+      call    bi_mul_128_128
+  else if bits = 256
+      call    bi_mul_256_128
+  else if bits = 512
+      call    bi_mul_512_128
+  else
+      display 'unknown mul '
+      DisplayDec bits
+      display 13, 10
+      err
+  end if
+}
+
+macro DivRemGuess64_MulLowX128 bits {
+  if bits = 128
+      call    bi_mul_low_128_128
+  else if bits = 256
+      call    bi_mul_low_256_128
+  else if bits = 512
+      call    bi_mul_low_512_128
+  else
+      display 'unknown mul_low '
+      DisplayDec bits
+      display 13, 10
+      err
   end if
 }
 
@@ -236,6 +274,15 @@ end if
 
 }
 
+macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
+    ; Because of preliminary checks at the begining
+    ; divisor_bits/2 < divisor width <= divisor_bits
+    DIV_REM_GUESS_MIN_DIVISOR_SIZE = (divisor_bits/2)
+
+    DIV_REM_GUESS_QUOTIENT_SIZE = dividend_bits
+    DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE = (dividend_bits - DIV_REM_GUESS_MIN_DIVISOR_SIZE)
+}
+
 macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
 ;shift divisor to the left, so the most meaningful bit is always the highest bit
       mov     rcx, [.divisor]
@@ -297,28 +344,50 @@ macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
 .correction_ok:
 }
 
+macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
+;precalculate delta, using narrowest pissible mul
+    mov     rcx, [.divisor]
+    lea     rdx, [.guess_128]
+    lea     r8, [.delta]
+
+    DIV_REM_GUESS_DELTA_EXPECTED_SIZE = dividend_bits
+
+    ; mul returns result of 2 * max(left_bits, right_bits) bits
+    ; as guess_size is 128 and divisor_bits >= 128 we can simplify it just to 2 * divisor_bits
+    DIV_REM_GUESS_DELTA_MUL_FULL_SIZE = 2 * divisor_bits
+
+    ; mul_low returns result of max(left_bits, right_bits) bits
+    ; as guess_size is 128 and divisor_bits >= 128 we can simplify it just to divisor_bits
+    DIV_REM_GUESS_DELTA_MUL_LOW_SIZE = divisor_bits
+
+  if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_EXPECTED_SIZE
+    DivRemGuess64_MulLowX128 divisor_bits
+  else
+    DivRemGuess64_MulX128 divisor_bits
+  end if
+    DisplayDec DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+    display 13, 10
+}
+
 macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
-      lea     rcx, [.delta + 0]
-      mov     rdx, [.correction]
-      DivRemGuess64_ShlAssign dividend_bits
+    lea     rcx, [.delta + 0]
+    mov     rdx, [.correction]
+    DivRemGuess64_ShlAssign dividend_bits
 }
 
 macro DivRemGuess64_ApplyDelta dividend_bits, divisor_bits {
       mov     rcx, [.remainder]
       lea     rdx, [.delta]
       DivRemGuess64_SubAssign dividend_bits
-; Because of preliminary checks at the begining
-; divisor_bits/2 < divisor width <= divisor_bits
-; So quotient width will be dividend_bits - (divisor_bits/2)
       mov     rcx, [.quotient]
-  if dividend_bits - (divisor_bits/2) = 64
+  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE = 64
       mov     rdx, qword [.guess_128 + 0]
-  else if dividend_bits - (divisor_bits/2) <= 128
+  else if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 128
       lea     rdx, [.guess_128]
   else
       lea     rdx, [.guess_q]
   end if
-      DivRemGuess64_AddAssign (dividend_bits - (divisor_bits/2))
+      DivRemGuess64_AddAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
 }
 
 macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
