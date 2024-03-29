@@ -83,11 +83,8 @@ end virtual
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
         lea     rsi, [.loop_msg]
         call    Console_WriteString
-
-        mov     rcx, [.remainder]
-        call    bi_div_rem_dump_remainder_256
 end if
-
+        DivRemGuess64_DumpRemainder 256, 256
         DivRemGuess64_ShiftRemainder 256, 256
         DivRemGuess64_DumpRemainderShifted 256, 256
         DivRemGuess64_Guess 256, 256
@@ -100,7 +97,7 @@ if definite BI_DEV_REM_256_256_GUESS_DEBUG
 end if
 
         mov     rcx, [.divisor]
-        lea     rdx, qword [.guess_128 + 0]
+        lea     rdx, [.guess_128]
         lea     r8, [.delta]
         call    bi_mul_low_256_128
 
@@ -113,44 +110,16 @@ end if
         jz     .correction_2_ok
         neg     [.correction]
 
-        lea     rcx, [.delta + 0]
-        mov     rdx, [.correction]
-        call    bi_shl_assign_256
+        DivRemGuess64_ShiftDelta 256, 256
 
         lea     rcx, [.guess_128]
         mov     rdx, [.correction]
         call    bi_shl_assign_128
 .correction_2_ok:
 
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        lea     rsi, [.delta_corrected_msg]
-        call    Console_WriteString
-        lea     rcx, [.delta]
-        call    Console_WriteUInt256Hex
-        call    Console_WriteLine
-end if
-
-        mov     rcx, [.remainder]
-        lea     rdx, [.delta]
-        call    bi_sub_assign_256_256
-
-        mov     rcx, [.quotient]
-        lea     rdx, [.guess_128]
-        call    bi_add_assign_128_128
-
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        lea     rsi, [.new_quotient_msg]
-        call    Console_WriteString
-        mov     rcx, [.quotient]
-        call    Console_WriteUInt256Hex
-        call    Console_WriteLine
-
-        lea     rsi, [.new_remainder_msg]
-        call    Console_WriteString
-        mov     rcx, [.remainder]
-        call    Console_WriteUInt256Hex
-        call    Console_WriteLine
-end if
+        DivRemGuess64_DumpDeltaShifted 256, 256
+        DivRemGuess64_ApplyDelta 256, 256
+        DivRemGuess64_DumpNewValues 256, 256
 
         jmp     .loop
 .loop_ok:
@@ -161,10 +130,6 @@ end if
 
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
   .loop_msg:               db '----------------------------------', 13, 10, 0
-  .delta_corrected_msg:    db 'delta (corrected): ', 0
-  .new_quotient_msg:       db 'new quotient:      ', 0
-  .new_remainder_msg:      db 'new remainder:     ', 0
-
 end if
 
 end if

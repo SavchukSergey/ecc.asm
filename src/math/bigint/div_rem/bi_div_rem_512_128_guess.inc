@@ -75,11 +75,8 @@ end virtual
 if definite BI_DEV_REM_512_128_GUESS_DEBUG
         lea     rsi, [.loop_msg]
         call    Console_WriteString
-
-        mov     rcx, [.remainder]
-        call    bi_div_rem_dump_remainder_512
 end if
-
+        DivRemGuess64_DumpRemainder 512, 128
         DivRemGuess64_ShiftRemainder 512, 128
         DivRemGuess64_DumpRemainderShifted 512, 128
         DivRemGuess64_Guess 512, 128
@@ -95,7 +92,7 @@ end if
         call    bi_zero_512
 
         mov     rcx, [.divisor]
-        lea     rdx, qword [.guess_128 + 0]
+        lea     rdx, [.guess_128]
         lea     r8, [.delta]
         call    bi_mul_128_128
 
@@ -112,44 +109,16 @@ end if
         jz     .correction_2_ok
         neg     [.correction]
 
-        lea     rcx, [.delta + 0]
-        mov     rdx, [.correction]
-        call    bi_shl_assign_512
+        DivRemGuess64_ShiftDelta 512, 128
 
         lea     rcx, [.guess_q]
         mov     rdx, [.correction]
-        call    bi_shl_assign_512
+        call    bi_shl_assign_512 ; shl_assign_384?
 .correction_2_ok:
 
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        lea     rsi, [.delta_corrected_msg]
-        call    Console_WriteString
-        lea     rcx, [.delta]
-        call    Console_WriteUInt512Hex
-        call    Console_WriteLine
-end if
-
-        mov     rcx, [.remainder]
-        lea     rdx, [.delta]
-        call    bi_sub_assign_512_512
-
-        mov     rcx, [.quotient]
-        lea     rdx, [.guess_q]
-        call    bi_add_assign_512_512
-
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        lea     rsi, [.new_quotient_msg]
-        call    Console_WriteString
-        mov     rcx, [.quotient]
-        call    Console_WriteUInt512Hex
-        call    Console_WriteLine
-
-        lea     rsi, [.new_remainder_msg]
-        call    Console_WriteString
-        mov     rcx, [.remainder]
-        call    Console_WriteUInt512Hex
-        call    Console_WriteLine
-end if
+        DivRemGuess64_DumpDeltaShifted 512, 128
+        DivRemGuess64_ApplyDelta 512, 128
+        DivRemGuess64_DumpNewValues 512, 128
 
         jmp     .loop
 .loop_ok:
@@ -160,10 +129,6 @@ end if
 
 if definite BI_DEV_REM_512_128_GUESS_DEBUG
   .loop_msg:               db '----------------------------------', 13, 10, 0
-  .delta_corrected_msg:    db 'delta (corrected): ', 0
-  .new_quotient_msg:       db 'new quotient:      ', 0
-  .new_remainder_msg:      db 'new remainder:     ', 0
-
 end if
 
 end if

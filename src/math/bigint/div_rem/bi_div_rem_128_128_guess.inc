@@ -71,10 +71,8 @@ end virtual
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
         lea     rsi, [.loop_msg]
         call    Console_WriteString
-
-        mov     rcx, [.remainder]
-        call    bi_div_rem_dump_remainder_128
 end if
+        DivRemGuess64_DumpRemainder 128, 128
         DivRemGuess64_ShiftRemainder 128, 128
         DivRemGuess64_DumpRemainderShifted 128, 128
         DivRemGuess64_Guess 128, 128
@@ -87,9 +85,9 @@ if definite BI_DEV_REM_128_128_GUESS_DEBUG
 end if
 
         mov     rcx, [.divisor]
-        mov     rdx, qword [.guess_128 + 0]
+        lea     rdx, [.guess_128]
         lea     r8, [.delta]
-        call    bi_mul_low_128_64
+        call    bi_mul_low_128_128
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
         lea     rcx, [.delta]
@@ -100,43 +98,16 @@ end if
         jz     .correction_2_ok
         neg     [.correction]
 
-        lea     rcx, [.delta + 0]
-        mov     rdx, [.correction]
-        call    bi_shl_assign_128
+        DivRemGuess64_ShiftDelta 128, 128
 
         mov     rcx, [.correction]
         shl     qword [.guess_128 + 0], cl
 .correction_2_ok:
 
-if definite BI_DEV_REM_128_128_GUESS_DEBUG
-        lea     rsi, [.delta_corrected_msg]
-        call    Console_WriteString
-        lea     rcx, [.delta]
-        call    Console_WriteUInt128Hex
-        call    Console_WriteLine
-end if
+        DivRemGuess64_DumpDeltaShifted 128, 128
+        DivRemGuess64_ApplyDelta 128, 128
 
-        mov     rcx, [.remainder]
-        lea     rdx, [.delta]
-        call    bi_sub_assign_128_128
-
-        mov     rcx, [.quotient]
-        mov     rdx, qword [.guess_128 + 0]
-        add     [rcx], rdx
-
-if definite BI_DEV_REM_128_128_GUESS_DEBUG
-        lea     rsi, [.new_quotient_msg]
-        call    Console_WriteString
-        mov     rcx, [.quotient]
-        call    Console_WriteUInt128Hex
-        call    Console_WriteLine
-
-        lea     rsi, [.new_remainder_msg]
-        call    Console_WriteString
-        mov     rcx, [.remainder]
-        call    Console_WriteUInt128Hex
-        call    Console_WriteLine
-end if
+        DivRemGuess64_DumpNewValues 128, 128
 
         jmp     .loop
 .loop_ok:
@@ -147,9 +118,6 @@ end if
 
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
   .loop_msg:               db '----------------------------------', 13, 10, 0
-  .delta_corrected_msg:    db 'delta (corrected): ', 0
-  .new_quotient_msg:       db 'new quotient:      ', 0
-  .new_remainder_msg:      db 'new remainder:     ', 0
 
 end if
 
