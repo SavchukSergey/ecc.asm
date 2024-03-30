@@ -35,10 +35,18 @@ macro DivRemGuess64_ShlAssign bits {
 }
 
 macro DivRemGuess64_IncAssign bits {
-  if bits = 128
+  if bits = 64
+      inc qword [rcx]
+  else if bits = 128
       call    bi_inc_assign_128
+  else if bits = 192
+      call    bi_inc_assign_192
   else if bits = 256
       call    bi_inc_assign_256
+  else if bits = 384
+      call    bi_inc_assign_384
+  else if bits = 448
+      call    bi_inc_assign_448
   else if bits = 512
       call    bi_inc_assign_512
   else
@@ -130,14 +138,14 @@ macro DivRemGuess64_AddAssign bits {
       add     [rcx], rdx
   else if bits = 128
       call    bi_add_assign_128_128
-  else if bits = 192 ; 256 - 64
-      call    bi_add_assign_256_256 ; todo: 
+  else if bits = 192
+      call    bi_add_assign_192_192 
   else if bits = 256
       call    bi_add_assign_256_256
-  else if bits = 384 ; 512 - 128
-      call    bi_add_assign_512_512 ;todo:
-  else if bits = 448 ; 512 - 64
-      call    bi_add_assign_512_512 ;todo:
+  else if bits = 384
+      call    bi_add_assign_384_384
+  else if bits = 448
+      call    bi_add_assign_512_512
   else if bits = 512
       call    bi_add_assign_512_512
   else
@@ -317,6 +325,23 @@ macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
     DivRemGuess64_ShlAssign dividend_bits
 }
 
+macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
+  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 64
+    mov     rcx, [.correction]
+    shl     qword [.guess_128], cl
+  else
+    if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 128
+      lea     rcx, [.guess_128]
+      mov     rdx, [.correction]
+      DivRemGuess64_ShlAssign 128  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
+    else
+      lea     rcx, [.guess_q]
+      mov     rdx, [.correction]
+      DivRemGuess64_ShlAssign dividend_bits  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
+    end if
+  end if
+}
+
 macro DivRemGuess64_ApplyDelta dividend_bits, divisor_bits {
       mov     rcx, [.remainder]
       lea     rdx, [.delta]
@@ -340,7 +365,7 @@ macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
         DivRemGuess64_Cmp divisor_bits
         jb      .end
         mov     rcx, [.quotient]
-        DivRemGuess64_IncAssign dividend_bits
+        DivRemGuess64_IncAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
         DivRemGuess64_SubAssign divisor_bits

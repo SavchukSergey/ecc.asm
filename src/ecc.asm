@@ -66,7 +66,10 @@ section '.edata' export data readable
          bi_add_512_512, 'bi_add_512_512', \
 \
          bi_add_assign_128_128, 'bi_add_assign_128_128', \
+         bi_add_assign_192_192, 'bi_add_assign_192_192', \
          bi_add_assign_256_256, 'bi_add_assign_256_256', \
+         bi_add_assign_384_384, 'bi_add_assign_384_384', \
+         bi_add_assign_448_448, 'bi_add_assign_448_448', \
          bi_add_assign_512_512, 'bi_add_assign_512_512', \
          bi_add_assign_1024_1024, 'bi_add_assign_1024_1024', \
 \
@@ -82,7 +85,10 @@ section '.edata' export data readable
          bi_sub_assign_512_512, 'bi_sub_assign_512_512', \
 \
          bi_inc_assign_128, 'bi_inc_assign_128', \
+         bi_inc_assign_192, 'bi_inc_assign_192', \
          bi_inc_assign_256, 'bi_inc_assign_256', \
+         bi_inc_assign_384, 'bi_inc_assign_384', \
+         bi_inc_assign_448, 'bi_inc_assign_448', \
          bi_inc_assign_512, 'bi_inc_assign_512', \
 \
          bi_dec_assign_256, 'bi_dec_assign_256', \

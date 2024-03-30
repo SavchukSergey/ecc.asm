@@ -83,10 +83,7 @@ end if
         neg     [.correction]
 
         DivRemGuess64_ShiftDelta 256, 256
-
-        lea     rcx, [.guess_128]
-        mov     rdx, [.correction]
-        call    bi_shl_assign_128
+        DivRemGuess64_ShiftGuess 256, 256
 .correction_2_ok:
 
         DivRemGuess64_DumpDeltaShifted 256, 256

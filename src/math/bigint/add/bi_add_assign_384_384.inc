@@ -1,12 +1,12 @@
-if ~ definite bi_add_assign_448_448
+if ~ definite bi_add_assign_384_384
 
-;Adds two bi448 values
+;Adds two bi384 values
 ;input:
 ;  rcx - left value. The modified value
 ;  rdx - right value
 ;output:
 ;  rax - set to 1 if overflow
-bi_add_assign_448_448:
+bi_add_assign_384_384:
         mov     rax, [rdx]
         add     [rcx], rax
         mov     rax, [rdx + 8]
@@ -19,10 +19,6 @@ bi_add_assign_448_448:
         adc     [rcx + 32], rax
         mov     rax, [rdx + 40]
         adc     [rcx + 40], rax
-        mov     rax, [rdx + 48]
-        adc     [rcx + 48], rax
-        mov     rax, [rdx + 56]
-        adc     [rcx + 56], rax
         setc    al
         movzx   rax, al
         ret

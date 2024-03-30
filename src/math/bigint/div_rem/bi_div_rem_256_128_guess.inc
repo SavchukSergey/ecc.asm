@@ -2,19 +2,20 @@ if ~ definite bi_div_rem_256_128_guess
 
 include 'bi_div_rem_guess_64.inc'
 
-include '../lzcnt/bi_lzcnt_256.inc'
-include '../zero/bi_zero_256.inc'
-include '../copy/bi_copy_256.inc'
+include '../add/bi_add_assign_192_192.inc'
 include '../cmp/bi_cmp_128_128.inc'
+include '../copy/bi_copy_256.inc'
+include '../div_rem/bi_div_128_64.inc'
+include '../div_rem/bi_div_rem_256_64.inc'
+include '../extend_low/bi_extend_256_128.inc'
+include '../inc/bi_inc_assign_192.inc'
+include '../lzcnt/bi_lzcnt_256.inc'
+include '../mul_low/bi_mul_low_256_128.inc'
 include '../shl/bi_shl_256.inc'
 include '../shl/bi_shl_assign_256.inc'
 include '../sub/bi_sub_assign_256_128.inc'
 include '../sub/bi_sub_assign_256_256.inc'
-include '../mul_low/bi_mul_low_256_128.inc'
-include '../extend_low/bi_extend_256_128.inc'
-include '../div_rem/bi_div_128_64.inc'
-include '../div_rem/bi_div_rem_256_64.inc'
-include '../inc/bi_inc_assign_256.inc'
+include '../zero/bi_zero_256.inc'
 
 bi_div_rem_256_128_guess:
     DivRemGuess64_Prepare 256, 128
@@ -82,10 +83,8 @@ end if
         neg     [.correction]
 
         DivRemGuess64_ShiftDelta 256, 128
+        DivRemGuess64_ShiftGuess 256, 128
 
-        lea     rcx, [.guess_q]
-        mov     rdx, [.correction]
-        call    bi_shl_assign_256
 .correction_2_ok:
 
         DivRemGuess64_DumpDeltaShifted 256, 128

@@ -2,21 +2,22 @@ if ~ definite bi_div_rem_512_128_guess
 
 include 'bi_div_rem_guess_64.inc'
 
+include '../add/bi_add_assign_448_448.inc'
+include '../add/bi_add_assign_512_512.inc'
+include '../copy/bi_copy_512.inc'
+include '../inc/bi_inc_assign_448.inc'
 include '../lzcnt/bi_lzcnt_128.inc'
 include '../lzcnt/bi_lzcnt_512.inc'
 include '../zero/bi_zero_512.inc'
-include '../copy/bi_copy_512.inc'
 include '../shl/bi_shl_128.inc'
 include '../shl/bi_shl_512.inc'
 include '../shl/bi_shl_assign_512.inc'
 include '../shr/bi_shr_assign_128.inc'
 include '../sub/bi_sub_assign_512_128.inc'
-include '../add/bi_add_assign_512_512.inc'
 include '../sub/bi_sub_assign_512_512.inc'
 include '../extend_low/bi_extend_512_128.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../div_rem/bi_div_rem_512_64.inc'
-include '../inc/bi_inc_assign_512.inc'
 
 bi_div_rem_512_128_guess:
     DivRemGuess64_Prepare 512, 128
@@ -83,10 +84,7 @@ end if
         neg     [.correction]
 
         DivRemGuess64_ShiftDelta 512, 128
-
-        lea     rcx, [.guess_q]
-        mov     rdx, [.correction]
-        call    bi_shl_assign_512 ; shl_assign_384?
+        DivRemGuess64_ShiftGuess 512, 128
 .correction_2_ok:
 
         DivRemGuess64_DumpDeltaShifted 512, 128

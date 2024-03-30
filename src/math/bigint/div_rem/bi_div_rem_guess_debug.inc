@@ -7,6 +7,9 @@ macro DisplayDec value {
     display '0' + (value / 100)
     display '0' + (value mod 100) / 10
     display '0' + (value mod 10)
+  else
+    display '0' + (value mod 100) / 10
+    display '0' + (value mod 10)
   end if
 }
 
