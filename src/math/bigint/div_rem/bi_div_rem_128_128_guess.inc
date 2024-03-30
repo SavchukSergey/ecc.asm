@@ -13,13 +13,8 @@ include '../mul_low/bi_mul_low_128_64.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../inc/bi_inc_assign_128.inc'
 
-;BI_DEV_REM_128_128_GUESS_DEBUG = 1
-
-if definite BI_DEV_REM_128_128_GUESS_DEBUG
-  include 'bi_dev_rem_debug.inc'
-end if
-
 bi_div_rem_128_128_guess:
+    DivRemGuess64_Prepare 128, 128
 virtual at rsp
   label .locals_start
   .dividend rq 1
@@ -39,10 +34,7 @@ virtual at rsp
   label .locals_end
 end virtual
         DivRemGuess64_Prolog 128, 128
-
-        mov     rcx, [.divisor]
-        call    bi_lzcnt_128
-        mov     [.divisor_lzcnt], rax
+        DivRemGuess64_DivisorLzcnt 128, 128
 
         cmp     rax, 128 - 64
         jb      .divisor_large
@@ -57,16 +49,8 @@ end virtual
 ;divisor >= 2^64
 ;quotient as well as guess will be less than 2^64
 
-        mov     rcx, [.quotient]
-        call    bi_zero_128
-
-        mov     rcx, [.remainder]
-        mov     rdx, [.dividend]
-        call    bi_copy_128
-
-
+        DivRemGuess64_PrepareLoop 128, 128
         DivRemGuess64_ShiftDivisor 128, 128
-        DivRemGuess64_Prepare 128, 128
 .loop:
 if definite BI_DEV_REM_128_128_GUESS_DEBUG
         lea     rsi, [.loop_msg]
@@ -78,11 +62,7 @@ end if
         DivRemGuess64_Guess 128, 128
         DivRemGuess64_DumpGuess 128, 128
         DivRemGuess64_FixGuess 128, 128
-
-if definite BI_DEV_REM_128_128_GUESS_DEBUG
-        lea     rcx, qword [.guess_128]
-        call    bi_div_rem_dump_guess_corrected_128
-end if
+        DivRemGuess64_DumpGuessFixed 128, 128
 
         DivRemGuess64_CalcDelta 128, 128
         DivRemGuess64_DumpDelta 128, 128

@@ -14,13 +14,8 @@ include '../div_rem/bi_div_rem_256_128.inc'
 include '../div_rem/bi_div_rem_256_64.inc'
 include '../inc/bi_inc_assign_256.inc'
 
-;BI_DEV_REM_256_256_GUESS_DEBUG = 1
-
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-  include 'bi_dev_rem_debug.inc'
-end if
-
 bi_div_rem_256_256_guess:
+    DivRemGuess64_Prepare 256, 256
 virtual at rsp
   label .locals_start
   .dividend rq 1
@@ -40,11 +35,7 @@ virtual at rsp
   label .locals_end
 end virtual
         DivRemGuess64_Prolog 256, 256
-
-
-        mov     rcx, [.divisor]
-        call    bi_lzcnt_256
-        mov     [.divisor_lzcnt], rax
+        DivRemGuess64_DivisorLzcnt 256, 256
 
         cmp     rax, 256 - 128
         jb      .divisor_large
@@ -69,16 +60,8 @@ end virtual
 ;divisor >= 2^128
 ;quotient as well as guess will be less than 2^128
 
-        mov     rcx, [.quotient]
-        call    bi_zero_256
-
-        mov     rcx, [.remainder]
-        mov     rdx, [.dividend]
-        call    bi_copy_256
-
-
+        DivRemGuess64_PrepareLoop 256, 256
         DivRemGuess64_ShiftDivisor 256, 256
-        DivRemGuess64_Prepare 256, 256
 .loop:
 if definite BI_DEV_REM_256_256_GUESS_DEBUG
         lea     rsi, [.loop_msg]
@@ -90,11 +73,7 @@ end if
         DivRemGuess64_Guess 256, 256
         DivRemGuess64_DumpGuess 256, 256
         DivRemGuess64_FixGuess 256, 256
-
-if definite BI_DEV_REM_256_256_GUESS_DEBUG
-        lea     rcx, qword [.guess_128]
-        call    bi_div_rem_dump_guess_corrected_128
-end if
+        DivRemGuess64_DumpGuessFixed 256, 256
 
         DivRemGuess64_CalcDelta 256, 256
         DivRemGuess64_DumpDelta 256, 256
