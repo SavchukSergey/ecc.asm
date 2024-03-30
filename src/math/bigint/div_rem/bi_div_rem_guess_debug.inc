@@ -174,6 +174,15 @@ macro DivRemGuess64_DumpNewValues dividend_bits, divisor_bits {
   end if
 }
 
+macro DivRemGuess64_LoopStart dividend_bits, divisor_bits {
+  if definite BI_DEV_REM_GUESS_64_DEBUG
+    push    rsi
+    lea     rsi, [bi_div_rem_dump_loop_msg]
+    call    Console_WriteString
+    pop     rsi
+  end if
+}
+
 bi_div_rem_guess_debug:
 bi_div_rem_dump_dividend_msg:          db 'dividend:          ', 0
 bi_div_rem_dump_divisor_msg:           db 'divisor:           ', 0
@@ -186,5 +195,6 @@ bi_div_rem_dump_delta_msg:             db 'delta:             ', 0
 bi_div_rem_dump_delta_shifted_msg:     db 'delta shifted:     ', 0
 bi_div_rem_dump_new_quotient_msg:      db 'new quotient:      ', 0
 bi_div_rem_dump_new_remainder_msg:     db 'new remainder:     ', 0
+bi_div_rem_dump_loop_msg:              db '----------------------------------', 13, 10, 0
 
 end if

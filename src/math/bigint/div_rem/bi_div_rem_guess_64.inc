@@ -371,3 +371,37 @@ macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
         DivRemGuess64_SubAssign divisor_bits
         jmp     .end
 }
+
+
+
+
+
+macro DivRemGuess64_Loop dividend_bits, divisor_bits {
+.loop:
+        DivRemGuess64_LoopStart dividend_bits, divisor_bits
+        DivRemGuess64_DumpRemainder dividend_bits, divisor_bits
+        DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits
+        DivRemGuess64_DumpRemainderShifted dividend_bits, divisor_bits
+        DivRemGuess64_Guess dividend_bits, divisor_bits
+        DivRemGuess64_DumpGuess dividend_bits, divisor_bits
+        DivRemGuess64_FixGuess dividend_bits, divisor_bits
+        DivRemGuess64_DumpGuessFixed dividend_bits, divisor_bits
+
+        DivRemGuess64_CalcDelta dividend_bits, divisor_bits
+        DivRemGuess64_DumpDelta dividend_bits, divisor_bits
+
+        cmp     [.correction], 0
+        jz     .correction_2_ok
+        neg     [.correction]
+
+        DivRemGuess64_ShiftDelta dividend_bits, divisor_bits
+        DivRemGuess64_ShiftGuess dividend_bits, divisor_bits
+.correction_2_ok:
+
+        DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits
+        DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
+        DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
+
+        jmp     .loop
+.loop_ok:
+}
