@@ -5,19 +5,19 @@ include 'bi_div_rem_guess_64.inc'
 include '../add/bi_add_assign_448_448.inc'
 include '../add/bi_add_assign_512_512.inc'
 include '../copy/bi_copy_512.inc'
+include '../div_rem/bi_div_128_64.inc'
+include '../div_rem/bi_div_rem_512_64.inc'
+include '../extend_low/bi_extend_448_128.inc'
 include '../inc/bi_inc_assign_448.inc'
 include '../lzcnt/bi_lzcnt_128.inc'
 include '../lzcnt/bi_lzcnt_512.inc'
-include '../zero/bi_zero_512.inc'
 include '../shl/bi_shl_128.inc'
 include '../shl/bi_shl_512.inc'
 include '../shl/bi_shl_assign_512.inc'
 include '../shr/bi_shr_assign_128.inc'
 include '../sub/bi_sub_assign_512_128.inc'
 include '../sub/bi_sub_assign_512_512.inc'
-include '../extend_low/bi_extend_512_128.inc'
-include '../div_rem/bi_div_128_64.inc'
-include '../div_rem/bi_div_rem_512_64.inc'
+include '../zero/bi_zero_512.inc'
 
 bi_div_rem_512_128_guess:
     DivRemGuess64_Prepare 512, 128
@@ -74,10 +74,7 @@ end if
 
         DivRemGuess64_CalcDelta 512, 128
         DivRemGuess64_DumpDelta 512, 128
-
-        lea     rcx, [.guess_q]
-        lea     rdx, [.guess_128]
-        call    bi_extend_512_128 ;todo: guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
+        DivRemGuess64_ExtendGuess 512, 128
 
         cmp     [.correction], 0
         jz     .correction_2_ok
@@ -89,6 +86,7 @@ end if
 
         DivRemGuess64_DumpDeltaShifted 512, 128
         DivRemGuess64_ApplyDelta 512, 128
+        DivRemGuess64_UpdateQuotient 512, 128
         DivRemGuess64_DumpNewValues 512, 128
 
         jmp     .loop

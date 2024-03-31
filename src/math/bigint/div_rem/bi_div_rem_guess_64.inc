@@ -4,187 +4,9 @@ if definite BI_DEV_REM_GUESS_64_DEBUG
   include 'bi_div_rem_guess_debug.inc'
 end if
 
-macro DivRemGuess64_Shl bits {
-  if bits = 128
-      call    bi_shl_128
-  else if bits = 256
-      call    bi_shl_256
-  else if bits = 512
-      call    bi_shl_512
-  else
-      display 'unknown shl '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
+include '../macro/call.inc'
 
-macro DivRemGuess64_ShlAssign bits {
-  if bits = 128
-      call    bi_shl_assign_128
-  else if bits = 256
-      call    bi_shl_assign_256
-  else if bits = 512
-      call    bi_shl_assign_512
-  else
-      display 'unknown shl assign '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
 
-macro DivRemGuess64_IncAssign bits {
-  if bits = 64
-      inc qword [rcx]
-  else if bits = 128
-      call    bi_inc_assign_128
-  else if bits = 192
-      call    bi_inc_assign_192
-  else if bits = 256
-      call    bi_inc_assign_256
-  else if bits = 384
-      call    bi_inc_assign_384
-  else if bits = 448
-      call    bi_inc_assign_448
-  else if bits = 512
-      call    bi_inc_assign_512
-  else
-      display 'unknown inc assign '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro DivRemGuess64_Lzcnt bits {
-  if bits = 128
-      call    bi_lzcnt_128
-  else if bits = 256
-      call    bi_lzcnt_256
-  else if bits = 512
-      call    bi_lzcnt_512
-  else
-      display 'unknown lzcnt assign '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro DivRemGuess64_Cmp bits {
-  if bits = 128
-      call    bi_cmp_128_128
-  else if bits = 256
-      call    bi_cmp_256_256
-  else if bits = 512
-      call    bi_cmp_512_512
-  else
-      display 'unknown cmp '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro DivRemGuess64_Zero bits {
-  if bits = 128
-      call    bi_zero_128
-  else if bits = 256
-      call    bi_zero_256
-  else if bits = 512
-      call    bi_zero_512
-  else if bits = 1024
-      call    bi_zero_1024
-  else
-      display 'unknown zero '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro DivRemGuess64_Copy bits {
-  if bits = 128
-      call    bi_copy_128
-  else if bits = 256
-      call    bi_copy_256
-  else if bits = 512
-      call    bi_copy_512
-  else if bits = 1024
-      call    bi_copy_1024
-  else
-      display 'unknown copy '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro DivRemGuess64_SubAssign bits {
-  if bits = 128
-      call    bi_sub_assign_128_128
-  end if
-  if bits = 256
-      call    bi_sub_assign_256_256
-  end if
-  if bits = 512
-      call    bi_sub_assign_512_512
-  end if
-}
-
-macro DivRemGuess64_AddAssign bits {
-  if bits = 64
-      add     [rcx], rdx
-  else if bits = 128
-      call    bi_add_assign_128_128
-  else if bits = 192
-      call    bi_add_assign_192_192 
-  else if bits = 256
-      call    bi_add_assign_256_256
-  else if bits = 384
-      call    bi_add_assign_384_384
-  else if bits = 448
-      call    bi_add_assign_512_512
-  else if bits = 512
-      call    bi_add_assign_512_512
-  else
-      display 'unknown add assign '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro DivRemGuess64_MulX128 bits {
-  if bits = 128
-      call    bi_mul_128_128
-  else if bits = 256
-      call    bi_mul_256_128
-  else if bits = 512
-      call    bi_mul_512_128
-  else
-      display 'unknown mul '
-      DisplayDec bits
-      display 13, 10
-      err
-  end if
-}
-
-macro DivRemGuess64_MulLowX128 bits {
-  if bits = 128
-      call    bi_mul_low_128_128
-  else if bits = 256
-      call    bi_mul_low_256_128
-  else if bits = 512
-      call    bi_mul_low_512_128
-  else
-      display 'unknown mul_low '
-      DisplayDec bits
-      display 13, 10
-      err
-  end if
-}
 
 macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
     sub     rsp, .locals_end - .locals_start
@@ -203,7 +25,7 @@ macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
 
 macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
     mov     rcx, [.divisor]
-    DivRemGuess64_Lzcnt divisor_bits
+    Call_Lzcnt divisor_bits
   if DIV_REM_GUESS_IMAGINARY_BITS > 0
       add     rax, DIV_REM_GUESS_IMAGINARY_BITS 
   end if
@@ -225,11 +47,11 @@ macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
 
 macro DivRemGuess64_PrepareLoop dividend_bits, divisor_bits {
     mov     rcx, [.quotient]
-    DivRemGuess64_Zero dividend_bits
+    Call_Zero dividend_bits
 
     mov     rcx, [.remainder]
     mov     rdx, [.dividend]
-    DivRemGuess64_Copy dividend_bits
+    Call_Copy dividend_bits
 }
 
 macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
@@ -240,7 +62,7 @@ macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
   if DIV_REM_GUESS_IMAGINARY_BITS > 0
     sub     r8, DIV_REM_GUESS_IMAGINARY_BITS 
   end if
-    DivRemGuess64_Shl divisor_bits
+    Call_Shl divisor_bits
 
     DivRemGuess64_DumpDivisorShifted dividend_bits, divisor_bits
 }
@@ -248,7 +70,7 @@ macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
 macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
 ;shift remainder to the left, so the most meaningful bit is always the highest bit
       mov     rcx, [.remainder]
-      DivRemGuess64_Lzcnt dividend_bits
+      Call_Lzcnt dividend_bits
       mov     [.remainder_lzcnt], rax
 
       cmp     rax, [.divisor_lzcnt]
@@ -257,7 +79,7 @@ macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
       mov     rcx, [.remainder]
       lea     rdx, [.remainder_shifted]
       mov     r8, [.remainder_lzcnt]
-      DivRemGuess64_Shl dividend_bits
+      Call_Shl dividend_bits
 }
 
 macro DivRemGuess64_Guess dividend_bits, divisor_bits {
@@ -300,7 +122,7 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
     lea     rdx, [.guess_128]
     lea     r8, [.delta]
 
-    DIV_REM_GUESS_DELTA_EXPECTED_SIZE = dividend_bits
+    DIV_REM_GUESS_DELTA_EXPECTED_SIZE = dividend_bits ;todo: DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE?
 
     ; mul returns result of 2 * max(left_bits, right_bits) bits
     ; as guess_size is 128 and divisor_bits >= 128 we can simplify it just to 2 * divisor_bits
@@ -311,18 +133,16 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
     DIV_REM_GUESS_DELTA_MUL_LOW_SIZE = divisor_bits
 
   if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_EXPECTED_SIZE
-    DivRemGuess64_MulLowX128 divisor_bits
+    Call_MulLowX128 divisor_bits
   else
-    DivRemGuess64_MulX128 divisor_bits
+    Call_MulX128 divisor_bits
   end if
-    DisplayDec DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
-    display 13, 10
 }
 
 macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
-    lea     rcx, [.delta + 0]
+    lea     rcx, [.delta]
     mov     rdx, [.correction]
-    DivRemGuess64_ShlAssign dividend_bits
+    Call_ShlAssign dividend_bits ;todo: DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
 }
 
 macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
@@ -333,19 +153,31 @@ macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
     if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 128
       lea     rcx, [.guess_128]
       mov     rdx, [.correction]
-      DivRemGuess64_ShlAssign 128  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
+      Call_ShlAssign 128  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
     else
       lea     rcx, [.guess_q]
       mov     rdx, [.correction]
-      DivRemGuess64_ShlAssign dividend_bits  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
+      Call_ShlAssign dividend_bits  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
     end if
+  end if
+}
+
+macro DivRemGuess64_ExtendGuess dividend_bits, divisor_bits {
+  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE > 128
+    ;todo: guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
+    lea     rcx, [.guess_q]
+    lea     rdx, [.guess_128]
+    Call_ExtendX128 DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
   end if
 }
 
 macro DivRemGuess64_ApplyDelta dividend_bits, divisor_bits {
       mov     rcx, [.remainder]
       lea     rdx, [.delta]
-      DivRemGuess64_SubAssign dividend_bits
+      Call_SubAssign dividend_bits
+}
+
+macro DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits {
       mov     rcx, [.quotient]
   if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE = 64
       mov     rdx, qword [.guess_128 + 0]
@@ -354,7 +186,7 @@ macro DivRemGuess64_ApplyDelta dividend_bits, divisor_bits {
   else
       lea     rdx, [.guess_q]
   end if
-      DivRemGuess64_AddAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+      Call_AddAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
 }
 
 macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
@@ -362,13 +194,13 @@ macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
 ;reminder has same leading zeroes count as divisor so we can safely compare lowest divisor_bits bits
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
-        DivRemGuess64_Cmp divisor_bits
+        Call_Cmp divisor_bits
         jb      .end
         mov     rcx, [.quotient]
-        DivRemGuess64_IncAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+        Call_IncAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
-        DivRemGuess64_SubAssign divisor_bits
+        Call_SubAssign divisor_bits
         jmp     .end
 }
 
@@ -389,6 +221,7 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
 
         DivRemGuess64_CalcDelta dividend_bits, divisor_bits
         DivRemGuess64_DumpDelta dividend_bits, divisor_bits
+        DivRemGuess64_ExtendGuess dividend_bits, divisor_bits
 
         cmp     [.correction], 0
         jz     .correction_2_ok
@@ -400,6 +233,7 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
 
         DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits
         DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
+        DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits
         DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
 
         jmp     .loop

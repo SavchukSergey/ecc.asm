@@ -7,11 +7,12 @@ include '../cmp/bi_cmp_128_128.inc'
 include '../copy/bi_copy_256.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../div_rem/bi_div_rem_256_64.inc'
-include '../extend_low/bi_extend_256_128.inc'
+include '../extend_low/bi_extend_192_128.inc'
 include '../inc/bi_inc_assign_192.inc'
 include '../lzcnt/bi_lzcnt_256.inc'
 include '../mul_low/bi_mul_low_256_128.inc'
 include '../shl/bi_shl_256.inc'
+include '../shl/bi_shl_assign_192.inc'
 include '../shl/bi_shl_assign_256.inc'
 include '../sub/bi_sub_assign_256_128.inc'
 include '../sub/bi_sub_assign_256_256.inc'
@@ -58,48 +59,10 @@ end virtual
 .divisor_large:
         DivRemGuess64_PrepareLoop 256, 128
         DivRemGuess64_ShiftDivisor 256, 128
-.loop:
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
-        lea     rsi, [.loop_msg]
-        call    Console_WriteString
-end if
-        DivRemGuess64_DumpRemainder 256, 128
-        DivRemGuess64_ShiftRemainder 256, 128
-        DivRemGuess64_DumpRemainderShifted 256, 128
-        DivRemGuess64_Guess 256, 128
-        DivRemGuess64_DumpGuess 256, 128
-        DivRemGuess64_FixGuess 256, 128
-        DivRemGuess64_DumpGuessFixed 256, 128
-
-        DivRemGuess64_CalcDelta 256, 128
-        DivRemGuess64_DumpDelta 256, 128
-
-        lea     rcx, [.guess_q]
-        lea     rdx, [.guess_128]
-        call    bi_extend_256_128
-
-        cmp     [.correction], 0
-        jz     .correction_2_ok
-        neg     [.correction]
-
-        DivRemGuess64_ShiftDelta 256, 128
-        DivRemGuess64_ShiftGuess 256, 128
-
-.correction_2_ok:
-
-        DivRemGuess64_DumpDeltaShifted 256, 128
-        DivRemGuess64_ApplyDelta 256, 128
-        DivRemGuess64_DumpNewValues 256, 128
-
-        jmp     .loop
-.loop_ok:
+        DivRemGuess64_Loop 256, 128
 .end:
         add     rsp, .locals_end - .locals_start
         ret
         DivRemGuess64_RecheckOnce 256, 128
-
-if definite BI_DEV_REM_256_128_GUESS_DEBUG
-  .loop_msg:               db '----------------------------------', 13, 10, 0
-end if
 
 end if

@@ -164,8 +164,11 @@ section '.edata' export data readable
 \
          bi_extend_128_64, 'bi_extend_128_64',\
          bi_extend_256_64, 'bi_extend_256_64',\
-         bi_extend_256_128, 'bi_extend_256_128',\
          bi_extend_512_64, 'bi_extend_512_64',\
+         bi_extend_192_128, 'bi_extend_192_128',\
+         bi_extend_256_128, 'bi_extend_256_128',\
+         bi_extend_384_128, 'bi_extend_384_128',\
+         bi_extend_448_128, 'bi_extend_448_128',\
          bi_extend_512_128, 'bi_extend_512_128',\
          bi_extend_512_256, 'bi_extend_512_256',\
 \
