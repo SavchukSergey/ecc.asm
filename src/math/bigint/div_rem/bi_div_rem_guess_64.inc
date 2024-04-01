@@ -167,7 +167,7 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
     lea     rdx, [.guess_128]
     lea     r8, [.delta]
 
-    DIV_REM_GUESS_DELTA_EXPECTED_SIZE = dividend_bits ;todo: DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE?
+    DIV_REM_GUESS_DELTA_SIZE = dividend_bits
 
     ; mul returns result of 2 * max(left_bits, right_bits) bits
     ; as guess_size is 128 and divisor_bits >= 128 we can simplify it just to 2 * divisor_bits
@@ -177,7 +177,7 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
     ; as guess_size is 128 and divisor_bits >= 128 we can simplify it just to divisor_bits
     DIV_REM_GUESS_DELTA_MUL_LOW_SIZE = divisor_bits
 
-  if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_EXPECTED_SIZE
+  if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_SIZE
     Call_MulLowX128 divisor_bits
   else
     Call_MulX128 divisor_bits
@@ -187,7 +187,7 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
 macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
     lea     rcx, [.delta]
     mov     rdx, [.correction]
-    Call_ShlAssign dividend_bits ;todo: DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+    Call_ShlAssign DIV_REM_GUESS_DELTA_SIZE
 }
 
 macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
