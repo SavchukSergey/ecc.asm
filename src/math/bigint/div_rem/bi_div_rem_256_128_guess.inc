@@ -41,22 +41,8 @@ virtual at rsp
 end virtual
         DivRemGuess64_Prolog 256, 128
         DivRemGuess64_DivisorLzcnt 256, 128
+        DivRemGuess64_DivisorSwitch 256, 128
 
-        mov     rcx, [.divisor]
-        call    bi_lzcnt_128
-        add     rax, 128
-        mov     [.divisor_lzcnt], rax
-
-        cmp     rax, 256 - 64
-        jb      .divisor_large
-        mov     rcx, [.dividend]
-        mov     rdx, [.divisor]
-        mov     rdx, [rdx + 0]
-        mov     r8, [.quotient]
-        mov     r9, [.remainder]
-        call    bi_div_rem_256_64
-        jmp     .end
-.divisor_large:
         DivRemGuess64_PrepareLoop 256, 128
         DivRemGuess64_ShiftDivisor 256, 128
         DivRemGuess64_Loop 256, 128

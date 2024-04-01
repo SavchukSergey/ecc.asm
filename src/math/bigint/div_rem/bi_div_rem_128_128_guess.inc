@@ -35,20 +35,7 @@ virtual at rsp
 end virtual
         DivRemGuess64_Prolog 128, 128
         DivRemGuess64_DivisorLzcnt 128, 128
-
-        cmp     rax, 128 - 64
-        jb      .divisor_large
-        mov     rcx, [.dividend]
-        mov     rdx, [.divisor]
-        mov     rdx, [rdx + 0]
-        mov     r8, [.quotient]
-        mov     r9, [.remainder]
-        call    bi_div_rem_128_64
-        jmp     .end
-.divisor_large:
-;divisor >= 2^64
-;quotient as well as guess will be less than 2^64
-
+        DivRemGuess64_DivisorSwitch 128, 128
         DivRemGuess64_PrepareLoop 128, 128
         DivRemGuess64_ShiftDivisor 128, 128
         DivRemGuess64_Loop 128, 128

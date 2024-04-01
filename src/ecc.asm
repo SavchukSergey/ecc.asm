@@ -80,8 +80,14 @@ section '.edata' export data readable
          bi_sub_assign_128_128, 'bi_sub_assign_128_128', \
          bi_sub_assign_256_128, 'bi_sub_assign_256_128', \
          bi_sub_assign_256_256, 'bi_sub_assign_256_256', \
+         bi_sub_assign_384_384, 'bi_sub_assign_384_384', \
+         bi_sub_assign_448_448, 'bi_sub_assign_448_448', \
          bi_sub_assign_512_128, 'bi_sub_assign_512_128', \
+         bi_sub_assign_512_192, 'bi_sub_assign_512_192', \
          bi_sub_assign_512_256, 'bi_sub_assign_512_256', \
+         bi_sub_assign_512_320, 'bi_sub_assign_512_320', \
+         bi_sub_assign_512_384, 'bi_sub_assign_512_384', \
+         bi_sub_assign_512_448, 'bi_sub_assign_512_448', \
          bi_sub_assign_512_512, 'bi_sub_assign_512_512', \
 \
          bi_inc_assign_128, 'bi_inc_assign_128', \

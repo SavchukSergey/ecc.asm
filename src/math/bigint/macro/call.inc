@@ -142,15 +142,43 @@ macro Call_Copy bits {
   end if
 }
 
-macro Call_SubAssign bits {
-  if bits = 128
-      call    bi_sub_assign_128_128
-  end if
-  if bits = 256
-      call    bi_sub_assign_256_256
-  end if
-  if bits = 512
+macro Call_SubAssign512X right_bits {
+  if (right_bits) = 128
+      call    bi_sub_assign_512_128
+  else if (right_bits) = 256
+      call    bi_sub_assign_512_256
+  else if (right_bits) = 384
+      call    bi_sub_assign_512_384
+  else if (right_bits) = 448
       call    bi_sub_assign_512_512
+  else if (right_bits) = 512
+      call    bi_sub_assign_512_512
+  else
+      display 'unknown Call_SubAssign512X '
+      DisplayDec (right_bits)
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_SubAssign left_bits, right_bits {
+;todo: implement asymmetric sub
+  if left_bits = 128
+      call    bi_sub_assign_128_128
+  else if left_bits = 256
+      call    bi_sub_assign_256_256
+  else if left_bits = 384
+      call    bi_sub_assign_384_384
+  else if left_bits = 448
+      call    bi_sub_assign_448_448
+  else if left_bits = 512
+;      call    bi_sub_assign_512_512
+      Call_SubAssign512X right_bits
+  else
+      display 'unknown sub_assign '
+      DisplayDec left_bits
+      display 13, 10
+      err 
   end if
 }
 
@@ -206,3 +234,68 @@ macro Call_MulLowX128 bits {
       err
   end if
 }
+
+macro Call_DivRem512X divisor_bits {
+  if divisor_bits = 512
+      call    bi_div_rem_512_512
+  else if divisor_bits = 256
+      call    bi_div_rem_512_256
+  else if divisor_bits = 128
+      call    bi_div_rem_512_128
+  else if divisor_bits = 64
+      call    bi_div_rem_512_64
+  else
+    display 'unknown Call_DivRem512X '
+    DisplayDec divisor_bits
+    display 13, 10
+    err
+  end if
+}
+
+macro Call_DivRem256X divisor_bits {
+  if divisor_bits = 256
+      call    bi_div_rem_256_256
+  else if divisor_bits = 128
+      call    bi_div_rem_256_128
+  else if divisor_bits = 64
+      call    bi_div_rem_256_64
+  else
+    display 'unknown Call_DivRem256X '
+    DisplayDec divisor_bits
+    display 13, 10
+    err
+  end if
+}
+
+macro Call_DivRem128X divisor_bits {
+  if divisor_bits = 128
+      call    bi_div_rem_128_128
+  else if divisor_bits = 64
+      call    bi_div_rem_128_64
+  else
+    display 'unknown Call_DivRem128X '
+    DisplayDec divisor_bits
+    display 13, 10
+    err
+  end if
+}
+
+
+macro Call_DivRem dividend_bits, divisor_bits {
+  if dividend_bits = 512
+      Call_DivRem512X divisor_bits
+  else if dividend_bits = 256
+      Call_DivRem256X divisor_bits
+  else if dividend_bits = 128
+      Call_DivRem128X divisor_bits
+  else
+    display 'unknown div_rem '
+    DisplayDec dividend_bits
+    display ', '
+    DisplayDec divisor_bits
+    display 13, 10
+    err
+  end if
+}
+
+

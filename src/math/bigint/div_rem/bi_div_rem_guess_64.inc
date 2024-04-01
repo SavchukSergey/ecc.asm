@@ -32,6 +32,51 @@ macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
     mov     [.divisor_lzcnt], rax
 }
 
+macro DivRemGuess64_DivisorSwitch dividend_bits, divisor_bits {
+  if divisor_bits >= 128
+    ;check for large divisor first than try to use smaller ones
+    cmp     rax, dividend_bits - (divisor_bits / 2)
+    jb      .divisor_large
+
+    if divisor_bits >= 512
+      cmp     rax, dividend_bits - 128
+      jb      .divisor_256
+    end if
+
+    if divisor_bits >= 256
+      cmp     rax, dividend_bits - 64
+      jb      .divisor_128
+    end if
+
+.divisor_64:
+    mov     rcx, [.dividend]
+    mov     rdx, [.divisor]
+    mov     rdx, [rdx + 0]
+    mov     r8, [.quotient]
+    mov     r9, [.remainder]
+    Call_DivRem dividend_bits, 64
+    jmp     .end
+  if divisor_bits >= 256
+.divisor_128:
+    mov     rcx, [.dividend]
+    mov     rdx, [.divisor]
+    mov     r8, [.quotient]
+    mov     r9, [.remainder]
+    Call_DivRem dividend_bits, 128
+    jmp     .end
+  end if
+  if divisor_bits >= 512
+.divisor_256:
+    mov     rcx, [.dividend]
+    mov     rdx, [.divisor]
+    mov     r8, [.quotient]
+    mov     r9, [.remainder]
+    Call_DivRem dividend_bits, 256
+    jmp     .end
+  end if
+.divisor_large:
+  end if
+}
 
 macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
     ; Because of preliminary checks at the begining
@@ -174,7 +219,7 @@ macro DivRemGuess64_ExtendGuess dividend_bits, divisor_bits {
 macro DivRemGuess64_ApplyDelta dividend_bits, divisor_bits {
       mov     rcx, [.remainder]
       lea     rdx, [.delta]
-      Call_SubAssign dividend_bits
+      Call_SubAssign dividend_bits, dividend_bits
 }
 
 macro DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits {

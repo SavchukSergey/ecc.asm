@@ -42,27 +42,7 @@ virtual at rsp
 end virtual
         DivRemGuess64_Prolog 512, 256
         DivRemGuess64_DivisorLzcnt 512, 256
-
-        cmp     rax, 512 - 128
-        jb      .divisor_large
-        cmp     rax, 512 - 64
-        jb      .divisor_middle
-.divisor_small:
-        mov     rcx, [.dividend]
-        mov     rdx, [.divisor]
-        mov     rdx, [rdx + 0]
-        mov     r8, [.quotient]
-        mov     r9, [.remainder]
-        call    bi_div_rem_512_64
-        jmp     .end
-.divisor_middle:
-        mov     rcx, [.dividend]
-        mov     rdx, [.divisor]
-        mov     r8, [.quotient]
-        mov     r9, [.remainder]
-        call    bi_div_rem_512_128
-        jmp     .end
-.divisor_large:
+        DivRemGuess64_DivisorSwitch 512, 256
 
         DivRemGuess64_PrepareLoop 512, 256
         DivRemGuess64_ShiftDivisor 512, 256
