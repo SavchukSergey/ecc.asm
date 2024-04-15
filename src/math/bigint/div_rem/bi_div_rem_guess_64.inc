@@ -8,13 +8,7 @@ include '../macro/call.inc'
 
 
 
-macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
-    sub     rsp, .locals_end - .locals_start
-    mov     [.dividend], rcx
-    mov     [.divisor], rdx
-    mov     [.quotient], r8
-    mov     [.remainder], r9
-
+macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {
   if definite BI_DEV_REM_GUESS_64_DEBUG
     call    Console_WriteLine
 
@@ -22,6 +16,26 @@ macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
     DivRemGuess64_DumpDivisor dividend_bits, divisor_bits
   end if
 }
+
+macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
+    sub     rsp, .locals_end - .locals_start
+    mov     [.dividend], rcx
+    mov     [.divisor], rdx
+    mov     [.quotient], r8
+    mov     [.remainder], r9
+
+    DivRemGuess64_DumpArgs dividend_bits, divisor_bits
+}
+
+macro RemGuess64_Prolog dividend_bits, divisor_bits {
+    sub     rsp, .locals_end - .locals_start
+    mov     [.dividend], rcx
+    mov     [.divisor], rdx
+    mov     [.remainder], r8
+
+    DivRemGuess64_DumpArgs dividend_bits, divisor_bits
+}
+
 
 macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
     mov     rcx, [.divisor]
@@ -78,6 +92,49 @@ macro DivRemGuess64_DivisorSwitch dividend_bits, divisor_bits {
   end if
 }
 
+macro RemGuess64_DivisorSwitch dividend_bits, divisor_bits {
+  if divisor_bits >= 128
+    ;check for large divisor first than try to use smaller ones
+    cmp     rax, dividend_bits - (divisor_bits / 2)
+    jb      .divisor_large
+
+    if divisor_bits >= 512
+      cmp     rax, dividend_bits - 128
+      jb      .divisor_256
+    end if
+
+    if divisor_bits >= 256
+      cmp     rax, dividend_bits - 64
+      jb      .divisor_128
+    end if
+
+.divisor_64:
+    mov     rcx, [.dividend]
+    mov     rdx, [.divisor]
+    mov     rdx, [rdx + 0]
+    mov     r8, [.remainder]
+    Call_Rem dividend_bits, 64
+    jmp     .end
+  if divisor_bits >= 256
+.divisor_128:
+    mov     rcx, [.dividend]
+    mov     rdx, [.divisor]
+    mov     r8, [.remainder]
+    Call_Rem dividend_bits, 128
+    jmp     .end
+  end if
+  if divisor_bits >= 512
+.divisor_256:
+    mov     rcx, [.dividend]
+    mov     rdx, [.divisor]
+    mov     r8, [.remainder]
+    Call_Rem dividend_bits, 256
+    jmp     .end
+  end if
+.divisor_large:
+  end if
+}
+
 macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
     ; Because of preliminary checks at the begining
     ; divisor_bits/2 < divisor width <= divisor_bits
@@ -94,6 +151,12 @@ macro DivRemGuess64_PrepareLoop dividend_bits, divisor_bits {
     mov     rcx, [.quotient]
     Call_Zero dividend_bits
 
+    mov     rcx, [.remainder]
+    mov     rdx, [.dividend]
+    Call_Copy dividend_bits
+}
+
+macro RemGuess64_PrepareLoop dividend_bits, divisor_bits {
     mov     rcx, [.remainder]
     mov     rdx, [.dividend]
     Call_Copy dividend_bits
@@ -253,6 +316,19 @@ macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
         jmp     .end
 }
 
+macro RemGuess64_RecheckOnce dividend_bits, divisor_bits {
+.recheck_once:
+;reminder has same leading zeroes count as divisor so we can safely compare lowest divisor_bits bits
+        mov     rcx, [.remainder]
+        mov     rdx, [.divisor]
+        Call_Cmp divisor_bits
+        jb      .end
+        mov     rcx, [.remainder]
+        mov     rdx, [.divisor]
+        Call_SubAssign divisor_bits
+        jmp     .end
+}
+
 
 
 
@@ -283,6 +359,35 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits
         DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
         DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits
+        DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
+
+        jmp     .loop
+.loop_ok:
+}
+
+macro RemGuess64_Loop dividend_bits, divisor_bits {
+.loop:
+        DivRemGuess64_LoopStart dividend_bits, divisor_bits
+        DivRemGuess64_DumpRemainder dividend_bits, divisor_bits
+        DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits
+        DivRemGuess64_DumpRemainderShifted dividend_bits, divisor_bits
+        DivRemGuess64_Guess dividend_bits, divisor_bits
+        DivRemGuess64_DumpGuess dividend_bits, divisor_bits
+        DivRemGuess64_FixGuess dividend_bits, divisor_bits
+        DivRemGuess64_DumpGuessFixed dividend_bits, divisor_bits
+
+        DivRemGuess64_CalcDelta dividend_bits, divisor_bits
+        DivRemGuess64_DumpDelta dividend_bits, divisor_bits
+
+        cmp     [.correction], 0
+        jz     .correction_2_ok
+        neg     [.correction]
+
+        DivRemGuess64_ShiftDelta dividend_bits, divisor_bits
+.correction_2_ok:
+
+        DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits
+        DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
         DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
 
         jmp     .loop

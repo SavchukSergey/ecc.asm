@@ -7,33 +7,25 @@ if ~ definite bi_div_rem_128_64
 ;   r8 - pointer to bi128 quotient
 ;   r9 - pointer to bi128 remainder (actual result will be u64)
 bi_div_rem_128_64:
-virtual at rsp
-  label .locals_start
-  .dividend rq 1
-  .divisor rq 1
-  label .locals_end
-end virtual
-        sub     rsp, .locals_end - .locals_start
+        push    rbx
 
-        mov     [.dividend], rcx
-        mov     [.divisor], rdx
+        mov     rbx, rdx
 
         xor     rdx, rdx
-        mov     rax, [.dividend]
-        mov     rax, [rax + 8]
-        div     qword [.divisor]
+
+        mov     rax, [rcx + 8]
+        div     rbx
         ;rdx - remainder, rax - quotient
         mov     [r8 + 8], rax
 
-        mov     rax, [.dividend]
-        mov     rax, [rax + 0]
-        div     qword [.divisor]
+        mov     rax, [rcx + 0]
+        div     rbx
         ;rdx - remainder, rax - quotient
         mov     [r8 + 0], rax
 
         mov     qword [r9 + 0], rdx
         mov     qword [r9 + 8], 0
 
-        add     rsp, .locals_end - .locals_start
+        pop     rbx
         ret
 end if

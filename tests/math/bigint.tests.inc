@@ -69,6 +69,9 @@ __bi_tests_128:
         dq __bi_div_rem_128_128_test
         db 'bi_div_rem_128_128', 0
 
+        dq __bi_rem_128_64_test
+        db 'bi_rem_128_64', 0
+
         dq __bi_lzcnt_128_test
         db 'bi_lzcnt_128', 0
 
@@ -187,6 +190,13 @@ __bi_tests_512:
 
         dq __bi_div_rem_512_256_test
         db 'bi_div_rem_512_256', 0
+
+        dq __bi_rem_512_64_test
+        db 'bi_rem_512_64', 0
+        dq __bi_rem_512_128_test
+        db 'bi_rem_512_128', 0
+        dq __bi_rem_512_256_test
+        db 'bi_rem_512_256', 0
 
         dq 0
 

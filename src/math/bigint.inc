@@ -21,6 +21,7 @@ ends
 
 }
 
+BigIntegerCode 64
 BigIntegerCode 128
 BigIntegerCode 256
 BigIntegerCode 512

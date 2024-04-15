@@ -1,6 +1,6 @@
-include '../src/math/bigint/div_rem/bi_div_rem_128_64.inc'
+include '../src/math/bigint/div_rem/bi_rem_128_64.inc'
 
-__bi_div_rem_128_64_test:
+__bi_rem_128_64_test:
 virtual at rsp
 .locals_start:
   .dividend_hex rq 1
@@ -63,5 +63,3 @@ end virtual
 
         leave
         ret
-
-
