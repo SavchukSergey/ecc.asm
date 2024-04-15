@@ -53,5 +53,4 @@ end virtual
         ret
         DivRemGuess64_RecheckOnce 512, 256
 
-
 end if

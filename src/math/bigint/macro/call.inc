@@ -55,6 +55,21 @@ macro Call_ExtendX128 bits {
   end if
 }
 
+macro Call_ExtendAssign target_bits, source_bits {
+  delta_bits = target_bits - source_bits
+  if delta_bits = 256
+    lea     rcx, [rcx + source_bits / 8]
+    call    bi_zero_256
+  else
+      display 'unknown extend_assign '
+      DisplayDec target_bits
+      display ', '
+      DisplayDec source_bits
+      display 13, 10
+      err 
+  end if
+}
+
 macro Call_IncAssign bits {
   if bits = 64
       inc qword [rcx]

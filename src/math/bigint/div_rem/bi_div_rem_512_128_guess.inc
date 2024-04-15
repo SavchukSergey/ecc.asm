@@ -46,48 +46,12 @@ end virtual
 
         DivRemGuess64_PrepareLoop 512, 128
         DivRemGuess64_ShiftDivisor 512, 128
-.loop:
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-        lea     rsi, [.loop_msg]
-        call    Console_WriteString
-end if
-        DivRemGuess64_DumpRemainder 512, 128
-        DivRemGuess64_ShiftRemainder 512, 128
-        DivRemGuess64_DumpRemainderShifted 512, 128
-        DivRemGuess64_Guess 512, 128
-        DivRemGuess64_DumpGuess 512, 128
-        DivRemGuess64_FixGuess 512, 128
-        DivRemGuess64_DumpGuessFixed 512, 128
 
-        lea     rcx, [.delta]
-        call    bi_zero_512
+        DivRemGuess64_Loop 512, 128
 
-        DivRemGuess64_CalcDelta 512, 128
-        DivRemGuess64_DumpDelta 512, 128
-        DivRemGuess64_ExtendGuess 512, 128
-
-        cmp     [.correction], 0
-        jz     .correction_2_ok
-        neg     [.correction]
-
-        DivRemGuess64_ShiftDelta 512, 128
-        DivRemGuess64_ShiftGuess 512, 128
-.correction_2_ok:
-
-        DivRemGuess64_DumpDeltaShifted 512, 128
-        DivRemGuess64_ApplyDelta 512, 128
-        DivRemGuess64_UpdateQuotient 512, 128
-        DivRemGuess64_DumpNewValues 512, 128
-
-        jmp     .loop
-.loop_ok:
 .end:
         add     rsp, .locals_end - .locals_start
         ret
         DivRemGuess64_RecheckOnce 512, 128
-
-if definite BI_DEV_REM_512_128_GUESS_DEBUG
-  .loop_msg:               db '----------------------------------', 13, 10, 0
-end if
 
 end if

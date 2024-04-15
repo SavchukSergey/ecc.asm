@@ -1,2 +1,3 @@
 **/*.exe
 **/*.dll
+tests/test.html

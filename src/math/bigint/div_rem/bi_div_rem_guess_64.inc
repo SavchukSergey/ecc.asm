@@ -181,6 +181,10 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
     Call_MulLowX128 divisor_bits
   else
     Call_MulX128 divisor_bits
+    if DIV_REM_GUESS_DELTA_MUL_FULL_SIZE < DIV_REM_GUESS_DELTA_SIZE
+      lea     rcx, [.delta]
+      Call_ExtendAssign DIV_REM_GUESS_DELTA_SIZE, DIV_REM_GUESS_DELTA_MUL_FULL_SIZE
+    end if
   end if
 }
 
