@@ -111,7 +111,10 @@ section '.edata' export data readable
          bi_shl_assign_512_1, 'bi_shl_assign_512_1', \
 \
          bi_shl_assign_128, 'bi_shl_assign_128', \
+         bi_shl_assign_192, 'bi_shl_assign_192', \
          bi_shl_assign_256, 'bi_shl_assign_256', \
+         bi_shl_assign_384, 'bi_shl_assign_384', \
+         bi_shl_assign_448, 'bi_shl_assign_448', \
          bi_shl_assign_512, 'bi_shl_assign_512', \
 \
          bi_shl_128, 'bi_shl_128', \

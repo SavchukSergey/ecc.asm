@@ -24,6 +24,7 @@ bi_copy_512_basic:
         ret
 
 bi_copy_512_avx2:
+;todo: use aligned vmovdqa
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1
         vmovdqu ymm1, [rdx + 32]

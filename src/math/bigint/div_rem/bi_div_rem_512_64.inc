@@ -2,7 +2,7 @@ if ~ definite bi_div_rem_512_64
 
 ;Divides bi512 by u64
 ;input:
-;   rcx - pointer to bi512 divident
+;   rcx - pointer to bi512 dividend
 ;   rdx - u64 divisor
 ;   r8 - pointer to bi512 quotient
 ;   r9 - pointer to bi512 remainder (actual result will be u64)
