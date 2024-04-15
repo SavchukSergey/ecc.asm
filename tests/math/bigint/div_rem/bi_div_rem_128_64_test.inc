@@ -1,6 +1,6 @@
 include '../src/math/bigint/div_rem/bi_div_rem_128_64.inc'
 
-__bi_div_rem_128_64_test:
+__bi_div_rem_128_64_test_measure_core:
 virtual at rsp
 .locals_start:
   .dividend_hex rq 1
@@ -11,19 +11,22 @@ virtual at rsp
   .divisor rb __BIG_INTEGER_BYTES_128
   .quotient rb __BIG_INTEGER_BYTES_128
   .remainder rb __BIG_INTEGER_BYTES_128
+  .pointer rq 1
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0
 
-        lea     rbx, [__bi_div_rem_128_64_test_cases]
+        mov     [.pointer], rbx
 .loop:        
+        mov     rbx, [.pointer]
+        cmp     qword [rbx], 0
+        je      .end
+
         lea     rcx, [rbx]
         lea     rdx, [rbx + 32]
         lea     r8, [rbx + 64]
         lea     r9, [rbx + 96]
 
-        push    rbx
-        
         mov     [.dividend_hex], rcx
         mov     [.divisor_hex], rdx
         mov     [.expected_quotient_hex], r8
@@ -56,12 +59,16 @@ end virtual
         lea     rdx, [.remainder]
         call    bi_assert_equal_hex_128
 
-        pop     rbx
-        add     rbx, 128
-        cmp     rbx, __bi_div_rem_128_64_test_cases.end
-        jb      .loop
+        add     [.pointer], 128
+        jmp     .loop
+.end:
 
         leave
         ret
 
 
+__bi_div_rem_128_64_test:
+        mov     rbx, __bi_div_rem_128_64_test_cases
+        call    __bi_div_rem_128_64_test_measure_core
+
+        ret

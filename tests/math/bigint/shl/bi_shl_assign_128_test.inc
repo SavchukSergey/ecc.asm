@@ -25,6 +25,25 @@ end virtual
         lea     rdx, [.value]
         call    bi_assert_equal_hex_128
 
+        leave
+        ret
+
+__bi_shl_assign_128_test_measure_core:
+virtual at rsp
+.locals_start:
+  .value_hex rq 1
+  .count rq 1
+  .value rb __BIG_INTEGER_BYTES_128
+.locals_end:
+end virtual
+        enter   .locals_end - .locals_start, 0
+        mov     [.value_hex], rcx
+        mov     [.count], rdx
+
+        mov     rcx, [.value_hex]
+        lea     rdx, [.value]
+        call    bi_try_read_hex_128
+
         call    test_context_start_measure
 .chunk_loop:
         lea     rcx, [.value]
@@ -73,6 +92,11 @@ __bi_shl_assign_128_test:
         mov     rdx, 128
         lea     r8, [.expected_128_hex]
         call    __bi_shl_assign_128_test_core
+
+        lea     rcx, [.value_hex]
+        mov     rdx, 65
+        lea     r8, [.expected_128_hex]
+        call    __bi_shl_assign_128_test_measure_core
 
         ret
 

@@ -7,39 +7,29 @@ if ~ definite bi_div_rem_256_64
 ;   r8 - pointer to bi256 quotient
 ;   r9 - pointer to bi256 remainder (actual result will be u64)
 bi_div_rem_256_64:
-virtual at rsp
-  label .locals_start
-  .dividend rq 1
-  .divisor rq 1
-  label .locals_end
-end virtual
-        sub     rsp, .locals_end - .locals_start
-        mov     [.dividend], rcx
-        mov     [.divisor], rdx
+        push    rbx
+
+        mov     rbx, rdx
 
         xor     rdx, rdx
 
-        mov     rax, [.dividend]
-        mov     rax, [rax + 24]
-        div     qword [.divisor]
+        mov     rax, [rcx + 24]
+        div     rbx
         ;rdx - remainder, rax - quotient
         mov     [r8 + 24], rax
 
-        mov     rax, [.dividend]
-        mov     rax, [rax + 16]
-        div     qword [.divisor]
+        mov     rax, [rcx + 16]
+        div     rbx
         ;rdx - remainder, rax - quotient
         mov     [r8 + 16], rax
 
-        mov     rax, [.dividend]
-        mov     rax, [rax + 8]
-        div     qword [.divisor]
+        mov     rax, [rcx + 8]
+        div     rbx
         ;rdx - remainder, rax - quotient
         mov     [r8 + 8], rax
 
-        mov     rax, [.dividend]
-        mov     rax, [rax + 0]
-        div     qword [.divisor]
+        mov     rax, [rcx + 0]
+        div     rbx
         ;rdx - remainder, rax - quotient
         mov     [r8 + 0], rax
 
@@ -48,6 +38,6 @@ end virtual
         mov     qword [r9 + 16], 0
         mov     qword [r9 + 24], 0
 
-        add     rsp, .locals_end - .locals_start
+        pop     rbx
         ret
 end if

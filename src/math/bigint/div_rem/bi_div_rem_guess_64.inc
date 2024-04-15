@@ -215,7 +215,7 @@ macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
 
       cmp     [.correction], 0
       jle     .correction_ok
-;todo: guess_128 is less than 2^65 (not 2^64). Try to optimze everything
+;todo: guess_128 is less than 2^65 (not 2^64). Try to optimize everything
 ; scale down guess to trim fraction part of division
       lea     rcx, [.guess_128]
       mov     rdx, [.correction]
@@ -225,7 +225,7 @@ macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
-;precalculate delta, using narrowest pissible mul
+;precalculate delta, using narrowest possible mul
     mov     rcx, [.divisor]
     lea     rdx, [.guess_128]
     lea     r8, [.delta]

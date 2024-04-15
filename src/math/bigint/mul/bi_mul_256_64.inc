@@ -1,5 +1,9 @@
 if ~ definite bi_mul_256_64
 
+include '../add/bi_add_assign_256_128.inc'
+include '../add/bi_add_assign_192_128.inc'
+include '../add/bi_add_assign_128_128.inc'
+
 ;Multiplies bi256 by u64
 ;input
 ; rcx - left bi256 value
@@ -11,23 +15,15 @@ virtual at rsp
   .left rq 1
   .right rq 1
   .result rq 1
-  .z0 rb __BIG_INTEGER_BYTES_512
-  .z1 rb __BIG_INTEGER_BYTES_512
-  .z2 rb __BIG_INTEGER_BYTES_512
+  .temp rb __BIG_INTEGER_BYTES_128
 .locals_end:
 end virtual
         sub     rsp, .locals_end - .locals_start
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
-;todo: optimize
+
         mov     rcx, [.result]
-        call    bi_zero_512
-        lea     rcx, [.z0]
-        call    bi_zero_512
-        lea     rcx, [.z1]
-        call    bi_zero_512
-        lea     rcx, [.z2]
         call    bi_zero_512
 
         mov     rcx, [.left]
@@ -36,35 +32,44 @@ end virtual
         mov     r8, [.result]
         call    bi_mul_64_64
 
+
         mov     rcx, [.left]
         mov     rcx, [rcx + 8]
         mov     rdx, [.right]
-        lea     r8, [.z0 + 8]
+        lea     r8, [.temp]
         call    bi_mul_64_64
+
+;result will never exceed 320 so it is safe to use 256-bit addition here
+        mov     rcx, [.result]
+        add     rcx, 8
+        lea     rdx, [.temp]
+        call    bi_add_assign_256_128
+
 
         mov     rcx, [.left]
         mov     rcx, [rcx + 16]
         mov     rdx, [.right]
-        lea     r8, [.z1 + 16]
+        lea     r8, [.temp]
         call    bi_mul_64_64
+
+;result will never exceed 320 so it is safe to use 192-bit addition here
+        mov     rcx, [.result]
+        add     rcx, 16
+        lea     rdx, [.temp]
+        call    bi_add_assign_192_128
+
 
         mov     rcx, [.left]
         mov     rcx, [rcx + 24]
         mov     rdx, [.right]
-        lea     r8, [.z2 + 24]
+        lea     r8, [.temp]
         call    bi_mul_64_64
 
+;result will never exceed 320 so it is safe to use 128-bit addition here
         mov     rcx, [.result]
-        lea     rdx, [.z0]
-        call    bi_add_assign_512_512
-
-        mov     rcx, [.result]
-        lea     rdx, [.z1]
-        call    bi_add_assign_512_512
-
-        mov     rcx, [.result]
-        lea     rdx, [.z2]
-        call    bi_add_assign_512_512
+        add     rcx, 24
+        lea     rdx, [.temp]
+        call    bi_add_assign_128_128
 
         add     rsp, .locals_end - .locals_start
         ret
