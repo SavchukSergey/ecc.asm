@@ -148,6 +148,10 @@ macro RemGuess64_DivisorSwitch dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
+    DIV_REM_PARTIAL_DIVIDEND_SIZE = 128
+    DIV_REM_PARTIAL_DIVISOR_SIZE = 64
+    DIV_REM_MAX_REMAINDER_BOOST = (dividend_bits - DIV_REM_PARTIAL_DIVIDEND_SIZE)
+
     ; Because of preliminary checks at the begining
     ; divisor_bits/2 < divisor width <= divisor_bits
     DIV_REM_GUESS_MIN_DIVISOR_SIZE = (divisor_bits/2)
@@ -191,10 +195,13 @@ macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
 ;shift remainder to the left, so the most meaningful bit is always the highest bit
       mov     rcx, [.remainder]
       Call_Lzcnt dividend_bits
-      mov     [.remainder_lzcnt], rax
-
       cmp     rax, [.divisor_lzcnt]
       jae     .recheck_once
+; todo: ?
+;      mov     rcx, DIV_REM_MAX_REMAINDER_BOOST
+;      cmp     rax, rcx
+;      cmova   rax, rcx
+      mov     [.remainder_lzcnt], rax
 
       mov     rcx, [.remainder]
       lea     rdx, [.remainder_shifted]
@@ -213,7 +220,7 @@ macro DivRemGuess64_Guess dividend_bits, divisor_bits {
         mov     qword [.guess_128 + 8], 0
         jmp     .divisor_ok
 .divisor_not_max:
-        lea     rcx, qword [.remainder_shifted  + (dividend_bits - 128) / 8]
+        lea     rcx, qword [.remainder_shifted  + (dividend_bits - DIV_REM_PARTIAL_DIVIDEND_SIZE) / 8]
         lea     r8, [.guess_128]
         call    bi_div_128_64
 .divisor_ok:
@@ -288,7 +295,7 @@ macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
 
 macro DivRemGuess64_ExtendGuess dividend_bits, divisor_bits {
   if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE > 128
-    ;todo: guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
+    ;todo: .guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
     lea     rcx, [.guess_q]
     lea     rdx, [.guess_128]
     Call_ExtendX128 DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE

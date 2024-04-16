@@ -8,7 +8,8 @@
             "type": "process",
             "command": "${env:FASM_PATH}/fasm.exe",
             "args": [
-                "${workspaceFolder}/src/ecc.asm"
+                "${workspaceFolder}/src/ecc.asm", 
+                "${workspaceFolder}/src/binative.dll"
             ],
             "options": {
                 "cwd": "${env:FASM_PATH}",

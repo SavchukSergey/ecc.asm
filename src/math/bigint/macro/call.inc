@@ -220,6 +220,27 @@ macro Call_AddAssign bits {
   end if
 }
 
+macro Call_AddAssignX128 bits {
+  if bits = 128
+      call    bi_add_assign_128_128
+  else if bits = 192
+      call    bi_add_assign_192_128
+  else if bits = 256
+      call    bi_add_assign_256_128
+  else if bits = 384
+      call    bi_add_assign_384_128
+  else if bits = 448
+      call    bi_add_assign_512_128
+  else if bits = 512
+      call    bi_add_assign_512_128
+  else
+      display 'unknown Call_AddAssignX128 '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
 macro Call_MulX128 bits {
   if bits = 128
       call    bi_mul_128_128
