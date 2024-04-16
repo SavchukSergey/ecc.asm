@@ -3,11 +3,13 @@ if ~ definite bi_shl_assign_256
 include 'bi_shl_assign_256_128.inc'
 include 'bi_shl_assign_128.inc'
 
-; Shifts left
+; Shifts left bi256
 ;input
-; rcx - value
+; rcx - value bi256
 ; rdx - bits
 bi_shl_assign_256_avx2:
+    CheckRegAligned rcx, 'bi_shl_assign_256_avx2 rcx'
+
         cmp     rdx, 256
         jae     .zero
 
@@ -50,6 +52,8 @@ bi_shl_assign_256_avx2:
 ; rcx - value
 ; rdx - bits
 bi_shl_assign_256_basic:
+    CheckRegAligned rcx, 'bi_shl_assign_256_basic rcx'
+
         push    rbx rsi rdi
 
         mov     rbx, rcx

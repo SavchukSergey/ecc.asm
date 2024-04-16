@@ -23,14 +23,15 @@ virtual at rsp
   .remainder rq 1
 
   .divisor_lzcnt rq 1
-  .divisor_shifted rb __BIG_INTEGER_BYTES_128
-
   .remainder_lzcnt rq 1
+
+  .divisor_shifted rb __BIG_INTEGER_BYTES_128
   .remainder_shifted rb __BIG_INTEGER_BYTES_128
 
   .guess_128 rb __BIG_INTEGER_BYTES_128
   .delta rb __BIG_INTEGER_BYTES_128
   .correction rq 1
+  AlignLocalsStackFrame
   label .locals_end
 end virtual
         DivRemGuess64_Prolog 128, 128

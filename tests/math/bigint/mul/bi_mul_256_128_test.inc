@@ -3,15 +3,21 @@ include '../src/math/bigint/mul/bi_mul_256_128.inc'
 __bi_mul_256_128_test_core:
 virtual at rsp
 .locals_start:
-  .left_hex rq 1
-  .right_hex rq 1
-  .expected_hex rq 1
   .left rb __BIG_INTEGER_BYTES_256
   .right rb __BIG_INTEGER_BYTES_256
   .result rb __BIG_INTEGER_BYTES_512
+  .left_hex rq 1
+  .right_hex rq 1
+  .expected_hex rq 1
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+    PrologCheckStackAligned '__bi_mul_256_128_test_core'
+    CheckRegAligned rcx, '__bi_mul_256_128_test_core rcx'
+    CheckRegAligned rdx, '__bi_mul_256_128_test_core rdx'
+    CheckRegAligned r8, '__bi_mul_256_128_test_core r8'
+
         mov     [.left_hex], rcx
         mov     [.right_hex], rdx
         mov     [.expected_hex], r8
@@ -38,28 +44,29 @@ end virtual
         lea     rdx, [.result]
         call    bi_assert_equal_hex_512
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 
 __bi_mul_256_128_test:
+        push    rbx
         lea     rbx, [__bi_mul_256_128_test_cases]
 
 .loop:
-        push    rbx
 
         lea     rcx, [rbx]
         lea     rdx, [rbx + 64]
         lea     r8, [rbx + 128]
         call    __bi_mul_256_128_test_core
 
-        pop     rbx
         add     rbx, 64 + 64 + 128
         cmp     rbx, __bi_mul_256_128_test_cases.end
         jb      .loop
 
+        pop     rbx
         ret
 
+align 16
 __bi_mul_256_128_test_cases:
   db '6f3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
   db '0000000000000000000000000000000042ee2737466d172a7dd3ec5c797b49a2'

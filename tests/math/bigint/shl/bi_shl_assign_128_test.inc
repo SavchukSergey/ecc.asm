@@ -2,13 +2,19 @@
 __bi_shl_assign_128_test_core:
 virtual at rsp
 .locals_start:
+  .value rb __BIG_INTEGER_BYTES_128
   .value_hex rq 1
   .expected_hex rq 1
   .count rq 1
-  .value rb __BIG_INTEGER_BYTES_128
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned '__bi_shl_assign_128_test_core'
+    CheckRegAligned rcx, '__bi_shl_assign_128_test_core rcx'
+    CheckRegAligned r8, '__bi_shl_assign_128_test_core r8'
+
         mov     [.value_hex], rcx
         mov     [.count], rdx
         mov     [.expected_hex], r8
@@ -25,18 +31,24 @@ end virtual
         lea     rdx, [.value]
         call    bi_assert_equal_hex_128
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 __bi_shl_assign_128_test_measure_core:
 virtual at rsp
 .locals_start:
+  .value rb __BIG_INTEGER_BYTES_128
   .value_hex rq 1
   .count rq 1
-  .value rb __BIG_INTEGER_BYTES_128
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned '__bi_shl_assign_128_test_measure_core'
+    CheckRegAligned rcx, '__bi_shl_assign_128_test_measure_core rcx'
+    CheckRegAligned r8, '__bi_shl_assign_128_test_measure_core r8'
+
         mov     [.value_hex], rcx
         mov     [.count], rdx
 
@@ -53,11 +65,12 @@ end virtual
         jnz     .chunk_loop
         call    test_context_end_measure
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 
 __bi_shl_assign_128_test:
+        sub     rsp, 8
         lea     rcx, [.value_hex]
         mov     rdx, 0
         lea     r8, [.expected_0_hex]
@@ -98,8 +111,10 @@ __bi_shl_assign_128_test:
         lea     r8, [.expected_128_hex]
         call    __bi_shl_assign_128_test_measure_core
 
+        add     rsp, 8
         ret
 
+align 16
 .value_hex        db '08c5a3ca7598576d5074b535eff1147f'
 .expected_0_hex   db '08c5a3ca7598576d5074b535eff1147f'
 .expected_4_hex   db '8c5a3ca7598576d5074b535eff1147f0'

@@ -3,11 +3,14 @@ include '../../../assert.inc'
 
 __bi_add_128_128_test:
 virtual at rsp
+  label .locals_start
   .left rb __BIG_INTEGER_BYTES_128
   .right rb __BIG_INTEGER_BYTES_128
   .result rb __BIG_INTEGER_BYTES_128
+  AlignLocalsStackFrame
+  label .locals_end
 end virtual
-        sub     rsp, 3 * __BIG_INTEGER_BYTES_128
+        sub     rsp, .locals_end - .locals_start
 
         lea     rcx, [.left_hex]
         lea     rdx, [.left]
@@ -31,7 +34,7 @@ end virtual
         lea     rdx, [.result]
         call    bi_assert_equal_hex_128
 
-        add     rsp, 3 * __BIG_INTEGER_BYTES_128
+        add     rsp, .locals_end - .locals_start
         ret
 
 .left_hex       db '08c5a3ca7598576d5074b535eff1147f'

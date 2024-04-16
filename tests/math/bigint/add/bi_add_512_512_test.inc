@@ -7,7 +7,8 @@ virtual at rsp
   .left rb __BIG_INTEGER_BYTES_512
   .right rb __BIG_INTEGER_BYTES_512
   .result rb __BIG_INTEGER_BYTES_512
-  label .locals_end
+   AlignLocalsStackFrame
+label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
 
@@ -36,6 +37,7 @@ end virtual
         add     rsp, .locals_end - .locals_start
         ret
 
+align 16
 .left_hex       db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'
 .right_hex      db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b4863400c3d833bdc3acb34eca9e788cf6d34474fe4e7de10de2a02d02c66609139'
 .expected_hex   db '5DC187C01C2DD9F82CDFC36E39C3162883D47F8317CD5F168E094F01C6E28D18C4FB668C444A0391CEC1862D3744D0E765E5450BE3BFF2A3AF6447F764D4ED6C'

@@ -6,6 +6,8 @@ if ~ definite bi_rem_128_64
 ;   rdx - u64 divisor
 ;   r8 - pointer to bi128 remainder (actual result will be u64)
 bi_rem_128_64:
+    CheckRegAligned rcx, 'bi_rem_128_64 rcx'
+
         push    rbx
 
         mov     rbx, rdx

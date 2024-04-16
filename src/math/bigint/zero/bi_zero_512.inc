@@ -6,6 +6,8 @@ include '../config.inc'
 ;input
 ; rcx - pointer to result
 bi_zero_512_basic:
+    CheckRegAligned rcx, 'bi_zero_512_basic rcx'
+
         xor     rax, rax
         mov     [rcx], rax
         mov     [rcx + 8], rax
@@ -19,6 +21,8 @@ bi_zero_512_basic:
 
 
 bi_zero_512_avx2:
+    CheckRegAligned rcx, 'bi_zero_512_avx2 rcx'
+
         vpxor   ymm1, ymm1, ymm1
         vmovdqu [rcx], ymm1
         vmovdqu [rcx + 32], ymm1

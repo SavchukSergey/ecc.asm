@@ -8,6 +8,10 @@ if ~ definite bi_add_128_128
 ;output:
 ;  rax - set to 1 if overflow
 bi_add_128_128:
+    CheckRegAligned rcx, 'bi_add_128_128 rcx'
+    CheckRegAligned rdx, 'bi_add_128_128 rdx'
+    CheckRegAligned r8, 'bi_add_128_128 r8'
+
         mov     rax, [rcx]
         add     rax, [rdx]
         mov     [r8], rax

@@ -8,6 +8,10 @@ if ~ definite bi_add_512_512
 ;output:
 ;  rax - set to 1 if overflow
 bi_add_512_512:
+    CheckRegAligned rcx, 'bi_add_512_512 rcx'
+    CheckRegAligned rdx, 'bi_add_512_512 rdx'
+    CheckRegAligned r8, 'bi_add_512_512 r8'
+
         mov     rax, [rcx]
         add     rax, [rdx]
         mov     [r8], rax

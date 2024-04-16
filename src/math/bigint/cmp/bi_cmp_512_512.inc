@@ -1,6 +1,6 @@
 if ~ definite bi_cmp_512_512
 
-;Compares two bi values
+;Compares two bi512 values
 ;input
 ;  rcx - pointer to left bi512 value
 ;  rdx - pointer to right bi512 value
@@ -8,6 +8,9 @@ if ~ definite bi_cmp_512_512
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_512_512:
+    CheckRegAligned rcx, 'bi_cmp_512_512 rcx'
+    CheckRegAligned rdx, 'bi_cmp_512_512 rdx'
+
         mov     rax, [rcx + 56]
         cmp     rax, [rdx + 56]
         jb      .less

@@ -3,18 +3,22 @@ include '../src/math/bigint/div_rem/bi_div_rem_256_128.inc'
 __bi_div_rem_256_128_test_core:
 virtual at rsp
 .locals_start:
-  .dividend_hex rq 1
-  .divisor_hex rq 1
-  .expected_quotient_hex rq 1
-  .expected_remainder_hex rq 1
   .dividend rb __BIG_INTEGER_BYTES_256
   .divisor rb __BIG_INTEGER_BYTES_256
   .quotient rb __BIG_INTEGER_BYTES_256
   .remainder rb __BIG_INTEGER_BYTES_256
+  .dividend_hex rq 1
+  .divisor_hex rq 1
+  .expected_quotient_hex rq 1
+  .expected_remainder_hex rq 1
   .pointer rq 1
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned '__bi_div_rem_256_128_test_core'
+    CheckRegAligned rbx, '__bi_div_rem_256_128_test_core rbx'
 
         mov     [.pointer], rbx
 .loop:        
@@ -58,24 +62,28 @@ end virtual
         jmp     .loop
 .end:
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 __bi_div_rem_256_128_test_measure_core:
 virtual at rsp
 .locals_start:
-  .dividend_hex rq 1
-  .divisor_hex rq 1
-  .expected_quotient_hex rq 1
-  .expected_remainder_hex rq 1
   .dividend rb __BIG_INTEGER_BYTES_256
   .divisor rb __BIG_INTEGER_BYTES_256
   .quotient rb __BIG_INTEGER_BYTES_256
   .remainder rb __BIG_INTEGER_BYTES_256
+  .dividend_hex rq 1
+  .divisor_hex rq 1
+  .expected_quotient_hex rq 1
+  .expected_remainder_hex rq 1
   .pointer rq 1
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned '__bi_div_rem_256_128_test_measure_core'
+    CheckRegAligned rbx, '__bi_div_rem_256_128_test_measure_core rbx'
 
         mov     [.pointer], rbx
 .loop:        
@@ -124,15 +132,18 @@ end virtual
         jmp     .loop
 .end:
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 
 __bi_div_rem_256_128_test:
+        push    rbx
+
         mov     rbx, __bi_div_rem_256_64_test_cases
         call    __bi_div_rem_256_128_test_core
 
         mov     rbx, __bi_div_rem_256_128_test_cases
         call    __bi_div_rem_256_128_test_measure_core
 
+        pop     rbx
         ret

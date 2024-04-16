@@ -10,9 +10,15 @@ virtual at rsp
   label .locals_start
   .dividend rq 1
   .divisor rq 1
+  AlignLocalsStackFrame
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned 'bi_div_128_64'
+    CheckRegAligned rcx, 'bi_div_128_64 rcx'
+    CheckRegAligned r8, 'bi_div_128_64 r8'
+
         mov     [.dividend], rcx
         mov     [.divisor], rdx
 

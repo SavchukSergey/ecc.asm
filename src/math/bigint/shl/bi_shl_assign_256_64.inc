@@ -5,6 +5,8 @@ if ~ definite bi_shl_assign_256_64
 ; rcx - value
 bi_shl_assign_256_64:
 ;todo: AVX2
+    CheckRegAligned rcx, 'bi_shl_assign_256_64 rcx'
+
         mov     rax, [rcx + 16]
         mov     [rcx + 24], rax
 

@@ -8,6 +8,9 @@ if ~ definite bi_cmp_256_256
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_256_256:
+    CheckRegAligned rcx, 'bi_cmp_256_256 rcx'
+    CheckRegAligned rdx, 'bi_cmp_256_256 rdx'
+
         mov     rax, [rcx + 24]
         cmp     rax, [rdx + 24]
         jb      .less

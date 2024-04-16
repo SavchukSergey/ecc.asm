@@ -2,6 +2,7 @@ if ~ definite bi_div_rem_test_cases
 
 bi_div_rem_test_cases:
 
+align 16
 __bi_div_rem_128_64_test_cases:
   db '00000000000000000000000000000000'
   db '00000000000000000000000000000001'
@@ -105,6 +106,7 @@ __bi_div_rem_128_64_test_cases:
 
 dq 0
 
+align 16
 __bi_div_rem_128_128_test_cases:
 
   db 'ffffffffffffffffffffffffffffffff'
@@ -219,6 +221,7 @@ __bi_div_rem_128_128_test_cases:
 
   dq 0
 
+align 16
 __bi_div_rem_256_64_test_cases:
   db '0000000000000000000000000000000000000000000000000000000000000000'
   db '0000000000000000000000000000000000000000000000000000000000000001'
@@ -262,6 +265,7 @@ __bi_div_rem_256_64_test_cases:
 
   dq 0
 
+align 16
 __bi_div_rem_256_128_test_cases:
   db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
   db '000000000000000000000000000000000006e3be8abd2e089ed812475be9b51c'
@@ -291,6 +295,7 @@ __bi_div_rem_256_128_test_cases:
   dq 0
 
 
+align 16
 __bi_div_rem_256_256_test_cases:
   db 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
   db 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'

@@ -7,6 +7,8 @@ if ~ definite bi_inc_assign_256
 ;  rax - set to 1 if overflow
 ;  CF - set to 1 if overflow
 bi_inc_assign_256:
+    CheckRegAligned rcx, 'bi_inc_assign_256 rcx'
+
         xor     rax, rax
         stc
         adc     [rcx], rax

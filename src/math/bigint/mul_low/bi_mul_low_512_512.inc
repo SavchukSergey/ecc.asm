@@ -12,10 +12,10 @@ include 'bi_mul_low_256_256.inc'
 bi_mul_low_512_512:
 virtual at rsp
 .locals_start:
+  .temp rb __BIG_INTEGER_BYTES_256
   .left rq 1
   .right rq 1
   .result rq 1
-  .temp rb __BIG_INTEGER_BYTES_256
   AlignLocalsStackFrame
 .locals_end:
 end virtual

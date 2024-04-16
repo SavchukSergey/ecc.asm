@@ -7,6 +7,8 @@ include 'bi_zero_512.inc'
 ;input
 ; rcx - pointer to result
 bi_zero_1024_basic:
+    CheckRegAligned rcx, 'bi_zero_1024_basic rcx'
+
         call    bi_zero_512
         add     rcx, 64
         call    bi_zero_512
@@ -14,6 +16,8 @@ bi_zero_1024_basic:
         ret
 
 bi_zero_1024_avx2:
+    CheckRegAligned rcx, 'bi_zero_1024_avx2 rcx'
+
         vpxor   ymm1, ymm1, ymm1
         vmovdqu [rcx], ymm1
         vmovdqu [rcx + 32], ymm1
@@ -22,6 +26,8 @@ bi_zero_1024_avx2:
         ret
 
 bi_zero_1024_avx512:
+    CheckRegAligned rcx, 'bi_zero_1024_avx512 rcx'
+
         vpxorq  zmm1, zmm1, zmm1
         vmovups [rcx], zmm1
         vmovups [rcx + 64], zmm1

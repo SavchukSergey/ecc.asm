@@ -24,7 +24,7 @@ end virtual
 
 	mov     rcx, [.left_hex]
 	lea     rdx, [.left]
-	call	bi_try_read_hex_512
+	call    bi_try_read_hex_512
 
 	mov     rcx, [.right_hex]
 	lea     rdx, [.right]
@@ -37,7 +37,7 @@ end virtual
 	lea     r8, [.result]
 	call    bi_mul_low_512_512
   call    test_context_measure_dec_chunk
-	jnz		.chunk_loop
+	jnz		  .chunk_loop
 	call    test_context_end_measure
 
 	mov     rcx, [.expected_hex]
@@ -49,21 +49,20 @@ end virtual
 
 
 __bi_mul_low_512_512_test:
+        push    rbx
         lea     rbx, [__bi_mul_low_512_512_test_cases]
 
 .loop:
-        push    rbx
-
         lea     rcx, [rbx]
         lea     rdx, [rbx + 128]
         lea     r8, [rbx + 256]
         call    __bi_mul_low_512_512_test_core
 
-        pop     rbx
         add     rbx, 128 + 128 + 128
         cmp     rbx, __bi_mul_low_512_512_test_cases.end
         jb      .loop
 
+        pop     rbx
         ret
 
 

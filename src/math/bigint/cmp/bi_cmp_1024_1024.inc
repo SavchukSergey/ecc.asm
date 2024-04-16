@@ -1,13 +1,16 @@
 if ~ definite bi_cmp_1024_1024
 
-;Compares two bi values
+;Compares two bi1024 values
 ;input
-; rcx - left value
-; rdx - right value
+; rcx - left bi1024 value
+; rdx - right bi1024 value
 ; output
 ; rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_1024_1024:
+    CheckRegAligned rcx, 'bi_cmp_1024_1024 rcx'
+    CheckRegAligned rdx, 'bi_cmp_1024_1024 rdx'
+
         add     rcx, 64
         add     rdx, 64
         call    bi_cmp_512_512

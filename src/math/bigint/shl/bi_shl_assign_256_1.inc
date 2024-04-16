@@ -7,6 +7,8 @@ if ~ definite bi_shl_assign_256_1
 ;  CF - 1 if overflow
 ;  rax - 1 if overflow
 bi_shl_assign_256_1:
+    CheckRegAligned rcx, 'bi_shl_assign_256_1 rcx'
+
         shl     qword [rcx], 1
         rcl     qword [rcx + 8], 1
         rcl     qword [rcx + 16], 1

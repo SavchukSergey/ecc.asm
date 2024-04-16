@@ -4,6 +4,8 @@ if ~ definite bi_zero_256
 ;input
 ; rcx - pointer to result
 bi_zero_256:
+    CheckRegAligned rcx, 'bi_zero_256 rcx'
+
         xor     rax, rax
         mov     [rcx], rax
         mov     [rcx + 8], rax

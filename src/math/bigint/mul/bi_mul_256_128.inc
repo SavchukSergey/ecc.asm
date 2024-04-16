@@ -12,13 +12,20 @@ include '../zero/bi_zero_512.inc'
 bi_mul_256_128:
 virtual at rsp
 .locals_start:
+  .z0 rb __BIG_INTEGER_BYTES_256
   .left rq 1
   .right rq 1
   .result rq 1
-  .z0 rb __BIG_INTEGER_BYTES_256
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned 'bi_mul_256_128'
+    CheckRegAligned rcx, 'bi_mul_256_128 rcx'
+    CheckRegAligned rdx, 'bi_mul_256_128 rdx'
+    CheckRegAligned r8, 'bi_mul_256_128 r8'
+
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8

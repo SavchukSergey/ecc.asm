@@ -2,12 +2,15 @@ if ~ definite bi_add_assign_256_128
 
 ;Adds two bi256 values
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
+;  rcx - left bi256 value. The modified value
+;  rdx - right bi128 value
 ;output:
 ;  rax - set to 1 if overflow
 ;  CF - set to 1 if overflow
 bi_add_assign_256_128:
+    ;CheckRegAligned rcx, 'bi_add_assign_256_128 rcx'
+    ;CheckRegAligned rdx, 'bi_add_assign_256_128 rdx'
+
         mov     rax, [rdx]
         add     [rcx], rax
 
