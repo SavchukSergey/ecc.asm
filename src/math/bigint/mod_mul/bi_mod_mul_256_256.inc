@@ -3,7 +3,7 @@ if ~ definite bi_mod_mul_256_256
 include '../mul/bi_mul_256_256.inc'
 include '../div_rem/bi_rem_512_256.inc'
 include '../copy/bi_copy_256.inc'
-;todo: for some reason it is slower than sum of bi_mul_256_256, bi_rem_512_256, bi_copy_256
+
 bi_mod_mul_256_256:
 virtual at rsp
   label .locals_start
@@ -13,9 +13,17 @@ virtual at rsp
     .result rq 1
     .result_512 rb __BIG_INTEGER_BYTES_512
     .reminder_512 rb __BIG_INTEGER_BYTES_512
+    AlignLocalsStackFrame
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+        PrologCheckStackAligned 'bi_mod_mul_256_256'
+        CheckRegAligned rcx, 'bi_mod_mul_256_256 rcx'
+        CheckRegAligned rdx, 'bi_mod_mul_256_256 rdx'
+        CheckRegAligned r8, 'bi_mod_mul_256_256 r8'
+        CheckRegAligned r9, 'bi_mod_mul_256_256 r9'
+
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.modulus], r8

@@ -29,9 +29,9 @@ virtual at rsp
   .remainder rq 1
 
   .divisor_lzcnt rq 1
-  .divisor_shifted rb __BIG_INTEGER_BYTES_256
-
   .remainder_lzcnt rq 1
+
+  .divisor_shifted rb __BIG_INTEGER_BYTES_256
   .remainder_shifted rb __BIG_INTEGER_BYTES_512
 
   .guess_128 rb __BIG_INTEGER_BYTES_128

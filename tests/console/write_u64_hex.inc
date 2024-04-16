@@ -1,7 +1,7 @@
 if ~ definite Console_WriteUInt64Hex
 
 include 'write_char.inc'
-include '../src/text/hex_format_digit.inc'
+include '../../src/text/hex_format_digit.inc'
 
 ;input
 ; rcx - i64

@@ -8,6 +8,9 @@ if ~ definite bi_sub_assign_256_256
 ;  rax - set to 1 if borrow
 ;  CF - set to 1 if borrow
 bi_sub_assign_256_256:
+        CheckRegAligned rcx, 'bi_sub_assign_256_256 rcx'
+        CheckRegAligned rdx, 'bi_sub_assign_256_256 rdx'
+
         mov     rax, [rdx]
         sub     [rcx], rax
         mov     rax, [rdx + 8]

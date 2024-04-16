@@ -12,9 +12,14 @@ virtual at rsp
   .quotient rb __BIG_INTEGER_BYTES_512
   .remainder rb __BIG_INTEGER_BYTES_512
   .pointer rq 1
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+
+        PrologCheckStackAligned '__bi_div_rem_512_128_test_core'
+        CheckRegAligned rbx, '__bi_div_rem_512_128_test_core rbx'
+
         mov     [.pointer], rbx
 .loop:
         mov     rbx, [.pointer]
@@ -56,7 +61,7 @@ end virtual
         add     [.pointer], 512
         jmp     .loop
 .end:
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 __bi_div_rem_512_128_test_measure_core:
@@ -71,9 +76,14 @@ virtual at rsp
   .quotient rb __BIG_INTEGER_BYTES_512
   .remainder rb __BIG_INTEGER_BYTES_512
   .pointer rq 1
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
+
+        PrologCheckStackAligned '__bi_div_rem_512_128_test_measure_core'
+        CheckRegAligned rbx, '__bi_div_rem_512_128_test_measure_core rbx'
+
         mov     [.pointer], rbx
 .loop:
         mov     rbx, [.pointer]
@@ -120,15 +130,20 @@ end virtual
         add     [.pointer], 512
         jmp     .loop
 .end:
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
 __bi_div_rem_512_128_test:
+        sub     rsp, 8
+        PrologCheckStackAligned '__bi_div_rem_512_128_test'
+
         mov     rbx, __bi_div_rem_512_64_test_cases
         call    __bi_div_rem_512_128_test_core
 
         mov     rbx, __bi_div_rem_512_128_test_cases
         call    __bi_div_rem_512_128_test_measure_core
+
+        add     rsp, 8
 
         ret
 

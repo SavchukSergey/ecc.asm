@@ -17,9 +17,17 @@ virtual at rsp
   .quotient rq 1
   .remainder rq 1
   .bit rq 1
+  AlignLocalsStackFrame
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+        PrologCheckStackAligned 'bi_div_rem_256_256_full_bits'
+        CheckRegAligned rcx, 'bi_div_rem_256_256_full_bits rcx'
+        CheckRegAligned rdx, 'bi_div_rem_256_256_full_bits rdx'
+        CheckRegAligned r8, 'bi_div_rem_256_256_full_bits r8'
+        CheckRegAligned r9, 'bi_div_rem_256_256_full_bits r9'
+
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.quotient], r8

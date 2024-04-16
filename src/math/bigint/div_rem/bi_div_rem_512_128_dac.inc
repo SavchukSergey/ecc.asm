@@ -12,16 +12,23 @@ virtual at rsp
   .quotient rq 1
   .remainder rq 1
 
-; partial quptient can be combined to reduce stack usage
+; partial quotient can be combined to reduce stack usage
   .q0 rb __BIG_INTEGER_BYTES_256
   .q1 rb __BIG_INTEGER_BYTES_256
   .q2 rb __BIG_INTEGER_BYTES_256
 
   .partial_remainder rb __BIG_INTEGER_BYTES_256
-
+  AlignLocalsStackFrame
   label .locals_end
 end virtual
     sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned 'bi_div_rem_512_128_dac'
+    CheckRegAligned rcx, 'bi_div_rem_512_128_dac rcx'
+    CheckRegAligned rdx, 'bi_div_rem_512_128_dac rdx'
+    CheckRegAligned r8, 'bi_div_rem_512_128_dac r8'
+    CheckRegAligned r9, 'bi_div_rem_512_128_dac r9'
+
     mov     [.dividend], rcx
     mov     [.divisor], rdx
     mov     [.quotient], r8

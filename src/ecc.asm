@@ -11,6 +11,7 @@ proc DllEntryPoint hinstDLL,fdwReason,lpvReserved
 endp
 
 
+include 'macro/align.inc'
 include 'math/bigint.inc'
 include 'math/bigint/zero/index.inc'
 include 'math/bigint/is_zero/index.inc'
@@ -108,7 +109,12 @@ section '.edata' export data readable
 \
          bi_shl_assign_128_1, 'bi_shl_assign_128_1', \
          bi_shl_assign_256_1, 'bi_shl_assign_256_1', \
+         bi_shl_assign_256_64, 'bi_shl_assign_256_64', \
+         bi_shl_assign_256_1, 'bi_shl_assign_256_128', \
          bi_shl_assign_512_1, 'bi_shl_assign_512_1', \
+         bi_shl_assign_512_64, 'bi_shl_assign_512_64', \
+         bi_shl_assign_512_128, 'bi_shl_assign_512_128', \
+         bi_shl_assign_512_256, 'bi_shl_assign_512_256', \
 \
          bi_shl_assign_128, 'bi_shl_assign_128', \
          bi_shl_assign_192, 'bi_shl_assign_192', \

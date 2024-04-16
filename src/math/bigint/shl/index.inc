@@ -4,7 +4,12 @@ include 'bi_shl_512.inc'
 
 include 'bi_shl_assign_128_1.inc'
 include 'bi_shl_assign_256_1.inc'
+include 'bi_shl_assign_256_64.inc'
+include 'bi_shl_assign_256_128.inc'
 include 'bi_shl_assign_512_1.inc'
+include 'bi_shl_assign_512_64.inc'
+include 'bi_shl_assign_512_128.inc'
+include 'bi_shl_assign_512_256.inc'
 
 include 'bi_shl_assign_128.inc'
 include 'bi_shl_assign_192.inc'

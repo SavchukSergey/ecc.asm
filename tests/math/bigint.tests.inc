@@ -115,11 +115,16 @@ __bi_tests_256:
 
         dq __bi_shl_assign_256_1_test
         db 'bi_shl_assign_256_1', 0
-        dq __bi_shr_assign_256_1_test
-        db 'bi_shr_assign_256_1', 0
+        dq __bi_shl_assign_256_64_test
+        db 'bi_shl_assign_256_64', 0
+        dq __bi_shl_assign_256_128_test
+        db 'bi_shl_assign_256_128', 0
 
         dq __bi_shl_assign_256_test
         db 'bi_shl_assign_256', 0
+
+        dq __bi_shr_assign_256_1_test
+        db 'bi_shr_assign_256_1', 0
 
         dq __bi_mul_256_64_test
         db 'bi_mul_256_64', 0
@@ -170,11 +175,18 @@ __bi_tests_512:
 
         dq __bi_shl_assign_512_1_test
         db 'bi_shl_assign_512_1', 0
-        dq __bi_shr_assign_512_1_test
-        db 'bi_shr_assign_512_1', 0
+        dq __bi_shl_assign_512_64_test
+        db 'bi_shl_assign_512_64', 0
+        dq __bi_shl_assign_512_128_test
+        db 'bi_shl_assign_512_128', 0
+        dq __bi_shl_assign_512_256_test
+        db 'bi_shl_assign_512_256', 0
 
         dq __bi_shl_assign_512_test
         db 'bi_shl_assign_512', 0
+
+        dq __bi_shr_assign_512_1_test
+        db 'bi_shr_assign_512_1', 0
 
         dq __bi_mul_512_512_test
         db 'bi_mul_512_512', 0

@@ -10,14 +10,23 @@ include '../euclid_ext/bi_euclid_ext_256.inc'
 bi_mod_inverse_256:
 virtual at rsp
 .locals_start:
+  .euclid rb BezoutIdentity256.sizeof
+
   .value rq 1
   .modulus rq 1
   .result rq 1
 
-  .euclid rb BezoutIdentity256.sizeof
+  AlignLocalsStackFrame
+
 .locals_end:
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+        PrologCheckStackAligned 'bi_mod_inverse_256'
+        CheckRegAligned rcx, 'bi_mod_inverse_256 rcx'
+        CheckRegAligned rdx, 'bi_mod_inverse_256 rdx'
+        CheckRegAligned r8, 'bi_mod_inverse_256 r8'
+
         mov     [.value], rcx
         mov     [.modulus], rdx
         mov     [.result], r8

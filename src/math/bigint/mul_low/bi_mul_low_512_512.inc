@@ -16,10 +16,16 @@ virtual at rsp
   .right rq 1
   .result rq 1
   .temp rb __BIG_INTEGER_BYTES_256
-
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+        PrologCheckStackAligned 'bi_mul_low_512_512'
+        CheckRegAligned rcx, 'bi_mul_low_512_512 rcx'
+        CheckRegAligned rdx, 'bi_mul_low_512_512 rdx'
+        CheckRegAligned r8, 'bi_mul_low_512_512 r8'
+
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8

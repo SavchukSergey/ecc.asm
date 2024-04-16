@@ -11,9 +11,16 @@ virtual at rsp
   .left rb __BIG_INTEGER_BYTES_256
   .right rb __BIG_INTEGER_BYTES_256
   .modulus rb __BIG_INTEGER_BYTES_256
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-	enter	.locals_end - .locals_start, 0
+    sub     rsp, .locals_end - .locals_start
+	PrologCheckStackAligned '__bi_mod_add_assign_256_256_test_core'
+	CheckRegAligned rcx, '__bi_mod_add_assign_256_256_test_core rcx'
+	CheckRegAligned rdx, '__bi_mod_add_assign_256_256_test_core rdx'
+	CheckRegAligned r8, '__bi_mod_add_assign_256_256_test_core r8'
+	CheckRegAligned r9, '__bi_mod_add_assign_256_256_test_core r9'
+
 	mov	[.left_hex], rcx
 	mov	[.right_hex], rdx
 	mov	[.modulus_hex], r8
@@ -50,10 +57,11 @@ end virtual
     jnz     .chunk_loop
     call    test_context_end_measure
 
-	leave
+    add     rsp, .locals_end - .locals_start
 	ret
 
 __bi_mod_add_assign_256_256_test:
+	sub		rsp, 8
 	mov		rbx, __bi_mod_add_assign_256_256_test_cases
 .loop:
 	lea		rcx, [rbx + 0]
@@ -66,10 +74,14 @@ __bi_mod_add_assign_256_256_test:
 	cmp		rbx, __bi_mod_add_assign_256_256_test_cases.end
 	jb		.loop
 
+	add		rsp, 8
+
 	ret
+
+align 16
 .modulus_hex	db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
 
-
+align 16
 __bi_mod_add_assign_256_256_test_cases:
   db '6f3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
   db '42ee2737466d172a7dd3ec5c797b49a2f0db3a30fa26418148368b39b9b47053'

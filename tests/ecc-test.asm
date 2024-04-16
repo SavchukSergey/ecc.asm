@@ -3,6 +3,8 @@ entry start
 
 include 'win64a.inc'
 
+ECC_TESTS = 1
+
 section '.text' code readable executable
 start:
 	and	rsp, 0xffff_ffff_ffff_fff0
@@ -40,6 +42,8 @@ start:
 .bi256_fixture_name db 'bi256', 0
 .bi512_fixture_name db 'bi512', 0
 .bi1024_fixture_name db 'bi1024', 0
+
+include '../src/macro/align.inc'
 
 include 'console/enable_vt_processing.inc'
 include 'console/write_u64.inc'
@@ -94,12 +98,15 @@ virtual at rsp
   .test_successes rq 1
   .test_failures rq 1
   .result TestContext
+  AlignLocalsStackFrame
   .locals_end:
 end virtual
 virtual at TestContextReg
   .context TestContext
 end virtual
 	enter	.locals_end - .locals_start, 0
+    PrologCheckStackAligned 'run_test_fixture'
+
 	mov	[.test], rax
 
 	call	test_output_start_chapter

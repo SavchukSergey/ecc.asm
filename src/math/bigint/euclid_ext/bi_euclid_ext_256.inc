@@ -28,9 +28,16 @@ virtual at rsp
   .b rq 1
   .result rq 1
   .cnt rq 1
+  AlignLocalsStackFrame
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned 'bi_euclid_ext_256'
+    CheckRegAligned rcx, 'bi_euclid_ext_256 rcx'
+    CheckRegAligned rdx, 'bi_euclid_ext_256 rdx'
+    CheckRegAligned r8, 'bi_euclid_ext_256 r8'
+
         mov     [.a], rcx
         mov     [.b], rdx
         mov     [.result], r8

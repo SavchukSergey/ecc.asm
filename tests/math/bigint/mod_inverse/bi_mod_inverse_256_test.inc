@@ -7,9 +7,12 @@ virtual at rsp
   .value rb __BIG_INTEGER_BYTES_256
   .modulus rb __BIG_INTEGER_BYTES_256
   .result rb __BIG_INTEGER_BYTES_256
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-	enter	.locals_end - .locals_start, 0
+	sub		rsp, .locals_end - .locals_start
+    PrologCheckStackAligned '__bi_mod_inverse_256_test'
+
 	lea	    rcx, [.value_hex]
 	lea	    rdx, [.value]
 	call    bi_try_read_hex_256
@@ -32,7 +35,7 @@ end virtual
 	lea	    rdx, [.result]
 	call    bi_assert_equal_hex_256
 
-	leave
+	add		rsp, .locals_end - .locals_start
 	ret
 
 .value_hex	db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'

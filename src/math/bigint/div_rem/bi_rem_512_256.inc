@@ -10,16 +10,18 @@ virtual at rsp
   .dividend rq 1
   .divisor rq 1
   .remainder rq 1
+  .correction rq 1
 
   .divisor_lzcnt rq 1
-  .divisor_shifted rb __BIG_INTEGER_BYTES_256
-
   .remainder_lzcnt rq 1
+
+  .divisor_shifted rb __BIG_INTEGER_BYTES_256
   .remainder_shifted rb __BIG_INTEGER_BYTES_512
 
   .guess_128 rb __BIG_INTEGER_BYTES_128
   .delta rb __BIG_INTEGER_BYTES_512
-  .correction rq 1
+  AlignLocalsStackFrame
+
   label .locals_end
 end virtual
         RemGuess64_Prolog 512, 256

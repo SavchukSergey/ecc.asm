@@ -11,6 +11,12 @@ include '../cmp/bi_cmp_256_256.inc'
 ;  r8 - modulus
 bi_mod_add_assign_256_256:
         push    rdx
+
+        PrologCheckStackAligned 'bi_mod_add_assign_256_256'
+        CheckRegAligned rcx, 'bi_mod_add_assign_256_256 rcx'
+        CheckRegAligned rdx, 'bi_mod_add_assign_256_256 rdx'
+        CheckRegAligned r8, 'bi_mod_add_assign_256_256 r8'
+
         call    bi_add_assign_256_256
         jc      .fix
         mov     rdx, r8

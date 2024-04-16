@@ -9,6 +9,10 @@ if ~ definite bi_sub_256_256
 ;  rax - set to 1 if borrow
 ;  CF - set to 1 if borrow
 bi_sub_256_256:
+        CheckRegAligned rcx, 'bi_sub_256_256 rcx'
+        CheckRegAligned rdx, 'bi_sub_256_256 rdx'
+        CheckRegAligned r8, 'bi_sub_256_256 r8'
+
         mov     rax, [rcx]
         sub     rax, [rdx]
         mov     [r8], rax

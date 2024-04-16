@@ -12,9 +12,16 @@ virtual at rsp
   .right rb __BIG_INTEGER_BYTES_256
   .modulus rb __BIG_INTEGER_BYTES_256
   .result rb __BIG_INTEGER_BYTES_256
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-	enter   .locals_end - .locals_start, 0
+    sub     rsp, .locals_end - .locals_start
+    PrologCheckStackAligned '__bi_mod_mul_256_256_test_core'
+    CheckRegAligned rcx, '__bi_mod_mul_256_256_test_core rcx'
+    CheckRegAligned rdx, '__bi_mod_mul_256_256_test_core rdx'
+    CheckRegAligned r8, '__bi_mod_mul_256_256_test_core r8'
+    CheckRegAligned r9, '__bi_mod_mul_256_256_test_core r9'
+
 	mov     [.left_hex], rcx
 	mov     [.right_hex], rdx
 	mov     [.modulus_hex], r8
@@ -47,10 +54,11 @@ end virtual
 	lea     rdx, [.result]
 	call	bi_assert_equal_hex_256
 	
-	leave
+    add     rsp, .locals_end - .locals_start
 	ret
 
 __bi_mod_mul_256_256_test:
+    sub		rsp, 8
 	lea     rcx, [.left_hex]
 	lea     rdx, [.right_hex]
 	lea     r8, [.modulus_hex]
@@ -63,7 +71,11 @@ __bi_mod_mul_256_256_test:
 	lea     r9, [.expected_overflow_hex]
 	call	__bi_mod_mul_256_256_test_core
 
+    add		rsp, 8
+
 	ret
+
+align 16
 .modulus_hex	db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
 
 .left_hex	db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
