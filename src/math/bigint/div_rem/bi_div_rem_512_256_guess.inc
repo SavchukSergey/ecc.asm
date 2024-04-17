@@ -3,6 +3,7 @@ if ~ definite bi_div_rem_512_256_guess
 include 'bi_div_rem_guess_64.inc'
 
 include '../add/bi_add_assign_384_384.inc'
+include '../add/bi_add_assign_512_256.inc'
 include '../cmp/bi_cmp_256_256.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../div_rem/bi_div_rem_512_64.inc'

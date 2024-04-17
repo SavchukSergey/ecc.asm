@@ -3,9 +3,9 @@ include '../src/math/bigint/mul/bi_mul_256_128.inc'
 __bi_mul_256_128_test_core:
 virtual at rsp
 .locals_start:
-  .left rb __BIG_INTEGER_BYTES_256
-  .right rb __BIG_INTEGER_BYTES_256
-  .result rb __BIG_INTEGER_BYTES_512
+  BigInteger256 .left
+  BigInteger256 .right
+  BigInteger512 .result
   .left_hex rq 1
   .right_hex rq 1
   .expected_hex rq 1

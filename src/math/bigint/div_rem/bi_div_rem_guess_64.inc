@@ -219,6 +219,7 @@ macro DivRemGuess64_Guess dividend_bits, divisor_bits {
         mov     qword [.guess_128 + 8], 0
         jmp     .divisor_ok
 .divisor_not_max:
+;todo: compare reminder high 64  bits with divisor. if less then we can use 64-bit airthmentics instead of 128-bit
         lea     rcx, qword [.remainder_shifted  + DIV_REM_PARTIAL_DIVIDEND_START]
         lea     r8, [.guess_128]
         call    bi_div_128_64
@@ -243,29 +244,43 @@ macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
-;precalculate delta, using narrowest possible mul
-    mov     rcx, [.divisor]
-    lea     rdx, [.guess_128]
-    lea     r8, [.delta]
-
+;precalculate delta = mul(.divisor, .guess_128), using narrowest possible mul
     DIV_REM_GUESS_DELTA_SIZE = dividend_bits
 
-    ; mul returns result of 2 * max(left_bits, right_bits) bits
-    ; as guess_size is 128 and divisor_bits >= 128 we can simplify it just to 2 * divisor_bits
+    ; mul(.divisor, .guess_128) returns result of 2 * divisor_bits width
     DIV_REM_GUESS_DELTA_MUL_FULL_SIZE = 2 * divisor_bits
 
-    ; mul_low returns result of max(left_bits, right_bits) bits
-    ; as guess_size is 128 and divisor_bits >= 128 we can simplify it just to divisor_bits
+    ; mul_low(.divisor, .guess_128) returns result of divisor_bits width
     DIV_REM_GUESS_DELTA_MUL_LOW_SIZE = divisor_bits
 
   if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_SIZE
-    Call_MulLowX128 divisor_bits
+    DIV_REM_GUESS_DELTA_RAW_SIZE = DIV_REM_GUESS_DELTA_MUL_LOW_SIZE
   else
-    Call_MulX128 divisor_bits
-    if DIV_REM_GUESS_DELTA_MUL_FULL_SIZE < DIV_REM_GUESS_DELTA_SIZE
-      lea     rcx, [.delta]
-      Call_ExtendAssign DIV_REM_GUESS_DELTA_SIZE, DIV_REM_GUESS_DELTA_MUL_FULL_SIZE
-    end if
+    DIV_REM_GUESS_DELTA_RAW_SIZE = DIV_REM_GUESS_DELTA_MUL_FULL_SIZE
+  end if
+    
+    ;.guess_128 is actually 65-bit wide, meaning high(.guess_128) is either 1 or 0
+    ; let's use 64-bit multiplification, and then fix cases when high(.guess_128) is 1
+    mov     rcx, [.divisor]
+    mov     rdx, qword [.guess_128]
+    lea     r8, [.delta]
+  if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_SIZE
+    Call_MulLowX64 divisor_bits
+  else
+    Call_MulX64 divisor_bits
+  end if
+
+    cmp       qword [.guess_128 + 8], 0
+    jz        .calc_delta_ok
+.calc_delta_128:
+    lea     rcx, [.delta + 8]
+    mov     rdx, [.divisor]
+    Call_AddAssign DIV_REM_GUESS_DELTA_RAW_SIZE, divisor_bits
+.calc_delta_ok:
+
+  if DIV_REM_GUESS_DELTA_RAW_SIZE < DIV_REM_GUESS_DELTA_SIZE
+    lea     rcx, [.delta]
+    Call_ExtendAssign DIV_REM_GUESS_DELTA_SIZE, DIV_REM_GUESS_DELTA_RAW_SIZE
   end if
 }
 
@@ -316,7 +331,7 @@ macro DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits {
   else
       lea     rdx, [.guess_q]
   end if
-      Call_AddAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+      Call_AddAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE, DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
 }
 
 macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
