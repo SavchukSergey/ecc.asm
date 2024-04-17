@@ -3,6 +3,8 @@ if ~ definite bi_shl_256
 include '../copy/bi_copy_256.inc'
 include 'bi_shl_assign_256.inc'
 
+;todo: rcx as target, rdx as input
+
 ; Shifts left
 ;input
 ;  rcx - source value
