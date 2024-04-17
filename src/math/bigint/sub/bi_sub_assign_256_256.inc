@@ -13,12 +13,16 @@ bi_sub_assign_256_256:
 
         mov     rax, [rdx]
         sub     [rcx], rax
+
         mov     rax, [rdx + 8]
         sbb     [rcx + 8], rax
+
         mov     rax, [rdx + 16]
         sbb     [rcx + 16], rax
+
         mov     rax, [rdx + 24]
         sbb     [rcx + 24], rax
+
         setc    al
         movzx   rax, al
         ret

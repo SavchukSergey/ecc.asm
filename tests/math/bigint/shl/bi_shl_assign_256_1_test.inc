@@ -30,7 +30,7 @@ end virtual
         leave
         ret
 
-.value_hex       db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
+.value_hex      db '88c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
 .expected_hex   db '118B4794EB30AEDAA0E96A6BDFE228FF22058A5AAC66261828A7811E4B5A83A0'
 
 
