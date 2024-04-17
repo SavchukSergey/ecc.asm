@@ -6,9 +6,14 @@ virtual at rsp
   .hex rq 1
   .expected rq 1
   .value rb __BIG_INTEGER_BYTES_256
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-    enter   .locals_end - .locals_start, 0  
+    sub     rsp, .locals_end - .locals_start
+
+	PrologCheckStackAligned '__bi_is_zero_256_test_core'
+	CheckRegAligned rcx, '__bi_is_zero_256_test_core rcx'
+
     mov     [.hex], rcx
     mov     [.expected], rdx
 
@@ -31,10 +36,12 @@ end virtual
     jnz     .chunk_loop
     call    test_context_end_measure
     
-    leave
+    add     rsp, .locals_end - .locals_start
     ret
 
 __bi_is_zero_256_test:
+    sub     rsp, 8
+
     lea     rcx, [.non_zero_1_hex]
     xor     rdx, rdx
     call    __bi_is_zero_256_test_core
@@ -59,8 +66,11 @@ __bi_is_zero_256_test:
     mov     rdx, 1
     call    __bi_is_zero_256_test_core
 
+    add     rsp, 8
+
     ret
 
+align 16
 .non_zero_1_hex db '6f3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
 .non_zero_2_hex db '00000000000000008990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
 .non_zero_3_hex db '8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae0000000000000000'

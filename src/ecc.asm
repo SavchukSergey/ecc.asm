@@ -129,9 +129,20 @@ section '.edata' export data readable
 \
          bi_shr_assign_128_1, 'bi_shr_assign_128_1', \
          bi_shr_assign_256_1, 'bi_shr_assign_256_1', \
+         bi_shr_assign_256_64, 'bi_shr_assign_256_64', \
+         bi_shr_assign_256_128, 'bi_shr_assign_256_128', \
          bi_shr_assign_512_1, 'bi_shr_assign_512_1', \
+         bi_shr_assign_512_64, 'bi_shr_assign_512_64', \
+         bi_shr_assign_512_128, 'bi_shr_assign_512_128', \
+         bi_shr_assign_512_256, 'bi_shr_assign_512_256', \
 \
          bi_shr_assign_128, 'bi_shr_assign_128', \
+         bi_shr_assign_256, 'bi_shr_assign_256', \
+         bi_shr_assign_512, 'bi_shr_assign_512', \
+\
+         bi_shr_128, 'bi_shr_128', \
+         bi_shr_256, 'bi_shr_256', \
+         bi_shr_512, 'bi_shr_512', \
 \
          bi_mul_64_64, 'bi_mul_64_64', \
          bi_mul_128_64, 'bi_mul_128_64', \

@@ -3,6 +3,9 @@ if ~ definite bi_copy_512
 include '../config.inc'
 
 bi_copy_512_basic:
+        CheckRegAligned rcx, 'bi_copy_512_basic rcx'
+        CheckRegAligned rdx, 'bi_copy_512_basic rcx'
+
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
         mov     rax, [rdx + 8]
@@ -24,6 +27,9 @@ bi_copy_512_basic:
         ret
 
 bi_copy_512_avx2:
+        CheckRegAligned rcx, 'bi_copy_512_avx2 rcx'
+        CheckRegAligned rdx, 'bi_copy_512_avx2 rcx'
+
 ;todo: use aligned vmovdqa
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1

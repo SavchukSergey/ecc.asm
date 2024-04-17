@@ -3,8 +3,8 @@ include '../src/math/bigint/mul/bi_mul_256_256.inc'
 __bi_mul_256_256_test_core:
 virtual at rsp
 .locals_start:
-  .left rb __BIG_INTEGER_BYTES_256
-  .right rb __BIG_INTEGER_BYTES_256
+  BigInteger256 .left
+  BigInteger256 .right
   .result rb __BIG_INTEGER_BYTES_512
   .left_hex rq 1
   .right_hex rq 1

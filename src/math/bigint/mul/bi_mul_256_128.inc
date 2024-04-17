@@ -12,7 +12,7 @@ include '../zero/bi_zero_512.inc'
 bi_mul_256_128:
 virtual at rsp
 .locals_start:
-  .z0 rb __BIG_INTEGER_BYTES_256
+  BigInteger256 .z0
   .left rq 1
   .right rq 1
   .result rq 1

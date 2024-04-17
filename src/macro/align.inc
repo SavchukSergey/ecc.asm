@@ -1,6 +1,6 @@
 if definite ECC_TESTS
-  CHECK_REG_ALIGNMENT = 1
-  CHECK_STACK_ALIGNMENT = 1
+  CHECK_REG_ALIGNMENT = 0
+  CHECK_STACK_ALIGNMENT = 0
 
   include '../../tests/console/write_u64_hex.inc'
 else

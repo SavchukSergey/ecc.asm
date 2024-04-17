@@ -4,6 +4,8 @@ if ~ definite bi_shl_assign_512_128
 ;input
 ; rcx - value
 bi_shl_assign_512_128_basic:
+    CheckRegAligned rcx, 'bi_shl_assign_512_128_basic rcx'
+
         mov     rax, [rcx + 40]
         mov     [rcx + 56], rax
 
@@ -31,6 +33,8 @@ bi_shl_assign_512_128_basic:
 ;input
 ; rcx - value
 bi_shl_assign_512_128_avx:
+    CheckRegAligned rcx, 'bi_shl_assign_512_128_avx rcx'
+
         vmovdqu xmm1, [rcx + 32]
         vmovdqu [rcx + 48], xmm1
 

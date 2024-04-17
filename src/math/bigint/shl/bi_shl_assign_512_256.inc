@@ -4,6 +4,8 @@ if ~ definite bi_shl_assign_512_256
 ;input
 ; rcx - value
 bi_shl_assign_512_256_basic:
+    CheckRegAligned rcx, 'bi_shl_assign_512_256_basic rcx'
+
         mov     rax, [rcx + 24]
         mov     [rcx + 56], rax
 
@@ -27,6 +29,8 @@ bi_shl_assign_512_256_basic:
 ;input
 ; rcx - value
 bi_shl_assign_512_256_avx2:
+    CheckRegAligned rcx, 'bi_shl_assign_512_256_avx2 rcx'
+
         vmovdqu ymm1, [rcx]
         vmovdqu [rcx + 32], ymm1
 

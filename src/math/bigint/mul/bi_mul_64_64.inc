@@ -6,6 +6,8 @@ if ~ definite bi_mul_64_64
 ;  rdx - right bi64 value
 ;  r8 - pointer to result bi128 value
 bi_mul_64_64:
+    CheckRegAligned r8, 'bi_mul_64_64 r8'
+
         mov     rax, rcx
         mul     rdx
         mov     [r8], rax

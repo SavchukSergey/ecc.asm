@@ -2,16 +2,16 @@ if ~ definite bi_div_rem_128_128_guess
 
 include 'bi_div_rem_guess_64.inc'
 
-include '../inc/bi_inc_assign_128.inc'
-include '../lzcnt/bi_lzcnt_128.inc'
-include '../zero/bi_zero_128.inc'
 include '../copy/bi_copy_128.inc'
 include '../cmp/bi_cmp_128_128.inc'
+include '../div_rem/bi_div_128_64.inc'
+include '../inc/bi_inc_assign_128.inc'
+include '../lzcnt/bi_lzcnt_128.inc'
+include '../mul_low/bi_mul_low_128_64.inc'
 include '../shl/bi_shl_128.inc'
 include '../shl/bi_shl_assign_128.inc'
 include '../sub/bi_sub_assign_128_128.inc'
-include '../mul_low/bi_mul_low_128_64.inc'
-include '../div_rem/bi_div_128_64.inc'
+include '../zero/bi_zero_128.inc'
 
 bi_div_rem_128_128_guess:
     DivRemGuess64_Prepare 128, 128

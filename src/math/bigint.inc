@@ -40,3 +40,23 @@ BezoutIdentity256.sizeof = 4 * __BIG_INTEGER_BYTES_256
 virtual at 0
   BezoutIdentity256 BezoutIdentity256
 end virtual
+
+;todo: replace __BIG_INTEGER_BYTES_128 with BigInteger128
+macro BigInteger128 name {
+  name rb __BIG_INTEGER_BYTES_128
+}
+
+;todo: replace __BIG_INTEGER_BYTES_256 with BigInteger256
+macro BigInteger256 name {
+  name rb __BIG_INTEGER_BYTES_256
+}
+
+;todo: replace __BIG_INTEGER_BYTES_512 with BigInteger512
+macro BigInteger512 name {
+  name rb __BIG_INTEGER_BYTES_512
+}
+
+;todo: replace __BIG_INTEGER_BYTES_1024 with BigInteger1024
+macro BigInteger1024 name {
+  name rb __BIG_INTEGER_BYTES_1024
+}

@@ -1,16 +1,16 @@
-if ~ definite bi_shl_256
+if ~ definite bi_shr_256
 
 include '../copy/bi_copy_256.inc'
-include 'bi_shl_assign_256.inc'
+include 'bi_shr_assign_256.inc'
 
-; Shifts left
+; Shifts right
 ;input
 ;  rcx - source value
 ;  rdx - target value
 ;  r8 - bits
-bi_shl_256:
-    CheckRegAligned rcx, 'bi_shl_256 rcx'
-    CheckRegAligned rdx, 'bi_shl_256 rdx'
+bi_shr_256:
+    CheckRegAligned rcx, 'bi_shr_256 rcx'
+    CheckRegAligned rdx, 'bi_shr_256 rdx'
 
         xchg    rcx, rdx
         call    bi_copy_256
@@ -18,7 +18,7 @@ bi_shl_256:
 
         mov     rcx, rdx
         mov     rdx, r8
-        call    bi_shl_assign_256
+        call    bi_shr_assign_256
         ret
 
 end if

@@ -1,6 +1,6 @@
-include '../src/math/bigint/shl/bi_shl_assign_256_128.inc'
+include '../src/math/bigint/shr/bi_shr_assign_256_128.inc'
 
-__bi_shl_assign_256_128_test:
+__bi_shr_assign_256_128_test:
 virtual at rsp
 .locals_start:
   BigInteger256 .value
@@ -14,7 +14,7 @@ end virtual
         call    bi_try_read_hex_256
 
         lea     rcx, [.value]
-        call    bi_shl_assign_256_128
+        call    bi_shr_assign_256_128
 
         lea     rcx, [.expected_hex]
         lea     rdx, [.value]
@@ -23,7 +23,7 @@ end virtual
         call    test_context_start_measure
 .chunk_loop:
         lea     rcx, [.value]
-        call    bi_shl_assign_256_128
+        call    bi_shr_assign_256_128
         call    test_context_measure_dec_chunk
         jnz     .chunk_loop
         call    test_context_end_measure
@@ -32,7 +32,5 @@ end virtual
         ret
 
 align 16
-.value_hex    db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
-.expected_hex db '9102c52d5633130c1453c08f25ad41d000000000000000000000000000000000'
-
-
+.value_hex    db '88c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
+.expected_hex db '0000000000000000000000000000000088c5a3ca7598576d5074b535eff1147f'

@@ -5,6 +5,8 @@ if ~ definite bi_shr_assign_128
 ;  rcx - pointer to bi128
 ;  rdx - bits count
 bi_shr_assign_128:
+    CheckRegAligned rcx, 'bi_shr_assign_128 rcx'
+
         cmp     rdx, 128
         jae     .zero
         cmp     rdx, 64

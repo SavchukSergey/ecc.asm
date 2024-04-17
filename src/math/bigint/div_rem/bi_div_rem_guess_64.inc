@@ -152,6 +152,9 @@ macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
     DIV_REM_PARTIAL_DIVISOR_SIZE = 64
     DIV_REM_MAX_REMAINDER_BOOST = (dividend_bits - DIV_REM_PARTIAL_DIVIDEND_SIZE)
 
+    DIV_REM_PARTIAL_DIVIDEND_START = (dividend_bits - DIV_REM_PARTIAL_DIVIDEND_SIZE) / 8
+    DIV_REM_PARTIAL_DIVISOR_START = (divisor_bits - DIV_REM_PARTIAL_DIVISOR_SIZE) / 8
+
     ; Because of preliminary checks at the begining
     ; divisor_bits/2 < divisor width <= divisor_bits
     DIV_REM_GUESS_MIN_DIVISOR_SIZE = (divisor_bits/2)
@@ -197,10 +200,6 @@ macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
       Call_Lzcnt dividend_bits
       cmp     rax, [.divisor_lzcnt]
       jae     .recheck_once
-; todo: ?
-;      mov     rcx, DIV_REM_MAX_REMAINDER_BOOST
-;      cmp     rax, rcx
-;      cmova   rax, rcx
       mov     [.remainder_lzcnt], rax
 
       mov     rcx, [.remainder]
@@ -211,7 +210,7 @@ macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
 
 macro DivRemGuess64_Guess dividend_bits, divisor_bits {
 ;divide highest 128 bit of remainder by highest 64 bit of divisor
-        mov     rdx, qword [.divisor_shifted + (divisor_bits - 64) / 8]
+        mov     rdx, qword [.divisor_shifted + DIV_REM_PARTIAL_DIVISOR_START]
         inc     rdx ; make pessimistic prediction, so our quotient is never bigger than real value
         jnz     .divisor_not_max
 .divisor_max:
@@ -220,7 +219,7 @@ macro DivRemGuess64_Guess dividend_bits, divisor_bits {
         mov     qword [.guess_128 + 8], 0
         jmp     .divisor_ok
 .divisor_not_max:
-        lea     rcx, qword [.remainder_shifted  + (dividend_bits - DIV_REM_PARTIAL_DIVIDEND_SIZE) / 8]
+        lea     rcx, qword [.remainder_shifted  + DIV_REM_PARTIAL_DIVIDEND_START]
         lea     r8, [.guess_128]
         call    bi_div_128_64
 .divisor_ok:

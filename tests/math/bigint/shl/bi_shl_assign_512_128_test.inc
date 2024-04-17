@@ -3,10 +3,11 @@ include '../src/math/bigint/shl/bi_shl_assign_512_128.inc'
 __bi_shl_assign_512_128_test:
 virtual at rsp
 .locals_start:
-  .value rb __BIG_INTEGER_BYTES_512
+  BigInteger512 .value
+  AlignLocalsStackFrame
 .locals_end:
 end virtual
-        enter   .locals_end - .locals_start, 0
+        sub     rsp, .locals_end - .locals_start
 
         lea     rcx, [.value_hex]
         lea     rdx, [.value]
@@ -27,9 +28,10 @@ end virtual
         jnz     .chunk_loop
         call    test_context_end_measure
 
-        leave
+        add     rsp, .locals_end - .locals_start
         ret
 
+align 16
 .value_hex    db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'
 .expected_hex db '9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c3300000000000000000000000000000000'
 

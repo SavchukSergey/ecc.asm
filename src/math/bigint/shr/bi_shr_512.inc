@@ -1,16 +1,16 @@
-if ~ definite bi_shl_512
+if ~ definite bi_shr_512
 
 include '../copy/bi_copy_512.inc'
-include 'bi_shl_assign_512.inc'
+include 'bi_shr_assign_512.inc'
 
-; Shifts left
+; Shifts right
 ;input
 ;  rcx - source value
 ;  rdx - target value
 ;  r8 - bits
-bi_shl_512:
-    CheckRegAligned rcx, 'bi_shl_512 rcx'
-    CheckRegAligned rdx, 'bi_shl_512 rdx'
+bi_shr_512:
+    CheckRegAligned rcx, 'bi_shr_512 rcx'
+    CheckRegAligned rdx, 'bi_shr_512 rdx'
 
         xchg    rcx, rdx
         call    bi_copy_512
@@ -18,7 +18,7 @@ bi_shl_512:
 
         mov     rcx, rdx
         mov     rdx, r8
-        call    bi_shl_assign_512
+        call    bi_shr_assign_512
         ret
 
 end if

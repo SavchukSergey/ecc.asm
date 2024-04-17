@@ -1,6 +1,6 @@
-include '../src/math/bigint/shl/bi_shl_assign_512.inc'
+include '../src/math/bigint/shr/bi_shr_assign_512.inc'
 
-__bi_shl_assign_512_test_core:
+__bi_shr_assign_512_test_core:
 virtual at rsp
 .locals_start:
   .value rb __BIG_INTEGER_BYTES_512
@@ -12,9 +12,9 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned '__bi_shl_assign_512_test_core'
-    CheckRegAligned rcx, '__bi_shl_assign_512_test_core rcx'
-    CheckRegAligned r8, '__bi_shl_assign_512_test_core r8'
+    PrologCheckStackAligned '__bi_shr_assign_512_test_core'
+    CheckRegAligned rcx, '__bi_shr_assign_512_test_core rcx'
+    CheckRegAligned r8, '__bi_shr_assign_512_test_core r8'
 
         mov     [.value_hex], rcx
         mov     [.count], rdx
@@ -26,7 +26,7 @@ end virtual
 
         lea     rcx, [.value]
         mov     rdx, [.count]
-        call    bi_shl_assign_512
+        call    bi_shr_assign_512
 
         mov     rcx, [.expected_hex]
         lea     rdx, [.value]
@@ -35,7 +35,7 @@ end virtual
         add     rsp, .locals_end - .locals_start
         ret
 
-__bi_shl_assign_512_test_measure_core:
+__bi_shr_assign_512_test_measure_core:
 virtual at rsp
 .locals_start:
   .value rb __BIG_INTEGER_BYTES_512
@@ -46,9 +46,9 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned '__bi_shl_assign_512_test_measure_core'
-    CheckRegAligned rcx, '__bi_shl_assign_512_test_measure_core rcx'
-    CheckRegAligned r8, '__bi_shl_assign_512_test_measure_core r8'
+    PrologCheckStackAligned '__bi_shr_assign_512_test_measure_core'
+    CheckRegAligned rcx, '__bi_shr_assign_512_test_measure_core rcx'
+    CheckRegAligned r8, '__bi_shr_assign_512_test_measure_core r8'
 
         mov     [.value_hex], rcx
         mov     [.count], rdx
@@ -61,7 +61,7 @@ end virtual
 .chunk_loop:
         lea     rcx, [.value]
         mov     rdx, [.count]
-        call    bi_shl_assign_512
+        call    bi_shr_assign_512
         call    test_context_measure_dec_chunk
         jnz     .chunk_loop
         call    test_context_end_measure
@@ -70,69 +70,69 @@ end virtual
         ret
 
 
-__bi_shl_assign_512_test:
+__bi_shr_assign_512_test:
         sub     rsp, 8
         lea     rcx, [.value_hex]
         mov     rdx, 0
         lea     r8, [.expected_0_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 4
         lea     r8, [.expected_4_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 8
         lea     r8, [.expected_8_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 32
         lea     r8, [.expected_32_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 64
         lea     r8, [.expected_64_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 128
         lea     r8, [.expected_128_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 256
         lea     r8, [.expected_256_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 511
         lea     r8, [.expected_511_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 512
         lea     r8, [.expected_512_hex]
-        call    __bi_shl_assign_512_test_core
+        call    __bi_shr_assign_512_test_core
 
         lea     rcx, [.value_hex]
         mov     rdx, 257
-        call    __bi_shl_assign_512_test_measure_core
+        call    __bi_shr_assign_512_test_measure_core
         
         add     rsp, 8
 
         ret
 
 align 16
-.value_hex        db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'
-.expected_0_hex   db '08c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'
-.expected_4_hex   db '8c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c330'
-.expected_8_hex   db 'c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c3300'
-.expected_32_hex  db '7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c3300000000'
-.expected_64_hex  db '5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c330000000000000000'
-.expected_128_hex db '9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c3300000000000000000000000000000000'
-.expected_256_hex db '61bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c330000000000000000000000000000000000000000000000000000000000000000'
-.expected_511_hex db '80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+.value_hex        db '88c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'
+.expected_0_hex   db '88c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c33'
+.expected_4_hex   db '088c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c3'
+.expected_8_hex   db '0088c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177cafe745c'
+.expected_32_hex  db '0000000088c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5856177ca'
+.expected_64_hex  db '000000000000000088c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a319df526fbe1e1c5'
+.expected_128_hex db '0000000000000000000000000000000088c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d061bb5a4ec10e2757038c99834fbc017a'
+.expected_256_hex db '000000000000000000000000000000000000000000000000000000000000000088c5a3ca7598576d5074b535eff1147f9102c52d5633130c1453c08f25ad41d0'
+.expected_511_hex db '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001'
 .expected_512_hex db '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'

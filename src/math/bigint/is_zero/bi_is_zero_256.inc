@@ -8,6 +8,8 @@ include '../config.inc'
 ;output
 ;  rax - 1 if value is zero, 0 otherwise
 bi_is_zero_256_basic:
+    CheckRegAligned rcx, 'bi_is_zero_256_basic rcx'
+
         xor     rax, rax
         or      rax, [rcx]
         or      rax, [rcx + 8]
@@ -18,6 +20,8 @@ bi_is_zero_256_basic:
         ret
 
 bi_is_zero_256_avx2:
+    CheckRegAligned rcx, 'bi_is_zero_256_avx2 rcx'
+
         vmovdqu ymm1, [rcx]
         vptest  ymm1, ymm1
         setz    al
