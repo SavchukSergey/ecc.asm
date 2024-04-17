@@ -290,6 +290,15 @@ macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
     Call_ShlAssign DIV_REM_GUESS_DELTA_SIZE
 }
 
+macro DivRemGuess64_ExtendGuess dividend_bits, divisor_bits {
+  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE > 128
+    ;todo: .guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
+    lea     rcx, [.guess_q]
+    lea     rdx, [.guess_128]
+    Call_ExtendX128 DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+  end if
+}
+
 macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
   if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 64
     mov     rcx, [.correction]
@@ -298,21 +307,12 @@ macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
     if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 128
       lea     rcx, [.guess_128]
       mov     rdx, [.correction]
-      Call_ShlAssign 128  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
+      Call_ShlAssign 128
     else
       lea     rcx, [.guess_q]
       mov     rdx, [.correction]
-      Call_ShlAssign dividend_bits  ; todo: shift just DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE bits?
+      Call_ShlAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
     end if
-  end if
-}
-
-macro DivRemGuess64_ExtendGuess dividend_bits, divisor_bits {
-  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE > 128
-    ;todo: .guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
-    lea     rcx, [.guess_q]
-    lea     rdx, [.guess_128]
-    Call_ExtendX128 DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
   end if
 }
 
@@ -336,7 +336,7 @@ macro DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits {
 
 macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
 .recheck_once:
-;reminder has same leading zeroes count as divisor so we can safely compare lowest divisor_bits bits
+;remainder has same leading zeroes count as divisor so we can safely compare lowest divisor_bits bits
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
         Call_Cmp divisor_bits
