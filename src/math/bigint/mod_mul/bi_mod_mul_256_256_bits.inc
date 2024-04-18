@@ -4,7 +4,7 @@ include '../zero/bi_zero_256.inc'
 include '../copy/bi_copy_256.inc'
 include '../bit_check/bi_bit_check_256.inc'
 include '../mod_add/bi_mod_add_assign_256_256.inc'
-include '../mod_add/bi_mod_double_assign_256_256.inc'
+include '../mod_add/bi_mod_double_assign_256.inc'
 
 bi_mod_mul_256_256_bits:
 virtual at rsp
@@ -45,7 +45,7 @@ end virtual
 .zero_bit:
         lea     rcx, [.acc]
         mov     rdx, [.modulus]
-        call    bi_mod_double_assign_256_256
+        call    bi_mod_double_assign_256
 
         inc     [.bit]
         cmp     [.bit], 256

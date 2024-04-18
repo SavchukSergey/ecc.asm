@@ -9,11 +9,13 @@ include 'bigint/lzcnt/index.inc'
 include 'bigint/mod_add/index.inc'
 include 'bigint/mod_inverse/index.inc'
 include 'bigint/mod_mul/index.inc'
+include 'bigint/mod_square/index.inc'
 include 'bigint/mod_sub/index.inc'
 include 'bigint/mul/index.inc'
 include 'bigint/mul_low/index.inc'
 include 'bigint/shl/index.inc'
 include 'bigint/shr/index.inc'
+include 'bigint/square/index.inc'
 include 'bigint/sub/index.inc'
 include 'bigint/zero/index.inc'
 
@@ -83,6 +85,9 @@ __bi_tests_128:
         db 'bi_mul_128_64', 0
         dq __bi_mul_128_128_test
         db 'bi_mul_128_128', 0
+        dq __bi_square_128_test
+        db 'bi_square_128', 0
+
         dq __bi_mul_low_128_128_test
         db 'bi_mul_low_128_128', 0
 
@@ -135,6 +140,9 @@ __bi_tests_256:
         db 'bi_mul_256_128', 0
         dq __bi_mul_256_256_test
         db 'bi_mul_256_256', 0
+        dq __bi_square_256_test
+        db 'bi_square_256', 0
+
         dq __bi_mul_low_256_64_test
         db 'bi_mul_low_256_64', 0
         dq __bi_mul_low_256_128_test
@@ -155,6 +163,8 @@ __bi_tests_256:
         db 'bi_mod_sub_assign_256_256', 0
         dq __bi_mod_mul_256_256_test
         db 'bi_mod_mul_256_256', 0
+        dq __bi_mod_square_256_test
+        db 'bi_mod_square_256', 0
         dq __bi_mod_inverse_256_test
         db 'bi_mod_inverse_256', 0
 

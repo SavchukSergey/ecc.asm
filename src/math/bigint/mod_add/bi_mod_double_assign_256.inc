@@ -1,4 +1,4 @@
-if ~ definite bi_mod_double_assign_256_256
+if ~ definite bi_mod_double_assign_256
 
 include '../shl/bi_shl_assign_256_1.inc'
 include '../sub/bi_sub_assign_256_256.inc'
@@ -8,7 +8,7 @@ include '../cmp/bi_cmp_256_256.inc'
 ;input:
 ;  rcx - left value. The modified value
 ;  rdx - modulus
-bi_mod_double_assign_256_256:
+bi_mod_double_assign_256:
         call    bi_shl_assign_256_1
         jc      .fix
         

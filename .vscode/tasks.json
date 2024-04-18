@@ -21,6 +21,24 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "echo",
+            "type": "process",
+            "command": "${env:FASM_PATH}/fasm.exe",
+            "args": [
+                "${workspaceFolder}/tests/ecc-test.asm"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/tests",
+                "env": {
+                    "INCLUDE": "${env:FASM_PATH}/INCLUDE"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
         }
     ]
 }

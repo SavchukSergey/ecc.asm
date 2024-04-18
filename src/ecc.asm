@@ -161,6 +161,10 @@ section '.edata' export data readable
          bi_mul_low_256_256, 'bi_mul_low_256_256', \
          bi_mul_low_512_512, 'bi_mul_low_512_512' ,\
 \
+         bi_square_64, 'bi_square_64' ,\
+         bi_square_128, 'bi_square_128' ,\
+         bi_square_256, 'bi_square_256' ,\
+\
          bi_div_128_64, 'bi_div_128_64', \
          bi_rem_128_64, 'bi_rem_128_64', \
          bi_rem_512_64, 'bi_rem_512_64', \
@@ -205,11 +209,13 @@ section '.edata' export data readable
 \
          bi_mod_add_assign_256_256, 'bi_mod_add_assign_256_256',\
 \
-         bi_mod_double_assign_256_256, 'bi_mod_double_assign_256_256',\
-\
          bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256',\
 \
          bi_mod_mul_256_256, 'bi_mod_mul_256_256',\
+\
+         bi_mod_double_assign_256, 'bi_mod_double_assign_256',\
+\
+         bi_mod_square_256, 'bi_mod_square_256' ,\
 \
          bi_mod_inverse_256, 'bi_mod_inverse_256',\
 \

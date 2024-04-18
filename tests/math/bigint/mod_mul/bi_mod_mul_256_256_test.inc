@@ -8,10 +8,10 @@ virtual at rsp
   .right_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1
-  .left rb __BIG_INTEGER_BYTES_256
-  .right rb __BIG_INTEGER_BYTES_256
-  .modulus rb __BIG_INTEGER_BYTES_256
-  .result rb __BIG_INTEGER_BYTES_256
+  BigInteger256 .left
+  BigInteger256 .right
+  BigInteger256 .modulus
+  BigInteger256 .result
   AlignLocalsStackFrame
 .locals_end:
 end virtual
@@ -78,10 +78,10 @@ __bi_mod_mul_256_256_test:
 align 16
 .modulus_hex	db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
 
-.left_hex	db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
-.right_hex	db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
-.expected_hex	db 'f68d6baa084effcf7222c3f72d9ae49c974ced4078afe384291b7966149ac12c'
+.left_hex	    db '0000000000000000000000000000000023e0715c2534cec45e6ac5894b97fccd'
+.right_hex	    db '000000000000000000000000000000006dce92970406d93ad874a75e73460deb'
+.expected_hex	db '0F63836A9E974E93A64D9962DE4654E2DC6ED62958AC31543527CE445369792F'
 
-.left_overflow_hex	db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
-.right_overflow_hex	db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
-.expected_overflow_hex	db 'f68d6baa084effcf7222c3f72d9ae49c974ced4078afe384291b7966149ac12c'
+.left_overflow_hex	    db 'cd6f06360fa5af8415f7a678ab45d8c1d435f8cf054b0f5902237e8cb9ee5fe5'
+.right_overflow_hex	    db '223d2bb3ad4647eb58fe9bbec7364ecaf8b3a977d6372d39805b3fc21efd0ffb'
+.expected_overflow_hex	db '42600ED6A43A52E08809F817874C39B92F1C80789177C8E985C82A4A2677EE57'

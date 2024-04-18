@@ -5,7 +5,7 @@ virtual at rsp
 .locals_start:
   BigInteger256 .left
   BigInteger256 .right
-  .result rb __BIG_INTEGER_BYTES_512
+  BigInteger512 .result
   .left_hex rq 1
   .right_hex rq 1
   .expected_hex rq 1
