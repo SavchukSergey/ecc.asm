@@ -1,4 +1,5 @@
 include 'div_rem/index.inc'
+include 'mod_div/index.inc'
 include 'mod_pow/index.inc'
 include 'mod_square/index.inc'
 include 'lzcnt/index.inc'
