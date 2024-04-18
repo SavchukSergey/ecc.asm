@@ -4,9 +4,9 @@ include '../euclid_ext/bi_euclid_ext_256.inc'
 
 ;Calculates modular inverse
 ;input:
-;  rcx - left value.
-;  rdx - modulus
-;  r8 - result
+;  rcx - bi256 value.
+;  rdx - bi256 modulus
+;  r8 - bi256 result
 bi_mod_inverse_256:
 virtual at rsp
 .locals_start:

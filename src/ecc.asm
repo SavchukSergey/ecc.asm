@@ -213,6 +213,8 @@ section '.edata' export data readable
 \
          bi_mod_mul_256_256, 'bi_mod_mul_256_256',\
 \
+         bi_mod_pow_256, 'bi_mod_pow_256' ,\
+\
          bi_mod_double_assign_256, 'bi_mod_double_assign_256',\
 \
          bi_mod_square_256, 'bi_mod_square_256' ,\
