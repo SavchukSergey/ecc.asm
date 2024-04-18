@@ -1,6 +1,6 @@
 if ~ definite bi_div_rem_256_256_guess
 
-include 'bi_div_rem_guess_64.inc'
+include 'macro/bi_div_rem_guess_64.inc'
 
 include '../copy/bi_copy_256.inc'
 include '../cmp/bi_cmp_256_256.inc'
@@ -36,17 +36,17 @@ virtual at rsp
   AlignLocalsStackFrame
   label .locals_end
 end virtual
-        DivRemGuess64_Prolog 256, 256
-        DivRemGuess64_DivisorLzcnt 256, 256
-        DivRemGuess64_DivisorSwitch 256, 256
-        DivRemGuess64_PrepareLoop 256, 256
-        DivRemGuess64_ShiftDivisor 256, 256
+	DivRemGuess64_Prolog 256, 256
+	DivRemGuess64_DivisorLzcnt 256, 256
+	DivRemGuess64_DivisorSwitch 256, 256
+	DivRemGuess64_PrepareLoop 256, 256
+	DivRemGuess64_ShiftDivisor 256, 256
 
-        DivRemGuess64_Loop 256, 256
+	DivRemGuess64_Loop 256, 256
 
 .end:
-        add     rsp, .locals_end - .locals_start
-        ret
-        DivRemGuess64_RecheckOnce 256, 256
+	add	rsp, .locals_end - .locals_start
+	ret
+	DivRemGuess64_RecheckOnce 256, 256
 
 end if

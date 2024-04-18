@@ -60,3 +60,20 @@ macro BigInteger512 name {
 macro BigInteger1024 name {
   name rb __BIG_INTEGER_BYTES_1024
 }
+
+macro BigInteger name, bits {
+  if bits = 128
+    BigInteger128 name
+  else if bits = 256
+    BigInteger256 name
+  else if bits = 512
+    BigInteger512 name
+  else
+    display 'unknown BigInteger '
+    display name
+    display ', '
+    DisplayDec bits
+    display 13, 10
+    err
+  end if
+}

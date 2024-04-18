@@ -6,7 +6,7 @@ macro Call_Shl bits {
   else if bits = 512
       call    bi_shl_512
   else
-      display 'unknown shl '
+      display 'unknown Call_Shl '
       DisplayDec bits
       display 13, 10
       err 
@@ -30,6 +30,21 @@ macro Call_ShlAssign bits {
       call    bi_shl_assign_512
   else
       display 'unknown shl assign '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_ShlAssignX1 bits {
+  if bits = 128
+      call    bi_shl_assign_128_1
+  else if bits = 256
+      call    bi_shl_assign_256_1
+  else if bits = 512
+      call    bi_shl_assign_512_1
+  else
+      display 'unknown Call_ShlAssignX1 '
       DisplayDec bits
       display 13, 10
       err 
@@ -93,6 +108,18 @@ macro Call_ExtendX128 bits {
   end if
 }
 
+macro Call_ExtendX256 bits {
+  if bits = 512
+      call    bi_extend_512_256
+  else
+      display 'unknown Call_ExtendX256 '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
+
 macro Call_ExtendAssign target_bits, source_bits {
   delta_bits = target_bits - source_bits
   if delta_bits = 256
@@ -107,6 +134,23 @@ macro Call_ExtendAssign target_bits, source_bits {
       err 
   end if
 }
+
+macro Call_Extend target_bits, source_bits {
+  delta_bits = target_bits - source_bits
+  if source_bits = 128
+    Call_ExtendX128 target_bits
+  else if source_bits = 256
+    Call_ExtendX256 target_bits
+  else
+      display 'unknown Call_Assign '
+      DisplayDec target_bits
+      display ', '
+      DisplayDec source_bits
+      display 13, 10
+      err 
+  end if
+}
+
 
 macro Call_IncAssign bits {
   if bits = 64
@@ -154,7 +198,7 @@ macro Call_Cmp bits {
   else if bits = 512
       call    bi_cmp_512_512
   else
-      display 'unknown cmp '
+      display 'unknown Call_Cmp '
       DisplayDec bits
       display 13, 10
       err 
@@ -550,3 +594,15 @@ macro Call_Rem dividend_bits, divisor_bits {
 }
 
 
+macro Call_BitSet bits {
+  if bits = 256
+        call    bi_bit_set_256
+  else if bits = 512
+        call    bi_bit_set_512
+  else
+    display 'unknown Call_BitSet '
+    DisplayDec bits
+    display 13, 10
+    err
+  end if
+}

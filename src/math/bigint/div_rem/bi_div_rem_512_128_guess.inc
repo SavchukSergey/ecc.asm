@@ -1,6 +1,6 @@
 if ~ definite bi_div_rem_512_128_guess
 
-include 'bi_div_rem_guess_64.inc'
+include 'macro/bi_div_rem_guess_64.inc'
 
 include '../add/bi_add_assign_448_448.inc'
 include '../add/bi_add_assign_512_512.inc'
@@ -40,18 +40,18 @@ virtual at rsp
   .correction rq 1
   label .locals_end
 end virtual
-        DivRemGuess64_Prolog 512, 128
-        DivRemGuess64_DivisorLzcnt 512, 128
-        DivRemGuess64_DivisorSwitch 512, 128
+	DivRemGuess64_Prolog 512, 128
+	DivRemGuess64_DivisorLzcnt 512, 128
+	DivRemGuess64_DivisorSwitch 512, 128
 
-        DivRemGuess64_PrepareLoop 512, 128
-        DivRemGuess64_ShiftDivisor 512, 128
+	DivRemGuess64_PrepareLoop 512, 128
+	DivRemGuess64_ShiftDivisor 512, 128
 
-        DivRemGuess64_Loop 512, 128
+	DivRemGuess64_Loop 512, 128
 
 .end:
-        add     rsp, .locals_end - .locals_start
-        ret
-        DivRemGuess64_RecheckOnce 512, 128
+	add	rsp, .locals_end - .locals_start
+	ret
+	DivRemGuess64_RecheckOnce 512, 128
 
 end if
