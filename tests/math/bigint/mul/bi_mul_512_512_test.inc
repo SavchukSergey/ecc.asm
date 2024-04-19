@@ -3,9 +3,9 @@ include '../src/math/bigint/mul/bi_mul_512_512.inc'
 __bi_mul_512_512_test_core:
 virtual at rsp
 .locals_start:
-  .left rb __BIG_INTEGER_BYTES_512
-  .right rb __BIG_INTEGER_BYTES_512
-  .result rb __BIG_INTEGER_BYTES_1024
+  BigInteger512 .left
+  BigInteger512 .right
+  BigInteger1024 .result
   .left_hex rq 1
   .right_hex rq 1
   .expected_hex rq 1
@@ -50,21 +50,20 @@ end virtual
 
 
 __bi_mul_512_512_test:
+        push    rbx
         lea     rbx, [__bi_mul_512_512_test_cases]
 
 .loop:
-        push    rbx
-
         lea     rcx, [rbx]
         lea     rdx, [rbx + 128]
         lea     r8, [rbx + 256]
         call    __bi_mul_512_512_test_core
 
-        pop     rbx
         add     rbx, 128 + 128 + 256
         cmp     rbx, __bi_mul_512_512_test_cases.end
         jb      .loop
 
+        pop     rbx
         ret
 
 align 16

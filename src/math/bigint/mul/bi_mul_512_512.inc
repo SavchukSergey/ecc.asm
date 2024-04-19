@@ -8,13 +8,13 @@ include 'bi_mul_256_256.inc'
 
 ;Multiplies two bi512 values
 ;input
-; rcx - left value
-; rdx - right value
-; r8 - result value
+; rcx - pointer to left bi512 value
+; rdx - pointer to right bi512 value
+; r8 - pointer to result bi1024 value
 bi_mul_512_512:
 virtual at rsp
 .locals_start:
-  .temp rb __BIG_INTEGER_BYTES_512
+  BigInteger512 .temp
   .left rq 1
   .right rq 1
   .result rq 1
