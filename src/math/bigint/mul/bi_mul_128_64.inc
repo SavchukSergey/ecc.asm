@@ -1,55 +1,55 @@
 if ~ definite bi_mul_128_64
 
-include '../add/bi_add_assign_128_128.inc'
-include '../mul/bi_mul_64_64.inc'
-include '../zero/bi_zero_256.inc'
-
 ;Multiplies bi128 by u64
 ;input
-;  rcx - left bi128 value
+;  rcx - pointer to left bi128 value
 ;  rdx - right u64 value
-;  r8 - result bi256 value
-bi_mul_128_64:
-virtual at rsp
-.locals_start:
-  BigInteger128 .z0
-  .left rq 1
-  .right rq 1
-  .result rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
-
-    PrologCheckStackAligned 'bi_mul_128_64'
+;  r8 - pointer result bi256 value
+bi_mul_128_64_basic:
     CheckRegAligned rcx, 'bi_mul_128_64 rcx'
     CheckRegAligned r8, 'bi_mul_128_64 r8'
+        mov     r9, rdx
 
-        mov     [.left], rcx
-        mov     [.right], rdx
-        mov     [.result], r8
+        mov     rax, [rcx + 0]
+        mul     r9
+        mov     [r8 + 0], rax
+        mov     [r8 + 8], rdx
 
-        mov     rcx, [.result]
-        call    bi_zero_256
+        mov     rax, [rcx + 8]
+        mul     r9
+        add     [r8 + 8], rax
+        mov     [r8 + 16], rdx
 
-        mov     rcx, [.left]
-        mov     rcx, [rcx + 0]
-        mov     rdx, [.right]
-        mov     r8, [.result]
-        call    bi_mul_64_64
+        adc     qword [r8 + 16], 0
+        mov     qword [r8 + 24], 0
 
-        mov     rcx, [.left]
-        mov     rcx, [rcx + 8]
-        mov     rdx, [.right]
-        lea     r8, [.z0]
-        call    bi_mul_64_64
-
-;result will never exceed 192 so it is safe to use 128-bit addition here
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128 / 2
-        lea     rdx, [.z0]
-        call    bi_add_assign_128_128
-
-        add     rsp, .locals_end - .locals_start
         ret
+
+
+bi_mul_128_64_bmi2:
+    CheckRegAligned rcx, 'bi_mul_128_64 rcx'
+    CheckRegAligned r8, 'bi_mul_128_64 r8'
+        mov     rax, [rcx + 0]
+        mulx    r9, rax, rax
+        mov     [r8 + 0], rax
+        mov     [r8 + 8], r9
+
+        mov     rax, [rcx + 8]
+        mulx    r9, rax, rax
+        add     [r8 + 8], rax
+        mov     [r8 + 16], r9
+
+        adc     qword [r8 + 16], 0
+        mov     qword [r8 + 24], 0
+
+        ret
+
+
+if BMI2_ENABLED = 1
+  bi_mul_128_64 = bi_mul_128_64_bmi2
+else
+  bi_mul_128_64 = bi_mul_128_64_basic
 end if
+
+end if
+

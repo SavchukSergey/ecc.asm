@@ -10,6 +10,17 @@ include 'bi_square_128.inc'
 ; rcx - pointer to bi256 value
 ; rdx - pointer to bi512 result
 bi_square_256:
+;todo: this can be optimized
+        mov     r8, rdx
+        mov     rdx, rcx
+        call    bi_mul_256_256
+        ret
+
+;Squares bi256 value
+;input
+; rcx - pointer to bi256 value
+; rdx - pointer to bi512 result
+bi_square_256__raw:
 virtual at rsp
 .locals_start:
   BigInteger256 .temp

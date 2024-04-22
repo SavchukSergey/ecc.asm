@@ -5,6 +5,8 @@ include '../add/bi_add_assign_192_128.inc'
 include '../add/bi_add_assign_256_256.inc'
 include 'bi_mul_64_64.inc'
 
+;todo: inline 64x64 multiplications or 128x64 multiplications
+
 ;Multiplies two bi128 values
 ;input
 ; rcx - pointer to left bi128 value

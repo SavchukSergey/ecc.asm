@@ -8,10 +8,17 @@ if ~ definite bi_mul_64_64
 bi_mul_64_64:
     CheckRegAligned r8, 'bi_mul_64_64 r8'
 
+    if BMI2_ENABLED
+        mulx    rdx, rax, rcx
+        mov     [r8], rax
+        mov     [r8 + 8], rdx
+    else
         mov     rax, rcx
         mul     rdx
         mov     [r8], rax
         mov     [r8 + 8], rdx
-
+    end if
         ret
+
+
 end if

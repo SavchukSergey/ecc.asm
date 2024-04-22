@@ -10,7 +10,7 @@ include 'bi_mul_128_128.inc'
 ; rcx - left value
 ; rdx - right value
 ; r8 - result value
-bi_mul_256_256:
+bi_mul_256_256____128_128:
 virtual at rsp
 .locals_start:
   BigInteger256 .temp
@@ -79,4 +79,81 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
+
+
+;Multiplies bi256 value by bi256 value
+;input
+;  rcx - left bi256 value
+;  rdx - right bi256 value
+;  r8 - result bi512 value
+bi_mul_256_256____256_64:
+virtual at rsp
+.locals_start:
+  BigInteger512 .temp
+  .left rq 1
+  .right rq 1
+  .result rq 1
+  AlignLocalsStackFrame
+.locals_end:
+end virtual
+        sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned 'bi_mul_256_128'
+    CheckRegAligned rcx, 'bi_mul_256_128 rcx'
+    CheckRegAligned rdx, 'bi_mul_256_128 rdx'
+    CheckRegAligned r8, 'bi_mul_256_128 r8'
+
+        mov     [.left], rcx
+        mov     [.right], rdx
+        mov     [.result], r8
+
+        mov     rcx, [.left]
+        mov     rdx, [.right]
+        mov     rdx, [rdx]
+        mov     r8, [.result]
+        call    bi_mul_256_64
+
+
+
+        mov     rcx, [.left]
+        mov     rdx, [.right]
+        mov     rdx, [rdx + 8]
+        lea     r8, [.temp]
+        call    bi_mul_256_64
+
+        mov     rcx, [.result]
+        add     rcx, 8
+        lea     rdx, [.temp]
+        call    bi_add_assign_320_256
+
+
+        mov     rcx, [.left]
+        mov     rdx, [.right]
+        mov     rdx, [rdx + 16]
+        lea     r8, [.temp]
+        call    bi_mul_256_64
+
+        mov     rcx, [.result]
+        add     rcx, 16
+        lea     rdx, [.temp]
+        call    bi_add_assign_320_256
+
+
+
+        mov     rcx, [.left]
+        mov     rdx, [.right]
+        mov     rdx, [rdx + 24]
+        lea     r8, [.temp]
+        call    bi_mul_256_64
+
+        mov     rcx, [.result]
+        add     rcx, 24
+        lea     rdx, [.temp]
+        call    bi_add_assign_320_256
+
+        add     rsp, .locals_end - .locals_start
+        ret
+
+bi_mul_256_256 = bi_mul_256_256____256_64
+
 end if
