@@ -27,11 +27,11 @@ virtual at rsp
   .divisor_lzcnt rq 1
   .remainder_lzcnt rq 1
   
-  .divisor_shifted rb __BIG_INTEGER_BYTES_256
-  .remainder_shifted rb __BIG_INTEGER_BYTES_256
+  BigInteger256 .divisor_shifted
+  BigInteger256 .remainder_shifted
 
-  .guess_128 rb __BIG_INTEGER_BYTES_128
-  .delta rb __BIG_INTEGER_BYTES_256
+  BigInteger128 .guess_128
+  BigInteger256 .delta
   .correction rq 1
   AlignLocalsStackFrame
   label .locals_end

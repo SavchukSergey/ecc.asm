@@ -34,7 +34,7 @@ virtual at rsp
   .remainder_lzcnt rq 1
   .remainder_shifted rb __BIG_INTEGER_BYTES_512
 
-  .guess_128 rb __BIG_INTEGER_BYTES_128
+  BigInteger128 .guess_128
   .delta rb __BIG_INTEGER_BYTES_512
   .guess_q rb __BIG_INTEGER_BYTES_512
   .correction rq 1

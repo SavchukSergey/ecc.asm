@@ -55,7 +55,13 @@ test_output_start_chapter_table:
 
     ret
 .msg db \
-'<table class="table">', 13, 10, \
+'<table class="table table-striped table-hover">', 13, 10, \
+'  <colgroup>', 13, 10, \
+'    <col />', 13, 10, \
+'    <col style="width: 128px" />', 13, 10, \
+'    <col style="width: 192px" />', 13, 10, \
+'    <col style="width: 192px" />', 13, 10, \
+'  </colgroup>', 13, 10, \
 '  <thead>', 13, 10, \
 '    <tr>', 13, 10, \
 '      <th scope="col">', 13, 10, \

@@ -10,60 +10,30 @@ include 'bi_square_64.inc'
 ; rcx - pointer to bi128 value
 ; rdx - pointer to bi256 result
 bi_square_128:
-virtual at rsp
-.locals_start:
-  BigInteger128 .temp
-  .value rq 1
-  .result rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
+        mov     r8, rdx
 
-        PrologCheckStackAligned 'bi_square_128'
-        CheckRegAligned rcx, 'bi_square_128 rcx'
-        CheckRegAligned rdx, 'bi_square_128 rdx'
+        mov     rax, [rcx + 0]
+        mul     qword [rcx + 0]
+        mov     [r8 + 0], rax
+        mov     [r8 + 8], rdx
+        
+        mov     qword [r8 + 16], 0
+        mov     qword [r8 + 24], 0
 
-        mov     [.value], rcx
-        mov     [.result], rdx
+        mov     rax, [rcx + 0]
+        mul     qword [rcx + 8]
+        add     [r8 + 8], rax
+        adc     [r8 + 16], rdx
+        adc     qword [r8 + 24], 0
+        add     [r8 + 8], rax
+        adc     [r8 + 16], rdx
+        adc     qword [r8 + 24], 0
 
-        mov     rcx, [.result]
-        call    bi_zero_256
+        mov     rax, [rcx + 8]
+        mul     qword [rcx + 8]
+        add     [r8 + 16], rax
+        adc     [r8 + 24], rdx
 
-; low * low (128 bit)
-        mov     rcx, [.value]
-        mov     rcx, [rcx]
-        mov     rdx, [.result]
-        call    bi_square_64
-
-; low * high (128 bit)
-        mov     rax, [.value]
-        mov     rcx, [rax]
-        mov     rdx, [rax + __BIG_INTEGER_BYTES_128 / 2]
-        lea     r8, [.temp]
-        call    bi_mul_64_64
-
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128 / 2
-        lea     rdx, [.temp]
-        call    bi_add_assign_192_128
-
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128 / 2
-        lea     rdx, [.temp]
-        call    bi_add_assign_192_128
-
-; high * high (128 bit)
-        mov     rcx, [.value]
-        mov     rcx, [rcx + 8]
-        lea     rdx, [.temp]
-        call    bi_square_64
-
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        lea     rdx, [.temp]
-        call    bi_add_assign_128_128
-
-        add     rsp, .locals_end - .locals_start
         ret
+
 end if
