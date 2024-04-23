@@ -6,7 +6,8 @@ end if
 
 include '../../macro/call.inc'
 
-
+;todo: when approaching to divisorLZC switch to compare-and-subtract strategy
+;todo: bi_exract_128_bits(remainderLZC) to get remainder first 128-bit meaningful bits
 
 macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {
   if definite BI_DEV_REM_GUESS_64_DEBUG
@@ -164,6 +165,8 @@ macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
     
     DIV_REM_GUESS_QUOTIENT_SIZE = dividend_bits
     DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE = (dividend_bits - DIV_REM_GUESS_MIN_DIVISOR_SIZE)
+    DIV_REM_GUESS_REMAINDER_SIZE = dividend_bits
+    DIV_REM_GUESS_REMAINDER_ACTUAL_SIZE = divisor_bits
 }
 
 macro DivRemGuess64_PrepareLoop dividend_bits, divisor_bits {
@@ -345,7 +348,7 @@ macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
         Call_IncAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
-        Call_SubAssign divisor_bits
+        Call_SubAssign DIV_REM_GUESS_REMAINDER_ACTUAL_SIZE, divisor_bits
         jmp     .end
 }
 
@@ -358,7 +361,7 @@ macro RemGuess64_RecheckOnce dividend_bits, divisor_bits {
         jb      .end
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
-        Call_SubAssign divisor_bits
+        Call_SubAssign DIV_REM_GUESS_REMAINDER_ACTUAL_SIZE, divisor_bits
         jmp     .end
 }
 

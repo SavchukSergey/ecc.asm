@@ -225,17 +225,19 @@ __bi_tests_512:
         dq __bi_mul_512_512_test
         db 'bi_mul_512_512', 0
 
+        dq __bi_mul_low_512_64_test
+	db 'bi_mul_low_512_64', 0
         dq __bi_mul_low_512_512_test
 	db 'bi_mul_low_512_512', 0
 
         dq __bi_div_rem_512_64_test
         db 'bi_div_rem_512_64', 0
-
         dq __bi_div_rem_512_128_test
         db 'bi_div_rem_512_128', 0
-
         dq __bi_div_rem_512_256_test
         db 'bi_div_rem_512_256', 0
+        dq __bi_div_rem_512_512_test
+        db 'bi_div_rem_512_512', 0
 
         dq __bi_rem_512_64_test
         db 'bi_rem_512_64', 0

@@ -3,7 +3,10 @@ if ~ definite bi_div_rem_guess_debug
 bi_div_rem_guess_debug:
 
 macro DisplayDec value {
-  if value > 100
+  if value > 1000
+    display '0' + (value / 1000)
+    DisplayDec value mod 1000
+  else if value > 100
     display '0' + (value / 100)
     display '0' + (value mod 100) / 10
     display '0' + (value mod 10)

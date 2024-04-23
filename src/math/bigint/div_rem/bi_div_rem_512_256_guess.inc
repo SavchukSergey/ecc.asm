@@ -32,12 +32,12 @@ virtual at rsp
   .divisor_lzcnt rq 1
   .remainder_lzcnt rq 1
 
-  .divisor_shifted rb __BIG_INTEGER_BYTES_256
-  .remainder_shifted rb __BIG_INTEGER_BYTES_512
+  BigInteger256 .divisor_shifted
+  BigInteger512 .remainder_shifted
 
-  .guess_128 rb __BIG_INTEGER_BYTES_128
-  .delta rb __BIG_INTEGER_BYTES_512
-  .guess_q rb __BIG_INTEGER_BYTES_512
+  BigInteger128 .guess_128
+  BigInteger512 .delta
+  BigInteger512 .guess_q
   .correction rq 1
   label .locals_end
 end virtual

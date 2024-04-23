@@ -272,8 +272,10 @@ macro Call_SubAssign left_bits, right_bits {
 ;      call    bi_sub_assign_512_512
       Call_SubAssign512X right_bits
   else
-      display 'unknown sub_assign '
+      display 'unknown Call_SubAssign '
       DisplayDec left_bits
+      display ', '
+      DisplayDec right_bits
       display 13, 10
       err 
   end if
@@ -354,6 +356,8 @@ macro Call_AddAssign448X right_bits {
 macro Call_AddAssign512X right_bits {
   if right_bits = 256
       call    bi_add_assign_512_256
+  else if right_bits = 512
+      call    bi_add_assign_512_512
   else
       display 'unknown Call_AddAssign512X '
       DisplayDec right_bits
