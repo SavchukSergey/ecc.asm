@@ -1,5 +1,7 @@
 if ~ definite bi_mont_ctx_256_init
 
+include 'bi_mont_ctx_256.inc';
+
 bi_mont_ctx_256_init:
 virtual at rsp
   label .locals_start

@@ -1,4 +1,4 @@
-if ~ definite bi_mod_mul_256_256_bits
+if ~ definite bi_mod_pow_256
 
 include '../one/bi_one_256.inc'
 include '../copy/bi_copy_256.inc'

@@ -3,6 +3,8 @@ if ~ definite bi_div_rem_512_512_guess
 include 'macro/bi_div_rem_guess_64.inc'
 
 include '../extend_low/bi_extend_256_128.inc'
+include '../div_rem/bi_div_rem_512_128.inc'
+include '../div_rem/bi_div_rem_512_256.inc'
 
 bi_div_rem_512_512_guess:
     DivRemGuess64_Prepare 512, 512

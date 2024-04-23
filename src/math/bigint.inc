@@ -28,19 +28,6 @@ BigIntegerCode 512
 BigIntegerCode 1024
 
 
-struc BezoutIdentity256 {
-  .a rb __BIG_INTEGER_BYTES_256
-  .b rb __BIG_INTEGER_BYTES_256
-  .x rb __BIG_INTEGER_BYTES_256
-  .y rb __BIG_INTEGER_BYTES_256
-}
-
-BezoutIdentity256.sizeof = 4 * __BIG_INTEGER_BYTES_256
-
-virtual at 0
-  BezoutIdentity256 BezoutIdentity256
-end virtual
-
 ;todo: replace __BIG_INTEGER_BYTES_128 with BigInteger128
 macro BigInteger128 name {
   name rb __BIG_INTEGER_BYTES_128
@@ -77,3 +64,16 @@ macro BigInteger name, bits {
     err
   end if
 }
+
+struc BezoutIdentity256 {
+  BigInteger256 .a
+  BigInteger256 .b
+  BigInteger256 .x
+  BigInteger256 .y
+}
+
+BezoutIdentity256.sizeof = 4 * __BIG_INTEGER_BYTES_256
+
+virtual at 0
+  BezoutIdentity256 BezoutIdentity256
+end virtual
