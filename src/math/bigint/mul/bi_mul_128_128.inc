@@ -92,30 +92,34 @@ end virtual
 bi_mul_128_128:
         mov     r9, rdx
 
-        mov     rax, [rcx + 0]
-        mul     qword [r9 + 0]
+        xor     rax, rax                ;CF = 0, OF = 0
+
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, qword [r9 + 0]
         mov     [r8 + 0], rax
         mov     [r8 + 8], rdx
 
-        mov     rax, [rcx + 0]
-        mul     qword [r9 + 8]
-        add     [r8 + 8], rax
-        adc     rdx, 0
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, qword [r9 + 8]
+        adcx    rax, [r8 + 8]            ;CF = carry for [r8 + 16]
+        mov     [r8 + 8], rax
         mov     [r8 + 16], rdx
-        setc    dl
-        movzx   rdx, dl
-        mov     qword [r8 + 24], rdx
 
-        mov     rax, [rcx + 8]
-        mul     qword [r9 + 0]
-        add     [r8 + 8], rax
-        adc     [r8 + 16], rdx
-        adc     qword [r8 + 24], 0
+        mov     rdx, [rcx + 8]
+        mulx    rdx, rax, qword [r9 + 0]
+        adox    rax, [r8 + 8]            ;OF = carry for [r8 + 16]
+        mov     [r8 + 8], rax
+        adcx    rdx, [r8 + 16]           ;CF = carry for [r8 + 24]
+        mov     [r8 + 16], rdx
 
-        mov     rax, [rcx + 8]
-        mul     qword [r9 + 8]
-        add     [r8 + 16], rax
-        adc     [r8 + 24], rdx
+        mov     rdx, [rcx + 8]
+        mulx    rdx, rax, qword [r9 + 8]
+        adox    rax, [r8 + 16]           ;OF = carry for [r8 + 24]
+        mov     [r8 + 16], rax
+        mov     rax, 0
+        adox    rdx, rax
+        adcx    rdx, rax
+        mov     [r8 + 24], rdx
 
         ret
 

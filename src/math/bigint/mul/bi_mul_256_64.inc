@@ -6,9 +6,9 @@ include '../add/bi_add_assign_128_128.inc'
 
 ;Multiplies bi256 by u64
 ;input
-; rcx - left bi256 value
+; rcx - pointer to left bi256 value
 ; rdx - right u64 value
-; r8 - result bi512 value
+; r8 - pointer to result bi512 value
 bi_mul_256_64_basic:
 virtual at rsp
 .locals_start:
@@ -21,9 +21,9 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned 'bi_mul_256_64'
-    CheckRegAligned rcx, 'bi_mul_256_64 rcx'
-    CheckRegAligned r8, 'bi_mul_256_64 r8'
+    PrologCheckStackAligned 'bi_mul_256_64_basic'
+    CheckRegAligned rcx, 'bi_mul_256_64_basic rcx'
+    CheckRegAligned r8, 'bi_mul_256_64_basic r8'
 
         mov     [.left], rcx
         mov     [.right], rdx

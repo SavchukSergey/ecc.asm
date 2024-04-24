@@ -37,9 +37,9 @@ bi_mul_128_64_bmi2:
         mov     rax, [rcx + 8]
         mulx    r9, rax, rax
         add     [r8 + 8], rax
+        adc     r9, 0
         mov     [r8 + 16], r9
 
-        adc     qword [r8 + 16], 0
         mov     qword [r8 + 24], 0
 
         ret

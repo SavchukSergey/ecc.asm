@@ -9,7 +9,7 @@ include 'bi_square_64.inc'
 ;input
 ; rcx - pointer to bi128 value
 ; rdx - pointer to bi256 result
-bi_square_128:
+bi_square_128_basic:
         mov     r8, rdx
 
         mov     rax, [rcx + 0]
@@ -35,5 +35,44 @@ bi_square_128:
         adc     [r8 + 24], rdx
 
         ret
+
+;Multiplies bi128 value by bi128 value
+;input
+;  rcx - left bi128 value
+;  rdx - result bi256 value
+bi_square_128_bmi2:
+        mov     r8, rdx
+
+        xor     rax, rax                ;CF = 0, OF = 0
+
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, rdx
+        mov     [r8 + 0], rax
+        mov     [r8 + 8], rdx
+
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, qword [rcx + 8]
+        adcx    rax, rax                 ;use adcx to keep OF 
+        adcx    rdx, rdx                 ;CF = carry for [r8 + 16]
+        adox    rax, [r8 + 8]            ;OF = carry for [r8 + 16]
+        mov     [r8 + 8], rax
+        mov     [r8 + 16], rdx
+
+        mov     rdx, [rcx + 8]
+        mulx    rdx, rax, rdx
+        adcx    rax, [r8 + 16]           ;CF = carry for [r8 + 24]
+        mov     [r8 + 16], rax
+        mov     rax, 0
+        adcx    rdx, rax
+        adox    rdx, rax
+        mov     [r8 + 24], rdx
+
+        ret
+
+if BMI2_ENABLED = 1
+  bi_square_128 = bi_square_128_bmi2
+else
+  bi_square_128 = bi_square_128_basic
+end if
 
 end if

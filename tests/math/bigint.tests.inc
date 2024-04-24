@@ -220,6 +220,8 @@ __bi_tests_512:
         dq __bi_shr_assign_512_test
         db 'bi_shr_assign_512', 0
 
+        dq __bi_mul_512_64_test
+        db 'bi_mul_512_64', 0
         dq __bi_mul_512_256_test
         db 'bi_mul_512_256', 0
         dq __bi_mul_512_512_test

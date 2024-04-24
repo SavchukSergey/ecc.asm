@@ -34,6 +34,7 @@ bi_shr_assign_256_128_avx:
         ret
 
 
+;vzeroupper 
 if AVX_ENABLED = 1
   bi_shr_assign_256_128 = bi_shr_assign_256_128_avx
 else
