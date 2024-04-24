@@ -113,7 +113,7 @@ bi_mul_256_64_bmi2:
 
         mov     rdx, [r9 + 24]
         mulx    rdx, rax, rcx
-        adcx    rax, [r8 + 24]       ; CF = carry for [result + 24]
+        adcx    rax, [r8 + 24]       ; CF = carry for [result + 32]
         mov     [r8 + 24], rax
         adc     rdx, 0
         mov     [r8 + 32], rdx
