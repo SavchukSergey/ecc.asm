@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "Build",
             "type": "process",
             "command": "${env:FASM_PATH}/fasm.exe",
             "args": [
@@ -23,7 +23,7 @@
             }
         },
         {
-            "label": "echo",
+            "label": "Build Tests",
             "type": "process",
             "command": "${env:FASM_PATH}/fasm.exe",
             "args": [
