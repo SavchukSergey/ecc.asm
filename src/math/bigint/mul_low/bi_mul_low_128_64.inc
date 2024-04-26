@@ -9,31 +9,16 @@ include 'bi_mul_low_64_64.inc'
 ; rdx - right bi64 value
 ; r8 - result value (low 128 bits)
 bi_mul_low_128_64:
-virtual at rsp
-.locals_start:
-  .left rq 1
-  .right rq 1
-  .result rq 1
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
-        mov     [.left], rcx
-        mov     [.right], rdx
-        mov     [.result], r8
+        mov     r9, rdx
 
-        mov     rcx, [.left]
-        mov     rcx, [rcx + 0]
-        mov     rdx, [.right]
-        mov     r8, [.result]
-        call    bi_mul_64_64
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, r9
+        mov     [r8 + 0], rax
+        mov     [r8 + 8], rdx
 
-        mov     rcx, [.left]
-        mov     rcx, [rcx + 8]
-        mov     rdx, [.right]
-        call    bi_mul_low_64_64
-        mov     r8, [.result]
+        mov     rdx, [rcx + 8]
+        mulx    rdx, rax, r9
         add     [r8 + 8], rax
 
-        add     rsp, .locals_end - .locals_start
         ret
 end if

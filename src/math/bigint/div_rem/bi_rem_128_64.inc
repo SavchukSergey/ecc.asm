@@ -7,19 +7,15 @@ if ~ definite bi_rem_128_64
 ;   r8 - pointer to bi128 remainder (actual result will be u64)
 bi_rem_128_64:
     CheckRegAligned rcx, 'bi_rem_128_64 rcx'
-
-        push    rbx
-
-        mov     rbx, rdx
+        mov     r9, rdx
 
         mov     rdx, [rcx + 8]
         mov     rax, [rcx + 0]
-        div     rbx
+        div     r9
         ;rdx - remainder, rax - quotient
 
         mov     qword [r8 + 0], rdx
         mov     qword [r8 + 8], 0
 
-        pop     rbx
         ret
 end if

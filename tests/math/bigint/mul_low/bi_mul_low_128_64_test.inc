@@ -1,6 +1,6 @@
-include '../src/math/bigint/mul_low/bi_mul_low_128_128.inc'
+include '../src/math/bigint/mul_low/bi_mul_low_128_64.inc'
 
-__bi_mul_low_128_128_test_core:
+__bi_mul_low_128_64_test_core:
 virtual at rsp
 .locals_start:
   BigInteger128 .left
@@ -14,10 +14,10 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned '__bi_mul_low_128_128_test_core'
-    CheckRegAligned rcx, '__bi_mul_low_128_128_test_core rcx'
-    CheckRegAligned rdx, '__bi_mul_low_128_128_test_core rdx'
-    CheckRegAligned r8, '__bi_mul_low_128_128_test_core r8'
+    PrologCheckStackAligned '__bi_mul_low_128_64_test_core'
+    CheckRegAligned rcx, '__bi_mul_low_128_64_test_core rcx'
+    CheckRegAligned rdx, '__bi_mul_low_128_64_test_core rdx'
+    CheckRegAligned r8, '__bi_mul_low_128_64_test_core r8'
 
         mov     [.left_hex], rcx
         mov     [.right_hex], rdx
@@ -34,9 +34,9 @@ end virtual
         call    test_context_start_measure
 .chunk_loop:
         lea     rcx, [.left]
-        lea     rdx, [.right]
+        mov     rdx, qword [.right + 0]
         lea     r8, [.result]
-        call    bi_mul_low_128_128
+        call    bi_mul_low_128_64
         call    test_context_measure_dec_chunk
         jnz     .chunk_loop
         call    test_context_end_measure
@@ -48,29 +48,29 @@ end virtual
         add     rsp, .locals_end - .locals_start
         ret
 
-__bi_mul_low_128_128_test:
+__bi_mul_low_128_64_test:
         push    rbx
-        mov     rbx, __bi_mul_low_128_128_test_cases
+        mov     rbx, __bi_mul_low_128_64_test_cases
 .loop:
         lea     rcx, [rbx + 0]
         lea     rdx, [rbx + 32]
         lea     r8, [rbx + 64]
-        call    __bi_mul_low_128_128_test_core
+        call    __bi_mul_low_128_64_test_core
 
         add     rbx, 32 + 32 + 32
-        cmp     rbx, __bi_mul_low_128_128_test_cases.end
+        cmp     rbx, __bi_mul_low_128_64_test_cases.end
         jb      .loop
 
         pop     rbx
         ret
 
 align 16
-__bi_mul_low_128_128_test_cases:
+__bi_mul_low_128_64_test_cases:
   db '23e0715c2534cec45e6ac5894b97fccd'
-  db '6dce92970406d93ad874a75e73460deb'
-  db 'DC6ED62958AC31543527CE445369792F'
+  db '0000000000000000d874a75e73460deb'
+  db '359D878C422525E23527CE445369792F'
 
   db 'ffffffffffffffffffffffffffffffff'
-  db 'ffffffffffffffffffffffffffffffff'
-  db '00000000000000000000000000000001'
+  db '0000000000000000ffffffffffffffff'
+  db 'FFFFFFFFFFFFFFFF0000000000000001'
 .end:

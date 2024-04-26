@@ -1,3 +1,4 @@
+include 'bi_mul_low_128_64_test.inc'
 include 'bi_mul_low_128_128_test.inc'
 include 'bi_mul_low_256_64_test.inc'
 include 'bi_mul_low_256_128_test.inc'

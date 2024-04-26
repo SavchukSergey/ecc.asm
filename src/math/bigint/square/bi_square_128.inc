@@ -43,7 +43,7 @@ bi_square_128_basic:
 bi_square_128_bmi2:
         mov     r8, rdx
 
-        xor     rax, rax                ;CF = 0, OF = 0
+        xor     r9, r9                ;CF = 0, OF = 0, r9 = 0
 
         mov     rdx, [rcx + 0]
         mulx    rdx, rax, rdx
@@ -53,18 +53,17 @@ bi_square_128_bmi2:
         mov     rdx, [rcx + 0]
         mulx    rdx, rax, qword [rcx + 8]
         adcx    rax, rax                 ;use adcx to keep OF 
-        adcx    rdx, rdx                 ;CF = carry for [r8 + 16]
+        adcx    rdx, rdx                 ;CF = carry for [r8 + 24]
         adox    rax, [r8 + 8]            ;OF = carry for [r8 + 16]
         mov     [r8 + 8], rax
         mov     [r8 + 16], rdx
 
         mov     rdx, [rcx + 8]
         mulx    rdx, rax, rdx
-        adcx    rax, [r8 + 16]           ;CF = carry for [r8 + 24]
+        adox    rax, [r8 + 16]           ;CF = carry for [r8 + 24]
         mov     [r8 + 16], rax
-        mov     rax, 0
-        adcx    rdx, rax
-        adox    rdx, rax
+        adcx    rdx, r9
+        adox    rdx, r9
         mov     [r8 + 24], rdx
 
         ret

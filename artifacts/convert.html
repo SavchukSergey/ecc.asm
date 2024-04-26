@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Convert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <style>
+    pre {
+      white-space: pre-wrap;
+      border: solid 1px red;
+      padding: 8px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body data-bs-theme="dark">
+  <div class="container">
+    <form>
+      <div class="mb-3">
+        <label for="source-hex" class="form-label">Source HEX</label>
+        <input type="text" class="form-control" id="source-hex">
+      </div>
+      <pre id="target-bytes"></pre>
+    </form>
+  </div>
+
+  <script>
+    function convert(val) {
+      val = val.trim();
+      if (val.startsWith('db')) {
+        val = val.substring(2);
+      }
+      val = val.trim();
+      if (val.startsWith('\'')) {
+        val = val.substring(1);
+      }
+      if (val.endsWith('\'')) {
+        val = val.substring(0, val.length - 1);
+      }
+      val = val.trim();
+      //db 'ba42240ffb037f1a4c64905998460012cdf5f2e685baf6578d8eb71c34f932f81874bb356c05027886d076a3b80bad4d8122481d2b79b2135f4381e8326893e8'
+      let res = `  ; db '${val}'\r\n  dq `;
+      for (var i = val.length - 8; i >= 0; i -= 8) {
+        res += '0x';
+        res += val.charAt(i + 0);
+        res += val.charAt(i + 1);
+        res += val.charAt(i + 2);
+        res += val.charAt(i + 3);
+        res += val.charAt(i + 4);
+        res += val.charAt(i + 5);
+        res += val.charAt(i + 6);
+        res += val.charAt(i + 7);
+        if (i) {
+          res += ', ';
+        }
+      }
+      return res;
+    }
+
+    const sourceHexNode = document.getElementById('source-hex');
+    const targetBytesNode = document.getElementById('target-bytes');
+
+    sourceHexNode.addEventListener('input', () => {
+      targetBytesNode.innerText = convert(sourceHexNode.value);
+    });
+  </script>
+</body>
+
+</html>
