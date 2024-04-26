@@ -6,8 +6,8 @@ include '../cmp/bi_cmp_256_256.inc'
 
 ;Doubles bi256 value
 ;input:
-;  rcx - left value. The modified value
-;  rdx - modulus
+;  rcx - pointer to left bi256 value. The modified value
+;  rdx - pointer to bi256 modulus
 bi_mod_double_assign_256:
         call    bi_shl_assign_256_1
         jc      .fix

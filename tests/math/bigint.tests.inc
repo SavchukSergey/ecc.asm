@@ -164,6 +164,8 @@ __bi_tests_256:
 
         dq __bi_mod_add_assign_256_256_test
         db 'bi_mod_add_assign_256_256', 0
+        dq __bi_mod_tripple_assign_256_test
+        db 'bi_mod_tripple_assign_256', 0
         dq __bi_mod_sub_assign_256_256_test
         db 'bi_mod_sub_assign_256_256', 0
         dq __bi_mod_mul_256_256_test

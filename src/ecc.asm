@@ -212,6 +212,8 @@ section '.edata' export data readable
 \
          bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256',\
 \
+         bi_mod_tripple_assign_256, 'bi_mod_tripple_assign_256',\
+\
          bi_mod_mul_256_256, 'bi_mod_mul_256_256',\
          bi_mont_ctx_256_init, 'bi_mont_ctx_256_init',\
 \

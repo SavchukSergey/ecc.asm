@@ -8,9 +8,9 @@ virtual at rsp
   .right_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1
-  .left rb __BIG_INTEGER_BYTES_256
-  .right rb __BIG_INTEGER_BYTES_256
-  .modulus rb __BIG_INTEGER_BYTES_256
+  BigInteger256 .left
+  BigInteger256 .right
+  BigInteger256 .modulus
   AlignLocalsStackFrame
 .locals_end:
 end virtual
