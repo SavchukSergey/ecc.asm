@@ -7,6 +7,7 @@ include '../config.inc'
 ;  rcx - pointer to result
 ;output
 ;  rax - 1 if value is zero, 0 otherwise
+;  ZF = 1 if value is zero, 0 otherwise
 bi_is_zero_256_basic:
     CheckRegAligned rcx, 'bi_is_zero_256_basic rcx'
 
@@ -19,6 +20,12 @@ bi_is_zero_256_basic:
         movzx   rax, al
         ret
 
+;Checks if bi256 value is zero
+;input
+;  rcx - pointer to result
+;output
+;  rax - 1 if value is zero, 0 otherwise
+;  ZF = 1 if value is zero, 0 otherwise
 bi_is_zero_256_avx2:
     CheckRegAligned rcx, 'bi_is_zero_256_avx2 rcx'
 

@@ -30,6 +30,7 @@ include 'math/bigint/bit_set/index.inc'
 include 'math/bigint/bit_check/index.inc'
 include 'math/bigint/euclid_ext/index.inc'
 include 'math/bigint/index.inc'
+include 'math/ecc/index.inc'
 include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
@@ -212,7 +213,9 @@ section '.edata' export data readable
 \
          bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256',\
 \
+         bi_mod_double_assign_256, 'bi_mod_double_assign_256',\
          bi_mod_tripple_assign_256, 'bi_mod_tripple_assign_256',\
+         bi_mod_half_assign_256, 'bi_mod_half_assign_256',\
 \
          bi_mod_mul_256_256, 'bi_mod_mul_256_256',\
          bi_mont_ctx_256_init, 'bi_mont_ctx_256_init',\
@@ -220,8 +223,6 @@ section '.edata' export data readable
          bi_mod_pow_256, 'bi_mod_pow_256' ,\
 \
          bi_mod_div_256_256, 'bi_mod_div_256_256',\
-\
-         bi_mod_double_assign_256, 'bi_mod_double_assign_256',\
 \
          bi_mod_square_256, 'bi_mod_square_256' ,\
          bi_mod_cube_256, 'bi_mod_cube_256' ,\

@@ -1,0 +1,1 @@
+include 'bi_mod_half_assign_256_test.inc'

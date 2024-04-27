@@ -9,6 +9,8 @@ include 'bigint/lzcnt/index.inc'
 include 'bigint/mod_add/index.inc'
 include 'bigint/mod_cube/index.inc'
 include 'bigint/mod_div/index.inc'
+include 'bigint/mod_double/index.inc'
+include 'bigint/mod_half/index.inc'
 include 'bigint/mod_inverse/index.inc'
 include 'bigint/mod_mul/index.inc'
 include 'bigint/mod_pow/index.inc'
@@ -164,8 +166,12 @@ __bi_tests_256:
 
         dq __bi_mod_add_assign_256_256_test
         db 'bi_mod_add_assign_256_256', 0
+        dq __bi_mod_double_assign_256_test
+        db 'bi_mod_double_assign_256', 0
         dq __bi_mod_tripple_assign_256_test
         db 'bi_mod_tripple_assign_256', 0
+        dq __bi_mod_half_assign_256_test
+        db 'bi_mod_half_assign_256', 0
         dq __bi_mod_sub_assign_256_256_test
         db 'bi_mod_sub_assign_256_256', 0
         dq __bi_mod_mul_256_256_test
