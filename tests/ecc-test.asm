@@ -27,8 +27,12 @@ start:
 	mov	rsi, .bi512_fixture_name
 	call	run_test_fixture
 
-	mov	rax, __bi_tests_1024
-	mov	rsi, .bi1024_fixture_name
+	mov     rax, __bi_tests_1024
+	mov     rsi, .bi1024_fixture_name
+	call	run_test_fixture
+
+	mov     rax, __secp256k1_tests
+	mov     rsi, .ecc_fixture_name
 	call	run_test_fixture
 
 	call	test_output_end
@@ -42,11 +46,12 @@ start:
 .bi256_fixture_name db 'bi256', 0
 .bi512_fixture_name db 'bi512', 0
 .bi1024_fixture_name db 'bi1024', 0
+.ecc_fixture_name db 'ecc', 0
 
 include '../src/macro/align.inc'
 
 include 'console/enable_vt_processing.inc'
-include 'console/write_u64.inc'
+include 'console/index.inc'
 include 'test_context.inc'
 include 'test_output_html.inc'
 
@@ -195,6 +200,7 @@ end virtual
 
 include '../src/math/bigint.inc'
 include 'math/bigint.tests.inc'
+include 'math/ecc.tests.inc'
 include '../src/math/rnd.inc'
 include 'console/write_string.inc'
 include 'console/write_line.inc'

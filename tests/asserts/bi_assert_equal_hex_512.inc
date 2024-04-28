@@ -1,5 +1,7 @@
 if ~ definite bi_assert_equal_hex_512
 
+include '../../src/math/bigint/hex/bi_try_read_hex_512.inc'
+
 ;Asserts two bi512 values to be equal
 ;input
 ;  rcx - expected hex

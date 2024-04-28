@@ -1,5 +1,3 @@
-include '../src/math/bigint/read_hex.inc'
-
 include 'bigint/add/index.inc'
 include 'bigint/cmp/index.inc'
 include 'bigint/copy/index.inc'
@@ -172,6 +170,8 @@ __bi_tests_256:
         db 'bi_mod_tripple_assign_256', 0
         dq __bi_mod_half_assign_256_test
         db 'bi_mod_half_assign_256', 0
+        dq __bi_mod_sub_256_256_test
+        db 'bi_mod_sub_256_256', 0
         dq __bi_mod_sub_assign_256_256_test
         db 'bi_mod_sub_assign_256_256', 0
         dq __bi_mod_mul_256_256_test

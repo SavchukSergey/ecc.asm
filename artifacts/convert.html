@@ -43,9 +43,8 @@
         val = val.substring(0, val.length - 1);
       }
       val = val.trim();
-      //db 'ba42240ffb037f1a4c64905998460012cdf5f2e685baf6578d8eb71c34f932f81874bb356c05027886d076a3b80bad4d8122481d2b79b2135f4381e8326893e8'
       let res = `  ; db '${val}'\r\n  dq `;
-      for (var i = val.length - 8; i >= 0; i -= 8) {
+      for (var i = val.length - 16; i >= 0; i -= 16) {
         res += '0x';
         res += val.charAt(i + 0);
         res += val.charAt(i + 1);
@@ -55,6 +54,14 @@
         res += val.charAt(i + 5);
         res += val.charAt(i + 6);
         res += val.charAt(i + 7);
+        res += val.charAt(i + 8);
+        res += val.charAt(i + 9);
+        res += val.charAt(i + 10);
+        res += val.charAt(i + 11);
+        res += val.charAt(i + 12);
+        res += val.charAt(i + 13);
+        res += val.charAt(i + 14);
+        res += val.charAt(i + 15);
         if (i) {
           res += ', ';
         }

@@ -12,6 +12,7 @@ ecp_assert_equal_256:
 	call	bi_cmp_256_256
 	jnz	    .fail
 	add		rcx, ECPoint256.y
+	add		rdx, ECPoint256.y
 	call	bi_cmp_256_256
 	jnz	    .fail
 	clc

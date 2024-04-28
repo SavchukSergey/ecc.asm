@@ -2,8 +2,8 @@ if ~ definite bi_add_assign_256_256
 
 ;Adds two bi256 values
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
+;  rcx - pointer to left bi256 value. The modified value
+;  rdx - pointer to right bi256 value
 ;output:
 ;  rax - set to 1 if overflow
 ;  CF - set to 1 if overflow

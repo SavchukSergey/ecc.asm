@@ -1,4 +1,5 @@
 include 'div_rem/index.inc'
+include 'hex/index.inc'
 include 'lzcnt/index.inc'
 include 'mod_add/index.inc'
 include 'mod_cube/index.inc'

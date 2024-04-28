@@ -1,5 +1,4 @@
 include 'math/bigint/rnd/rnd.inc'
-include 'math/bigint/read_hex.inc'
 
 macro BigIntegerWin64RndProc bits {
 

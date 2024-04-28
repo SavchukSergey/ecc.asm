@@ -1,5 +1,7 @@
 if ~ definite bi_assert_equal_hex_128
 
+include '../../src/math/bigint/hex/bi_try_read_hex_128.inc'
+
 ;Asserts two bi128 values to be equal
 ;input
 ;  rcx - expected hex
