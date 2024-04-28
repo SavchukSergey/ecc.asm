@@ -4,9 +4,9 @@ include '../../../assert.inc'
 __bi_add_256_256_test:
 virtual at rsp
 .locals_start:
-  .left rb __BIG_INTEGER_BYTES_256
-  .right rb __BIG_INTEGER_BYTES_256
-  .result rb __BIG_INTEGER_BYTES_256
+  BigInteger256 .left
+  BigInteger256 .right
+  BigInteger256 .result
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0

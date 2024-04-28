@@ -68,10 +68,10 @@ end virtual
 __bi_div_rem_256_128_test_measure_core:
 virtual at rsp
 .locals_start:
-  .dividend rb __BIG_INTEGER_BYTES_256
-  .divisor rb __BIG_INTEGER_BYTES_256
-  .quotient rb __BIG_INTEGER_BYTES_256
-  .remainder rb __BIG_INTEGER_BYTES_256
+  BigInteger256 .dividend
+  BigInteger256 .divisor
+  BigInteger256 .quotient
+  BigInteger256 .remainder
   .dividend_hex rq 1
   .divisor_hex rq 1
   .expected_quotient_hex rq 1

@@ -4,9 +4,9 @@ include '../../../assert.inc'
 __bi_add_128_128_test:
 virtual at rsp
   label .locals_start
-  .left rb __BIG_INTEGER_BYTES_128
-  .right rb __BIG_INTEGER_BYTES_128
-  .result rb __BIG_INTEGER_BYTES_128
+  BigInteger128 .left
+  BigInteger128 .right
+  BigInteger128 .result
   AlignLocalsStackFrame
   label .locals_end
 end virtual

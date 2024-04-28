@@ -1,3 +1,7 @@
+if ~ definite bigint
+
+bigint:
+
 macro BigIntegerCode bits {
 __BIG_INTEGER_BITS_#bits = #bits
 __BIG_INTEGER_BYTES_#bits = __BIG_INTEGER_BITS_#bits / 8
@@ -77,3 +81,5 @@ BezoutIdentity256.sizeof = 4 * __BIG_INTEGER_BYTES_256
 virtual at 0
   BezoutIdentity256 BezoutIdentity256
 end virtual
+
+end if
