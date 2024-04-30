@@ -1,7 +1,7 @@
 if ~ definite bi_extend_256_64
 
 bi_extend_256_64_basic:
-    CheckRegAligned rcx, 'bi_extend_256_64_avx2 rcx'
+    CheckRegBi256Alignment rcx, 'bi_extend_256_64_avx2 rcx'
 
         mov     [rcx + 0], rdx
         mov     qword [rcx + 8], 0
@@ -11,7 +11,7 @@ bi_extend_256_64_basic:
         ret
 
 bi_extend_256_64_avx2:
-    CheckRegAligned rcx, 'bi_extend_256_64_avx2 rcx'
+    CheckRegBi256Alignment rcx, 'bi_extend_256_64_avx2 rcx'
 
         vmovq   xmm1, rdx
         vmovdqu [rcx], ymm1

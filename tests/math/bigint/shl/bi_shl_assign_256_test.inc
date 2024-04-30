@@ -12,7 +12,7 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
     PrologCheckStackAligned '__bi_mul_128_128_test_core'
-    CheckRegAligned rcx, '__bi_mul_128_128_test_core rcx'
+    CheckRegBi256Alignment rcx, '__bi_mul_128_128_test_core rcx'
     CheckRegAligned r8, '__bi_mul_128_128_test_core r8'
 
         mov     [.value_hex], rcx
@@ -46,7 +46,7 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
     PrologCheckStackAligned '__bi_shl_assign_256_test_measure_core'
-    CheckRegAligned rcx, '__bi_shl_assign_256_test_measure_core rcx'
+    CheckRegBi256Alignment rcx, '__bi_shl_assign_256_test_measure_core rcx'
 
         mov     [.value_hex], rcx
         mov     [.count], rdx

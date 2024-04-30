@@ -1,51 +1,42 @@
 if ~ definite bi_shl_assign_192
 
-; Shifts left
-;input
-; rcx - value
-; rdx - bits
 bi_shl_assign_192:
-        push    rbx rsi rdi
+;todo: it is full of write-after-read hazards, may work slower
+        push    r10
 
-        mov     rbx, rcx
-        mov     rcx, rdx
+        mov     r8, [rcx]
+        mov     r9, [rcx + 8]
+        mov     r10, [rcx + 16]
 
-        lea     rdi, [rbx + 24 - 8]; todo: move below
-
-        mov     rsi, rcx
-        shr     rsi, 6
-        test    rsi, rsi
-        jz      .shift_64_ok
-
-        shl     rsi, 3
-        sub     rsi, rdi
-        neg     rsi
-
-.shift_64:
         xor     rax, rax
-        cmp     rsi, rbx
-        cmovae  rax, [rsi]
-        mov     [rdi], rax
+        
+        cmp     rdx, 64
+        cmovae  r10, r9
+        cmovae  r9, r8
+        cmovae  r8, rax
 
-        sub     rsi, 8
-        sub     rdi, 8
-        cmp     rdi, rbx
-        jae     .shift_64
-.shift_64_ok:
+        cmp     rdx, 128
+        cmovae  r10, r9
+        cmovae  r9, r8
+        cmovae  r8, rax
 
-        and     rcx, 0x3f
-        jz      .loop_ok
+        cmp     rdx, 192
+        cmovae  r10, r9
+        cmovae  r9, r8
+        cmovae  r8, rax
 
-        mov     rax, [rbx + 8]
-        shld    [rbx + 16], rax, cl
-        mov     rax, [rbx + 0]
-        shld    [rbx + 8], rax, cl
-        shl     qword [rbx], cl
+        and     rdx, 0x3f
+        xchg    rcx, rdx
 
-.loop_ok:
+        shld    r10, r9, cl
+        shld    r9, r8, cl
+        shl     r8, cl
 
-.end:
-        pop     rdi rsi rbx
+        mov     [rdx + 0], r8
+        mov     [rdx + 8], r9
+        mov     [rdx + 16], r10
+
+        pop     r10
         ret
 
 end if

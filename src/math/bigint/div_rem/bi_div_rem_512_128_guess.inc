@@ -23,20 +23,22 @@ bi_div_rem_512_128_guess:
     DivRemGuess64_Prepare 512, 128
 virtual at rsp
   label .locals_start
+  BigInteger512 .remainder_shifted
+  BigInteger512 .delta
+  BigInteger512 .guess_q
+
+  BigInteger128 .divisor_shifted
+  BigInteger128 .guess_128
+
   .dividend rq 1
   .divisor rq 1
   .quotient rq 1
   .remainder rq 1
 
   .divisor_lzcnt rq 1
-  .divisor_shifted rb __BIG_INTEGER_BYTES_128
 
   .remainder_lzcnt rq 1
-  .remainder_shifted rb __BIG_INTEGER_BYTES_512
 
-  BigInteger128 .guess_128
-  .delta rb __BIG_INTEGER_BYTES_512
-  .guess_q rb __BIG_INTEGER_BYTES_512
   .correction rq 1
   label .locals_end
 end virtual

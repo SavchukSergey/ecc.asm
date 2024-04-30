@@ -1,6 +1,9 @@
 if ~ definite bi_extend_512_128
 
 bi_extend_512_128:
+    CheckRegBi512Alignment rcx, 'bi_extend_512_128 rcx'
+    CheckRegBi128Alignment rdx, 'bi_extend_512_128 rdx'
+
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
         mov     rax, [rdx + 8]
