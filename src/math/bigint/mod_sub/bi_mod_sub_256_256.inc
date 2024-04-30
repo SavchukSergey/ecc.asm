@@ -7,6 +7,8 @@ if ~ definite bi_mod_sub_256_256
 ;  r8 - pointer to bi256 modulus
 ;  r9  - pointer to result bi256 value
 bi_mod_sub_256_256:
+        sub      rsp, 8
+        PrologCheckStackAligned 'bi_mod_sub_256_256'
         CheckRegAligned rcx, 'bi_mod_sub_256_256 rcx'
         CheckRegAligned rdx, 'bi_mod_sub_256_256 rdx'
         CheckRegAligned r8, 'bi_mod_sub_256_256 r8'
@@ -18,11 +20,13 @@ bi_mod_sub_256_256:
 
         call    bi_sub_assign_256_256
         jc      .fix
+
+        add      rsp, 8
         ret
 .fix:
-        push    rdx
         mov     rdx, r8
         call    bi_add_assign_256_256
-        pop     rdx
+
+        add      rsp, 8
         ret
 end if

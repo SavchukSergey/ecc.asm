@@ -9,6 +9,9 @@ include '../cmp/bi_cmp_256_256.inc'
 ;  rcx - pointer to left bi256 value. The modified value
 ;  rdx - pointer to bi256 modulus
 bi_mod_tripple_assign_256:
+    CheckRegAligned rcx, 'bi_mod_tripple_assign_256 rcx'
+    CheckRegAligned rdx, 'bi_mod_tripple_assign_256 rdx'
+
         xor     rax, rax    ;OF = 0, CF = 0
 
         mov     r8, [rcx]

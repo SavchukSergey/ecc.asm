@@ -13,11 +13,18 @@ virtual at rsp
     .right rq 1
     .modulus rq 1
     .result rq 1
-    .acc rb __BIG_INTEGER_BYTES_256
+    BigInteger256 .acc
     .bit rq 1
-  label .locals_end
+    AlignLocalsStackFrame
+    label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned 'bi_mod_mul_256_256_bits'
+    CheckRegAligned rcx, 'bi_mod_mul_256_256_bits rcx'
+    CheckRegAligned rdx, 'bi_mod_mul_256_256_bits rdx'
+    CheckRegAligned r8, 'bi_mod_mul_256_256_bits r8'
+
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.modulus], r8

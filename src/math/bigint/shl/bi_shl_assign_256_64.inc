@@ -25,7 +25,6 @@ bi_shl_assign_256_64_basic:
 bi_shl_assign_256_64_avx2:
     CheckRegAligned rcx, 'bi_shl_assign_256_64_avx2 rcx'
 
-        vmovdqu   ymm2, [rcx]
         vpermq    ymm1, [rcx], 10010000b
         vmovdqu   [rcx], ymm1
 

@@ -4,11 +4,11 @@ include '../../../assert.inc'
 __bi_mod_double_assign_256_test_core:
 virtual at rsp
 .locals_start:
+  BigInteger256 .value
+  BigInteger256 .modulus
   .value_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1
-  BigInteger256 .value
-  BigInteger256 .modulus
   AlignLocalsStackFrame
 .locals_end:
 end virtual
@@ -32,13 +32,13 @@ end virtual
 
 	  lea       rcx, [.value]
 	  lea       rdx, [.modulus]
-    call      bi_mod_double_assign_256
+      call      bi_mod_double_assign_256
 
-    mov       rcx, [.expected_hex]
-    lea       rdx, [.value]
-    call      bi_assert_equal_hex_256
+      mov       rcx, [.expected_hex]
+      lea       rdx, [.value]
+      call      bi_assert_equal_hex_256
 
-    call      test_context_start_measure
+      call      test_context_start_measure
 .chunk_loop:
 	  lea       rcx, [.value]
     lea       rdx, [.modulus]

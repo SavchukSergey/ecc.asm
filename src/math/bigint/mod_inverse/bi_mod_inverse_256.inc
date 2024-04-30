@@ -10,10 +10,6 @@ include '../div_rem/bi_div_rem_256_256.inc'
 bi_mod_inverse_256:
 virtual at rsp
 .locals_start:
-  .value rq 1
-  .modulus rq 1
-  .result rq 1
-
   BigInteger256 .s0
   BigInteger256 .s1
   BigInteger256 .s2
@@ -22,6 +18,9 @@ virtual at rsp
   BigInteger256 .r2
   BigInteger256 .quotient
 
+  .value rq 1
+  .modulus rq 1
+  .result rq 1
   .cnt rq 1
 
   AlignLocalsStackFrame

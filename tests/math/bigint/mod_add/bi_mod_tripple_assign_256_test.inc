@@ -4,11 +4,11 @@ include '../../../assert.inc'
 __bi_mod_tripple_assign_256_test_core:
 virtual at rsp
 .locals_start:
+  BigInteger256 .value
+  BigInteger256 .modulus
   .value_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1
-  BigInteger256 .value
-  BigInteger256 .modulus
   AlignLocalsStackFrame
 .locals_end:
 end virtual

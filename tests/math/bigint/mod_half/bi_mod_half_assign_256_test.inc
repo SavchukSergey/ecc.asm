@@ -4,19 +4,19 @@ include '../../../assert.inc'
 __bi_mod_half_assign_256_test_core:
 virtual at rsp
 .locals_start:
+  BigInteger256 .value
+  BigInteger256 .modulus
   .value_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1
-  BigInteger256 .value
-  BigInteger256 .modulus
   AlignLocalsStackFrame
 .locals_end:
 end virtual
-    sub     rsp, .locals_end - .locals_start
-	PrologCheckStackAligned '__bi_mod_half_assign_256_test_core'
-	CheckRegAligned rcx, '__bi_mod_half_assign_256_test_core rcx'
-	CheckRegAligned rdx, '__bi_mod_half_assign_256_test_core rdx'
-	CheckRegAligned r8, '__bi_mod_half_assign_256_test_core r8'
+      sub     rsp, .locals_end - .locals_start
+	  PrologCheckStackAligned '__bi_mod_half_assign_256_test_core'
+	  CheckRegAligned rcx, '__bi_mod_half_assign_256_test_core rcx'
+	  CheckRegAligned rdx, '__bi_mod_half_assign_256_test_core rdx'
+	  CheckRegAligned r8, '__bi_mod_half_assign_256_test_core r8'
 
 	  mov       [.value_hex], rcx
 	  mov       [.modulus_hex], rdx

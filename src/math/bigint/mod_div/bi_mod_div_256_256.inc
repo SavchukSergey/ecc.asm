@@ -8,9 +8,17 @@ virtual at rsp
     .modulus rq 1
     .result rq 1
     BigInteger256 .inverse
+  AlignLocalsStackFrame
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
+
+    PrologCheckStackAligned 'bi_mod_div_256_256'
+    CheckRegAligned rcx, 'bi_mod_div_256_256 rcx'
+    CheckRegAligned rdx, 'bi_mod_div_256_256 rdx'
+    CheckRegAligned r8, 'bi_mod_div_256_256 r8'
+    CheckRegAligned r9, 'bi_mod_div_256_256 r9'
+
         mov     [.dividend], rcx
         mov     [.divisor], rdx
         mov     [.modulus], r8
