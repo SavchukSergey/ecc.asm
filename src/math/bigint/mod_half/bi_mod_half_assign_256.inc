@@ -16,7 +16,7 @@ bi_mod_half_assign_256:
         ret
 .odd:
         call    bi_add_assign_256_256
-;now it is even and we can safey shift it right
+;now it is even and we can safely shift it right
         jc      .carry 
         call    bi_shr_assign_256_1                  ;todo: bi_rcr_assign_256_1
         ret

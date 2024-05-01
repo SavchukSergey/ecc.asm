@@ -54,8 +54,8 @@ end virtual
 ;  rdx - bi64 right value
 ;  r8 - result value (low 256 bits)
 bi_mul_low_256_64:
-    CheckRegAligned rcx, 'bi_mul_low_256_64 rcx'
-    CheckRegAligned r8, 'bi_mul_low_256_64 r8'
+    CheckRegBi256Alignment rcx, 'bi_mul_low_256_64 rcx'
+    CheckRegBi256Alignment r8, 'bi_mul_low_256_64 r8'
 
         mov     r9, rcx
         mov     rcx, rdx

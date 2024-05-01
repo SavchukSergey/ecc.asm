@@ -64,8 +64,6 @@ end virtual
 bi_mul_low_128_128:
         mov     r9, rdx
 
-        xor     rax, rax                ;CF = 0, OF = 0
-
         mov     rdx, [rcx + 0]
         mulx    rdx, rax, qword [r9 + 0]
         mov     [r8 + 0], rax

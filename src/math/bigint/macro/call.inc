@@ -29,7 +29,7 @@ macro Call_ShlAssign bits {
   else if bits = 512
       call    bi_shl_assign_512
   else
-      display 'unknown shl assign '
+      display 'unknown Call_ShlAssign '
       DisplayDec bits
       display 13, 10
       err 

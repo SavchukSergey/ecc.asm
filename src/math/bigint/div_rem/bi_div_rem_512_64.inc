@@ -53,14 +53,11 @@ bi_div_rem_512_64:
         ;rdx - remainder, rax - quotient
         mov     [r8 + 0], rax
 
+        vpxor   ymm1, ymm1, ymm1
+        vmovdqu [r9], ymm1
+        vmovdqu [r9 + 32], ymm1
+
         mov     qword [r9 + 0], rdx
-        mov     qword [r9 + 8], 0
-        mov     qword [r9 + 16], 0
-        mov     qword [r9 + 24], 0
-        mov     qword [r9 + 32], 0
-        mov     qword [r9 + 40], 0
-        mov     qword [r9 + 48], 0
-        mov     qword [r9 + 56], 0
 
         pop     rbx
         ret

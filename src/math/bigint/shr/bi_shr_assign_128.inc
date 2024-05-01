@@ -5,33 +5,29 @@ if ~ definite bi_shr_assign_128
 ;  rcx - pointer to bi128
 ;  rdx - bits count
 bi_shr_assign_128:
-    CheckRegAligned rcx, 'bi_shr_assign_128 rcx'
+    CheckRegBi128Alignment rcx, 'bi_shr_assign_128 rcx'
+        mov     r8, [rcx + 0]
+        mov     r9, [rcx + 8]
+        xor     rax, rax
 
         cmp     rdx, 128
-        jae     .zero
+        cmovae  r8, r9
+        cmovae  r9, rax
+
         cmp     rdx, 64
-        jb      .shift_64_ok
-        ;shrd does not work with 64+ bit shifts
-        mov     rax, [rcx + 8]
-        mov     [rcx], rax
-        mov     qword [rcx + 8], 0
-        sub     rdx, 64
-.shift_64_ok:
+        cmovae  r8, r9
+        cmovae  r9, rax
+
+        and     rdx, 0x3f
 
         xchg    rcx, rdx
 
-        mov     rax, [rdx + 8]
-        shrd    [rdx + 0], rax, cl
-        shr     qword [rdx + 8], cl
+        shrd    r8, r9, cl
+        shr     r9, cl
 
-        xchg    rcx, rdx
+        mov     [rdx + 0], r8
+        mov     [rdx + 8], r9
 
         ret
 
-.zero:
-        mov     qword [rcx], 0
-        mov     qword [rcx + 8], 0
-        ret
 end if
-
-

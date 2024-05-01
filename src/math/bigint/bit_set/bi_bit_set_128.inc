@@ -1,6 +1,6 @@
 if ~ definite bi_bit_set_128
 
-;Sets a bit in bi512 value
+;Sets a bit in bi128 value
 ;input:
 ;  rcx - value to change
 ;  rdx - bit

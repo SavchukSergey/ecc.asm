@@ -1,6 +1,6 @@
 if ~ definite bi_cmp_128_128
 
-;Compares two bi values
+;Compares two bi128 values
 ;input
 ;  rcx - pointer to left bi128 value
 ;  rdx - pointer to right bi128 value

@@ -189,7 +189,7 @@ bi_mul_512_64_bmi2:
 
         mov     rdx, [r9 + 56]
         mulx    rdx, rax, rcx
-        adcx    rax, [r8 + 56]       ; CF = carry for [result + 48]
+        adcx    rax, [r8 + 56]       ; CF = carry for [result + 64]
         mov     [r8 + 56], rax
         adc     rdx, 0
         mov     [r8 + 64], rdx
