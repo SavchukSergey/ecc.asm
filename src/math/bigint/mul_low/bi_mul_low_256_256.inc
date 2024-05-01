@@ -10,53 +10,90 @@ include 'bi_mul_low_128_128.inc'
 ; rdx - pointer to right bi256 value
 ; r8 - pointer to result bi256 value (low 256 bits)
 bi_mul_low_256_256:
-virtual at rsp
-.locals_start:
-  .temp rb __BIG_INTEGER_BYTES_128
-  .left rq 1
-  .right rq 1
-  .result rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
-
     PrologCheckStackAligned 'bi_mul_low_256_256'
-    CheckRegAligned rcx, 'bi_mul_low_256_256 rcx'
-    CheckRegAligned rdx, 'bi_mul_low_256_256 rdx'
-    CheckRegAligned r8, 'bi_mul_low_256_256 r8'
+    CheckRegBi256Alignment rcx, 'bi_mul_low_256_256 rcx'
+    CheckRegBi256Alignment rdx, 'bi_mul_low_256_256 rdx'
+    CheckRegBi256Alignment r8, 'bi_mul_low_256_256 r8'
 
-        mov     [.left], rcx
-        mov     [.right], rdx
-        mov     [.result], r8
+        push    r10 r11 r12 r13 r14
+        mov     r10, rdx
 
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        mov     r8, [.result]
-        call    bi_mul_128_128
+ResultReg0 equ r11
+ResultReg1 equ r12
+ResultReg2 equ r13
+ResultReg3 equ r14
 
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        add     rdx, __BIG_INTEGER_BYTES_128
-        lea     r8, [.temp]
-        call    bi_mul_low_128_128
+        mov     r9, [r10 + 0]
+        xor     rax, rax
 
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        lea     rdx, [.temp]
-        call    bi_add_assign_128_128
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, r9
+        mov     ResultReg0, rax
+        mov     ResultReg1, rdx
 
-        mov     rcx, [.left]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        mov     rdx, [.right]
-        lea     r8, [.temp]
-        call    bi_mul_low_128_128
+        mov     rdx, [rcx + 8]
+        mulx    rdx, rax, r9
+        adcx    ResultReg1, rax        ; CF = carry for ResultReg2
+        mov     ResultReg2, rdx
 
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        lea     rdx, [.temp]
-        call    bi_add_assign_128_128
+        mov     rdx, [rcx + 16]
+        mulx    rdx, rax, r9
+        adcx    ResultReg2, rax         ; CF = carry for ResultReg3
+        mov     ResultReg3, rdx
 
-        add     rsp, .locals_end - .locals_start
+        mov     rdx, [rcx + 24]
+        mulx    rdx, rax, r9
+        adcx    ResultReg3, rax
+
+
+
+
+        mov     r9, [r10 + 8]
+        xor     rax, rax
+
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, r9
+        adcx    ResultReg1, rax        ; CF = carry for ResultReg2
+        adox    ResultReg2, rdx        ; OF = carry for ResultReg3
+
+        mov     rdx, [rcx + 8]
+        mulx    rdx, rax, r9
+        adcx    ResultReg2, rax        ; CF = carry for ResultReg3
+        adox    ResultReg3, rdx
+
+        mov     rdx, [rcx + 16]
+        mulx    rdx, rax, r9
+        adcx    ResultReg3, rax 
+
+
+
+
+        mov     r9, [r10 + 16]
+        xor     rax, rax
+
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, r9
+        adcx    ResultReg2, rax         ; CF = carry for ResultReg3
+        adox    ResultReg3, rdx
+
+        mov     rdx, [rcx + 8]
+        mulx    rdx, rax, r9
+        adcx    ResultReg3, rax 
+
+
+
+        mov     r9, [r10 + 24]
+        xor     rax, rax
+
+        mov     rdx, [rcx + 0]
+        mulx    rdx, rax, r9
+        adcx    ResultReg3, rax
+
+        mov     [r8 + 0], ResultReg0
+        mov     [r8 + 8], ResultReg1
+        mov     [r8 + 16], ResultReg2
+        mov     [r8 + 24], ResultReg3
+
+        pop     r14 r13 r12 r11 r10
         ret
 end if
