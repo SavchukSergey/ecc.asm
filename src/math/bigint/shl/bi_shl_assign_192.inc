@@ -21,8 +21,8 @@ bi_shl_assign_192:
         cmovae  r8, rax
 
         cmp     rdx, 192
-        cmovae  r10, r9
-        cmovae  r9, r8
+        cmovae  r10, rax
+        cmovae  r9, rax
         cmovae  r8, rax
 
         and     rdx, 0x3f

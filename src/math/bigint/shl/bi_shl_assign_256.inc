@@ -1,51 +1,51 @@
 if ~ definite bi_shl_assign_256
 
-include 'bi_shl_assign_256_128.inc'
-include 'bi_shl_assign_256_64.inc'
-include 'bi_shl_assign_128.inc'
-
-; Shifts left bi256
-;input
-; rcx - value bi256
-; rdx - bits
 bi_shl_assign_256:
-    CheckRegAligned rcx, 'bi_shl_assign_256 rcx'
+
+    CheckRegBi256Alignment rcx, 'bi_shr_assign_256 rcx'
+;todo: it is full of write-after-read hazards, may work slower
+        push    r10 r11
+
+        mov     r8, [rcx]
+        mov     r9, [rcx + 8]
+        mov     r10, [rcx + 16]
+        mov     r11, [rcx + 24]
+
+        xor     rax, rax
 
         cmp     rdx, 256
-        jae     .zero
+        cmovae  r11, rax
+        cmovae  r10, rax
+        cmovae  r9, rax
+        cmovae  r8, rax
 
-        cmp     rdx, 128
-        jb      .small_128
-        call    bi_shl_assign_256_128
+        test    rdx, 128
+        cmovnz  r11, r9
+        cmovnz  r10, r8
+        cmovnz  r9, rax
+        cmovnz  r8, rax
 
-        sub     rdx, 128
-        add     rcx, 16
-        call    bi_shl_assign_128
-        ret
-.small_128:
+        test    rdx, 64
+        cmovnz  r11, r10
+        cmovnz  r10, r9
+        cmovnz  r9, r8
+        cmovnz  r8, rax
 
-        cmp     rdx, 64
-        jb      .small_64
-        call    bi_shl_assign_256_64
-        sub     rdx, 64
-.small_64:
 
+        and     rdx, 0x3f
         xchg    rcx, rdx
 
-        mov     rax, [rdx + 16]
-        shld    [rdx + 24], rax, cl
-        mov     rax, [rdx + 8]
-        shld    [rdx + 16], rax, cl
-        mov     rax, [rdx + 0]
-        shld    [rdx + 8], rax, cl
-        shl     qword [rdx], cl
+        shld    r11, r10, cl
+        shld    r10, r9, cl
+        shld    r9, r8, cl
+        shl     r8, cl
 
-        xchg    rcx, rdx
+        mov     [rdx + 0], r8
+        mov     [rdx + 8], r9
+        mov     [rdx + 16], r10
+        mov     [rdx + 24], r11
 
-        ret
-
-.zero:
-        call    bi_zero_256
+        pop     r11 r10
         ret
 
 end if

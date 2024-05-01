@@ -9,6 +9,7 @@ include 'bi_div_rem_512_256_test.inc'
 include 'bi_div_rem_512_512_test.inc'
 
 include 'bi_rem_128_64_test.inc'
+include 'bi_rem_256_128_test.inc'
 include 'bi_rem_512_64_test.inc'
 include 'bi_rem_512_128_test.inc'
 include 'bi_rem_512_256_test.inc'

@@ -162,6 +162,9 @@ __bi_tests_256:
         dq __bi_div_rem_256_256_test
         db 'bi_div_rem_256_256', 0
 
+        dq __bi_rem_256_128_test
+        db 'bi_rem_256_128', 0
+
         dq __bi_mod_add_assign_256_256_test
         db 'bi_mod_add_assign_256_256', 0
         dq __bi_mod_double_assign_256_test

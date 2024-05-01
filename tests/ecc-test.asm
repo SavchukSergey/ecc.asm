@@ -7,7 +7,10 @@ ECC_TESTS = 1
 
 section '.text' code readable executable
 start:
-	and	rsp, 0xffff_ffff_ffff_fff0
+	and     rsp, 0xffff_ffff_ffff_fff0
+
+	call	bind_thread_to_single_core
+	call	bind_thread_to_single_core
 
 	call	enable_vt_processing
 
@@ -62,21 +65,21 @@ virtual at rsp
   .locals_end:
 end virtual
 	enter	.locals_end - .locals_start, 0
-	lea	TestContextReg, [.result]
+	lea     TestContextReg, [.result]
 	call	test_context_init
 
-	mov	[calibration_shift], 0
-	mov	rbx, -1
-	mov	rcx, 100
+	mov     [calibration_shift], 0
+	mov	    rbx, -1
+	mov	    rcx, 1000
 .count_loop:
 	push	rbx rcx
 	call	[.empty_ref]
-	pop	rcx rbx
+	pop	    rcx rbx
 	loop	.count_loop
 
 	call	test_context_finalize
-	mov	rax, [.result.measures_min]
-	mov	[calibration_shift], rax
+	mov	    rax, [.result.measures_min]
+	mov	    [calibration_shift], rax
 
 	leave
 	ret
@@ -112,11 +115,11 @@ end virtual
 	enter	.locals_end - .locals_start, 0
     PrologCheckStackAligned 'run_test_fixture'
 
-	mov	[.test], rax
+	mov	    [.test], rax
 
 	call	test_output_start_chapter
 
-	mov	rcx, rsi
+	mov	    rcx, rsi
 	call	test_output_chapter_title
 
 	call	test_output_start_chapter_table
@@ -176,14 +179,14 @@ end virtual
 	call	test_output_test_status_cell
 	jmp	.test_end
 .test_ok:
-	xor	rcx, rcx
+	xor	    rcx, rcx
 	call	test_output_test_status_cell
-	jmp	.test_end
+	jmp	    .test_end
 .test_end:
-	mov	rcx, [.context.measures_min]
+	mov     rcx, [.context.measures_min]
 	call	test_output_test_min_ticks_cell
 
-	mov	rcx, [.context.measures_max]
+	mov	    rcx, [.context.measures_max]
 	call	test_output_test_max_ticks_cell
 
 	call	test_output_end_test
@@ -196,6 +199,34 @@ end virtual
 
 	leave
 	pop	rsi rbx rax
+	ret
+
+;THREAD_ALL_ACCESS = 0x001F03FF
+
+bind_thread_to_single_core:
+virtual at rsp
+  label .locals_start
+  .shadow rq 4
+  .thread_handle rq 1
+  .processor_number rq 1
+  AlignLocalsStackFrame
+  label .locals_end
+end virtual
+	sub     rsp, .locals_end - .locals_start
+
+	call	[GetCurrentThread]
+	mov		[.thread_handle], rax
+
+	call	[GetCurrentProcessorNumber]
+	mov		[.processor_number], rax
+
+	mov		rcx, [.processor_number]
+	mov		rdx, 1
+	shl		rdx, cl
+	mov		rcx, [.thread_handle]
+	call	[SetThreadAffinityMask]
+
+	add     rsp, .locals_end - .locals_start
 	ret
 
 include '../src/math/bigint.inc'
@@ -215,6 +246,9 @@ section '.idata' import data readable writeable
 
   import kernel,\
 	 ExitProcess,'ExitProcess', \
+	 GetCurrentThread,'GetCurrentThread', \
+	 SetThreadAffinityMask,'SetThreadAffinityMask', \
+	 GetCurrentProcessorNumber ,'GetCurrentProcessorNumber', \
 	 GetStdHandle, 'GetStdHandle', \
 	 GetConsoleMode, 'GetConsoleMode', \
 	 SetConsoleMode, 'SetConsoleMode', \

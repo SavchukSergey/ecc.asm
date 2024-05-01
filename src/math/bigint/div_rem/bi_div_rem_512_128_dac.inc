@@ -24,10 +24,10 @@ end virtual
     sub     rsp, .locals_end - .locals_start
 
     PrologCheckStackAligned 'bi_div_rem_512_128_dac'
-    CheckRegAligned rcx, 'bi_div_rem_512_128_dac rcx'
-    CheckRegAligned rdx, 'bi_div_rem_512_128_dac rdx'
-    CheckRegAligned r8, 'bi_div_rem_512_128_dac r8'
-    CheckRegAligned r9, 'bi_div_rem_512_128_dac r9'
+    CheckRegBi512Alignment rcx, 'bi_div_rem_512_128_dac rcx'
+    CheckRegBi128Alignment rdx, 'bi_div_rem_512_128_dac rdx'
+    CheckRegBi512Alignment r8, 'bi_div_rem_512_128_dac r8'
+    CheckRegBi512Alignment r9, 'bi_div_rem_512_128_dac r9'
 
     mov     [.dividend], rcx
     mov     [.divisor], rdx

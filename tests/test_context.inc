@@ -69,7 +69,8 @@ end virtual
         mov     [.context.measure_end], rax
         mov     rax, [.context.measure_end]
         sub     rax, [.context.measure_start]
-        cmp     [.context.measure_loop], TEST_MEASURE_CHUNK
+        jc      .wrong_cpu
+        cmp     qword [.context.measure_loop], TEST_MEASURE_CHUNK
         je      .single
         push    rbx
         xor     rdx, rdx
@@ -95,6 +96,7 @@ end virtual
 .shorter_max:
 
 .overflow:
+.wrong_cpu:
         mov     qword [.context.measure_start], 0
         mov     qword [.context.measure_end], 0
 
