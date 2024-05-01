@@ -177,6 +177,7 @@ section '.edata' export data readable
          bi_div_rem_128_64, 'bi_div_rem_128_64', \
          bi_div_rem_128_128, 'bi_div_rem_128_128', \
          bi_div_rem_256_64, 'bi_div_rem_256_64', \
+         bi_div_rem_256_64, 'bi_div_rem_256_64', \
          bi_div_rem_256_128, 'bi_div_rem_256_128', \
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
          bi_div_rem_512_64, 'bi_div_rem_512_64', \
