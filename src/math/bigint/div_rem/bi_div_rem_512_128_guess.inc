@@ -23,7 +23,7 @@ bi_div_rem_512_128_guess:
     DivRemGuess64_Prepare 512, 128
 virtual at rsp
   label .locals_start
-  BigInteger512 .remainder_shifted
+  BigInteger128 .remainder_shifted
   BigInteger512 .delta
   BigInteger512 .guess_q
 

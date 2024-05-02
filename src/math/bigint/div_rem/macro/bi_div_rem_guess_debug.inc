@@ -120,7 +120,7 @@ macro DivRemGuess64_DumpRemainderShifted dividend_bits, divisor_bits {
     pop     rsi
 
     lea     rcx, [.remainder_shifted]
-    DivRemGuess64_WriteUIntHex dividend_bits
+    DivRemGuess64_WriteUIntHex 128
 
     call    Console_WriteLine
   end if
