@@ -14,13 +14,13 @@ bi_add_assign_448_128:
         mov     rax, [rdx + 8]
         adc     [rcx + 8], rax
 
-        adc     qword [rcx + 16], 0
-        adc     qword [rcx + 24], 0
-        adc     qword [rcx + 32], 0
-        adc     qword [rcx + 40], 0
-        adc     qword [rcx + 48], 0
+        mov     rax, 0
+        adc     qword [rcx + 16], rax
+        adc     qword [rcx + 24], rax
+        adc     qword [rcx + 32], rax
+        adc     qword [rcx + 40], rax
+        adc     qword [rcx + 48], rax
 
-        setc    al
-        movzx   rax, al
+        setc    al                 ;rax is cleared before
         ret
 end if

@@ -34,8 +34,7 @@ bi_add_assign_1024_512:
         adc     [rcx + 112], rax
         adc     [rcx + 120], rax
 
-        setc    al
-        movzx   rax, al
+        setc    al                 ;rax is cleared before
         ret
 
 end if

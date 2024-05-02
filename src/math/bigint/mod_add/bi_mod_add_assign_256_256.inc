@@ -6,16 +6,16 @@ include '../cmp/bi_cmp_256_256.inc'
 
 ;Adds two bi256 values
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
-;  r8 - modulus
+;  rcx - pointer to left bi256 value. The modified value
+;  rdx - pointer to right bi256 value
+;  r8 - pointer to bi256 modulus
 bi_mod_add_assign_256_256:
         push    rdx
 
         PrologCheckStackAligned 'bi_mod_add_assign_256_256'
-        CheckRegAligned rcx, 'bi_mod_add_assign_256_256 rcx'
-        CheckRegAligned rdx, 'bi_mod_add_assign_256_256 rdx'
-        CheckRegAligned r8, 'bi_mod_add_assign_256_256 r8'
+        CheckRegBi256Alignment rcx, 'bi_mod_add_assign_256_256 rcx'
+        CheckRegBi256Alignment rdx, 'bi_mod_add_assign_256_256 rdx'
+        CheckRegBi256Alignment r8, 'bi_mod_add_assign_256_256 r8'
 
         call    bi_add_assign_256_256
         jc      .fix

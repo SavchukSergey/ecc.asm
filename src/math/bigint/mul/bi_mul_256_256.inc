@@ -23,9 +23,9 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
         PrologCheckStackAligned 'bi_mul_256_256'
-        CheckRegAligned rcx, 'bi_mul_256_256 rcx'
-        CheckRegAligned rdx, 'bi_mul_256_256 rdx'
-        CheckRegAligned r8, 'bi_mul_256_256 r8'
+        CheckRegBi256Alignment rcx, 'bi_mul_256_256 rcx'
+        CheckRegBi256Alignment rdx, 'bi_mul_256_256 rdx'
+        CheckRegBi512Alignment r8, 'bi_mul_256_256 r8'
 
         mov     [.left], rcx
         mov     [.right], rdx
@@ -99,9 +99,9 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
     PrologCheckStackAligned 'bi_mul_256_128'
-    CheckRegAligned rcx, 'bi_mul_256_128 rcx'
-    CheckRegAligned rdx, 'bi_mul_256_128 rdx'
-    CheckRegAligned r8, 'bi_mul_256_128 r8'
+    CheckRegBi256Alignment rcx, 'bi_mul_256_128 rcx'
+    CheckRegBi256Alignment rdx, 'bi_mul_256_128 rdx'
+    CheckRegBi512Alignment r8, 'bi_mul_256_128 r8'
 
         mov     [.left], rcx
         mov     [.right], rdx

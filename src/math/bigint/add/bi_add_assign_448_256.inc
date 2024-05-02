@@ -15,10 +15,12 @@ bi_add_assign_448_256:
         adc     [rcx + 16], rax
         mov     rax, [rdx + 24]
         adc     [rcx + 24], rax
+
+        mov     rax, 0
         adc     [rcx + 32], rax
         adc     [rcx + 40], rax
         adc     [rcx + 48], rax
-        setc    al
-        movzx   rax, al
+
+        setc    al                 ;rax is cleared before
         ret
 end if

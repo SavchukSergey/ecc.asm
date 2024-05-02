@@ -30,8 +30,7 @@ bi_add_assign_768_512:
         adc     [rcx + 80], rax
         adc     [rcx + 88], rax
 
-        setc    al
-        movzx   rax, al
+        setc    al                 ;rax is cleared before
         ret
 
 end if

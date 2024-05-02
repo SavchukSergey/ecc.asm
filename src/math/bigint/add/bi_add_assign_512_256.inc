@@ -25,7 +25,6 @@ bi_add_assign_512_256:
         adc     [rcx + 48], rax
         adc     [rcx + 56], rax
 
-        setc    al
-        movzx   rax, al
+        setc    al                 ;rax is cleared before
         ret
 end if
