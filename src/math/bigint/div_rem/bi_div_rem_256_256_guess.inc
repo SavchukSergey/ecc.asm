@@ -28,7 +28,7 @@ virtual at rsp
   .remainder_lzcnt rq 1
   
   BigInteger256 .divisor_shifted
-  BigInteger256 .remainder_shifted
+  BigInteger128 .remainder_shifted
 
   BigInteger128 .guess_128
   BigInteger256 .delta
