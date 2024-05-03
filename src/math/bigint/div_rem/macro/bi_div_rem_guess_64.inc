@@ -294,20 +294,19 @@ macro DivRemGuess64_Guess dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
-      mov     rax, [.remainder_lzcnt]
-      sub     rax, [.divisor_lzcnt]
-      add     rax, 64                    ;partial remainder was 128-bit wide, but partial divisor only 64 bit-wide
-      mov     [.correction], rax
-
-      cmp     [.correction], 0
-      jle     .correction_ok
+      mov     rcx, [.remainder_lzcnt]
+      add     rcx, 64                    ;partial remainder was 128-bit wide, but partial divisor only 64 bit-wide
+      sub     rcx, [.divisor_lzcnt]
+      jbe     .correction_ok
 ;todo: guess_128 is less than 2^65 (not 2^64). Try to optimize everything
 ; scale down guess to trim fraction part of division
-      lea     rcx, [.guess_128]
-      mov     rdx, [.correction]
-      call    bi_shr_assign_128
-      mov     [.correction], 0
+      mov     rax, qword [.guess_128 + 8]
+      shrd    qword [.guess_128 + 0], rax, cl
+      shr     qword [.guess_128 + 8], cl
+      xor     rcx, rcx
 .correction_ok:
+      mov     [.correction], rcx
+
 }
 
 macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {

@@ -18,8 +18,6 @@ bi_shl_assign_128:
         cmovae  r9, r8
         cmovae  r8, rax
 
-        and     rdx, 0x3f
-
         xchg    rcx, rdx
 
         shld    r9, r8, cl
