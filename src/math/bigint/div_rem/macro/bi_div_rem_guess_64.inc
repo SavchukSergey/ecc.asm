@@ -237,19 +237,27 @@ end if
 
 macro DivRemGuess64_Guess dividend_bits, divisor_bits {
 ;divide highest 128 bit of remainder by highest 64 bit of divisor
-        mov     rdx, qword [.divisor_shifted + DIV_REM_PARTIAL_DIVISOR_START]
-        inc     rdx ; make pessimistic prediction, so our quotient is never bigger than real value
+        mov     r8, qword [.divisor_shifted + DIV_REM_PARTIAL_DIVISOR_START]
+        inc     r8 ; make pessimistic prediction, so our quotient is never bigger than real value
         jnz     .divisor_not_max
 .divisor_max:
-        mov     rcx, qword [.remainder_shifted + 8]; divide by 2^64
-        mov     qword [.guess_128], rcx
+        mov     rdx, qword [.remainder_shifted + 8]; divide by 2^64
+        mov     qword [.guess_128], rdx
         mov     qword [.guess_128 + 8], 0
         jmp     .divisor_ok
 .divisor_not_max:
-;todo: compare reminder high 64 bits with divisor. if less then we can use 64-bit arithmentics instead of 128-bit
-        lea     rcx, qword [.remainder_shifted]
-        lea     r8, [.guess_128]
-        call    bi_div_128_64
+; partial quotient is 65-bit wide max
+        mov     rax, qword [.remainder_shifted + 0]
+        mov     rdx, qword [.remainder_shifted + 8]
+        mov     r9, rdx
+        sub     r9, r8
+        cmovnc  rdx, r9
+        setnc   r9b
+        movzx   r9, r9b
+        mov     qword [.guess_128 + 8], r9
+        div     r8
+        mov     qword [.guess_128 + 0], rax
+
 .divisor_ok:
 }
 
