@@ -19,6 +19,12 @@ bi_div_rem_256_256_guess:
     DivRemGuess64_Prepare 256, 256
 virtual at rsp
   label .locals_start
+  BigInteger256 .delta
+  BigInteger128 .remainder_shifted
+  BigInteger128 .guess_128
+
+  .divisor_shifted rq 1
+  
   .dividend rq 1
   .divisor rq 1
   .quotient rq 1
@@ -27,11 +33,6 @@ virtual at rsp
   .divisor_lzcnt rq 1
   .remainder_lzcnt rq 1
   
-  BigInteger256 .divisor_shifted
-  BigInteger128 .remainder_shifted
-
-  BigInteger128 .guess_128
-  BigInteger256 .delta
   .correction rq 1
   AlignLocalsStackFrame
   label .locals_end

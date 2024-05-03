@@ -63,8 +63,8 @@ macro DivRemGuess64_DumpDivisorShifted dividend_bits, divisor_bits {
     call    Console_WriteString
     pop     rsi
 
-    lea     rcx, [.divisor_shifted]
-    DivRemGuess64_WriteUIntHex divisor_bits
+    mov     rcx, [.divisor_shifted]
+    DivRemGuess64_WriteUInt64Hex divisor_bits
 
     call    Console_WriteLine
   end if
