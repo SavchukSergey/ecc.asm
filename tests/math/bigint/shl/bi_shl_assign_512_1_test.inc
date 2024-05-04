@@ -3,7 +3,7 @@ include '../src/math/bigint/shl/bi_shl_assign_512_1.inc'
 __bi_shl_assign_512_1_test:
 virtual at rsp
 .locals_start:
-  .value rb __BIG_INTEGER_BYTES_512
+  BigInteger512 .value
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0

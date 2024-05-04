@@ -89,6 +89,25 @@ macro Call_ShrAssign bits {
   end if
 }
 
+macro Call_ExtendX64 bits {
+  if bits = 192
+      call    bi_extend_192_64
+  else if bits = 256
+      call    bi_extend_256_64
+  else if bits = 384
+      call    bi_extend_384_64
+  else if bits = 448
+      call    bi_extend_448_64
+  else if bits = 512
+      call    bi_extend_512_64
+  else
+      display 'unknown Call_ExtendX64 '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
 macro Call_ExtendX128 bits {
   if bits = 192
       call    bi_extend_192_128
@@ -101,7 +120,7 @@ macro Call_ExtendX128 bits {
   else if bits = 512
       call    bi_extend_512_128
   else
-      display 'unknown extendx128 '
+      display 'unknown Call_ExtendX128 '
       DisplayDec bits
       display 13, 10
       err 
