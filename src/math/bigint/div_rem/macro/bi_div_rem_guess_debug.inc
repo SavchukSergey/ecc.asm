@@ -100,8 +100,8 @@ macro DivRemGuess64_DumpGuess dividend_bits, divisor_bits {
     call    Console_WriteString
     pop     rsi
 
-    mov     rcx, [.guess_128]
-    call    Console_WriteUInt128Hex
+    mov     rcx, [.guess_64]
+    call    Console_WriteUInt64Hex
 
     call    Console_WriteLine
   end if
@@ -114,8 +114,8 @@ macro DivRemGuess64_DumpGuessFixed dividend_bits, divisor_bits {
     call    Console_WriteString
     pop     rsi
 
-    lea     rcx, qword [.guess_128]
-    call    Console_WriteUInt128Hex
+    mov     rcx, qword [.guess_64]
+    call    Console_WriteUInt64Hex
 
     call    Console_WriteLine
   end if

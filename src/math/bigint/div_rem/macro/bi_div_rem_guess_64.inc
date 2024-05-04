@@ -157,11 +157,12 @@ macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
-;shift remainder to the left, so the most meaningful bit is always the highest bit
+;shift remainder to the left, so the most meaningful bit is always the (highest - 1) bit
       mov     rcx, [.remainder]
       Call_Lzcnt dividend_bits
       cmp     rax, [.divisor_lzcnt]
       jae     .recheck_once
+      dec     rax
       mov     [.remainder_lzcnt], rax
 
 if dividend_bits > 128
@@ -192,6 +193,7 @@ else
       mov     qword [.remainder_shifted], r8
       mov     qword [.remainder_shifted + 8], r9
 end if
+.remainder_shifted_ready:
 }
 
 macro DivRemGuess64_Guess dividend_bits, divisor_bits {
@@ -201,21 +203,14 @@ macro DivRemGuess64_Guess dividend_bits, divisor_bits {
         jnz     .divisor_not_max
 .divisor_max:
         mov     rdx, qword [.remainder_shifted + 8]; divide by 2^64
-        mov     qword [.guess_128], rdx
-        mov     qword [.guess_128 + 8], 0
+        mov     qword [.guess_64], rdx
         jmp     .divisor_ok
 .divisor_not_max:
-; partial quotient is 65-bit wide max
+; partial quotient is 64-bit wide max
         mov     rax, qword [.remainder_shifted + 0]
         mov     rdx, qword [.remainder_shifted + 8]
-        mov     r9, rdx
-        sub     r9, r8
-        cmovnc  rdx, r9
-        setnc   r9b
-        movzx   r9, r9b
-        mov     qword [.guess_128 + 8], r9
         div     r8
-        mov     qword [.guess_128 + 0], rax
+        mov     qword [.guess_64], rax
 
 .divisor_ok:
 }
@@ -225,11 +220,8 @@ macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
       add     rcx, 64                    ;partial remainder was 128-bit wide, but partial divisor only 64 bit-wide
       sub     rcx, [.divisor_lzcnt]
       jbe     .correction_ok
-;todo: guess_128 is less than 2^65 (not 2^64). Try to optimize everything
-; scale down guess to trim fraction part of division
-      mov     rax, qword [.guess_128 + 8]
-      shrd    qword [.guess_128 + 0], rax, cl
-      shr     qword [.guess_128 + 8], cl
+; scale down guess to trim fractional part of division
+      shr     qword [.guess_64], cl
       xor     rcx, rcx
 .correction_ok:
       mov     [.correction], rcx
@@ -237,13 +229,13 @@ macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
-;precalculate delta = mul(.divisor, .guess_128), using narrowest possible mul
+;precalculate delta = mul(.divisor, .guess_64), using narrowest possible mul
     DIV_REM_GUESS_DELTA_SIZE = dividend_bits
 
-    ; mul(.divisor, .guess_128) returns result of 2 * divisor_bits width
+    ; mul(.divisor, .guess_64) returns result of 2 * divisor_bits width
     DIV_REM_GUESS_DELTA_MUL_FULL_SIZE = 2 * divisor_bits
 
-    ; mul_low(.divisor, .guess_128) returns result of divisor_bits width
+    ; mul_low(.divisor, .guess_64) returns result of divisor_bits width
     DIV_REM_GUESS_DELTA_MUL_LOW_SIZE = divisor_bits
 
   if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_SIZE
@@ -252,24 +244,14 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
     DIV_REM_GUESS_DELTA_RAW_SIZE = DIV_REM_GUESS_DELTA_MUL_FULL_SIZE
   end if
     
-    ;.guess_128 is actually 65-bit wide, meaning high(.guess_128) is either 1 or 0
-    ; let's use 64-bit multiplification, and then fix cases when high(.guess_128) is 1
     mov     rcx, [.divisor]
-    mov     rdx, qword [.guess_128]
+    mov     rdx, qword [.guess_64]
     lea     r8, [.delta]
   if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_SIZE
     Call_MulLowX64 divisor_bits
   else
     Call_MulX64 divisor_bits
   end if
-
-    cmp       qword [.guess_128 + 8], 0
-    jz        .calc_delta_ok
-.calc_delta_128:
-    lea     rcx, [.delta + 8]
-    mov     rdx, [.divisor]
-    Call_AddAssign DIV_REM_GUESS_DELTA_RAW_SIZE, divisor_bits    ; todo: DIV_REM_GUESS_DELTA_RAW_SIZE - 64
-.calc_delta_ok:
 
   if DIV_REM_GUESS_DELTA_RAW_SIZE < DIV_REM_GUESS_DELTA_SIZE
     lea     rcx, [.delta]
@@ -284,25 +266,24 @@ macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_ExtendGuess dividend_bits, divisor_bits {
-  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE > 128
-    ;todo: .guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
-    lea     rcx, [.guess_q]
-    lea     rdx, [.guess_128]
-    Call_ExtendX128 DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE > 64
+    lea     rcx, [.guess]
+    Call_ExtendAssignX64 DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
   end if
 }
 
 macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
   if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 64
     mov     rcx, [.correction]
-    shl     qword [.guess_128], cl
+    shl     qword [.guess_64], cl
   else
     if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 128
-      lea     rcx, [.guess_128]
-      mov     rdx, [.correction]
-      Call_ShlAssign 128
+      mov     rcx, [.correction]
+      mov     rax, qword [.guess_128 + 0]
+      shld    qword [.guess_128 + 8], rax, cl
+      shl     qword [.guess_128 + 0], cl
     else
-      lea     rcx, [.guess_q]
+      lea     rcx, [.guess]
       mov     rdx, [.correction]
       Call_ShlAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
     end if
@@ -318,13 +299,25 @@ macro DivRemGuess64_ApplyDelta dividend_bits, divisor_bits {
 macro DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits {
       mov     rcx, [.quotient]
   if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE = 64
-      mov     rdx, qword [.guess_128 + 0]
-  else if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 128
-      lea     rdx, [.guess_128]
+      mov     rdx, qword [.guess_64]
   else
-      lea     rdx, [.guess_q]
+      lea     rdx, [.guess]
   end if
       Call_AddAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE, DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+}
+
+macro DivRemGuess64_RemainderFull dividend_bits, divisor_bits {
+.remainder_full:
+; remainder has first bit set. If we take all highest 128-bit of remainder we may get 65-bit partial quotient
+        mov     qword [.remainder_lzcnt], -1
+        mov     rcx, [.remainder]
+        mov     r8, [rcx + dividend_bits/8 - 16]
+        mov     r9, [rcx + dividend_bits/8 - 8]
+        shr     r9, 1
+        rcr     r8, 1
+        mov     qword [.remainder_shifted + 0], r8
+        mov     qword [.remainder_shifted + 8], r9
+        jmp     .remainder_shifted_ready
 }
 
 macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
@@ -340,6 +333,7 @@ macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
         mov     rdx, [.divisor]
         Call_SubAssign DIV_REM_GUESS_REMAINDER_ACTUAL_SIZE, divisor_bits
         jmp     .end
+DivRemGuess64_RemainderFull dividend_bits, divisor_bits
 }
 
 macro RemGuess64_RecheckOnce dividend_bits, divisor_bits {
@@ -353,13 +347,26 @@ macro RemGuess64_RecheckOnce dividend_bits, divisor_bits {
         mov     rdx, [.divisor]
         Call_SubAssign DIV_REM_GUESS_REMAINDER_ACTUAL_SIZE, divisor_bits
         jmp     .end
+DivRemGuess64_RemainderFull dividend_bits, divisor_bits
 }
 
 
 
 
 
+macro DivRemGuess64_BeforeLoop dividend_bits, divisor_bits {
+      mov     rcx, [.remainder]
+      Call_Lzcnt dividend_bits    ;todo: check once per loop
+      cmp     rax, [.divisor_lzcnt]
+      jae     .recheck_once
+      test    rax, rax
+      jz      .remainder_full
+      dec     rax
+      mov     [.remainder_lzcnt], rax
+}
+
 macro DivRemGuess64_Loop dividend_bits, divisor_bits {
+        DivRemGuess64_BeforeLoop dividend_bits, divisor_bits
 .loop:
         DivRemGuess64_LoopStart dividend_bits, divisor_bits
         DivRemGuess64_DumpRemainder dividend_bits, divisor_bits
@@ -393,6 +400,7 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
 }
 
 macro RemGuess64_Loop dividend_bits, divisor_bits {
+        DivRemGuess64_BeforeLoop dividend_bits, divisor_bits
 .loop:
         DivRemGuess64_LoopStart dividend_bits, divisor_bits
         DivRemGuess64_DumpRemainder dividend_bits, divisor_bits

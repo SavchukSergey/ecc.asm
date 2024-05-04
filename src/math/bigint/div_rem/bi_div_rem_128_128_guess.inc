@@ -18,7 +18,10 @@ bi_div_rem_128_128_guess:
 virtual at rsp
   label .locals_start
   BigInteger128 .remainder_shifted
-  BigInteger128 .guess_128
+
+  .guess_64:
+    BigInteger128 .guess_128
+
   BigInteger128 .delta
 
   .dividend rq 1

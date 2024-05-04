@@ -32,6 +32,10 @@ BigIntegerCode 512
 BigIntegerCode 1024
 
 
+macro BigInteger64 name {
+  name rq 1
+}
+
 ;todo: replace __BIG_INTEGER_BYTES_128 with BigInteger128
 macro BigInteger128 name {
   name rb __BIG_INTEGER_BYTES_128

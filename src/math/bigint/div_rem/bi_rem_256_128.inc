@@ -6,6 +6,7 @@ virtual at rsp
   label .locals_start
   BigInteger256 .delta
   BigInteger128 .remainder_shifted
+.guess_64:
   BigInteger128 .guess_128
 
   .dividend rq 1

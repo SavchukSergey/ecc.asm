@@ -2,7 +2,7 @@ if ~ definite bi_div_rem_512_512_guess
 
 include 'macro/bi_div_rem_guess_64.inc'
 
-include '../extend_low/bi_extend_256_128.inc'
+include '../extend_low/bi_extend_256_64.inc'
 include '../div_rem/bi_div_rem_512_128.inc'
 include '../div_rem/bi_div_rem_512_256.inc'
 
@@ -11,9 +11,10 @@ bi_div_rem_512_512_guess:
 virtual at rsp
   label .locals_start
   BigInteger512 .delta
-  BigInteger256 .guess_q
+.guess_64:
+.guess_128:
+  BigInteger256 .guess
   BigInteger128 .remainder_shifted
-  BigInteger128 .guess_128
 
   .dividend rq 1
   .divisor rq 1

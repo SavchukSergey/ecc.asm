@@ -8,7 +8,7 @@ include '../cmp/bi_cmp_256_256.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../div_rem/bi_div_rem_512_64.inc'
 include '../div_rem/bi_div_rem_512_128.inc'
-include '../extend_low/bi_extend_384_128.inc'
+include '../extend_low/bi_extend_assign_384_64.inc'
 include '../lzcnt/bi_lzcnt_256.inc'
 include '../lzcnt/bi_lzcnt_512.inc'
 include '../shl/bi_shl_256.inc'
@@ -25,9 +25,10 @@ bi_div_rem_512_256_guess:
 virtual at rsp
   label .locals_start
   BigInteger512 .delta
-  BigInteger512 .guess_q
+.guess_64:
+.guess_128:
+  BigInteger512 .guess
   BigInteger128 .remainder_shifted
-  BigInteger128 .guess_128
 
   .dividend rq 1
   .divisor rq 1

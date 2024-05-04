@@ -7,7 +7,7 @@ include '../add/bi_add_assign_512_512.inc'
 include '../copy/bi_copy_512.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../div_rem/bi_div_rem_512_64.inc'
-include '../extend_low/bi_extend_448_128.inc'
+include '../extend_low/bi_extend_assign_448_64.inc'
 include '../inc/bi_inc_assign_448.inc'
 include '../lzcnt/bi_lzcnt_128.inc'
 include '../lzcnt/bi_lzcnt_512.inc'
@@ -24,9 +24,10 @@ bi_div_rem_512_128_guess:
 virtual at rsp
   label .locals_start
   BigInteger512 .delta
-  BigInteger512 .guess_q
+  .guess_64:
+  .guess_128:
+  BigInteger512 .guess
   BigInteger128 .remainder_shifted
-  BigInteger128 .guess_128
 
   .divisor_shifted rq 1
 
