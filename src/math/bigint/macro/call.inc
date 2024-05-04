@@ -89,6 +89,33 @@ macro Call_ShrAssign bits {
   end if
 }
 
+macro Call_ExtendAssignX64 bits {
+  if bits = 128
+      mov     qword [rcx + 8], 0
+;      call    bi_extend_assign_128_64
+  else if bits = 192
+      mov     qword [rcx + 8], 0
+      mov     qword [rcx + 16], 0
+;      call    bi_extend_assign_192_64
+  else if bits = 256
+      mov     qword [rcx + 8], 0
+      mov     qword [rcx + 16], 0
+      mov     qword [rcx + 24], 0
+;      call    bi_extend_assign_256_64
+  else if bits = 384
+      call    bi_extend_assign_384_64
+  else if bits = 448
+      call    bi_extend_assign_448_64
+  else if bits = 512
+      call    bi_extend_assign_512_64
+  else
+      display 'unknown Call_ExtendAssignX64 '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
 macro Call_ExtendX64 bits {
   if bits = 192
       call    bi_extend_192_64

@@ -214,6 +214,11 @@ section '.edata' export data readable
          bi_extend_512_128, 'bi_extend_512_128',\
          bi_extend_512_256, 'bi_extend_512_256',\
 \
+         bi_extend_assign_128_64, 'bi_extend_assign_128_64',\
+         bi_extend_assign_192_64, 'bi_extend_assign_192_64',\
+         bi_extend_assign_384_64, 'bi_extend_assign_384_64',\
+         bi_extend_assign_448_64, 'bi_extend_assign_448_64',\
+\
          bi_mod_add_assign_256_256, 'bi_mod_add_assign_256_256',\
 \
          bi_mod_sub_assign_256_256, 'bi_mod_sub_assign_256_256',\
