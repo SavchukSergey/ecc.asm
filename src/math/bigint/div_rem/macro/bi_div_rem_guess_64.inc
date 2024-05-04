@@ -4,20 +4,13 @@ if definite BI_DEV_REM_GUESS_64_DEBUG
   include 'bi_div_rem_guess_debug.inc'
 end if
 
+include 'bi_div_rem_guess_64_small_divisor.inc'
+
 include '../../config.inc'
 include '../../macro/call.inc'
 
 ;todo: when approaching to divisorLZC switch to compare-and-subtract strategy
 ;todo: bi_exract_128_bits(remainderLZC) to get remainder first 128-bit meaningful bits
-
-macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {
-  if definite BI_DEV_REM_GUESS_64_DEBUG
-    call    Console_WriteLine
-
-    DivRemGuess64_DumpDividend dividend_bits, divisor_bits
-    DivRemGuess64_DumpDivisor dividend_bits, divisor_bits
-  end if
-}
 
 macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
     sub     rsp, .locals_end - .locals_start
@@ -63,91 +56,25 @@ macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
 macro DivRemGuess64_DivisorSwitch dividend_bits, divisor_bits {
   if divisor_bits >= 128
     ;check for large divisor first than try to use smaller ones
-    cmp     rax, dividend_bits - (divisor_bits / 2)
-    jb      .divisor_large
-
-    if divisor_bits >= 512
-      cmp     rax, dividend_bits - 128
-      jb      .divisor_256
-    end if
-
-    if divisor_bits >= 256
-      cmp     rax, dividend_bits - 64
-      jb      .divisor_128
-    end if
-
-.divisor_64:
-    mov     rcx, [.dividend]
-    mov     rdx, [.divisor]
-    mov     rdx, [rdx + 0]
-    mov     r8, [.quotient]
-    mov     r9, [.remainder]
-    Call_DivRem dividend_bits, 64
-    jmp     .end
-  if divisor_bits >= 256
-.divisor_128:
-    mov     rcx, [.dividend]
-    mov     rdx, [.divisor]
-    mov     r8, [.quotient]
-    mov     r9, [.remainder]
-    Call_DivRem dividend_bits, 128
-    jmp     .end
-  end if
-  if divisor_bits >= 512
-.divisor_256:
-    mov     rcx, [.dividend]
-    mov     rdx, [.divisor]
-    mov     r8, [.quotient]
-    mov     r9, [.remainder]
-    Call_DivRem dividend_bits, 256
-    jmp     .end
-  end if
-.divisor_large:
+    cmp     rax, dividend_bits - (divisor_bits / 2)            ;todo: dividend_bits must be divisor_bits?
+    jae      .divisor_small
   end if
 }
 
 macro RemGuess64_DivisorSwitch dividend_bits, divisor_bits {
   if divisor_bits >= 128
     ;check for large divisor first than try to use smaller ones
-    cmp     rax, dividend_bits - (divisor_bits / 2)
-    jb      .divisor_large
-
-    if divisor_bits >= 512
-      cmp     rax, dividend_bits - 128
-      jb      .divisor_256
-    end if
-
-    if divisor_bits >= 256
-      cmp     rax, dividend_bits - 64
-      jb      .divisor_128
-    end if
-
-.divisor_64:
-    mov     rcx, [.dividend]
-    mov     rdx, [.divisor]
-    mov     rdx, [rdx + 0]
-    mov     r8, [.remainder]
-    Call_Rem dividend_bits, 64
-    jmp     .end
-  if divisor_bits >= 256
-.divisor_128:
-    mov     rcx, [.dividend]
-    mov     rdx, [.divisor]
-    mov     r8, [.remainder]
-    Call_Rem dividend_bits, 128
-    jmp     .end
-  end if
-  if divisor_bits >= 512
-.divisor_256:
-    mov     rcx, [.dividend]
-    mov     rdx, [.divisor]
-    mov     r8, [.remainder]
-    Call_Rem dividend_bits, 256
-    jmp     .end
-  end if
-.divisor_large:
+    cmp     rax, dividend_bits - (divisor_bits / 2)            ;todo: dividend_bits must be divisor_bits?
+    jae      .divisor_small
   end if
 }
+
+
+
+
+
+
+
 
 macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
     DIV_REM_PARTIAL_DIVIDEND_SIZE = 128
@@ -461,6 +388,7 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
 
         jmp     .loop
+        DivRemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits
 .loop_ok:
 }
 
@@ -490,5 +418,6 @@ macro RemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
 
         jmp     .loop
+        RemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits
 .loop_ok:
 }

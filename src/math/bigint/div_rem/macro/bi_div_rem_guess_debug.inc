@@ -16,6 +16,15 @@ macro DisplayDec value {
   end if
 }
 
+macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {
+  if definite BI_DEV_REM_GUESS_64_DEBUG
+    call    Console_WriteLine
+
+    DivRemGuess64_DumpDividend dividend_bits, divisor_bits
+    DivRemGuess64_DumpDivisor dividend_bits, divisor_bits
+  end if
+}
+
 macro DivRemGuess64_WriteUIntHex bits {
   if bits = 128
     call    Console_WriteUInt128Hex
