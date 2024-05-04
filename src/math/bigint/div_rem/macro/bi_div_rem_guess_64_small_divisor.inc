@@ -83,7 +83,7 @@ macro DivRemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits {
       jb      .divisor_128
     end if
 
-    DivRemGuess64_Divisor64   dividend_bits, divisor_bits
+    DivRemGuess64_Divisor64 dividend_bits, divisor_bits
 
     DivRemGuess64_Divisor128 dividend_bits, divisor_bits
     DivRemGuess64_Divisor256 dividend_bits, divisor_bits
