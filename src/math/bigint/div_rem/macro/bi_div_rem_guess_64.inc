@@ -5,6 +5,7 @@ if definite BI_DEV_REM_GUESS_64_DEBUG
 end if
 
 include 'bi_div_rem_guess_64_small_divisor.inc'
+include 'bi_div_rem_guess_64_epilog.inc'
 
 include '../../config.inc'
 include '../../macro/call.inc'
@@ -39,8 +40,6 @@ macro RemGuess64_Prolog dividend_bits, divisor_bits {
     CheckRegAligned rcx, 'RemGuess64_Prolog rcx'
     CheckRegAligned rdx, 'RemGuess64_Prolog rdx'
     CheckRegAligned r8, 'RemGuess64_Prolog r8'
-
-    DivRemGuess64_DumpArgs dividend_bits, divisor_bits
 }
 
 
@@ -99,30 +98,12 @@ macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
 macro DivRemGuess64_InitRemainder dividend_bits, divisor_bits {
     mov     rcx, [.remainder]
     mov     rdx, [.dividend]
-if dividend_bits = 256
-  if AVX2_ENABLED = 1
-    vmovdqu ymm1, [rdx]
-    vmovdqu [rcx], ymm1
-  else
     Call_Copy dividend_bits
-  end if
-else
-    Call_Copy dividend_bits
-end if
 }
 
 macro DivRemGuess64_InitQuotient dividend_bits, divisor_bits {
     mov     rcx, [.quotient]
-if dividend_bits = 256
-  if AVX2_ENABLED = 1
-    vpxor   ymm1, ymm1, ymm1
-    vmovdqu [rcx], ymm1
-  else
     Call_Zero dividend_bits
-  end if
-else
-    Call_Zero dividend_bits
-end if
 }
 
 macro DivRemGuess64_PrepareLoop dividend_bits, divisor_bits {
@@ -141,15 +122,15 @@ macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
     sub     rax, DIV_REM_GUESS_IMAGINARY_BITS 
   end if
 ; divisor_bits is at least 128-bit wide
+      mov     rdx, [.divisor]
       mov     rcx, rax
-      and     rax, -64
-      shr     rax, 3                              ; rax now is count of highest zero qwords multiplied by 8
-      mov     rdx, (divisor_bits shr 3) - 16      ; we need two qwords to build one
-      sub     rdx, rax
 
-      mov     rax, [.divisor]
-      mov     r8, [rax + rdx]
-      mov     r9, [rax + rdx + 8]
+      shr     rax, 3                              ; rax now is count of highest zero qwords multiplied by 8, we need two qwords to build one
+      and     rax, -8
+      neg     rax
+
+      mov     r8, [rax + rdx + (divisor_bits shr 3) - 16]
+      mov     r9, [rax + rdx + 8 + (divisor_bits shr 3) - 16]
       shld    r9, r8, cl
       mov     qword [.divisor_shifted], r9
 
@@ -165,27 +146,26 @@ macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
       dec     rax
       mov     [.remainder_lzcnt], rax
 
-if dividend_bits > 128
+      mov     rdx, [.remainder]
       mov     rcx, rax
-      and     rax, -64
-      shr     rax, 3                              ; rax now is count of highest zero qwords multiplied by 8
-      mov     rdx, (dividend_bits shr 3) - 24     ; we need three qwords to build two
+
+if dividend_bits > 128
       xor     r9, r9
-      sub     rdx, rax
+
+      shr     rax, 3                              ; rax now is count of highest zero qwords multiplied by 8, we need three qwords to build two
+      and     rax, -8
+      neg     rax
 ; remainder has at least same bits as divisor, and divisor is at least 65-bit wide
 ; so at least two qwords are accessible
 ; but third one may be out of range
-      mov     rax, [.remainder]
-      cmovnc  r9, [rax + rdx]
-      mov     r8, [rax + rdx + 8]
-      mov     rax, [rax + rdx + 16]
+      cmovnc  r9, [rax + rdx + (dividend_bits shr 3) - 24]
+      mov     r8, [rax + rdx + (dividend_bits shr 3) - 24 + 8]
+      mov     rax, [rax + rdx + (dividend_bits shr 3) - 24 + 16]
       shld    rax, r8, cl
       shld    r8, r9, cl
       mov     qword [.remainder_shifted], r8
       mov     qword [.remainder_shifted + 8], rax
 else
-      mov     rcx, rax
-      mov     rdx, [.remainder]
       mov     r8, [rdx]
       mov     r9, [rdx + 8]
       shld    r9, r8, cl
@@ -344,7 +324,9 @@ macro RemGuess64_RecheckOnce dividend_bits, divisor_bits {
         mov     rcx, [.remainder]
         mov     rdx, [.divisor]
         Call_SubAssign DIV_REM_GUESS_REMAINDER_ACTUAL_SIZE, divisor_bits
-        jmp     .end
+        DivRemGuess64_Epilog dividend_bits, divisor_bits
+
+
 DivRemGuess64_RemainderFull dividend_bits, divisor_bits
 }
 

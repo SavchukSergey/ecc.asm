@@ -89,6 +89,14 @@ macro Call_ShrAssign bits {
   end if
 }
 
+macro Call_ExtendAssign384_64 {
+    mov     qword [rcx + 8], 0
+    mov     qword [rcx + 16], 0
+    mov     qword [rcx + 24], 0
+    mov     qword [rcx + 32], 0
+    mov     qword [rcx + 40], 0
+}
+
 macro Call_ExtendAssignX64 bits {
   if bits = 128
       mov     qword [rcx + 8], 0
@@ -103,7 +111,8 @@ macro Call_ExtendAssignX64 bits {
       mov     qword [rcx + 24], 0
 ;      call    bi_extend_assign_256_64
   else if bits = 384
-      call    bi_extend_assign_384_64
+      Call_ExtendAssign384_64
+;      call    bi_extend_assign_384_64
   else if bits = 448
       call    bi_extend_assign_448_64
   else if bits = 512
@@ -251,13 +260,26 @@ macro Call_Cmp bits {
   end if
 }
 
+macro Call_Zero256 {
+    vpxor   ymm1, ymm1, ymm1
+    vmovdqu [rcx], ymm1
+}
+
+macro Call_Zero512 {
+    vpxor   ymm1, ymm1, ymm1
+    vmovdqu [rcx], ymm1
+    vmovdqu [rcx + 32], ymm1
+}
+
 macro Call_Zero bits {
   if bits = 128
       call    bi_zero_128
   else if bits = 256
-      call    bi_zero_256
+      Call_Zero256
+;      call    bi_zero_256
   else if bits = 512
-      call    bi_zero_512
+      Call_Zero512
+;      call    bi_zero_512
   else if bits = 1024
       call    bi_zero_1024
   else
@@ -268,21 +290,49 @@ macro Call_Zero bits {
   end if
 }
 
-macro Call_Copy bits {
-  if bits = 128
-      call    bi_copy_128
-  else if bits = 256
-      call    bi_copy_256
-  else if bits = 512
-      call    bi_copy_512
-  else if bits = 1024
-      call    bi_copy_1024
+macro Call_Copy128 {
+    mov     rax, [rdx + 0]
+    mov     [rcx + 0], rax
+    mov     rax, [rdx + 8]
+    mov     [rcx + 8], rax
+}
+
+macro Call_Copy256 {
+  if AVX2_ENABLED = 1
+    vmovdqu ymm1, [rdx]
+    vmovdqu [rcx], ymm1
   else
-      display 'unknown copy '
-      DisplayDec bits
-      display 13, 10
-      err 
+    call    bi_copy_256
   end if
+}
+
+macro Call_Copy512 {
+  if AVX2_ENABLED = 1
+    vmovdqu ymm1, [rdx]
+    vmovdqu [rcx], ymm1
+    vmovdqu ymm1, [rdx + 32]
+    vmovdqu [rcx + 32], ymm1
+  else
+    call    bi_copy_512
+  end if
+}
+
+
+macro Call_Copy bits {
+if bits = 128
+  Call_Copy128
+else if bits = 256
+  Call_Copy256
+else if bits = 512
+  Call_Copy512
+else if bits = 1024
+  call    bi_copy_1024
+else
+    display 'unknown Call_Copy '
+    DisplayDec bits
+    display 13, 10
+    err 
+end if
 }
 
 macro Call_SubAssign512X right_bits {
