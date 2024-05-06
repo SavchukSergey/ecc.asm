@@ -68,25 +68,28 @@ align 16
         pop     r10
         ret
 .shift_256:
-        push    r10 r11
-        mov     r8, [rdx + 0]
-        mov     r9, [rdx + 8]
-        mov     r10, [rdx + 16]
-        mov     r11, [rdx + 24]
-        shld    r11, r10, cl
-        shld    r10, r9, cl
-        shld    r9, r8, cl
-        shl     r8, cl
-        mov     [rdx + 56], r11
-        mov     [rdx + 48], r10
-        mov     [rdx + 40], r9
-        mov     [rdx + 32], r8
-        mov     [rdx + 24], rax
-        mov     [rdx + 16], rax
-        mov     [rdx + 8], rax
-        mov     [rdx + 0], rax
-        pop     r11 r10
-        ret
+    and       rcx, 0x3f
+    vmovq     xmm3, rcx
+    sub       rcx, 64
+    neg       rcx
+    vmovq     xmm4, rcx
+    
+    vmovdqu   ymm1, [rdx + 0]
+    vpermq    ymm2, ymm1, 10010000b
+    vpand     ymm2, ymm2, yword [.mask_remove_low_u64]
+    
+    vpsllq    ymm1, ymm1, xmm3
+    vpsrlq    ymm2, ymm2, xmm4
+    vpor      ymm1, ymm1, ymm2
+
+    vmovdqu   [rdx + 32], ymm1
+
+    vpxor     ymm1, ymm1, ymm1
+    vmovdqu   [rdx + 0], ymm1
+    ret
+align 16
+.mask_remove_low_u64   dq 0, -1, -1, -1
+
 .shift_192:
         push    r10 r11 r12
         mov     r8, [rdx + 0]
