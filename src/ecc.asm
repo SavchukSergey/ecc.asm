@@ -104,6 +104,7 @@ section '.edata' export data readable
          bi_cmp_256_128, 'bi_cmp_256_128', \
          bi_cmp_256_256, 'bi_cmp_256_256', \
          bi_cmp_512_128, 'bi_cmp_512_128', \
+         bi_cmp_512_256, 'bi_cmp_512_256', \
          bi_cmp_512_512, 'bi_cmp_512_512', \
          bi_cmp_1024_1024, 'bi_cmp_1024_1024', \
 \

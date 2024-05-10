@@ -33,5 +33,6 @@ end virtual
 .end:
 	DivRemGuess64_Epilog 256, 128
         RemGuess64_RecheckOnce 256, 128
+        RemGuess64_RecheckMulti 256, 128
 
 end if

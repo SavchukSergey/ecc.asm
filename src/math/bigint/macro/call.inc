@@ -229,27 +229,71 @@ macro Call_Lzcnt bits {
   else if bits = 512
       call    bi_lzcnt_512
   else
-      display 'unknown lzcnt '
+      display 'unknown Call_Lzcnt '
       DisplayDec bits
       display 13, 10
       err 
   end if
 }
 
-macro Call_Cmp bits {
+macro Call_Cmp128X bits {
   if bits = 128
       call    bi_cmp_128_128
-  else if bits = 256
-      call    bi_cmp_256_256
-  else if bits = 512
-      call    bi_cmp_512_512
   else
-      display 'unknown Call_Cmp '
+      display 'unknown Call_Cmp128X '
       DisplayDec bits
       display 13, 10
       err 
   end if
 }
+
+
+macro Call_Cmp256X bits {
+  if bits = 128
+      call    bi_cmp_256_128
+  else if bits = 256
+      call    bi_cmp_256_256
+  else
+      display 'unknown Call_Cmp256X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_Cmp512X bits {
+  if bits = 128
+      call    bi_cmp_512_128
+  else if bits = 256
+      call    bi_cmp_512_256
+  else if bits = 512
+      call    bi_cmp_512_512
+  else
+      display 'unknown Call_Cmp512X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
+
+macro Call_Cmp left_bits, right_bits {
+  if left_bits = 128
+      Call_Cmp128X right_bits
+  else if left_bits = 256
+      Call_Cmp256X right_bits
+  else if left_bits = 512
+      Call_Cmp512X right_bits
+  else
+      display 'unknown Call_Cmp '
+      DisplayDec left_bits
+      DisplayDec ', '
+      DisplayDec right_bits
+      display 13, 10
+      err 
+  end if
+}
+
 
 macro Call_Zero bits {
   if bits = 128

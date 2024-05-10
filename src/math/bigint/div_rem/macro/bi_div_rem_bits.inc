@@ -85,7 +85,7 @@ end if
 
         mov     rcx, [.remainder]
         lea     rdx, [.divisor_shifted]
-        Call_Cmp DIV_REM_BITS_REMAINDER_SIZE
+        Call_Cmp DIV_REM_BITS_REMAINDER_SIZE, DIV_REM_BITS_REMAINDER_SIZE
         jb      .bit_zero
 .bit_one:
         mov     rcx, [.remainder]

@@ -4,6 +4,7 @@ include 'macro/bi_div_rem_guess_64.inc'
 
 include '../add/bi_add_assign_448_448.inc'
 include '../add/bi_add_assign_512_512.inc'
+include '../cmp/bi_cmp_512_128.inc'
 include '../copy/bi_copy_512.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../div_rem/bi_div_rem_512_64.inc'
@@ -54,5 +55,6 @@ end virtual
 .end:
 	DivRemGuess64_Epilog 512, 128
 	DivRemGuess64_RecheckOnce 512, 128
+	DivRemGuess64_RecheckMulti 512, 128
 
 end if

@@ -4,6 +4,7 @@ include 'macro/bi_div_rem_guess_64.inc'
 
 include '../copy/bi_copy_128.inc'
 include '../cmp/bi_cmp_128_128.inc'
+include '../cmp/bi_cmp_256_128.inc'
 include '../div_rem/bi_div_128_64.inc'
 include '../inc/bi_inc_assign_128.inc'
 include '../lzcnt/bi_lzcnt_128.inc'
@@ -27,7 +28,6 @@ virtual at rsp
   .remainder rq 1
 
   .divisor_lzcnt rq 1
-  .remainder_lzcnt rq 1
 
   .divisor_shifted rq 1
 
@@ -45,5 +45,6 @@ end virtual
 	DivRemGuess64_Epilog 128, 128
 
 	DivRemGuess64_RecheckOnce 128, 128
+	DivRemGuess64_RecheckMulti 128, 128
 
 end if
