@@ -5,6 +5,7 @@ if definite BI_DEV_REM_GUESS_64_DEBUG
 end if
 
 include 'bi_div_rem_guess_64_small_divisor.inc'
+include 'bi_div_rem_guess_64_epilog.inc'
 
 include '../../config.inc'
 include '../../macro/call.inc'
@@ -362,16 +363,11 @@ macro RemGuess64_RecheckOnce dividend_bits, divisor_bits {
 macro DivRemGuess64_Loop dividend_bits, divisor_bits {
 .loop:
         DivRemGuess64_LoopStart dividend_bits, divisor_bits
-        DivRemGuess64_DumpRemainder dividend_bits, divisor_bits
         DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits
-        DivRemGuess64_DumpRemainderShifted dividend_bits, divisor_bits
         DivRemGuess64_Guess dividend_bits, divisor_bits
-        DivRemGuess64_DumpGuess dividend_bits, divisor_bits
         DivRemGuess64_FixGuess dividend_bits, divisor_bits
-        DivRemGuess64_DumpGuessFixed dividend_bits, divisor_bits
 
         DivRemGuess64_CalcDelta dividend_bits, divisor_bits
-        DivRemGuess64_DumpDelta dividend_bits, divisor_bits
         DivRemGuess64_ExtendGuess dividend_bits, divisor_bits
 
         cmp     [.correction], 0
@@ -382,10 +378,8 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_ShiftGuess dividend_bits, divisor_bits
 .correction_2_ok:
 
-        DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits
         DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
         DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits
-        DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
 
         jmp     .loop
         DivRemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits
@@ -395,16 +389,11 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
 macro RemGuess64_Loop dividend_bits, divisor_bits {
 .loop:
         DivRemGuess64_LoopStart dividend_bits, divisor_bits
-        DivRemGuess64_DumpRemainder dividend_bits, divisor_bits
         DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits
-        DivRemGuess64_DumpRemainderShifted dividend_bits, divisor_bits
         DivRemGuess64_Guess dividend_bits, divisor_bits
-        DivRemGuess64_DumpGuess dividend_bits, divisor_bits
         DivRemGuess64_FixGuess dividend_bits, divisor_bits
-        DivRemGuess64_DumpGuessFixed dividend_bits, divisor_bits
 
         DivRemGuess64_CalcDelta dividend_bits, divisor_bits
-        DivRemGuess64_DumpDelta dividend_bits, divisor_bits
 
         cmp     [.correction], 0
         jz     .correction_2_ok
@@ -413,9 +402,7 @@ macro RemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_ShiftDelta dividend_bits, divisor_bits
 .correction_2_ok:
 
-        DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits
         DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
-        DivRemGuess64_DumpNewValues dividend_bits, divisor_bits
 
         jmp     .loop
         RemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits

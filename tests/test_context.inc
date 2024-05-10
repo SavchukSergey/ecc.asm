@@ -36,7 +36,7 @@ end virtual
         mov     qword [.context.assert_fails], 0
         ret
 
-TEST_MEASURE_CHUNK = 5000
+TEST_MEASURE_CHUNK = 15000
 
 test_context_measure_dec_chunk:
 virtual at TestContextReg

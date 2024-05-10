@@ -49,8 +49,7 @@ end virtual
 	DivRemGuess64_ShiftDivisor 256, 128
 	DivRemGuess64_Loop 256, 128
 .end:
-	add	rsp, .locals_end - .locals_start
-	ret
+	DivRemGuess64_Epilog 256, 128
 	DivRemGuess64_RecheckOnce 256, 128
 
 end if

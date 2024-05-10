@@ -37,8 +37,7 @@ end virtual
 
 	DivRemGuess64_Loop 512, 512
 .end:
-	add	rsp, .locals_end - .locals_start
-	ret
+	DivRemGuess64_Epilog 512, 512
 	DivRemGuess64_RecheckOnce 512, 512
 
 end if
