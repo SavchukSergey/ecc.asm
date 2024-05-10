@@ -18,8 +18,7 @@ get_cpu_timestamp:
         cpuid
         rdtsc
         shl     rdx, 32
-        or      rdx, rax
-        mov     rdx, rax
+        or      rax, rdx
         pop     rdx rcx rbx
         ret
 
