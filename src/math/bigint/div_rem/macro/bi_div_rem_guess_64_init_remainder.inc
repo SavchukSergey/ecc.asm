@@ -17,13 +17,6 @@ else if dividend_bits = 256
   else
     Call_Copy dividend_bits
   end if
-else if dividend_bits = 128
-  if AVX2_ENABLED = 1
-    vmovdqu xmm1, [rdx]
-    vmovdqu [rcx], xmm1
-  else
-    Call_Copy dividend_bits
-  end if
 else
     Call_Copy dividend_bits
 end if

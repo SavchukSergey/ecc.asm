@@ -110,13 +110,6 @@ if dividend_bits = 256
   else
     Call_Zero dividend_bits
   end if
-else if dividend_bits = 128
- if AVX2_ENABLED = 1
-    vpxor   xmm1, xmm1, xmm1
-    vmovdqu [rcx], xmm1
-  else
-    Call_Zero dividend_bits
-  end if
 else
     Call_Zero dividend_bits
 end if
@@ -169,30 +162,24 @@ macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
       cmp     rax, [.divisor_lzcnt]
       jae     .recheck_once
 
-if dividend_bits > 128
+;dividend is now wider than 128 bits, we can skip some checks here
       mov     [.remainder_lzcnt], rax
       mov     rcx, rax
       and     rax, -64
       sar     rax, 3                              ; rax now is count of highest zero qwords multiplied by 8
       mov     rdx, (dividend_bits shr 3) - 24     ; we need three qwords to build two
-      xor     r9, r9
       sub     rdx, rax
 ; remainder has at least same bits as divisor, and divisor is at least 65-bit wide
 ; so at least two qwords are accessible
 ; but third one may be out of range
       mov     rax, [.remainder]
-      cmovns  r9, [rax + rdx]
+      mov     r9, [rax + rdx]
       mov     r8, [rax + rdx + 8]
       mov     rax, [rax + rdx + 16]
       shld    rax, r8, cl
       shld    r8, r9, cl
       mov     qword [.remainder_shifted], r8
       mov     qword [.remainder_shifted + 8], rax
-else
-      mov     rdx, [.remainder]
-      vmovdqu xmm1, [rdx]
-      vmovdqu dqword [.remainder_shifted], xmm1
-end if
 }
 
 macro DivRemGuess64_Guess dividend_bits, divisor_bits {
@@ -222,7 +209,6 @@ macro DivRemGuess64_Guess dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_FixGuess dividend_bits, divisor_bits {
-if dividend_bits > 128
       mov     rcx, [.remainder_lzcnt]
       add     rcx, 64                    ;partial remainder was 128-bit wide, but partial divisor only 64 bit-wide
       sub     rcx, [.divisor_lzcnt]
@@ -235,16 +221,6 @@ if dividend_bits > 128
       xor     rcx, rcx
 .correction_ok:
       mov     [.correction], rcx
-else
-      mov     rcx, 64                    ;partial remainder was 128-bit wide, but partial divisor only 64 bit-wide
-      sub     rcx, [.divisor_lzcnt]
-;todo: guess_128 is less than 2^65 (not 2^64). Try to optimize everything
-; scale down guess to trim fraction part of division
-      mov     rax, qword [.guess_128 + 8]
-      shrd    qword [.guess_128 + 0], rax, cl
-      shr     qword [.guess_128 + 8], cl
-      mov     [.correction], 0
-end if
 }
 
 macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {

@@ -2,7 +2,7 @@ if ~ definite bi_div_rem_128_64
 
 ;Divides bi128 by u64
 ;input:
-;   rcx - pointer to bi128 divident
+;   rcx - pointer to bi128 dividend
 ;   rdx - u64 divisor
 ;   r8 - pointer to bi128 quotient
 ;   r9 - pointer to bi128 remainder (actual result will be u64)

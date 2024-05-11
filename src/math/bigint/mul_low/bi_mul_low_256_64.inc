@@ -1,6 +1,7 @@
 if ~ definite bi_mul_low_256_64
 
 include '../mul/bi_mul_128_64.inc'
+include '../mul_low/bi_mul_low_128_64.inc'
 
 ;Multiplies bi256 by bi64 value and return low 256 bits
 ;input
