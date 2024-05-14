@@ -38,8 +38,6 @@ virtual at rsp
 
   .divisor_lzcnt rq 1
 
-  .remainder_lzcnt rq 1
-
   .correction rq 1
   label .locals_end
 end virtual

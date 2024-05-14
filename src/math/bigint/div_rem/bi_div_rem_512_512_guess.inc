@@ -21,7 +21,6 @@ virtual at rsp
   .remainder rq 1
 
   .divisor_lzcnt rq 1
-  .remainder_lzcnt rq 1
 
   .divisor_shifted rq 1
 
