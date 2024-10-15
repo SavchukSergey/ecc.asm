@@ -1,4 +1,4 @@
-include '../src/math/bigint/mod_add/bi_mod_tripple_assign_256.inc'
+include '../../../../src/math/bigint/mod_add/bi_mod_tripple_assign_256.inc'
 include '../../../assert.inc'
 
 __bi_mod_tripple_assign_256_test_core:
@@ -12,63 +12,63 @@ virtual at rsp
   AlignLocalsStackFrame
 .locals_end:
 end virtual
-    sub     rsp, .locals_end - .locals_start
-	PrologCheckStackAligned '__bi_mod_tripple_assign_256_test_core'
-	CheckRegAligned rcx, '__bi_mod_tripple_assign_256_test_core rcx'
-	CheckRegAligned rdx, '__bi_mod_tripple_assign_256_test_core rdx'
-	CheckRegAligned r8, '__bi_mod_tripple_assign_256_test_core r8'
+        sub       rsp, .locals_end - .locals_start
+        PrologCheckStackAligned '__bi_mod_tripple_assign_256_test_core'
+        CheckRegAligned rcx, '__bi_mod_tripple_assign_256_test_core rcx'
+        CheckRegAligned rdx, '__bi_mod_tripple_assign_256_test_core rdx'
+        CheckRegAligned r8, '__bi_mod_tripple_assign_256_test_core r8'
 
-	  mov       [.value_hex], rcx
-	  mov       [.modulus_hex], rdx
-	  mov       [.expected_hex], r8
+        mov       [.value_hex], rcx
+        mov       [.modulus_hex], rdx
+        mov       [.expected_hex], r8
 
-	  mov       rcx, [.value_hex]
-	  lea       rdx, [.value]
-	  call      bi_try_read_hex_256
+        mov       rcx, [.value_hex]
+        lea       rdx, [.value]
+        call      bi_try_read_hex_256
 
-	  mov       rcx, [.modulus_hex]
-	  lea       rdx, [.modulus]
-	  call	    bi_try_read_hex_256
+        mov       rcx, [.modulus_hex]
+        lea       rdx, [.modulus]
+        call      bi_try_read_hex_256
 
-	  lea       rcx, [.value]
-	  lea       rdx, [.modulus]
-    call      bi_mod_tripple_assign_256
+        lea       rcx, [.value]
+        lea       rdx, [.modulus]
+        call      bi_mod_tripple_assign_256
 
-    mov       rcx, [.expected_hex]
-    lea       rdx, [.value]
-    call      bi_assert_equal_hex_256
+        mov       rcx, [.expected_hex]
+        lea       rdx, [.value]
+        call      bi_assert_equal_hex_256
 
-    call      test_context_start_measure
+        call      test_context_start_measure
 .chunk_loop:
-	  lea       rcx, [.value]
-    lea       rdx, [.modulus]
-    call      bi_mod_tripple_assign_256
-    call      test_context_measure_dec_chunk
-    jnz       .chunk_loop
-    call      test_context_end_measure
+        lea       rcx, [.value]
+        lea       rdx, [.modulus]
+        call      bi_mod_tripple_assign_256
+        call      test_context_measure_dec_chunk
+        jnz       .chunk_loop
+        call      test_context_end_measure
 
-    add       rsp, .locals_end - .locals_start
-	ret
+        add       rsp, .locals_end - .locals_start
+        ret
 
 __bi_mod_tripple_assign_256_test:
-	sub		 rsp, 8
-	mov		 rbx, __bi_mod_tripple_assign_256_test_cases
+        sub       rsp, 8
+        mov       rbx, __bi_mod_tripple_assign_256_test_cases
 .loop:
-	lea		 rcx, [rbx + 0]
-	lea		 rdx, [.modulus_hex]
-	lea		 r8, [rbx + 64]
-	call	 __bi_mod_tripple_assign_256_test_core
+        lea       rcx, [rbx + 0]
+        lea       rdx, [.modulus_hex]
+        lea       r8, [rbx + 64]
+        call      __bi_mod_tripple_assign_256_test_core
 
-	add      rbx, 64 + 64
-	cmp		 rbx, __bi_mod_tripple_assign_256_test_cases.end
-	jb		.loop
+        add      rbx, 64 + 64
+        cmp      rbx, __bi_mod_tripple_assign_256_test_cases.end
+        jb       .loop
 
-	add		rsp, 8
+        add      rsp, 8
 
-	ret
+        ret
 
 align 16
-.modulus_hex	db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
+.modulus_hex    db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
 
 align 16
 __bi_mod_tripple_assign_256_test_cases:

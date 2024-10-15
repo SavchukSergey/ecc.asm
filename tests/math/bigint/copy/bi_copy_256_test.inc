@@ -1,4 +1,4 @@
-include '../src/math/bigint/copy/bi_copy_256.inc'
+include '../../../../src/math/bigint/copy/bi_copy_256.inc'
 
 __bi_copy_256_test:
 virtual at rsp

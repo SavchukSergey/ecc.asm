@@ -1,4 +1,4 @@
-include '../src/math/bigint/is_zero/bi_is_zero_256.inc'
+include '../../../../src/math/bigint/is_zero/bi_is_zero_256.inc'
 
 __bi_is_zero_256_test_core:
 virtual at rsp
@@ -11,8 +11,8 @@ virtual at rsp
 end virtual
     sub     rsp, .locals_end - .locals_start
 
-	PrologCheckStackAligned '__bi_is_zero_256_test_core'
-	CheckRegAligned rcx, '__bi_is_zero_256_test_core rcx'
+    PrologCheckStackAligned '__bi_is_zero_256_test_core'
+    CheckRegAligned rcx, '__bi_is_zero_256_test_core rcx'
 
     mov     [.hex], rcx
     mov     [.expected], rdx

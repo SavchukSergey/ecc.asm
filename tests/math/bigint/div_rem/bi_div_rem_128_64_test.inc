@@ -1,4 +1,4 @@
-include '../src/math/bigint/div_rem/bi_div_rem_128_64.inc'
+include '../../../../src/math/bigint/div_rem/bi_div_rem_128_64.inc'
 
 __bi_div_rem_128_64_test_measure_core:
 virtual at rsp

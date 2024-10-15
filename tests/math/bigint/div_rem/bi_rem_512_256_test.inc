@@ -1,4 +1,4 @@
-include '../src/math/bigint/div_rem/bi_rem_512_256.inc'
+include '../../../../src/math/bigint/div_rem/bi_rem_512_256.inc'
 
 __bi_rem_512_256_test_core:
 virtual at rsp
@@ -14,8 +14,8 @@ virtual at rsp
 .locals_end:
 end virtual
         sub     rsp, .locals_end - .locals_start
-	PrologCheckStackAligned '__bi_rem_512_256_test_core'
-	CheckRegAligned rbx, '__bi_rem_512_256_test_core rbx'
+        PrologCheckStackAligned '__bi_rem_512_256_test_core'
+        CheckRegAligned rbx, '__bi_rem_512_256_test_core rbx'
 
         mov     [.pointer], rbx
 .loop:        
@@ -70,8 +70,8 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-	PrologCheckStackAligned '__bi_rem_512_256_test_measure_core'
-	CheckRegAligned rbx, '__bi_rem_512_256_test_measure_core rbx'
+        PrologCheckStackAligned '__bi_rem_512_256_test_measure_core'
+        CheckRegAligned rbx, '__bi_rem_512_256_test_measure_core rbx'
 
         mov     [.pointer], rbx
 .loop:        

@@ -1,4 +1,4 @@
-include '../src/math/bigint/is_zero/bi_is_zero_512.inc'
+include '../../../../src/math/bigint/is_zero/bi_is_zero_512.inc'
 
 __bi_is_zero_512_test_core:
 virtual at rsp

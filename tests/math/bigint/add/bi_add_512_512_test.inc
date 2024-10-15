@@ -1,4 +1,4 @@
-include '../src/math/bigint/add/bi_add_512_512.inc'
+include '../../../../src/math/bigint/add/bi_add_512_512.inc'
 include '../../../assert.inc'
 
 __bi_add_512_512_test:

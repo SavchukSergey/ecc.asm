@@ -1,4 +1,4 @@
-include '../src/math/bigint/cmp/bi_cmp_256_256.inc'
+include '../../../../src/math/bigint/cmp/bi_cmp_256_256.inc'
 
 __bi_cmp_256_256_test:
 virtual at rsp

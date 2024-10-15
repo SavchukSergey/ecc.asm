@@ -1,4 +1,4 @@
-include '../src/math/bigint/div_rem/bi_div_rem_512_64.inc'
+include '../../../../src/math/bigint/div_rem/bi_div_rem_512_64.inc'
 include 'bi_div_rem_test_cases.inc'
 
 __bi_div_rem_512_64_test_core:
