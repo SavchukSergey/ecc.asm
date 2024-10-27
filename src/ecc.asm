@@ -24,6 +24,8 @@ include 'math/bigint/cmp/index.inc'
 include 'math/bigint/shl/index.inc'
 include 'math/bigint/shr/index.inc'
 include 'math/bigint/mul/index.inc'
+include 'math/bigint/montgomery/index.inc'
+include 'math/bigint/mod_mul/index.inc'
 include 'math/bigint/extend_low/index.inc'
 include 'math/bigint/bit_clear/index.inc'
 include 'math/bigint/bit_set/index.inc'
@@ -241,9 +243,11 @@ section '.edata' export data readable
          bi_mod_inverse_256, 'bi_mod_inverse_256',\
          bi_mod_inverse_512, 'bi_mod_inverse_512',\
 \
-         bi_euclid_ext_256, 'bi_euclid_ext_256'
-
-
+         bi_euclid_ext_256, 'bi_euclid_ext_256',\
+\
+         bi_mont_ctx_256_init, 'bi_mont_ctx_256_init',\
+         bi_mont_ctx_256_convert, 'bi_mont_ctx_256_convert',\
+         bi_mont_ctx_256_deconvert, 'bi_mont_ctx_256_deconvert'
 ;\
 ;\
 ;         BigIntegerRnd_128, 'bi128_rnd', \

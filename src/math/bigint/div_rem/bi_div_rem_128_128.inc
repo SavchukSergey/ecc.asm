@@ -8,7 +8,7 @@ if ~ definite bi_div_rem_128_128
 ;   r9 - pointer to bi128 remainder
 bi_div_rem_128_128:
     cmp     qword [rdx + 8], 0
-    js      .hude_divisor
+    js      .huge_divisor
     cmovz   rdx, [rdx + 0]
     jz      bi_div_rem_128_64
 
@@ -85,7 +85,7 @@ bi_div_rem_128_128:
     shr     rax, cl
     jmp     .guess_ready
 
-.hude_divisor:
+.huge_divisor:
     push    rbx
 
     mov     rax, [rcx + 0]

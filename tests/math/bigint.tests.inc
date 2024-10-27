@@ -14,6 +14,7 @@ include 'bigint/mod_mul/index.inc'
 include 'bigint/mod_pow/index.inc'
 include 'bigint/mod_square/index.inc'
 include 'bigint/mod_sub/index.inc'
+include 'bigint/montgomery/index.inc'
 include 'bigint/mul/index.inc'
 include 'bigint/mul_low/index.inc'
 include 'bigint/shl/index.inc'
@@ -194,6 +195,15 @@ __bi_tests_256:
 
         dq __bi_lzcnt_256_test
         db 'bi_lzcnt_256', 0
+
+        dq __bi_mont_ctx_256_init_test
+        db 'bi_mont_ctx_256_init_test', 0
+
+        dq __bi_mont_ctx_256_convert_test
+        db 'bi_mont_ctx_256_convert_test', 0
+
+        dq __bi_mont_ctx_256_deconvert_test
+        db 'bi_mont_ctx_256_deconvert_test', 0
 
         dq 0
 
