@@ -1,73 +1,17 @@
-include 'output/html/test_output_start.inc'
+include 'output/html/test_output_chapter_title.inc'
+include 'output/html/test_output_end_chapter_table.inc'
+include 'output/html/test_output_end_chapter.inc'
 include 'output/html/test_output_end.inc'
+include 'output/html/test_output_start_chapter_table.inc'
+include 'output/html/test_output_start_chapter.inc'
+include 'output/html/test_output_start.inc'
 
 
 
 
-test_output_start_chapter:
-    ret
-
-test_output_end_chapter:
-    ret
-
-test_output_chapter_title:
-    push    rcx
-    mov     rsi, .prefix
-    call    Console_WriteString
-    pop     rcx
-
-    mov     rsi, rcx
-    call    Console_WriteString
-
-    mov     rsi, .suffix
-    call    Console_WriteString
-
-    ret
-.prefix db '<h2>', 0
-.suffix db '</h2>', 13, 10, 0
 
 
-    ret
 
-
-test_output_start_chapter_table:
-    mov     rsi, .msg
-    call    Console_WriteString
-
-    ret
-.msg db \
-'<table class="table table-striped table-hover">', 13, 10, \
-'  <colgroup>', 13, 10, \
-'    <col />', 13, 10, \
-'    <col style="width: 128px" />', 13, 10, \
-'    <col style="width: 192px" />', 13, 10, \
-'    <col style="width: 192px" />', 13, 10, \
-'  </colgroup>', 13, 10, \
-'  <thead>', 13, 10, \
-'    <tr>', 13, 10, \
-'      <th scope="col">', 13, 10, \
-'        Name', 13, 10, \
-'      </th>', 13, 10, \
-'      <th scope="col" class="text-center">', 13, 10, \
-'        Status', 13, 10, \
-'      </th>', 13, 10, \
-'      <th scope="col" class="text-end">', 13, 10, \
-'        Min CPU ticks', 13, 10, \
-'      </th>', 13, 10, \
-'      <th scope="col" class="text-end">', 13, 10, \
-'        Max CPU ticks', 13, 10, \
-'      </th>', 13, 10, \
-'    </tr>', 13, 10, \
-'  </thead>', 13, 10, \
-'  <tbody>', 13, 10, 0
-
-test_output_end_chapter_table:
-    mov     rsi, .msg
-    call    Console_WriteString
-    ret
-.msg db \
-'  </tbody>', 13, 10, \
-'</table>', 13, 10, 0
 
 
 
