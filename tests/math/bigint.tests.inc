@@ -276,6 +276,9 @@ __bi_tests_512:
         dq __bi_rem_512_256_test
         db 'bi_rem_512_256', 0
 
+        dq __bi_mod_inverse_512_test
+        db 'bi_mod_inverse_512', 0
+
         dq 0
 
 align 16

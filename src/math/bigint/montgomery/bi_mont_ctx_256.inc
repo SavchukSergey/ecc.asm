@@ -6,7 +6,7 @@ struc MontgomeryContext256 {
   BigInteger256 .modulus
   BigInteger512 .r
   BigInteger256 .rm
-  BigInteger256 .beta
+  BigInteger256 .mod_inv_r           ; mod_inv_r * modulus = -1 mod r
 }
 
 virtual at 0

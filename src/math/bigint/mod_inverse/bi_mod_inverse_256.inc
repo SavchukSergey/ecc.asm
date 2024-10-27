@@ -1,6 +1,7 @@
 if ~ definite bi_mod_inverse_256
 
 include '../div_rem/bi_div_rem_256_256.inc'
+include '../one/bi_one_512.inc'
 
 ;Calculates modular inverse
 ;input:
