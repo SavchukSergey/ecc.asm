@@ -1,9 +1,4 @@
-test_output_start:
-    mov     rsi, .msg
-    call    Console_WriteString
-
-    ret
-.msg db 'ecc.js tests', 13, 10, 0
+include 'output/text/test_output_start.inc'
 
 test_output_end:
     mov     rsi, .msg
