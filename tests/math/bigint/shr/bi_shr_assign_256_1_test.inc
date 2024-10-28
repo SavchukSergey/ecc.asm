@@ -1,9 +1,9 @@
-include '../src/math/bigint/shr/bi_shr_assign_256_1.inc'
+include '../../../../src/math/bigint/shr/bi_shr_assign_256_1.inc'
 
 __bi_shr_assign_256_1_test:
 virtual at rsp
 .locals_start:
-  .value rb __BIG_INTEGER_BYTES_256
+  .value BigInteger256
 .locals_end:
 end virtual
 	enter	.locals_end - .locals_start, 0

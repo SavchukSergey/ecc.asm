@@ -1,9 +1,9 @@
-include '../src/math/bigint/zero/bi_zero_1024.inc'
+include '../../../../src/math/bigint/zero/bi_zero_1024.inc'
 
 __bi_zero_1024_test:
 virtual at rsp
 .locals_start:
-  .source rb __BIG_INTEGER_BYTES_1024
+  .source BigInteger1024
 .locals_end:
 end virtual
     enter   .locals_end - .locals_start, 0  

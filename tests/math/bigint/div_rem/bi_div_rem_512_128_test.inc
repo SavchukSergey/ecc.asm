@@ -7,10 +7,10 @@ virtual at rsp
   .divisor_hex rq 1
   .expected_quotient_hex rq 1
   .expected_remainder_hex rq 1
-  .dividend rb __BIG_INTEGER_BYTES_512
-  .divisor rb __BIG_INTEGER_BYTES_512
-  .quotient rb __BIG_INTEGER_BYTES_512
-  .remainder rb __BIG_INTEGER_BYTES_512
+  .dividend BigInteger512
+  .divisor BigInteger512
+  .quotient BigInteger512
+  .remainder BigInteger512
   .pointer rq 1
   AlignLocalsStackFrame
 .locals_end:
@@ -71,10 +71,10 @@ virtual at rsp
   .divisor_hex rq 1
   .expected_quotient_hex rq 1
   .expected_remainder_hex rq 1
-  .dividend rb __BIG_INTEGER_BYTES_512
-  .divisor rb __BIG_INTEGER_BYTES_512
-  .quotient rb __BIG_INTEGER_BYTES_512
-  .remainder rb __BIG_INTEGER_BYTES_512
+  .dividend BigInteger512
+  .divisor BigInteger512
+  .quotient BigInteger512
+  .remainder BigInteger512
   .pointer rq 1
   AlignLocalsStackFrame
 .locals_end:

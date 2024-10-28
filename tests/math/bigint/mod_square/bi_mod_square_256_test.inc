@@ -1,12 +1,12 @@
-include '../src/math/bigint/mod_square/bi_mod_square_256.inc'
+include '../../../../src/math/bigint/mod_square/bi_mod_square_256.inc'
 include '../../../assert.inc'
 
 __bi_mod_square_256_test_core:
 virtual at rsp
 .locals_start:
-  BigInteger256 .value
-  BigInteger256 .modulus
-  BigInteger256 .result
+  .value BigInteger256
+  .modulus BigInteger256
+  .result BigInteger256
   .value_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1

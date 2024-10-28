@@ -6,8 +6,8 @@ include '../../bigint.inc'
 ecpoint256:
 
 struc ECPoint256 {
-  BigInteger256 .x
-  BigInteger256 .y
+  .x BigInteger256
+  .y BigInteger256
 }
 
 virtual at 0

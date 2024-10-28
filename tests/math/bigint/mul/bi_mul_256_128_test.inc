@@ -1,11 +1,11 @@
-include '../src/math/bigint/mul/bi_mul_256_128.inc'
+include '../../../../src/math/bigint/mul/bi_mul_256_128.inc'
 
 __bi_mul_256_128_test_core:
 virtual at rsp
 .locals_start:
-  BigInteger256 .left
-  BigInteger256 .right
-  BigInteger512 .result
+  .left BigInteger256
+  .right BigInteger256
+  .result BigInteger512
   .left_hex rq 1
   .right_hex rq 1
   .expected_hex rq 1

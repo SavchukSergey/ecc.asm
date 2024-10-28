@@ -1,4 +1,4 @@
-include '../src/math/bigint/mod_pow/bi_mod_pow_256.inc'
+include '../../../../src/math/bigint/mod_pow/bi_mod_pow_256.inc'
 include '../../../assert.inc'
 
 __bi_mod_pow_256_test_core:
@@ -8,10 +8,10 @@ virtual at rsp
   .exponent_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1
-  BigInteger256 .value
-  BigInteger256 .exponent
-  BigInteger256 .modulus
-  BigInteger256 .result
+  .value BigInteger256
+  .exponent BigInteger256
+  .modulus BigInteger256
+  .result BigInteger256
   AlignLocalsStackFrame
 .locals_end:
 end virtual

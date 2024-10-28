@@ -7,10 +7,10 @@ virtual at rsp
   .divisor_hex rq 1
   .expected_quotient_hex rq 1
   .expected_remainder_hex rq 1
-  BigInteger512 .dividend
-  BigInteger512 .divisor
-  BigInteger512 .quotient
-  BigInteger512 .remainder
+  .dividend BigInteger512
+  .divisor BigInteger512
+  .quotient BigInteger512
+  .remainder BigInteger512
   .pointer rq 1
 .locals_end:
 end virtual
@@ -67,10 +67,10 @@ virtual at rsp
   .divisor_hex rq 1
   .expected_quotient_hex rq 1
   .expected_remainder_hex rq 1
-  BigInteger512 .dividend
-  BigInteger512 .divisor
-  BigInteger512 .quotient
-  BigInteger512 .remainder
+  .dividend BigInteger512
+  .divisor BigInteger512
+  .quotient BigInteger512
+  .remainder BigInteger512
   .pointer rq 1
 .locals_end:
 end virtual

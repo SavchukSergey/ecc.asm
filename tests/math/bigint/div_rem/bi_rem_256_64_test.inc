@@ -7,9 +7,9 @@ virtual at rsp
   .divisor_hex rq 1
   .expected_remainder_hex rq 1
   .pointer rq 1
-  BigInteger256 .dividend
-  BigInteger256 .divisor
-  BigInteger256 .remainder
+  .dividend BigInteger256
+  .divisor BigInteger256
+  .remainder BigInteger256
   AlignLocalsStackFrame
 .locals_end:
 end virtual

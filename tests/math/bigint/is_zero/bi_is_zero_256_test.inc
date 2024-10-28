@@ -3,9 +3,9 @@ include '../../../../src/math/bigint/is_zero/bi_is_zero_256.inc'
 __bi_is_zero_256_test_core:
 virtual at rsp
 .locals_start:
+  .value BigInteger256
   .hex rq 1
   .expected rq 1
-  .value rb __BIG_INTEGER_BYTES_256
   AlignLocalsStackFrame
 .locals_end:
 end virtual

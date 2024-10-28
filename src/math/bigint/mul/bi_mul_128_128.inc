@@ -14,7 +14,7 @@ include 'bi_mul_64_64.inc'
 bi_mul_128_128____64_64:
 virtual at rsp
 .locals_start:
-  BigInteger128 .temp
+  .temp BigInteger128
   .left rq 1
   .right rq 1
   .result rq 1

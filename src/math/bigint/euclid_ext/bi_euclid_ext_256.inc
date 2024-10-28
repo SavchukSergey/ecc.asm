@@ -14,16 +14,16 @@ include '../is_zero/bi_is_zero_256.inc'
 bi_euclid_ext_256:
 virtual at rsp
   label .locals_start
-  BigInteger256 .s0
-  BigInteger256 .s1
-  BigInteger256 .s2
-  BigInteger256 .t0
-  BigInteger256 .t1
-  BigInteger256 .t2
-  BigInteger256 .r0
-  BigInteger256 .r1
-  BigInteger256 .r2
-  BigInteger256 .quotient
+  .s0 BigInteger256
+  .s1 BigInteger256
+  .s2 BigInteger256
+  .t0 BigInteger256
+  .t1 BigInteger256
+  .t2 BigInteger256
+  .r0 BigInteger256
+  .r1 BigInteger256
+  .r2 BigInteger256
+  .quotient BigInteger256
   .a rq 1
   .b rq 1
   .result rq 1

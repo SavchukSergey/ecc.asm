@@ -1,4 +1,5 @@
 include '../console/write_u64_hex.inc'
+include '../console/consts.inc'
 
 if ~ definite bi_assert_equal_64
 

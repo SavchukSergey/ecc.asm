@@ -10,8 +10,8 @@ if ~ definite bi_mod_square_256
 bi_mod_square_256:
 virtual at rsp
   label .locals_start
-    BigInteger512 .result_512
-    BigInteger512 .reminder_512
+    .result_512 BigInteger512
+    .reminder_512 BigInteger512
     .value rq 1
     .modulus rq 1
     .result rq 1

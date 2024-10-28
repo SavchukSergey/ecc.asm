@@ -1,10 +1,10 @@
-include '../src/math/bigint/square/bi_square_128.inc'
+include '../../../../src/math/bigint/square/bi_square_128.inc'
 
 __bi_square_128_test_core:
 virtual at rsp
 .locals_start:
-  BigInteger128 .value
-  BigInteger256 .result
+  .value BigInteger128
+  .result BigInteger256
   .value_hex rq 1
   .expected_hex rq 1
   AlignLocalsStackFrame

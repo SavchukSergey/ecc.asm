@@ -7,7 +7,7 @@ include 'bi_rem_512_128_dac.inc'
 bi_rem_512_128_basic:
 virtual at rsp
   label .locals_start
-  BigInteger512 .quotient_512
+  .quotient_512 BigInteger512
   AlignLocalsStackFrame
   label .locals_end
 end virtual

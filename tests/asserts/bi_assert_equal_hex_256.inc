@@ -9,7 +9,7 @@ include '../../src/math/bigint/hex/bi_try_read_hex_256.inc'
 bi_assert_equal_hex_256:
 virtual at rsp
   label .locals_start
-    BigInteger256 .expected
+    .expected BigInteger256
     .expected_hex rq 1
     .actual rq 1
   label .locals_end

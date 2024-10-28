@@ -1,9 +1,9 @@
-include '../src/math/bigint/shr/bi_shr_assign_256_64.inc'
+include '../../../../src/math/bigint/shr/bi_shr_assign_256_64.inc'
 
 __bi_shr_assign_256_64_test:
 virtual at rsp
 .locals_start:
-  BigInteger256 .value
+  .value BigInteger256
   AlignLocalsStackFrame
 .locals_end:
 end virtual

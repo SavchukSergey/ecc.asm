@@ -39,6 +39,19 @@
                 "kind": "build",
                 "isDefault": false
             }
+        },
+        {
+            "label": "Build Linux Tests",
+            "type": "process",
+            "command": "${env:FASM_PATH}/fasm.exe",
+            "args": [
+                "${workspaceFolder}/tests/ecc-test-linux.asm", 
+                "${workspaceFolder}/tests/ecc-test-linux"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
         }
     ]
 }

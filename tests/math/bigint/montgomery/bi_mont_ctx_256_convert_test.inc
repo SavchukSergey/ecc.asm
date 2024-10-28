@@ -1,5 +1,5 @@
-include '../src/math/bigint/montgomery/bi_mont_ctx_256_init.inc'
-include '../src/math/bigint/montgomery/bi_mont_ctx_256_convert.inc'
+include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_init.inc'
+include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_convert.inc'
 include '../../../assert.inc'
 
 __bi_mont_ctx_256_convert_test_core:
@@ -8,9 +8,9 @@ virtual at rsp
   .source_hex rq 1
   .expected_hex rq 1
   .ctx rq 1
-  BigInteger256 .source
-  BigInteger256 .result
-  BigInteger256 .expected
+  .source BigInteger256
+  .result BigInteger256
+  .expected BigInteger256
   AlignLocalsStackFrame
 .locals_end:
 end virtual
@@ -53,7 +53,7 @@ __bi_mont_ctx_256_convert_test:
 virtual at rsp
 .locals_start:
   .context MontgomeryContext256
-  BigInteger256 .modulus
+  .modulus BigInteger256
   AlignLocalsStackFrame
 .locals_end:
 end virtual

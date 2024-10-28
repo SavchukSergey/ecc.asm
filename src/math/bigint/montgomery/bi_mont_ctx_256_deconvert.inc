@@ -8,8 +8,8 @@ virtual at rsp
     .source rq 1
     .destination rq 1
     .ctx rq 1
-    BigInteger512 .temp_1_512
-    BigInteger512 .temp_2_512
+    .temp_1_512 BigInteger512
+    .temp_2_512 BigInteger512
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start

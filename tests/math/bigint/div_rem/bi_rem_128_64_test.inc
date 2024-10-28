@@ -7,10 +7,10 @@ virtual at rsp
   .divisor_hex rq 1
   .expected_quotient_hex rq 1
   .expected_remainder_hex rq 1
-  .dividend rb __BIG_INTEGER_BYTES_128
-  .divisor rb __BIG_INTEGER_BYTES_128
-  .quotient rb __BIG_INTEGER_BYTES_128
-  .remainder rb __BIG_INTEGER_BYTES_128
+  .dividend BigInteger128
+  .divisor BigInteger128
+  .quotient BigInteger128
+  .remainder BigInteger128
   .pointer rq 1
 .locals_end:
 end virtual

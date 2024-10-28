@@ -7,7 +7,7 @@ virtual at rsp
     .divisor rq 1
     .modulus rq 1
     .result rq 1
-    BigInteger256 .inverse
+    .inverse BigInteger256
   AlignLocalsStackFrame
   label .locals_end
 end virtual

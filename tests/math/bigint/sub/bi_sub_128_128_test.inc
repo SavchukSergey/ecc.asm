@@ -1,12 +1,12 @@
-include '../src/math/bigint/sub/bi_sub_128_128.inc'
+include '../../../../src/math/bigint/sub/bi_sub_128_128.inc'
 include '../../../assert.inc'
 
 __bi_sub_128_128_test:
 virtual at rsp
 .locals_start:
-  .left rb __BIG_INTEGER_BYTES_128
-  .right rb __BIG_INTEGER_BYTES_128
-  .result rb __BIG_INTEGER_BYTES_128
+  .left BigInteger128
+  .right BigInteger128
+  .result BigInteger128
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0

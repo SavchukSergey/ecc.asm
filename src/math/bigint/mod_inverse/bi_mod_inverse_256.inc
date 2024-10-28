@@ -11,13 +11,13 @@ include '../one/bi_one_512.inc'
 bi_mod_inverse_256:
 virtual at rsp
 .locals_start:
-  BigInteger256 .s0
-  BigInteger256 .s1
-  BigInteger256 .s2
-  BigInteger256 .r0
-  BigInteger256 .r1
-  BigInteger256 .r2
-  BigInteger256 .quotient
+  .s0 BigInteger256
+  .s1 BigInteger256
+  .s2 BigInteger256
+  .r0 BigInteger256
+  .r1 BigInteger256
+  .r2 BigInteger256
+  .quotient BigInteger256
 
   .value rq 1
   .modulus rq 1

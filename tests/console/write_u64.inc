@@ -1,3 +1,5 @@
+if ~ definite Console_WriteUInt64
+
 include 'write_char.inc'
 
 ;input
@@ -66,3 +68,5 @@ Console_Pow10_UInt64:
         dq  10
         dq  1
         dq  0
+
+end if

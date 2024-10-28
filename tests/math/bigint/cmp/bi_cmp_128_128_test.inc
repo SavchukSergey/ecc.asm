@@ -3,10 +3,10 @@ include '../../../../src/math/bigint/cmp/bi_cmp_128_128.inc'
 __bi_cmp_128_128_test:
 virtual at rsp
 .locals_start:
-  .small rb __BIG_INTEGER_BYTES_128
-  .mid rb __BIG_INTEGER_BYTES_128
-  .close_mid rb __BIG_INTEGER_BYTES_128
-  .big rb __BIG_INTEGER_BYTES_128
+  .small BigInteger128
+  .mid BigInteger128
+  .close_mid BigInteger128
+  .big BigInteger128
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0  

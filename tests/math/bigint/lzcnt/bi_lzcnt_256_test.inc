@@ -4,10 +4,10 @@ include '../../../assert.inc'
 __bi_lzcnt_256_test_core:
 virtual at rsp
 .locals_start:
+  .value BigInteger256
   .value_hex rq 1
   .expected rq 1
   .result rq 1
-  .value rb __BIG_INTEGER_BYTES_256
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0

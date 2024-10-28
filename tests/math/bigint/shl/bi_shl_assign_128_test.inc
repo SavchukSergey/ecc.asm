@@ -2,7 +2,7 @@
 __bi_shl_assign_128_test_core:
 virtual at rsp
 .locals_start:
-  .value rb __BIG_INTEGER_BYTES_128
+  .value BigInteger128
   .value_hex rq 1
   .expected_hex rq 1
   .count rq 1
@@ -37,7 +37,7 @@ end virtual
 __bi_shl_assign_128_test_measure_core:
 virtual at rsp
 .locals_start:
-  .value rb __BIG_INTEGER_BYTES_128
+  .value BigInteger128
   .value_hex rq 1
   .count rq 1
   AlignLocalsStackFrame

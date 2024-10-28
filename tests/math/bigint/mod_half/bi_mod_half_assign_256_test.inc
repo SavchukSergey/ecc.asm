@@ -1,11 +1,11 @@
-include '../src/math/bigint/mod_half/bi_mod_half_assign_256.inc'
+include '../../../../src/math/bigint/mod_half/bi_mod_half_assign_256.inc'
 include '../../../assert.inc'
 
 __bi_mod_half_assign_256_test_core:
 virtual at rsp
 .locals_start:
-  BigInteger256 .value
-  BigInteger256 .modulus
+  .value BigInteger256
+  .modulus BigInteger256
   .value_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1

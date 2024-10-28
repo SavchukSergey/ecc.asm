@@ -4,9 +4,9 @@ include '../../../assert.inc'
 __bi_add_512_512_test:
 virtual at rsp
   label .locals_start
-  BigInteger512 .left
-  BigInteger512 .right
-  BigInteger512 .result
+  .left BigInteger512
+  .right BigInteger512
+  .result BigInteger512
    AlignLocalsStackFrame
 label .locals_end
 end virtual

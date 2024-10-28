@@ -7,12 +7,12 @@ include '../bit_check/bi_bit_check_256.inc'
 bi_mod_pow_256:
 virtual at rsp
   label .locals_start
+    .acc BigInteger256
+    .temp BigInteger256
     .value rq 1
     .exponent rq 1
     .modulus rq 1
     .result rq 1
-    BigInteger256 .acc
-    BigInteger256 .temp
     .bit rq 1
   label .locals_end
 end virtual

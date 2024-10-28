@@ -1,12 +1,12 @@
-include '../src/math/bigint/sub/bi_sub_512_512.inc'
+include '../../../../src/math/bigint/sub/bi_sub_512_512.inc'
 include '../../../assert.inc'
 
 __bi_sub_512_512_test:
 virtual at rsp
 .locals_start:
-  .left rb __BIG_INTEGER_BYTES_512
-  .right rb __BIG_INTEGER_BYTES_512
-  .result rb __BIG_INTEGER_BYTES_512
+  .left BigInteger512
+  .right BigInteger512
+  .result BigInteger512
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0

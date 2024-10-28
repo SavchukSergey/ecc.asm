@@ -16,11 +16,11 @@ if ~ definite secp256k1_point_add
 secp256k1_point_add:
 virtual at rsp
   label .locals_start
-  BigInteger256 .dx
-  BigInteger256 .dy
-  BigInteger256 .m
-  BigInteger256 .m2
-  BigInteger256 .temp
+  .dx BigInteger256
+  .dy BigInteger256
+  .m BigInteger256
+  .m2 BigInteger256
+  .temp BigInteger256
   .left rq 1
   .right rq 1
   .result rq 1

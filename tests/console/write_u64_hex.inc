@@ -38,15 +38,15 @@ Console_WriteUInt16Hex:
 ; ecx - i32
 Console_WriteUInt8Hex:
 	push	rax
-	mov	rax, rcx
-	shr	rax, 4
+	mov     rax, rcx
+	shr     rax, 4
 	call	hex_format_digit
 	call	Console_WriteChar
 
-	mov	rax, rcx
+	mov     rax, rcx
 	call	hex_format_digit
 	call	Console_WriteChar
-	pop	rax
+	pop     rax
 	ret
 
 end if

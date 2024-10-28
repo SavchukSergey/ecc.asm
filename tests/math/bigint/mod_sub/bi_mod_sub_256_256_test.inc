@@ -1,4 +1,4 @@
-include '../src/math/bigint/mod_sub/bi_mod_sub_256_256.inc'
+include '../../../../src/math/bigint/mod_sub/bi_mod_sub_256_256.inc'
 include '../../../assert.inc'
 
 __bi_mod_sub_256_256_test_core:
@@ -8,10 +8,10 @@ virtual at rsp
   .right_hex rq 1
   .modulus_hex rq 1
   .expected_hex rq 1
-  BigInteger256 .left
-  BigInteger256 .right
-  BigInteger256 .modulus
-  BigInteger256 .result
+  .left BigInteger256
+  .right BigInteger256
+  .modulus BigInteger256
+  .result BigInteger256
   AlignLocalsStackFrame
 .locals_end:
 end virtual

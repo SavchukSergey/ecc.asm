@@ -1,11 +1,11 @@
-include '../src/math/bigint/mul_low/bi_mul_low_512_512.inc'
+include '../../../../src/math/bigint/mul_low/bi_mul_low_512_512.inc'
 
 __bi_mul_low_512_512_test_core:
 virtual at rsp
 .locals_start:
-  .left rb __BIG_INTEGER_BYTES_512
-  .right rb __BIG_INTEGER_BYTES_512
-  .result rb __BIG_INTEGER_BYTES_512
+  .left BigInteger512
+  .right BigInteger512
+  .result BigInteger512
   .left_hex rq 1
   .right_hex rq 1
   .expected_hex rq 1

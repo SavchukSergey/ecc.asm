@@ -13,11 +13,11 @@ virtual at rsp
   .remainder rq 1
 
 ; partial quotient can be combined to reduce stack usage
-  BigInteger256 .q0
-  BigInteger256 .q1
-  BigInteger256 .q2
+  .q0 BigInteger256
+  .q1 BigInteger256
+  .q2 BigInteger256
 
-  BigInteger256 .partial_remainder
+  .partial_remainder BigInteger256
   AlignLocalsStackFrame
   label .locals_end
 end virtual

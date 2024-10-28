@@ -12,7 +12,7 @@ include 'bi_mul_256_256.inc'
 bi_mul_512_256____64_64:
 virtual at rsp
 .locals_start:
-  BigInteger512 .temp
+  .temp BigInteger512
   .left rq 1
   .right rq 1
   .result rq 1
@@ -66,7 +66,7 @@ end virtual
 bi_mul_512_256:
 virtual at rsp
 .locals_start:
-  BigInteger1024 .temp
+  .temp BigInteger1024
   .left rq 1
   .right rq 1
   .result rq 1

@@ -11,7 +11,7 @@ include '../add/bi_add_assign_128_128.inc'
 bi_mul_512_64_basic:
 virtual at rsp
 .locals_start:
-  BigInteger128 .temp
+  .temp BigInteger128
   .left rq 1
   .right rq 1
   .result rq 1

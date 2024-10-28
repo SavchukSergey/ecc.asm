@@ -3,10 +3,10 @@ include '../../../../src/math/bigint/div_rem/bi_div_rem_128_128.inc'
 __bi_div_rem_128_128_test_core:
 virtual at rsp
 .locals_start:
-  BigInteger128 .dividend
-  BigInteger128 .divisor
-  BigInteger128 .quotient
-  BigInteger128 .remainder
+  .dividend BigInteger128
+  .divisor BigInteger128
+  .quotient BigInteger128
+  .remainder BigInteger128
   .dividend_hex rq 1
   .divisor_hex rq 1
   .expected_quotient_hex rq 1
@@ -68,10 +68,10 @@ end virtual
 __bi_div_rem_128_128_test_measure_core:
 virtual at rsp
 .locals_start:
-  BigInteger128 .dividend
-  BigInteger128 .divisor
-  BigInteger128 .quotient
-  BigInteger128 .remainder
+  .dividend BigInteger128
+  .divisor BigInteger128
+  .quotient BigInteger128
+  .remainder BigInteger128
   .dividend_hex rq 1
   .divisor_hex rq 1
   .expected_quotient_hex rq 1

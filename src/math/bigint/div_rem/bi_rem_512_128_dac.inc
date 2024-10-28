@@ -9,7 +9,7 @@ virtual at rsp
   .divisor rq 1
   .remainder rq 1
 
-  BigInteger256 .partial_remainder
+  .partial_remainder BigInteger256
   AlignLocalsStackFrame
   label .locals_end
 end virtual

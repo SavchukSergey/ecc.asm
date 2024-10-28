@@ -7,7 +7,7 @@ virtual at rsp
   .value_hex rq 1
   .expected rq 1
   .result rq 1
-  .value rb __BIG_INTEGER_BYTES_128
+  .value BigInteger128
 .locals_end:
 end virtual
         enter   .locals_end - .locals_start, 0

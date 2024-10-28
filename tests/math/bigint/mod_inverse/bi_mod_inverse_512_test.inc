@@ -1,12 +1,12 @@
-include '../src/math/bigint/mod_inverse/bi_mod_inverse_512.inc'
+include '../../../../src/math/bigint/mod_inverse/bi_mod_inverse_512.inc'
 include '../../../assert.inc'
 
 __bi_mod_inverse_512_test:
 virtual at rsp
 .locals_start:
-  BigInteger512 .value
-  BigInteger512 .modulus
-  BigInteger512 .result
+  .value BigInteger512
+  .modulus BigInteger512
+  .result BigInteger512
   .rbx_backup rq 1
   AlignLocalsStackFrame
 .locals_end:

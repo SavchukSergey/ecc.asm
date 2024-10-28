@@ -1,9 +1,9 @@
-include '../src/math/bigint/shl/bi_shl_assign_512.inc'
+include '../../../../src/math/bigint/shl/bi_shl_assign_512.inc'
 
 __bi_shl_assign_512_test_core:
 virtual at rsp
 .locals_start:
-  BigInteger512 .value
+  .value BigInteger512
   .value_hex rq 1
   .expected_hex rq 1
   .count rq 1
@@ -38,7 +38,7 @@ end virtual
 __bi_shl_assign_512_test_measure_core:
 virtual at rsp
 .locals_start:
-  BigInteger512 .value
+  .value BigInteger512
   .value_hex rq 1
   .count rq 1
   AlignLocalsStackFrame

@@ -8,11 +8,11 @@ include '../mod_negate/bi_mod_negate_256.inc';
 bi_mont_ctx_256_init:
 virtual at rsp
   label .locals_start
+    .temp_512 BigInteger512
+    .remainder_512 BigInteger512
+    .modulus_512 BigInteger512 
     .modulus rq 1
     .ctx rq 1
-    BigInteger512 .temp_512
-    BigInteger512 .remainder_512
-    BigInteger512 .modulus_512
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start

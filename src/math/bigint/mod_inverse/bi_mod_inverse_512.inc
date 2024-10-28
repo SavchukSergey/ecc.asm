@@ -11,13 +11,13 @@ include '../one/bi_one_512.inc'
 bi_mod_inverse_512:
 virtual at rsp
 .locals_start:
-  BigInteger512 .s0
-  BigInteger512 .s1
-  BigInteger512 .s2
-  BigInteger512 .r0
-  BigInteger512 .r1
-  BigInteger512 .r2
-  BigInteger512 .quotient
+  .s0 BigInteger512
+  .s1 BigInteger512
+  .s2 BigInteger512
+  .r0 BigInteger512
+  .r1 BigInteger512
+  .r2 BigInteger512
+  .quotient BigInteger512
 
   .value rq 1
   .modulus rq 1

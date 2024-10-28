@@ -1,13 +1,12 @@
-include '../src/math/bigint/montgomery/bi_mont_ctx_256_init.inc'
-include '../src/math/bigint/montgomery/bi_mont_ctx_256_convert.inc'
+include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_init.inc'
 include '../../../assert.inc'
 
 __bi_mont_ctx_256_init_test:
 virtual at rsp
 .locals_start:
   .context MontgomeryContext256
-  BigInteger256 .modulus
-  BigInteger512 .temp_1_512
+  .modulus BigInteger256
+  .temp_1_512 BigInteger512
   AlignLocalsStackFrame
 .locals_end:
 end virtual

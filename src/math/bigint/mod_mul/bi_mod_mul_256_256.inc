@@ -11,8 +11,8 @@ virtual at rsp
     .right rq 1
     .modulus rq 1
     .result rq 1
-    BigInteger512 .result_512
-    BigInteger512 .reminder_512
+    .result_512 BigInteger512
+    .reminder_512 BigInteger512
     AlignLocalsStackFrame
   label .locals_end
 end virtual

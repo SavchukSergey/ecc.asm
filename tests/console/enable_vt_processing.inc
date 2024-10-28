@@ -1,6 +1,4 @@
-TEXT_COLOR_DEFAULT equ 0x1b, '[0m'
-TEXT_COLOR_SUCCESS equ 0x1b, '[32m'
-TEXT_COLOR_ERROR equ 0x1b, '[31m'
+include 'consts.inc'
 
 ENABLE_VIRTUAL_TERMINAL_PROCESSING equ 4
 

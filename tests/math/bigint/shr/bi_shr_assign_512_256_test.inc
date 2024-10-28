@@ -1,9 +1,9 @@
-include '../src/math/bigint/shr/bi_shr_assign_512_256.inc'
+include '../../../../src/math/bigint/shr/bi_shr_assign_512_256.inc'
 
 __bi_shr_assign_512_256_test:
 virtual at rsp
 .locals_start:
-  BigInteger512 .value
+  .value BigInteger512
   AlignLocalsStackFrame
 .locals_end:
 end virtual

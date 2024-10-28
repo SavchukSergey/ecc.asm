@@ -3,8 +3,8 @@ include '../../../../src/math/bigint/copy/bi_copy_256.inc'
 __bi_copy_256_test:
 virtual at rsp
 .locals_start:
-  .source rb __BIG_INTEGER_BYTES_256
-  .target rb __BIG_INTEGER_BYTES_256
+  .source BigInteger256
+  .target BigInteger256
 .locals_end:
 end virtual
     enter   .locals_end - .locals_start, 0  

@@ -9,11 +9,11 @@ include '../mod_add/bi_mod_double_assign_256.inc'
 bi_mod_mul_256_256_bits:
 virtual at rsp
   label .locals_start
+    .acc BigInteger256
     .left rq 1
     .right rq 1
     .modulus rq 1
     .result rq 1
-    BigInteger256 .acc
     .bit rq 1
     AlignLocalsStackFrame
     label .locals_end

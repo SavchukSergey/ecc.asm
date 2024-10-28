@@ -11,7 +11,7 @@ include '../zero/bi_zero_256.inc'
 bi_div_rem_256_256_full_bits:
 virtual at rsp
   label .locals_start
-  .value rb __BIG_INTEGER_BYTES_512
+  .value BigInteger512
   .dividend rq 1
   .divisor rq 1
   .quotient rq 1
