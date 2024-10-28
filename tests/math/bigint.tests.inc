@@ -202,8 +202,11 @@ __bi_tests_256:
         dq __bi_mont_ctx_256_convert_test
         db 'bi_mont_ctx_256_convert_test', 0
 
-        dq __bi_mont_ctx_256_deconvert_test
-        db 'bi_mont_ctx_256_deconvert_test', 0
+        dq __bi_mont_ctx_256_redc_256_test
+        db 'bi_mont_ctx_256_redc_256_test', 0
+
+        dq __bi_mont_ctx_256_redc_512_test
+        db 'bi_mont_ctx_256_redc_512_test', 0
 
         dq __bi_mont_ctx_256_mul_test
         db 'bi_mont_ctx_256_mul_test', 0

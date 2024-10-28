@@ -11,5 +11,5 @@ test_output_test_min_ticks_cell:
     call    Console_WriteString
     ret
 
-.prefix db 0x1b, '[37G', 0
-.suffix db 0x1b, '[50G |', 0
+.prefix db 0x1b, '[45G', 0
+.suffix db 0x1b, '[58G |', 0

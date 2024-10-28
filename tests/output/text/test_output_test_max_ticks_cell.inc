@@ -11,5 +11,5 @@ test_output_test_max_ticks_cell:
     call    Console_WriteString
     ret
 
-.prefix db 0x1b, '[52G ', 0
-.suffix db 0x1b, '[66G |', 0
+.prefix db 0x1b, '[60G ', 0
+.suffix db 0x1b, '[74G |', 0

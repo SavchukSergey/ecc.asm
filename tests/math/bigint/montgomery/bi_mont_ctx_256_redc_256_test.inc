@@ -1,33 +1,35 @@
-if ~ definite __bi_mont_ctx_256_deconvert_test
+if ~ definite __bi_mont_ctx_256_redc_256_test
 
 include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_init.inc'
-include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_deconvert.inc'
+include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_redc_256.inc'
 include '../../../assert.inc'
 
-__bi_mont_ctx_256_deconvert_test_core:
+__bi_mont_ctx_256_redc_256_test_core:
 virtual at rsp
 .locals_start:
   .source_hex rq 1
   .expected_hex rq 1
   .ctx rq 1
-  .source BigInteger256
+  .source_256 BigInteger256
   .result BigInteger256
   .expected BigInteger256
+  .rm_inv BigInteger256
+  .naive_recheck BigInteger256
   AlignLocalsStackFrame
 .locals_end:
 end virtual
     sub     rsp, .locals_end - .locals_start
-    PrologCheckStackAligned '__bi_mont_ctx_256_deconvert_test_core'
-    CheckRegAligned rcx, '__bi_mont_ctx_256_deconvert_test_core rcx'
-    CheckRegAligned rdx, '__bi_mont_ctx_256_deconvert_test_core rdx'
-    CheckRegAligned r8, '__bi_mont_ctx_256_deconvert_test_core r8'
+    PrologCheckStackAligned '__bi_mont_ctx_256_redc_256_test_core'
+    CheckRegAligned rcx, '__bi_mont_ctx_256_redc_256_test_core rcx'
+    CheckRegAligned rdx, '__bi_mont_ctx_256_redc_256_test_core rdx'
+    CheckRegAligned r8, '__bi_mont_ctx_256_redc_256_test_core r8'
 
 	mov     [.source_hex], rcx
 	mov     [.expected_hex], rdx
 	mov     [.ctx], r8
 
 	mov     rcx, [.source_hex]
-	lea     rdx, [.source]
+	lea     rdx, [.source_256]
 	call    bi_try_read_hex_256
 
 	mov     rcx, [.expected_hex]
@@ -36,10 +38,10 @@ end virtual
 
 	call	test_context_start_measure
 .chunk_loop:
-	lea     rcx, [.source]
+	lea     rcx, [.source_256]
 	lea     rdx, [.result]
 	mov     r8, [.ctx]
-	call	bi_mont_ctx_256_deconvert
+	call	bi_mont_ctx_256_redc_256
     call    test_context_measure_dec_chunk
     jnz     .chunk_loop
 	call	test_context_end_measure
@@ -47,11 +49,30 @@ end virtual
 	mov     rcx, [.expected_hex]
 	lea     rdx, [.result]
 	call	bi_assert_equal_hex_256
-	
+
+;slow naive recheck
+	mov		rcx, [.ctx]
+	lea		rcx, [rcx + MontgomeryContext256.rm]
+	mov	    rdx, [.ctx]
+	lea		rdx, [rdx + MontgomeryContext256.modulus]
+	lea	    r8, [.rm_inv]
+	call    bi_mod_inverse_256
+
+	lea		rcx, [.rm_inv]
+	lea		rdx, [.source_256]
+	mov		r8, [.ctx]
+	lea     r8, [r8 + MontgomeryContext256.modulus]
+	lea     r9, [.naive_recheck]
+	call	bi_mod_mul_256_256
+
+	mov     rcx, [.expected_hex]
+	lea     rdx, [.naive_recheck]
+	call	bi_assert_equal_hex_256
+
     add     rsp, .locals_end - .locals_start
 	ret
 
-__bi_mont_ctx_256_deconvert_test:
+__bi_mont_ctx_256_redc_256_test:
 virtual at rsp
 .locals_start:
   .context MontgomeryContext256
@@ -72,22 +93,22 @@ end virtual
 	lea     rcx, [.source_small_hex]
 	lea     rdx, [.expected_small_hex]
 	lea		r8, [.context]
-	call	__bi_mont_ctx_256_deconvert_test_core
+	call	__bi_mont_ctx_256_redc_256_test_core
 
 	lea     rcx, [.source_1_hex]
 	lea     rdx, [.expected_1_hex]
 	lea		r8, [.context]
-	call	__bi_mont_ctx_256_deconvert_test_core
+	call	__bi_mont_ctx_256_redc_256_test_core
 
 	lea     rcx, [.source_2_hex]
 	lea     rdx, [.expected_2_hex]
 	lea		r8, [.context]
-	call	__bi_mont_ctx_256_deconvert_test_core
+	call	__bi_mont_ctx_256_redc_256_test_core
 
 	lea     rcx, [.source_3_hex]
 	lea     rdx, [.expected_3_hex]
 	lea		r8, [.context]
-	call	__bi_mont_ctx_256_deconvert_test_core
+	call	__bi_mont_ctx_256_redc_256_test_core
 
     add     rsp, .locals_end - .locals_start
 	ret

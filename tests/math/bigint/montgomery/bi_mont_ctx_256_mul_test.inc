@@ -66,12 +66,12 @@ end virtual
 	lea     rcx, [.left_mont]
 	lea     rdx, [.left_real]
 	mov     r8, [.ctx]
-	call	bi_mont_ctx_256_deconvert
+	call	bi_mont_ctx_256_redc_256
 
 	lea     rcx, [.right_mont]
 	lea     rdx, [.right_real]
 	mov     r8, [.ctx]
-	call	bi_mont_ctx_256_deconvert
+	call	bi_mont_ctx_256_redc_256
 
 	lea     rcx, [.left_real]
 	lea     rdx, [.right_real]
@@ -83,7 +83,7 @@ end virtual
 	lea     rcx, [.result_mont]
 	lea     rdx, [.result_real]
 	mov     r8, [.ctx]
-	call	bi_mont_ctx_256_deconvert
+	call	bi_mont_ctx_256_redc_256
 
 	lea     rcx, [.mul_real]
 	lea     rdx, [.result_real]
@@ -124,6 +124,6 @@ align 16
 
 .left_hex             db '145c63d5cd4a7d9081682b4779c63489e7459d6c3599113eb0d3634c9b7e5d1b'
 .right_hex	          db '58BA10A3A23714ED6AE6B1E13EF65E16FBE0EF9208EED8351D78908BEF3FB701'
-.result_hex	          db 'EDC4654478BFB90E96E941EE4D29152658544410FD59C359DDD779D5665BBD5C'
+.result_hex	          db 'F4D2F4094AA042FEB5580B848904CC355D3E150CAFEDED81F9C164242050FE4A'
 
 end if
