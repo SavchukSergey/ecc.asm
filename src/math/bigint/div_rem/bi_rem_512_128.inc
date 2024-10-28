@@ -4,6 +4,8 @@ include 'bi_div_rem_512_128.inc'
 
 include 'bi_rem_512_128_dac.inc'
 
+;todo: check why slower then generic Rem macro
+
 bi_rem_512_128_basic:
 virtual at rsp
   label .locals_start

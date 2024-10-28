@@ -11,15 +11,15 @@ virtual at rsp
   .right_hex rq 1
   .expected_hex rq 1
   .ctx rq 1
-  .left BigInteger256
-  .right BigInteger256
-  .expected BigInteger256
-  .result BigInteger256
+  .left_mont BigInteger256
+  .right_mont BigInteger256
+  .expected_mont BigInteger256
+  .result_mont BigInteger256
 
   .left_real BigInteger256
   .right_real BigInteger256
+  .mul_real BigInteger256
   .result_real BigInteger256
-  .expected_real BigInteger256
 
   AlignLocalsStackFrame
 .locals_end:
@@ -37,38 +37,38 @@ end virtual
 	mov     [.expected_hex], r9
 
 	mov     rcx, [.left_hex]
-	lea     rdx, [.left]
+	lea     rdx, [.left_mont]
 	call    bi_try_read_hex_256
 
 	mov     rcx, [.right_hex]
-	lea     rdx, [.right]
+	lea     rdx, [.right_mont]
 	call    bi_try_read_hex_256
 
 	mov     rcx, [.expected_hex]
-	lea     rdx, [.expected]
+	lea     rdx, [.expected_mont]
 	call    bi_try_read_hex_256
 
 	call	test_context_start_measure
 .chunk_loop:
-	lea     rcx, [.left]
-	lea     rdx, [.right]
+	lea     rcx, [.left_mont]
+	lea     rdx, [.right_mont]
 	mov     r8, [.ctx]
-	lea     r9, [.result]
+	lea     r9, [.result_mont]
 	call	bi_mont_ctx_256_mul
     call    test_context_measure_dec_chunk
     jnz     .chunk_loop
 	call	test_context_end_measure
 
 	mov     rcx, [.expected_hex]
-	lea     rdx, [.result]
+	lea     rdx, [.result_mont]
 	call	bi_assert_equal_hex_256
 
-	lea     rcx, [.left]
+	lea     rcx, [.left_mont]
 	lea     rdx, [.left_real]
 	mov     r8, [.ctx]
 	call	bi_mont_ctx_256_deconvert
 
-	lea     rcx, [.right]
+	lea     rcx, [.right_mont]
 	lea     rdx, [.right_real]
 	mov     r8, [.ctx]
 	call	bi_mont_ctx_256_deconvert
@@ -77,15 +77,15 @@ end virtual
 	lea     rdx, [.right_real]
 	mov     r8, [.ctx]
 	lea     r8, [r8 + MontgomeryContext256.modulus]
-	lea     r9, [.result_real]
+	lea     r9, [.mul_real]
 	call	bi_mod_mul_256_256
 
-	lea     rcx, [.expected]
-	lea     rdx, [.expected_real]
+	lea     rcx, [.result_mont]
+	lea     rdx, [.result_real]
 	mov     r8, [.ctx]
 	call	bi_mont_ctx_256_deconvert
 
-	lea     rcx, [.expected_real]
+	lea     rcx, [.mul_real]
 	lea     rdx, [.result_real]
 	call	bi_assert_equal_256
 	
