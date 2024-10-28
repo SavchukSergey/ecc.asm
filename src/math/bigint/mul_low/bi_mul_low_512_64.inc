@@ -1,6 +1,8 @@
 if ~ definite bi_mul_low_512_64
 
+include '../add/bi_add_assign_256_256.inc'
 include '../mul/bi_mul_256_64.inc'
+include 'bi_mul_low_256_64.inc'
 
 ;Multiplies bi512 by bi64 value and return low 512 bits
 ;input

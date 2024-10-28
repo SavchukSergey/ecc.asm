@@ -1,5 +1,6 @@
 if ~ definite bi_mont_ctx_256_convert
 
+include '../../../../src/math/bigint/mod_mul/bi_mod_mul_256_256.inc';
 include 'bi_mont_ctx_256.inc';
 
 bi_mont_ctx_256_convert:

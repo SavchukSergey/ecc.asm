@@ -205,6 +205,9 @@ __bi_tests_256:
         dq __bi_mont_ctx_256_deconvert_test
         db 'bi_mont_ctx_256_deconvert_test', 0
 
+        dq __bi_mont_ctx_256_mul_test
+        db 'bi_mont_ctx_256_mul_test', 0
+
         dq 0
 
 align 16

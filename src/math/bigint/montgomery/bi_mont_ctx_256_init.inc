@@ -2,6 +2,7 @@ if ~ definite bi_mont_ctx_256_init
 
 include 'bi_mont_ctx_256.inc';
 include '../div_rem/bi_div_rem_512_256.inc';
+include '../extend_low/bi_extend_512_256.inc';
 include '../mod_inverse/bi_mod_inverse_512.inc';
 include '../mod_negate/bi_mod_negate_256.inc';
 
@@ -52,7 +53,7 @@ end virtual
         mov     rdx, [.ctx]
         lea	    rdx, [rdx + MontgomeryContext256.r]
         lea	    r8, [.temp_512]
-        call    bi_mod_inverse_512                    ;todo: spped up
+        call    bi_mod_inverse_512                    ;todo: speed up
 
         lea     rcx, [.temp_512]
         mov     rdx, [.ctx]

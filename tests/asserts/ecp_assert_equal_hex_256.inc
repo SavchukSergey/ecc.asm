@@ -1,5 +1,6 @@
 if ~ definite ecp_assert_equal_hex_256
 
+include '../../src/math/ecc/ecp_try_read_hex_256.inc'
 include 'ecp_assert_equal_256.inc'
 
 ;Asserts two ecp256 values to be equal

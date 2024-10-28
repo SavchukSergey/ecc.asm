@@ -240,6 +240,7 @@ section '.edata' export data readable
          bi_mont_ctx_256_init, 'bi_mont_ctx_256_init',\
          bi_mont_ctx_256_convert, 'bi_mont_ctx_256_convert',\
          bi_mont_ctx_256_deconvert, 'bi_mont_ctx_256_deconvert',\
+         bi_mont_ctx_256_mul, 'bi_mont_ctx_256_mul',\
 \
          bi_rnd_128, 'bi_rnd_128', \
          bi_rnd_256, 'bi_rnd_256', \
