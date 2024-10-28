@@ -1,5 +1,8 @@
-;BI_DEV_REM_GUESS_64_DEBUG = 1
+if ~ definite __bi_div_rem_guess_64
 
+__bi_div_rem_guess_64 equ 0
+
+;BI_DEV_REM_GUESS_64_DEBUG = 1
 if definite BI_DEV_REM_GUESS_64_DEBUG
   include 'bi_div_rem_guess_debug.inc'
 end if
@@ -318,3 +321,5 @@ macro RemGuess64_Loop dividend_bits, divisor_bits {
         RemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits
 .loop_ok:
 }
+
+end if

@@ -13,27 +13,8 @@ endp
 
 include 'macro/align.inc'
 include 'math/bigint.inc'
-include 'math/bigint/zero/index.inc'
-include 'math/bigint/is_zero/index.inc'
-include 'math/bigint/one/index.inc'
-include 'math/bigint/add/index.inc'
-include 'math/bigint/sub/index.inc'
-include 'math/bigint/inc/index.inc'
-include 'math/bigint/dec/index.inc'
-include 'math/bigint/cmp/index.inc'
-include 'math/bigint/shl/index.inc'
-include 'math/bigint/shr/index.inc'
-include 'math/bigint/mul/index.inc'
-include 'math/bigint/montgomery/index.inc'
-include 'math/bigint/mod_mul/index.inc'
-include 'math/bigint/extend_low/index.inc'
-include 'math/bigint/bit_clear/index.inc'
-include 'math/bigint/bit_set/index.inc'
-include 'math/bigint/bit_check/index.inc'
-include 'math/bigint/euclid_ext/index.inc'
 include 'math/bigint/index.inc'
 include 'math/ecc/index.inc'
-include 'ecc_win64_api.inc'
 
 section '.edata' export data readable
 
@@ -65,9 +46,17 @@ section '.edata' export data readable
          bi_add_512_512, 'bi_add_512_512', \
 \
          bi_add_assign_128_128, 'bi_add_assign_128_128', \
+         bi_add_assign_192_128, 'bi_add_assign_192_128', \
          bi_add_assign_192_192, 'bi_add_assign_192_192', \
+         bi_add_assign_256_128, 'bi_add_assign_256_128', \
          bi_add_assign_256_256, 'bi_add_assign_256_256', \
+         bi_add_assign_320_128, 'bi_add_assign_320_128', \
+         bi_add_assign_320_256, 'bi_add_assign_320_256', \
+         bi_add_assign_384_128, 'bi_add_assign_384_128', \
+         bi_add_assign_384_256, 'bi_add_assign_384_256', \
          bi_add_assign_384_384, 'bi_add_assign_384_384', \
+         bi_add_assign_448_128, 'bi_add_assign_448_128', \
+         bi_add_assign_448_256, 'bi_add_assign_448_256', \
          bi_add_assign_448_448, 'bi_add_assign_448_448', \
          bi_add_assign_512_256, 'bi_add_assign_512_256', \
          bi_add_assign_512_512, 'bi_add_assign_512_512', \
@@ -233,6 +222,9 @@ section '.edata' export data readable
          bi_mod_mul_256_256, 'bi_mod_mul_256_256',\
          bi_mont_ctx_256_init, 'bi_mont_ctx_256_init',\
 \
+         bi_mod_negate_256, 'bi_mod_negate_256' ,\
+         bi_mod_negate_512, 'bi_mod_negate_512' ,\
+\
          bi_mod_pow_256, 'bi_mod_pow_256' ,\
 \
          bi_mod_div_256_256, 'bi_mod_div_256_256',\
@@ -247,10 +239,9 @@ section '.edata' export data readable
 \
          bi_mont_ctx_256_init, 'bi_mont_ctx_256_init',\
          bi_mont_ctx_256_convert, 'bi_mont_ctx_256_convert',\
-         bi_mont_ctx_256_deconvert, 'bi_mont_ctx_256_deconvert'
-;\
-;\
-;         BigIntegerRnd_128, 'bi128_rnd', \
-;         BigIntegerRnd_256, 'bi256_rnd', \
-;         BigIntegerRnd_512, 'bi512_rnd', \
-;\
+         bi_mont_ctx_256_deconvert, 'bi_mont_ctx_256_deconvert',\
+\
+         bi_rnd_128, 'bi_rnd_128', \
+         bi_rnd_256, 'bi_rnd_256', \
+         bi_rnd_512, 'bi_rnd_512', \
+         bi_rnd_1024, 'bi_rnd_1024'

@@ -1,5 +1,7 @@
 if ~ definite bi_copy_128
 
+include '../config.inc'
+
 bi_copy_128_basic:
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax

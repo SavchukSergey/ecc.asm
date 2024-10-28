@@ -1,5 +1,7 @@
 if ~ definite bi_rem_256_128
 
+include 'macro/bi_div_rem_guess_64.inc'
+
 bi_rem_256_128:
     DivRemGuess64_Prepare 256, 128
 virtual at rsp
