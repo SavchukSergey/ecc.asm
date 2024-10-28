@@ -111,6 +111,18 @@ end virtual
 	call	bi_mont_ctx_256_init
 
 	lea     rcx, [.left_hex]
+	lea     rdx, [.right_0_hex]
+	lea		r8, [.context]
+	lea     r9, [.result_0_hex]
+	call	__bi_mont_ctx_256_mul_test_core
+
+	lea     rcx, [.left_hex]
+	lea     rdx, [.right_1_hex]
+	lea		r8, [.context]
+	lea     r9, [.result_1_hex]
+	call	__bi_mont_ctx_256_mul_test_core
+
+	lea     rcx, [.left_hex]
 	lea     rdx, [.right_hex]
 	lea		r8, [.context]
 	lea     r9, [.result_hex]
@@ -121,8 +133,14 @@ end virtual
 
 align 16
 .modulus_hex	db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
-
 .left_hex             db '145c63d5cd4a7d9081682b4779c63489e7459d6c3599113eb0d3634c9b7e5d1b'
+
+.right_0_hex          db '0000000000000000000000000000000000000000000000000000000000000000'
+.result_0_hex         db '0000000000000000000000000000000000000000000000000000000000000000'
+
+.right_1_hex          db '00000000000000000000000000000000000000000000000000000001000003d1'  ; this is 1 in montgomery form (equals to rm)
+.result_1_hex         db '145c63d5cd4a7d9081682b4779c63489e7459d6c3599113eb0d3634c9b7e5d1b'
+
 .right_hex	          db '58BA10A3A23714ED6AE6B1E13EF65E16FBE0EF9208EED8351D78908BEF3FB701'
 .result_hex	          db 'F4D2F4094AA042FEB5580B848904CC355D3E150CAFEDED81F9C164242050FE4A'
 
