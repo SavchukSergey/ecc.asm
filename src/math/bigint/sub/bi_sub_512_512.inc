@@ -5,7 +5,7 @@ if ~ definite bi_sub_512_512
 ; rcx - left value
 ; rdx - right value
 ; r8 - result value
-; rax - set to 1 if overflow
+; rax, CF - set to 1 if overflow
 bi_sub_512_512:
         mov     rax, [rcx]
         sub     rax, [rdx]

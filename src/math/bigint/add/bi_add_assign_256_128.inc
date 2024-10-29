@@ -5,7 +5,7 @@ if ~ definite bi_add_assign_256_128
 ;  rcx - left bi256 value. The modified value
 ;  rdx - right bi128 value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow
 bi_add_assign_256_128:
     ;CheckRegAligned rcx, 'bi_add_assign_256_128 rcx'

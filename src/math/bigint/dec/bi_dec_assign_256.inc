@@ -4,7 +4,7 @@ if ~ definite bi_dec_assign_256
 ;input:
 ;  rcx - left value. The modified value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow
 bi_dec_assign_256:
     CheckRegAligned rcx, 'bi_dec_assign_256 rcx'

@@ -5,7 +5,7 @@ if ~ definite bi_add_assign_320_256
 ;  rcx - pointer to left bi320E value. The modified value
 ;  rdx - pointer to right bi256 value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 bi_add_assign_320_256:
         mov     rax, [rdx]
         add     [rcx], rax

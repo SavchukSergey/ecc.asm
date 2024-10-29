@@ -5,7 +5,7 @@ if ~ definite bi_add_assign_1024_1024
 ;  rcx - pointer to left bi1024 value. The modified value
 ;  rdx - pointer to right bi1024 value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 bi_add_assign_1024_1024:
         mov     rax, [rdx]
         add     [rcx], rax

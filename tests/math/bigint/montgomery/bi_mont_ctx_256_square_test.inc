@@ -10,13 +10,16 @@ virtual at rsp
   .value_hex rq 1
   .expected_hex rq 1
   .ctx rq 1
-  .value_mont BigInteger256
-  .expected_mont BigInteger256
-  .result_mont BigInteger256
 
+  .expected_mont BigInteger256
+
+  .value_mont BigInteger256
   .value_real BigInteger256
-  .square_real BigInteger256
+
+  .result_mont BigInteger256
   .result_real BigInteger256
+
+  .square_real BigInteger256
 
   AlignLocalsStackFrame
 .locals_end:
@@ -53,6 +56,8 @@ end virtual
 	lea     rdx, [.result_mont]
 	call	bi_assert_equal_hex_256
 
+;recheck
+
 	lea     rcx, [.value_mont]
 	lea     rdx, [.value_real]
 	mov     r8, [.ctx]
@@ -72,7 +77,7 @@ end virtual
 	lea     rcx, [.square_real]
 	lea     rdx, [.result_real]
 	call	bi_assert_equal_256
-	
+
     add     rsp, .locals_end - .locals_start
 	ret
 
@@ -94,9 +99,24 @@ end virtual
 	lea		rdx, [.context]
 	call	bi_mont_ctx_256_init
 
+	lea     rcx, [.value_0_hex]
+	lea		rdx, [.context]
+	lea     r8, [.result_0_hex]
+	call	__bi_mont_ctx_256_square_test_core
+
+	lea     rcx, [.value_1_hex]
+	lea		rdx, [.context]
+	lea     r8, [.result_1_hex]
+	call	__bi_mont_ctx_256_square_test_core
+
 	lea     rcx, [.value_hex]
 	lea		rdx, [.context]
 	lea     r8, [.result_hex]
+	call	__bi_mont_ctx_256_square_test_core
+
+	lea     rcx, [.value_double_hex]
+	lea		rdx, [.context]
+	lea     r8, [.result_double_hex]
 	call	__bi_mont_ctx_256_square_test_core
 
     add     rsp, .locals_end - .locals_start
@@ -105,7 +125,16 @@ end virtual
 align 16
 .modulus_hex	db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f'
 
+.value_0_hex          db '0000000000000000000000000000000000000000000000000000000000000000'
+.result_0_hex	      db '0000000000000000000000000000000000000000000000000000000000000000'
+
+.value_1_hex          db '00000000000000000000000000000000000000000000000000000001000003d1'  ; this is 1 in montgomery form (equals to rm)
+.result_1_hex	      db '00000000000000000000000000000000000000000000000000000001000003d1'  ; this is 1 in montgomery form (equals to rm)
+
 .value_hex            db '145c63d5cd4a7d9081682b4779c63489e7459d6c3599113eb0d3634c9b7e5d1b'
 .result_hex	          db 'FA06E3B927A10AA9C448C6F1A36F66DDE5455690C05EC4C7ED0282C394612022'
+
+.value_double_hex     db 'FA06E3B927A10AA9C448C6F1A36F66DDE5455690C05EC4C7ED0282C394612022'
+.result_double_hex    db '16F2DA2A2F024836B8D0A5B8703D5437869F901B1A93506A1CE6F7F210C1081B'
 
 end if

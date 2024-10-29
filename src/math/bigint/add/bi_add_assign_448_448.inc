@@ -5,7 +5,7 @@ if ~ definite bi_add_assign_448_448
 ;  rcx - left value. The modified value
 ;  rdx - right value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 bi_add_assign_448_448:
         mov     rax, [rdx]
         add     [rcx], rax

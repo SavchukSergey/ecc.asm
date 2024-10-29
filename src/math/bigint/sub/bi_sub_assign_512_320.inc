@@ -5,7 +5,7 @@ if ~ definite bi_sub_assign_512_320
 ;  rcx - left bi512 value. The modified value.
 ;  rdx - right bi320 value
 ; output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 bi_sub_assign_512_320:
         mov     rax, [rdx]
         sub     [rcx], rax

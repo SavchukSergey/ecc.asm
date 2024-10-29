@@ -4,7 +4,7 @@ if ~ definite bi_inc_assign_192
 ;input:
 ;  rcx - left value. The modified value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow
 bi_inc_assign_192:
         xor     rax, rax

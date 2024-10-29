@@ -5,7 +5,7 @@ if ~ definite bi_add_assign_768_512
 ;  rcx - pointer to left bi768 value. The modified value
 ;  rdx - pointer to right bi512 value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 bi_add_assign_768_512:
         mov     rax, [rdx]
         add     [rcx], rax

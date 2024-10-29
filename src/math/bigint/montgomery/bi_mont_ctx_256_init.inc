@@ -54,6 +54,7 @@ end virtual
         lea	    rdx, [rdx + MontgomeryContext256.r]
         lea	    r8, [.temp_512]
         call    bi_mod_inverse_512                    ;todo: speed up
+;todo: euclid extended can give us rm and mod_inv_r at same time
 
         lea     rcx, [.temp_512]
         mov     rdx, [.ctx]

@@ -34,12 +34,14 @@ end virtual
         lea     rcx, [.t_512]
         mov     rdx, [.source_512]
         call    bi_add_assign_512_512
+        jc      .norm
 
         lea     rcx, [.t_512 + 32]
         mov     rdx, [.ctx]
         lea     rdx, [rdx + MontgomeryContext256.modulus]
         call    bi_cmp_256_256
         jb      .norm_ok
+.norm:
         lea     rcx, [.t_512 + 32]
         mov     rdx, [.ctx]
         lea     rdx, [rdx + MontgomeryContext256.modulus]

@@ -6,7 +6,7 @@ if ~ definite bi_add_512_512
 ;  rdx - right value
 ;  r8 - result value
 ;output:
-;  rax - set to 1 if overflow
+;  rax, CF - set to 1 if overflow
 bi_add_512_512:
     CheckRegAligned rcx, 'bi_add_512_512 rcx'
     CheckRegAligned rdx, 'bi_add_512_512 rdx'
