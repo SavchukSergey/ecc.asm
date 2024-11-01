@@ -123,6 +123,9 @@ __bi_rem_512_256_test:
         mov     rbx, __bi_div_rem_512_128_test_cases
         call    __bi_rem_512_256_test_core
 
+        mov     rbx, __bi_div_rem_512_192_test_cases
+        call    __bi_rem_512_256_test_measure_core
+
         mov     rbx, __bi_div_rem_512_256_test_cases
         call    __bi_rem_512_256_test_measure_core
 

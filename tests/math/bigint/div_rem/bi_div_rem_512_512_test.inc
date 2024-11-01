@@ -43,7 +43,7 @@ end virtual
         lea     rdx, [.divisor + 0]
         lea     r8, [.quotient]
         lea     r9, [.remainder]
-        call    bi_div_rem_512_256
+        call    bi_div_rem_512_512
 
         mov     rcx, [.expected_quotient_hex]
         lea     rdx, [.quotient]
@@ -130,6 +130,9 @@ __bi_div_rem_512_512_test:
         call    __bi_div_rem_512_512_test_core
 
         mov     rbx, __bi_div_rem_512_128_test_cases
+        call    __bi_div_rem_512_512_test_core
+
+        mov     rbx, __bi_div_rem_512_192_test_cases
         call    __bi_div_rem_512_512_test_core
 
         mov     rbx, __bi_div_rem_512_256_test_cases

@@ -1,3 +1,7 @@
+if ~ definite __bi_call
+
+__bi_call equ 0
+
 macro Call_Shl bits {
   if bits = 128
       call    bi_shl_128
@@ -567,6 +571,8 @@ macro Call_DivRem512X divisor_bits {
       call    bi_div_rem_512_512
   else if divisor_bits = 256
       call    bi_div_rem_512_256
+  else if divisor_bits = 192
+      call    bi_div_rem_512_192
   else if divisor_bits = 128
       call    bi_div_rem_512_128
   else if divisor_bits = 64
@@ -599,6 +605,8 @@ macro Call_Rem512X divisor_bits {
 macro Call_DivRem256X divisor_bits {
   if divisor_bits = 256
       call    bi_div_rem_256_256
+  else if divisor_bits = 192
+      call    bi_div_rem_256_192
   else if divisor_bits = 128
       call    bi_div_rem_256_128
   else if divisor_bits = 64
@@ -700,3 +708,5 @@ macro Call_BitSet bits {
     err
   end if
 }
+
+end if

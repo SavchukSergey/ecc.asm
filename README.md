@@ -27,6 +27,8 @@ Full list of methods:
 | [bi_mul_low_256_256](#bi_mul_low_256_256)               | Multiplies two `bi256` values and returns low `bi256` value |
 | [bi_div_rem_256_128](#bi_div_rem_256_128)               | Divides `bi256` by `bi128`                                  |
 | [bi_div_rem_256_256](#bi_div_rem_256_256)               | Divides `bi256` by `bi256`                                  |
+| [bi_div_rem_512_256](#bi_div_rem_512_256)               | Divides `bi512` by `bi256`                                  |
+| [bi_div_rem_512_512](#bi_div_rem_512_512)               | Divides `bi512` by `bi512`                                  |
 | [bi_lzcnt_256](#bi_lzcnt_256)                           | Counts leading zero bits of `bi256`                         |
 | [bi_shl_assign_256_1](#bi_shl_assign_256_1)             | Shifts `bi256` to the left by 1 bit                         |
 | [bi_shr_assign_256_1](#bi_shr_assign_256_1)             | Shifts `bi256` to the right by 1 bit                        |
@@ -245,6 +247,24 @@ Input:
   * `rdx` - pointer to `bi256` divisor value
   * `r8` - pointer to `bi256` quotient value
   * `r9` - pointer to `bi256` reminder value
+
+## bi_div_rem_512_256
+Divides `bi512` by `bi256`
+
+Input:
+  * `rcx` - pointer to `bi512` dividend value
+  * `rdx` - pointer to `bi256` divisor value
+  * `r8` - pointer to `bi512` quotient value
+  * `r9` - pointer to `bi512` reminder value
+
+## bi_div_rem_512_512
+Divides `bi512` by `bi512`
+
+Input:
+  * `rcx` - pointer to `bi512` dividend value
+  * `rdx` - pointer to `bi512` divisor value
+  * `r8` - pointer to `bi512` quotient value
+  * `r9` - pointer to `bi512` reminder value
 
 ## bi_lzcnt_256
 Counts leading zero bits of `bi256` value
