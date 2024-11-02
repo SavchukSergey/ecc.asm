@@ -71,14 +71,6 @@ __bi_tests_128:
         dq __bi_shr_assign_128_test
         db 'bi_shr_assign_128', 0
 
-        dq __bi_div_rem_128_64_test
-        db 'bi_div_rem_128_64', 0
-        dq __bi_div_rem_128_128_test
-        db 'bi_div_rem_128_128', 0
-
-        dq __bi_rem_128_64_test
-        db 'bi_rem_128_64', 0
-
         dq __bi_lzcnt_128_test
         db 'bi_lzcnt_128', 0
 
@@ -168,18 +160,6 @@ __bi_tests_256:
         db 'bi_mul_low_256_128', 0
         dq __bi_mul_low_256_256_test
         db 'bi_mul_low_256_256', 0
-
-        dq __bi_div_rem_256_64_test
-        db 'bi_div_rem_256_64', 0
-        dq __bi_div_rem_256_128_test
-        db 'bi_div_rem_256_128', 0
-        dq __bi_div_rem_256_256_test
-        db 'bi_div_rem_256_256', 0
-
-        dq __bi_rem_256_64_test
-        db 'bi_rem_256_64', 0
-        dq __bi_rem_256_128_test
-        db 'bi_rem_256_128', 0
 
         dq __bi_mod_add_assign_256_256_test
         db 'bi_mod_add_assign_256_256', 0
@@ -278,22 +258,6 @@ __bi_tests_512:
 	db 'bi_mul_low_512_64', 0
         dq __bi_mul_low_512_512_test
 	db 'bi_mul_low_512_512', 0
-
-        dq __bi_div_rem_512_64_test
-        db 'bi_div_rem_512_64', 0
-        dq __bi_div_rem_512_128_test
-        db 'bi_div_rem_512_128', 0
-        dq __bi_div_rem_512_256_test
-        db 'bi_div_rem_512_256', 0
-        dq __bi_div_rem_512_512_test
-        db 'bi_div_rem_512_512', 0
-
-        dq __bi_rem_512_64_test
-        db 'bi_rem_512_64', 0
-        dq __bi_rem_512_128_test
-        db 'bi_rem_512_128', 0
-        dq __bi_rem_512_256_test
-        db 'bi_rem_512_256', 0
 
         dq __bi_mod_inverse_512_test
         db 'bi_mod_inverse_512', 0

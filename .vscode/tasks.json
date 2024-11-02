@@ -43,10 +43,11 @@
         {
             "label": "Build Linux Tests",
             "type": "process",
-            "command": "${env:FASM_PATH}/fasm.exe",
+            "command": "fasm",
             "args": [
                 "${workspaceFolder}/tests/ecc-test-linux.asm", 
-                "${workspaceFolder}/tests/ecc-test-linux"
+                "${workspaceFolder}/tests/ecc-test-linux",
+                "-m", "327680"
             ],
             "group": {
                 "kind": "build",

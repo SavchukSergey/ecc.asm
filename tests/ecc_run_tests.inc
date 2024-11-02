@@ -29,6 +29,10 @@ ecc_run_tests:
 	mov     rsi, .bi1024_fixture_name
 	call	run_test_fixture
 
+	mov     rax, __bi_div_rem_tests
+	mov     rsi, .bi_div_rem_tests_fixture_name
+	call	run_test_fixture
+
 	mov     rax, __secp256k1_tests
 	mov     rsi, .ecc_fixture_name
 	call	run_test_fixture
@@ -42,6 +46,7 @@ ecc_run_tests:
 .bi256_fixture_name db 'bi256', 0
 .bi512_fixture_name db 'bi512', 0
 .bi1024_fixture_name db 'bi1024', 0
+.bi_div_rem_tests_fixture_name db 'div_rem', 0
 .ecc_fixture_name db 'ecc', 0
 
 include 'math/bigint.tests.inc'
