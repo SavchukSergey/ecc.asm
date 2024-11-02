@@ -8,7 +8,10 @@ Full list of methods:
 | [bi_zero_512](#bi_zero_512)                 | Zeroes `bi512` value                                        |
 | [bi_zero_1024](#bi_zero_1024)               | Zeroes `bi1024` value                |
 | [bi_one_128](#bi_one_128)                   | Sets 1 to `bi128` value              |
-| [bi_copy_128](#bi_copy_128)                 | Copies `bi128` value                 |
+| [bi_copy_128](#bi_copy_128)                             | Copies `bi128` value                                        |
+| [bi_copy_192](#bi_copy_192)                             | Copies `bi192` value                                        |
+| [bi_copy_256](#bi_copy_256)                             | Copies `bi256` value                                        |
+| [bi_copy_512](#bi_copy_512)                             | Copies `bi512` value                                        |
 | [bi_add_128_128](#bi_add_128_128)           | Adds two `bi128` values              |
 | [bi_add_192_192](#bi_add_192_192)           | Adds two `bi192` values              |
 | [bi_add_256_256](#bi_add_256_256)           | Adds two `bi256` values              |
@@ -25,7 +28,6 @@ Full list of methods:
 | [bi_shl_assign_128](#bi_shl_assign_128)     | Shifts `bi128` to the left           |
 | [bi_is_zero_256](#bi_is_zero_256)           | Check if `bi256` value is zero       |
 | [bi_one_256](#bi_one_256)                   | Sets 1 to `bi256` value              |
-| [bi_copy_256](#bi_copy_256)                 | Copies `bi256` value                 |
 | [bi_mul_256_256](#bi_mul_256_256)           | Multiplies two `bi256` values        |
 | [bi_mul_low_256_256](#bi_mul_low_256_256)               | Multiplies two `bi256` values and returns low `bi256` value |
 | [bi_div_rem_128_64](#bi_div_rem_128_64)                 | Divides `bi128` by `bi64`                                   |
@@ -90,7 +92,42 @@ Zeroes `bi1024` value
 
 Input:
   * `rcx` - pointer to `bi1024` value
-  
+
+# Copy operations
+
+## bi_copy_128
+
+Copies `bi128` value
+
+Input:
+  * `rcx` - pointer to `bi128` target value
+  * `rdx` - pointer to `bi128` source value
+
+## bi_copy_192
+
+Copies `bi192` value
+
+Input:
+  * `rcx` - pointer to `bi192` target value
+  * `rdx` - pointer to `bi192` source value
+
+## bi_copy_256
+
+Copies `bi256` value
+
+Input:
+  * `rcx` - pointer to `bi256` target value
+  * `rdx` - pointer to `bi256` source value
+
+## bi_copy_512
+
+Copies `bi512` value
+
+Input:
+  * `rcx` - pointer to `bi512` target value
+  * `rdx` - pointer to `bi512` source value
+
+
 # bi128 operations
 
 ## bi_one_128
@@ -99,12 +136,6 @@ Sets 1 to `bi128` value
 Input:
   * `rcx` - pointer to `bi128` value
 
-## bi_copy_128
-Copies `bi128` value
-
-Input:
-  * `rcx` - pointer to `bi128` target value
-  * `rdx` - pointer to `bi128` source value
 
 # Add operations
 
@@ -266,13 +297,6 @@ Sets 1 to `bi256` value
 
 Input:
   * `rcx` - pointer to `bi256` value
-
-## bi_copy_256
-Copies `bi256` value
-
-Input:
-  * `rcx` - pointer to `bi256` target value
-  * `rdx` - pointer to `bi256` source value
 
 ## bi_mul_256_256
 Multiplies two `bi256` values

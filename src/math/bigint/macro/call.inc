@@ -333,6 +333,8 @@ macro Call_Zero bits {
 macro Call_Copy bits {
   if bits = 128
       call    bi_copy_128
+  else if bits = 192
+      call    bi_copy_192
   else if bits = 256
       call    bi_copy_256
   else if bits = 512

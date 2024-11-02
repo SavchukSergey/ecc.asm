@@ -34,6 +34,7 @@ section '.edata' export data readable
          bi_is_zero_512, 'bi_is_zero_512', \
 \
          bi_copy_128, 'bi_copy_128', \
+         bi_copy_192, 'bi_copy_192', \
          bi_copy_256, 'bi_copy_256', \
          bi_copy_512, 'bi_copy_512', \
 \
