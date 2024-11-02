@@ -13,6 +13,7 @@ include 'bi_div_rem_guess_64_recheck_once.inc'
 include 'bi_div_rem_guess_64_recheck_multi.inc'
 include 'bi_div_rem_guess_64_init_remainder.inc'
 include 'bi_div_rem_guess_64_shift_remainder.inc'
+include 'bi_div_rem_guess_64_fast_switch.inc'
 
 include '../../config.inc'
 include '../../macro/call.inc'
@@ -61,6 +62,7 @@ macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
     mov     [.divisor_lzcnt], rax
 }
 
+;todo: remove
 macro DivRemGuess64_DivisorSwitch dividend_bits, divisor_bits {
   if divisor_bits >= 128
     ;check for large divisor first than try to use smaller ones

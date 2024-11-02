@@ -21,6 +21,7 @@ include '../sub/bi_sub_assign_256_256.inc'
 include '../zero/bi_zero_256.inc'
 
 bi_div_rem_256_128_guess:
+    DivRemGuess64_FastSwitch 256, 128
     DivRemGuess64_Prepare 256, 128
 virtual at rsp
   label .locals_start
@@ -44,7 +45,6 @@ virtual at rsp
 end virtual
 	DivRemGuess64_Prolog 256, 128
 	DivRemGuess64_DivisorLzcnt 256, 128
-	DivRemGuess64_DivisorSwitch 256, 128
 
 	DivRemGuess64_PrepareLoop 256, 128
 	DivRemGuess64_ShiftDivisor 256, 128

@@ -6,6 +6,7 @@ include '../cmp/bi_cmp_192_128.inc'
 include '../sub/bi_sub_assign_192_192.inc'
 
 bi_div_rem_192_128_guess:
+    DivRemGuess64_FastSwitch 192, 128
     DivRemGuess64_Prepare 192, 128
 virtual at rsp
   label .locals_start
@@ -29,7 +30,6 @@ virtual at rsp
 end virtual
 	DivRemGuess64_Prolog 192, 128
 	DivRemGuess64_DivisorLzcnt 192, 128
-	DivRemGuess64_DivisorSwitch 192, 128
 
 	DivRemGuess64_PrepareLoop 192, 128
 	DivRemGuess64_ShiftDivisor 192, 128
