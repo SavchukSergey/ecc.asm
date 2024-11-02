@@ -67,6 +67,35 @@ local .reg_unaligned_msg, .reg_aligned
 end if
 }
 
+macro CheckRegBi192Alignment reg, msg {
+if CHECK_REG_ALIGNMENT = 1
+local .reg_unaligned_msg, .reg_aligned
+
+    test    reg, 0x0f
+    jz      .reg_aligned
+
+    push    rsi
+    mov     rsi, reg_bi192_unaligned_prefix_msg
+    call    Console_WriteString
+
+    mov     rsi, .reg_bi192_unaligned_msg
+    call    Console_WriteString
+    pop     rsi
+
+    mov     rcx, reg
+    call    Console_WriteUInt64Hex
+
+    call    Console_WriteLine
+
+    int3
+.reg_bi192_unaligned_msg:
+  db msg
+  db '=', 0
+
+.reg_aligned:
+end if
+}
+
 macro CheckRegBi256Alignment reg, msg {
 if CHECK_REG_ALIGNMENT = 1
 local .reg_unaligned_msg, .reg_aligned
@@ -152,6 +181,7 @@ if CHECK_STACK_ALIGNMENT = 1
 stack_unaligned_msg db 'stack is unaligned ', 0
 reg_unaligned_prefix_msg db 'reg is unaligned ', 0
 reg_bi128_unaligned_prefix_msg db 'reg bi128 is unaligned ', 0
+reg_bi192_unaligned_prefix_msg db 'reg bi192 is unaligned ', 0
 reg_bi256_unaligned_prefix_msg db 'reg bi256 is unaligned ', 0
 reg_bi512_unaligned_prefix_msg db 'reg bi512 is unaligned ', 0
 

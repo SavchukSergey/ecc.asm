@@ -1,4 +1,5 @@
 include 'bi_cmp_128_128.inc'
+include 'bi_cmp_192_128.inc'
 include 'bi_cmp_192_192.inc'
 include 'bi_cmp_256_128.inc'
 include 'bi_cmp_256_256.inc'

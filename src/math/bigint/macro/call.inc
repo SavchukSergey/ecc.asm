@@ -254,7 +254,9 @@ macro Call_Cmp128X bits {
 }
 
 macro Call_Cmp192X bits {
-  if bits = 192
+  if bits = 128
+      call    bi_cmp_192_128
+  else if bits = 192
       call    bi_cmp_192_192
   else
       display 'unknown Call_Cmp192X '
@@ -296,6 +298,8 @@ macro Call_Cmp512X bits {
 macro Call_Cmp left_bits, right_bits {
   if left_bits = 128
       Call_Cmp128X right_bits
+  else if left_bits = 192
+      Call_Cmp192X right_bits
   else if left_bits = 256
       Call_Cmp256X right_bits
   else if left_bits = 512
@@ -639,6 +643,22 @@ macro Call_DivRem256X divisor_bits {
   end if
 }
 
+macro Call_DivRem192X divisor_bits {
+  if  divisor_bits = 192
+      call    bi_div_rem_192_192
+  else if divisor_bits = 128
+      call    bi_div_rem_192_128
+  else if divisor_bits = 64
+      call    bi_div_rem_192_64
+  else
+    display 'unknown Call_DivRem192X '
+    DisplayDec divisor_bits
+    display 13, 10
+    err
+  end if
+}
+
+
 macro Call_Rem256X divisor_bits {
   if divisor_bits = 256
       call    bi_rem_256_256
@@ -686,6 +706,8 @@ macro Call_DivRem dividend_bits, divisor_bits {
       Call_DivRem512X divisor_bits
   else if dividend_bits = 256
       Call_DivRem256X divisor_bits
+  else if dividend_bits = 192
+      Call_DivRem192X divisor_bits
   else if dividend_bits = 128
       Call_DivRem128X divisor_bits
   else

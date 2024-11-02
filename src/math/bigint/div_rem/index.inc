@@ -14,6 +14,7 @@ include 'bi_div_rem_128_64.inc'
 include 'bi_div_rem_128_128.inc'
 
 include 'bi_div_rem_192_64.inc'
+include 'bi_div_rem_192_128.inc'
 
 include 'bi_div_rem_256_64.inc'
 include 'bi_div_rem_256_128.inc'

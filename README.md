@@ -33,6 +33,7 @@ Full list of methods:
 | [bi_div_rem_128_64](#bi_div_rem_128_64)                 | Divides `bi128` by `bi64`                                   |
 | [bi_div_rem_128_128](#bi_div_rem_128_128)               | Divides `bi128` by `bi128`                                  |
 | [bi_div_rem_192_64](#bi_div_rem_192_64)                 | Divides `bi192` by `bi64`                                   |
+| [bi_div_rem_192_128](#bi_div_rem_192_128)               | Divides `bi192` by `bi128`                                  |
 | [bi_div_rem_256_64](#bi_div_rem_256_64)                 | Divides `bi256` by `bi64`                                   |
 | [bi_div_rem_256_128](#bi_div_rem_256_128)               | Divides `bi256` by `bi128`                                  |
 | [bi_div_rem_256_256](#bi_div_rem_256_256)               | Divides `bi256` by `bi256`                                  |
@@ -317,6 +318,7 @@ Input:
 # Division and remainder operations
 
 ## bi_div_rem_192_64
+
 Divides `bi192` by `bi64`
 
 Input:
@@ -325,7 +327,18 @@ Input:
   * `r8` - pointer to `bi192` quotient value
   * `r9` - pointer to `bi192` remainder value (actual result will be `bi64` with zeroed upper half)
 
+## bi_div_rem_192_128
+
+Divides `bi192` by `bi128`
+
+Input:
+  * `rcx` - pointer to `bi192` dividend value
+  * `rdx` - pointer to `bi128` divisor value
+  * `r8` - pointer to `bi192` quotient value
+  * `r9` - pointer to `bi192` remainder value (actual result will be `bi128` with zeroed upper half)
+
 ## bi_div_rem_256_64
+
 Divides `bi256` by `bi64`
 
 Input:
@@ -335,6 +348,7 @@ Input:
   * `r9` - pointer to `bi256` remainder value (actual result will be `bi64` with zeroed upper half)
 
 ## bi_div_rem_256_128
+
 Divides `bi256` by `bi128`
 
 Input:
