@@ -314,6 +314,8 @@ macro Call_Cmp left_bits, right_bits {
 macro Call_Zero bits {
   if bits = 128
       call    bi_zero_128
+  else if bits = 192
+      call    bi_zero_192
   else if bits = 256
       call    bi_zero_256
   else if bits = 512

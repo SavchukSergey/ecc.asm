@@ -3,6 +3,10 @@ Full list of methods:
 | Name                                        | Description                          |
 |---------------------------------------------|--------------------------------------|
 | [bi_zero_128](#bi_zero_128)                 | Zeroes `bi128` value                 |
+| [bi_zero_192](#bi_zero_192)                 | Zeroes `bi192` value                 |
+| [bi_zero_256](#bi_zero_256)                 | Zeroes `bi256` value                 |
+| [bi_zero_512](#bi_zero_512)                 | Zeroes `bi512` value                                        |
+| [bi_zero_1024](#bi_zero_1024)               | Zeroes `bi1024` value                |
 | [bi_one_128](#bi_one_128)                   | Sets 1 to `bi128` value              |
 | [bi_copy_128](#bi_copy_128)                 | Copies `bi128` value                 |
 | [bi_add_128_128](#bi_add_128_128)           | Adds two `bi128` values              |
@@ -19,7 +23,6 @@ Full list of methods:
 | [bi_shl_assign_128_1](#bi_shl_assign_128_1) | Shifts `bi128` to the left by 1 bit  |
 | [bi_shr_assign_128_1](#bi_shr_assign_128_1) | Shifts `bi128` to the right by 1 bit |
 | [bi_shl_assign_128](#bi_shl_assign_128)     | Shifts `bi128` to the left           |
-| [bi_zero_256](#bi_zero_256)                 | Zeroes `bi256` value                 |
 | [bi_is_zero_256](#bi_is_zero_256)           | Check if `bi256` value is zero       |
 | [bi_one_256](#bi_one_256)                   | Sets 1 to `bi256` value              |
 | [bi_copy_256](#bi_copy_256)                 | Copies `bi256` value                 |
@@ -48,23 +51,47 @@ Full list of methods:
 | [bi_cmp_1024_1024](#bi_cmp_1024_1024)                   | Compares two `bi1024` values                                |
 | [bi_mod_add_assign_256_256](#bi_mod_add_assign_256_256) | Adds two `bi256` values with modulo                         |
 | [bi_mod_sub_assign_256_256](#bi_mod_sub_assign_256_256) | Subtracts two `bi256` values with modulo                    |
-| [bi_zero_512](#bi_zero_256)                             | Zeroes `bi512` value                                        |
 | [bi_one_512](#bi_one_512)                               | Sets 1 to `bi512` value                                     |
 | [bi_mul_512_512](#bi_mul_512_512)           | Multiplies two `bi512` values        |
 | [bi_lzcnt_512](#bi_lzcnt_512)               | Counts leading zero bits of `bi512`  |
 | [bi_shl_assign_512_1](#bi_shl_assign_512_1) | Shifts `bi512` to the left by 1 bit  |
 | [bi_shr_assign_512_1](#bi_shr_assign_512_1) | Shifts `bi512` to the right by 1 bit |
 | [bi_shl_assign_512](#bi_shl_assign_512)     | Shifts `bi512` to the left           |
-| [bi_zero_1024](#bi_zero_1024)               | Zeroes `bi1024` value                |
 | [bi_one_1024](#bi_one_1024)                 | Sets 1 to `bi1024` value             |
 
-# bi128 operations
+# Zero operations
 
 ## bi_zero_128
 Zeroes `bi128` value
 
 Input:
   * `rcx` - pointer to `bi128` value
+
+## bi_zero_192
+Zeroes `bi192` value
+
+Input:
+  * `rcx` - pointer to `bi192` value
+
+## bi_zero_256
+Zeroes `bi256` value
+
+Input:
+  * `rcx` - pointer to `bi256` value
+
+## bi_zero_512
+Zeroes `bi512` value
+
+Input:
+  * `rcx` - pointer to `bi512` value
+
+## bi_zero_1024
+Zeroes `bi1024` value
+
+Input:
+  * `rcx` - pointer to `bi1024` value
+  
+# bi128 operations
 
 ## bi_one_128
 Sets 1 to `bi128` value
@@ -222,14 +249,7 @@ Input:
 * `rcx` - pointer to `bi128` value
 * `rdx` - bits count to shift
 
-
 # bi256 operations
-
-## bi_zero_256
-Zeroes `bi256` value
-
-Input:
-  * `rcx` - pointer to `bi256` value
 
 ## bi_is_zero_256
 Check if `bi256` value is zero
@@ -433,12 +453,6 @@ Input:
 
 # bi512 operations
 
-## bi_zero_512
-Zeroes `bi512` value
-
-Input:
-  * `rcx` - pointer to `bi512` value
-
 ## bi_one_512
 Sets 1 to `bi512` value
 
@@ -487,12 +501,6 @@ Input:
 
 # bi1024 operations
 
-## bi_zero_1024
-Zeroes `bi1024` value
-
-Input:
-  * `rcx` - pointer to `bi1024` value
-  
 ## bi_one_1024
 Sets 1 to `bi1024` value
 

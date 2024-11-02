@@ -32,9 +32,6 @@ include 'bigint/zero/index.inc'
 
 align 16
 __bi_tests_128:
-        dq __bi_zero_128_test
-        db 'bi_zero_128', 0
-
         dq __bi_cmp_128_128_test
         db 'bi_cmp_128_128', 0
 
@@ -105,8 +102,6 @@ __bi_tests_192:
 
 align 16
 __bi_tests_256:
-        dq __bi_zero_256_test
-        db 'bi_zero_256', 0
         dq __bi_is_zero_256_test
         db 'bi_is_zero_256', 0
         dq __bi_copy_256_test
@@ -198,8 +193,6 @@ __bi_tests_256:
 
 align 16
 __bi_tests_512:
-        dq __bi_zero_512_test
-        db 'bi_zero_512', 0
         dq __bi_is_zero_512_test
         db 'bi_is_zero_512', 0
         dq __bi_copy_512_test
@@ -249,19 +242,7 @@ __bi_tests_512:
 
         dq 0
 
-align 16
-__bi_tests_1024:
-        dq __bi_zero_1024_test
-        db 'bi_zero_1024', 0
-
-        dq 0
-
-
 macro BigIntegerTests bits, dbits {
-
-
-
-
 ;BigIntegerBitSetTests bits
 ;BigIntegerBitClearTests bits
 ;BigIntegerExtendHighTests bits, dbits
