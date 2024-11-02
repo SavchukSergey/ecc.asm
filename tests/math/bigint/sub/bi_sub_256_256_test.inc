@@ -11,13 +11,13 @@ virtual at rsp
 end virtual
         enter   .locals_end - .locals_start, 0
 
-        mov     rbx,  __bi_sub_256_256_test_cases 
+        mov     rbx, __bi_sub_256_256_test_cases 
 .loop:
         lea     rcx, [rbx + 0]
         lea     rdx, [.left]
         call    bi_try_read_hex_256
 
-        lea     rcx, [rbx + 64]
+        lea     rcx, [rbx + __BIG_INTEGER_HEX_DIGITS_256]
         lea     rdx, [.right]
         call    bi_try_read_hex_256
 
@@ -31,11 +31,11 @@ end virtual
         jnz     .chunk_loop
         call    test_context_end_measure
 
-        lea     rcx, [rbx + 128]
+        lea     rcx, [rbx + __BIG_INTEGER_HEX_DIGITS_256 * 2]
         lea     rdx, [.result]
         call    bi_assert_equal_hex_256
 
-        add     rbx, 64 + 64 + 64
+        add     rbx, __BIG_INTEGER_HEX_DIGITS_256 * 3
         cmp     rbx, __bi_sub_256_256_test_cases.end
         jb      .loop
 

@@ -68,6 +68,7 @@ section '.edata' export data readable
          bi_add_assign_1024_1024, 'bi_add_assign_1024_1024', \
 \
          bi_sub_128_128, 'bi_sub_128_128', \
+         bi_sub_192_192, 'bi_sub_192_192', \
          bi_sub_256_256, 'bi_sub_256_256', \
          bi_sub_512_512, 'bi_sub_512_512', \
 \

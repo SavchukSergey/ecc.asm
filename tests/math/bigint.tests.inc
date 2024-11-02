@@ -35,9 +35,6 @@ __bi_tests_128:
         dq __bi_zero_128_test
         db 'bi_zero_128', 0
 
-        dq __bi_sub_128_128_test
-        db 'bi_sub_128_128', 0
-
         dq __bi_cmp_128_128_test
         db 'bi_cmp_128_128', 0
 
@@ -114,9 +111,6 @@ __bi_tests_256:
         db 'bi_is_zero_256', 0
         dq __bi_copy_256_test
         db 'bi_copy_256', 0
-
-        dq __bi_sub_256_256_test
-        db 'bi_sub_256_256', 0
 
         dq __bi_cmp_256_256_test
         db 'bi_cmp_256_256', 0
@@ -211,9 +205,6 @@ __bi_tests_512:
         dq __bi_copy_512_test
         db 'bi_copy_512', 0
         
-        dq __bi_sub_512_512_test
-        db 'bi_sub_512_512', 0
-
         dq __bi_cmp_512_512_test
         db 'bi_cmp_512_512', 0
 
