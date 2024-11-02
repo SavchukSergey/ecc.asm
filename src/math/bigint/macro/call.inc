@@ -2,6 +2,8 @@ if ~ definite __bi_call
 
 __bi_call equ 0
 
+include 'call.try_read_hex.inc'
+
 macro Call_Shl bits {
   if bits = 128
       call    bi_shl_128

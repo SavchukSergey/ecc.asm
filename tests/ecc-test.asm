@@ -23,7 +23,7 @@ start:
 	ret
 
 include 'console/enable_vt_processing.inc'
-include 'test_output_text.inc'
+include 'test_output_html.inc'
 include 'framework/bind_thread_to_single_core.inc'
 include 'ecc_run_tests.inc'
 

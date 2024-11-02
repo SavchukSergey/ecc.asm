@@ -1,69 +1,9 @@
 include '../../../../src/math/bigint/div_rem/bi_div_rem_128_128.inc'
 
+include 'bi_div_rem_test_macro.inc'
+
 __bi_div_rem_128_128_test_core:
-virtual at rsp
-.locals_start:
-  .dividend BigInteger128
-  .divisor BigInteger128
-  .quotient BigInteger128
-  .remainder BigInteger128
-  .dividend_hex rq 1
-  .divisor_hex rq 1
-  .expected_quotient_hex rq 1
-  .expected_remainder_hex rq 1
-  .pointer rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
-
-    PrologCheckStackAligned '__bi_div_rem_128_128_test_core'
-    CheckRegAligned rbx, '__bi_div_rem_128_128_test_core rbx'
-
-        mov     [.pointer], rbx
-.loop:        
-        mov     rbx, [.pointer]
-        cmp     qword [rbx], 0
-        je      .end
-
-        lea     rcx, [rbx]
-        lea     rdx, [rbx + 32]
-        lea     r8, [rbx + 64]
-        lea     r9, [rbx + 96]
-
-        mov     [.dividend_hex], rcx
-        mov     [.divisor_hex], rdx
-        mov     [.expected_quotient_hex], r8
-        mov     [.expected_remainder_hex], r9
-
-        mov     rcx, [.dividend_hex]
-        lea     rdx, [.dividend]
-        call    bi_try_read_hex_128
-
-        mov     rcx, [.divisor_hex]
-        lea     rdx, [.divisor]
-        call    bi_try_read_hex_128
-
-        lea     rcx, [.dividend]
-        lea     rdx, [.divisor]
-        lea     r8, [.quotient]
-        lea     r9, [.remainder]
-        call    bi_div_rem_128_128
-
-        mov     rcx, [.expected_quotient_hex]
-        lea     rdx, [.quotient]
-        call    bi_assert_equal_hex_128
-
-        mov     rcx, [.expected_remainder_hex]
-        lea     rdx, [.remainder]
-        call    bi_assert_equal_hex_128
-
-        add     [.pointer], 128
-        jmp     .loop
-.end:
-
-        add     rsp, .locals_end - .locals_start
-        ret
+BiDivRemTestCoreMacro 128, 128
 
 __bi_div_rem_128_128_test_measure_core:
 virtual at rsp
