@@ -1,4 +1,5 @@
 include 'bi_add_128_128.inc'
+include 'bi_add_192_192.inc'
 include 'bi_add_256_256.inc'
 include 'bi_add_512_512.inc'
 include 'bi_add_assign_128_128.inc'

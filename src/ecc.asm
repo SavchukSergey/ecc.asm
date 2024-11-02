@@ -43,6 +43,7 @@ section '.edata' export data readable
          bi_try_read_hex_1024, 'bi_try_read_hex_1024', \
 \
          bi_add_128_128, 'bi_add_128_128', \
+         bi_add_192_192, 'bi_add_192_192', \
          bi_add_256_256, 'bi_add_256_256', \
          bi_add_512_512, 'bi_add_512_512', \
 \
