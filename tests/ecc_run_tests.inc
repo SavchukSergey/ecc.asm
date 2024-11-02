@@ -13,6 +13,10 @@ ecc_run_tests:
 	mov     rsi, .bi128_fixture_name
 	call	run_test_fixture
 
+	mov     rax, __bi_tests_192
+	mov     rsi, .bi192_fixture_name
+	call	run_test_fixture
+
 	mov     rax, __bi_tests_256
 	mov     rsi, .bi256_fixture_name
 	call	run_test_fixture
@@ -34,6 +38,7 @@ ecc_run_tests:
 
 .empty_fixture_name db 'calibrate', 0
 .bi128_fixture_name db 'bi128', 0
+.bi192_fixture_name db 'bi192', 0
 .bi256_fixture_name db 'bi256', 0
 .bi512_fixture_name db 'bi512', 0
 .bi1024_fixture_name db 'bi1024', 0

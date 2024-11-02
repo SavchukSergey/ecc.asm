@@ -15,6 +15,9 @@ __BIG_INTEGER_HEX_DIGITS_#bits = __BIG_INTEGER_BITS_#bits / 4
 struc BigInteger128 {
   rb __BIG_INTEGER_BYTES_128
 }
+struc BigInteger192 {
+  rb __BIG_INTEGER_BYTES_192
+}
 struc BigInteger256 {
   rb __BIG_INTEGER_BYTES_256
 }
@@ -28,6 +31,7 @@ struc BigInteger1024 {
 
 BigIntegerCode 64
 BigIntegerCode 128
+BigIntegerCode 192
 BigIntegerCode 256
 BigIntegerCode 512
 BigIntegerCode 1024
@@ -36,6 +40,8 @@ BigIntegerCode 1024
 macro BigInteger name, bits {
   if bits = 128
     name BigInteger128 
+  else if bits = 192
+    name BigInteger192
   else if bits = 256
     name BigInteger256
   else if bits = 512

@@ -104,6 +104,19 @@ __bi_tests_128:
         dq 0
 
 align 16
+__bi_tests_192:
+        dq __bi_cmp_192_192_test
+        db 'bi_cmp_192_192', 0
+
+        dq __bi_mul_192_64_test
+        db 'bi_mul_192_64', 0
+
+        dq __bi_lzcnt_192_test
+        db 'bi_lzcnt_192', 0
+
+        dq 0
+
+align 16
 __bi_tests_256:
         dq __bi_zero_256_test
         db 'bi_zero_256', 0

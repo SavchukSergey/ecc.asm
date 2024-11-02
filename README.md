@@ -16,7 +16,6 @@ Full list of methods:
 | [bi_shl_assign_128_1](#bi_shl_assign_128_1) | Shifts `bi128` to the left by 1 bit  |
 | [bi_shr_assign_128_1](#bi_shr_assign_128_1) | Shifts `bi128` to the right by 1 bit |
 | [bi_shl_assign_128](#bi_shl_assign_128)     | Shifts `bi128` to the left           |
-| [bi_cmp_128_128](#bi_cmp_128_128)           | Compares two `bi128` values          |
 | [bi_zero_256](#bi_zero_256)                 | Zeroes `bi256` value                 |
 | [bi_is_zero_256](#bi_is_zero_256)           | Check if `bi256` value is zero       |
 | [bi_one_256](#bi_one_256)                   | Sets 1 to `bi256` value              |
@@ -29,11 +28,16 @@ Full list of methods:
 | [bi_div_rem_256_256](#bi_div_rem_256_256)               | Divides `bi256` by `bi256`                                  |
 | [bi_div_rem_512_256](#bi_div_rem_512_256)               | Divides `bi512` by `bi256`                                  |
 | [bi_div_rem_512_512](#bi_div_rem_512_512)               | Divides `bi512` by `bi512`                                  |
+| [bi_lzcnt_192](#bi_lzcnt_192)                           | Counts leading zero bits of `bi192`                         |
 | [bi_lzcnt_256](#bi_lzcnt_256)                           | Counts leading zero bits of `bi256`                         |
 | [bi_shl_assign_256_1](#bi_shl_assign_256_1)             | Shifts `bi256` to the left by 1 bit                         |
 | [bi_shr_assign_256_1](#bi_shr_assign_256_1)             | Shifts `bi256` to the right by 1 bit                        |
 | [bi_shl_assign_256](#bi_shl_assign_256)                 | Shifts `bi256` to the left                                  |
+| [bi_cmp_128_128](#bi_cmp_128_128)           | Compares two `bi128` values          |
+| [bi_cmp_192_192](#bi_cmp_192_192)                       | Compares two `bi192` values                                 |
 | [bi_cmp_256_256](#bi_cmp_256_256)                       | Compares two `bi256` values                                 |
+| [bi_cmp_512_512](#bi_cmp_512_512)           | Compares two `bi512` values          |
+| [bi_cmp_1024_1024](#bi_cmp_1024_1024)       | Compares two `bi1024` values         |
 | [bi_mod_add_assign_256_256](#bi_mod_add_assign_256_256) | Adds two `bi256` values with modulo                         |
 | [bi_mod_sub_assign_256_256](#bi_mod_sub_assign_256_256) | Subtracts two `bi256` values with modulo                    |
 | [bi_zero_512](#bi_zero_256)                             | Zeroes `bi512` value                                        |
@@ -45,10 +49,8 @@ Full list of methods:
 | [bi_shl_assign_512_1](#bi_shl_assign_512_1) | Shifts `bi512` to the left by 1 bit  |
 | [bi_shr_assign_512_1](#bi_shr_assign_512_1) | Shifts `bi512` to the right by 1 bit |
 | [bi_shl_assign_512](#bi_shl_assign_512)     | Shifts `bi512` to the left           |
-| [bi_cmp_512_512](#bi_cmp_512_512)           | Compares two `bi512` values          |
 | [bi_zero_1024](#bi_zero_1024)               | Zeroes `bi1024` value                |
 | [bi_one_1024](#bi_one_1024)                 | Sets 1 to `bi1024` value             |
-| [bi_cmp_1024_1024](#bi_cmp_1024_1024)       | Compares two `bi1024` values         |
 
 # bi128 operations
 
@@ -157,15 +159,6 @@ Input:
 * `rcx` - pointer to `bi128` value
 * `rdx` - bits count to shift
 
-## bi_cmp_128_128
-Compares two `bi128` values
-Input:
-* `rcx` - pointer to left `bi128` value
-* `rdx` - pointer to right `bi128` value
-
-Output:
-* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
-
 
 # bi256 operations
 
@@ -266,6 +259,15 @@ Input:
   * `r8` - pointer to `bi512` quotient value
   * `r9` - pointer to `bi512` reminder value
 
+## bi_lzcnt_192
+Counts leading zero bits of `bi192` value
+
+Input:
+  * `rcx` - pointer to `bi192` value
+
+Output:
+  * `rax` - count of leading zero bits
+
 ## bi_lzcnt_256
 Counts leading zero bits of `bi256` value
 
@@ -297,11 +299,49 @@ Input:
 * `rcx` - pointer to `bi256` value
 * `rdx` - bits count to shift
 
+# Compare operations 
+
+## bi_cmp_128_128
+Compares two `bi128` values
+Input:
+* `rcx` - pointer to left `bi128` value
+* `rdx` - pointer to right `bi128` value
+
+Output:
+* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+
+## bi_cmp_192_192
+Compares two `bi192` values
+Input:
+* `rcx` - pointer to left `bi192` value
+* `rdx` - pointer to right `bi192` value
+
+Output:
+* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+
 ## bi_cmp_256_256
 Compares two `bi256` values
 Input:
 * `rcx` - pointer to left `bi256` value
 * `rdx` - pointer to right `bi256` value
+
+Output:
+* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+
+## bi_cmp_512_512
+Compares two `bi512` values
+Input:
+* `rcx` - pointer to left `bi512` value
+* `rdx` - pointer to right `bi512` value
+
+Output:
+* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+
+## bi_cmp_1024_1024
+Compares two `bi1024` values
+Input:
+* `rcx` - pointer to left `bi1024` value
+* `rdx` - pointer to right `bi1024` value
 
 Output:
 * `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
@@ -394,15 +434,6 @@ Input:
 * `rcx` - pointer to `bi512` value
 * `rdx` - bits count to shift
 
-## bi_cmp_512_512
-Compares two `bi512` values
-Input:
-* `rcx` - pointer to left `bi512` value
-* `rdx` - pointer to right `bi512` value
-
-Output:
-* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
-
 # bi1024 operations
 
 ## bi_zero_1024
@@ -418,11 +449,3 @@ Input:
   * `rcx` - pointer to `bi1024` value
 
 
-## bi_cmp_1024_1024
-Compares two `bi1024` values
-Input:
-* `rcx` - pointer to left `bi1024` value
-* `rdx` - pointer to right `bi1024` value
-
-Output:
-* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise

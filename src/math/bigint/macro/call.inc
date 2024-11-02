@@ -228,6 +228,8 @@ macro Call_IncAssign bits {
 macro Call_Lzcnt bits {
   if bits = 128
       call    bi_lzcnt_128
+  else if bits = 192
+      call    bi_lzcnt_192
   else if bits = 256
       call    bi_lzcnt_256
   else if bits = 512
@@ -251,6 +253,16 @@ macro Call_Cmp128X bits {
   end if
 }
 
+macro Call_Cmp192X bits {
+  if bits = 192
+      call    bi_cmp_192_192
+  else
+      display 'unknown Call_Cmp192X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
 
 macro Call_Cmp256X bits {
   if bits = 128
@@ -524,6 +536,8 @@ macro Call_MulX128 bits {
 macro Call_MulX64 bits {
   if bits = 128
       call    bi_mul_128_64
+  else if bits = 192
+      call    bi_mul_192_64
   else if bits = 256
       call    bi_mul_256_64
   else if bits = 512
