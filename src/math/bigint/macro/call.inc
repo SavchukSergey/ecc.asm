@@ -372,6 +372,8 @@ macro Call_SubAssign left_bits, right_bits {
 ;todo: implement asymmetric sub
   if left_bits = 128
       call    bi_sub_assign_128_128
+  else if left_bits = 192
+      call    bi_sub_assign_192_192
   else if left_bits = 256
       call    bi_sub_assign_256_256
   else if left_bits = 384
