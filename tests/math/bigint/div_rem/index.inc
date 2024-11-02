@@ -1,3 +1,5 @@
+include 'bi_div_rem_test_cases.inc'
+
 include 'bi_div_rem_128_64_test.inc'
 include 'bi_div_rem_128_128_test.inc'
 include 'bi_div_rem_192_64_test.inc'

@@ -3,7 +3,9 @@ if ~ definite __bi_try_read_hex
 __bi_try_read_hex equ 0
 
 macro CallBiTryReadHex bits {
-    if bits = 128
+    if bits = 64
+      call    bi_try_read_hex_64
+    else if bits = 128
       call    bi_try_read_hex_128
     else if bits = 192
       call    bi_try_read_hex_192
