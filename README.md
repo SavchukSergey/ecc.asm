@@ -34,16 +34,20 @@ Full list of methods:
 | [bi_div_rem_128_128](#bi_div_rem_128_128)               | Divides `bi128` by `bi128`                                  |
 | [bi_div_rem_192_64](#bi_div_rem_192_64)                 | Divides `bi192` by `bi64`                                   |
 | [bi_div_rem_192_128](#bi_div_rem_192_128)               | Divides `bi192` by `bi128`                                  |
+| [bi_div_rem_192_192](#bi_div_rem_192_192)               | Divides `bi192` by `bi192`                                  |
 | [bi_div_rem_256_64](#bi_div_rem_256_64)                 | Divides `bi256` by `bi64`                                   |
 | [bi_div_rem_256_128](#bi_div_rem_256_128)               | Divides `bi256` by `bi128`                                  |
 | [bi_div_rem_256_256](#bi_div_rem_256_256)               | Divides `bi256` by `bi256`                                  |
 | [bi_div_rem_512_256](#bi_div_rem_512_256)               | Divides `bi512` by `bi256`                                  |
 | [bi_div_rem_512_512](#bi_div_rem_512_512)               | Divides `bi512` by `bi512`                                  |
-| [bi_rem_192_64](#bi_rem_192_64)                         | Remainder `bi192` by `64`                                   |
-| [bi_rem_256_64](#bi_rem_256_64)                         | Remainder `bi256` by `64`                                   |
+| [bi_rem_128_64](#bi_rem_128_64)                         | Remainder `bi128` by `bi64`                                 |
+| [bi_rem_128_128](#bi_rem_128_128)                       | Remainder `bi128` by `bi128`                                 |
+| [bi_rem_192_64](#bi_rem_192_64)                         | Remainder `bi192` by `bi64`                                 |
+| [bi_rem_256_64](#bi_rem_256_64)                         | Remainder `bi256` by `bi64`                                 |
 | [bi_lzcnt_128](#bi_lzcnt_128)                           | Counts leading zero bits of `bi128`                         |
 | [bi_lzcnt_192](#bi_lzcnt_192)                           | Counts leading zero bits of `bi192`                         |
 | [bi_lzcnt_256](#bi_lzcnt_256)                           | Counts leading zero bits of `bi256`                         |
+| [bi_lzcnt_512](#bi_lzcnt_512)                           | Counts leading zero bits of `bi512`                         |
 | [bi_shl_assign_256_1](#bi_shl_assign_256_1)             | Shifts `bi256` to the left by 1 bit                         |
 | [bi_shr_assign_256_1](#bi_shr_assign_256_1)             | Shifts `bi256` to the right by 1 bit                        |
 | [bi_shl_assign_256](#bi_shl_assign_256)                 | Shifts `bi256` to the left                                  |
@@ -235,33 +239,6 @@ Input:
   * `rdx` - pointer to `bi128` right value
   * `r8` - pointer to `bi128` result value
 
-## bi_div_rem_128_64
-Divides `bi128` by `bi64`
-
-Input:
-  * `rcx` - pointer to `bi128` dividend value
-  * `rdx` - `bi64` divisor value
-  * `r8` - pointer to `bi128` quotient value
-  * `r9` - pointer to `bi128` remainder value (actual result will be `bi64` with zeroed upper half)
-
-## bi_div_rem_128_128
-Divides `bi128` by `bi128`
-
-Input:
-  * `rcx` - pointer to `bi128` dividend value
-  * `rdx` - `bi128` divisor value
-  * `r8` - pointer to `bi128` quotient value
-  * `r9` - pointer to `bi128` remainder value
-
-## bi_lzcnt_128
-Counts leading zero bits of `bi128` value
-
-Input:
-  * `rcx` - pointer to `bi128` value
-
-Output:
-  * `rax` - count of leading zero bits
-
 ## bi_shl_assign_128_1
 Shifts `bi128` to the left by 1 bit. Result is stored in left value.
 
@@ -317,6 +294,24 @@ Input:
 
 # Division and remainder operations
 
+## bi_div_rem_128_64
+Divides `bi128` by `bi64`
+
+Input:
+  * `rcx` - pointer to `bi128` dividend value
+  * `rdx` - `bi64` divisor value
+  * `r8` - pointer to `bi128` quotient value
+  * `r9` - pointer to `bi128` remainder value (actual result will be `bi64` with zeroed upper half)
+
+## bi_div_rem_128_128
+Divides `bi128` by `bi128`
+
+Input:
+  * `rcx` - pointer to `bi128` dividend value
+  * `rdx` - `bi128` divisor value
+  * `r8` - pointer to `bi128` quotient value
+  * `r9` - pointer to `bi128` remainder value
+
 ## bi_div_rem_192_64
 
 Divides `bi192` by `bi64`
@@ -336,6 +331,16 @@ Input:
   * `rdx` - pointer to `bi128` divisor value
   * `r8` - pointer to `bi192` quotient value
   * `r9` - pointer to `bi192` remainder value (actual result will be `bi128` with zeroed upper half)
+
+## bi_div_rem_192_192
+
+Divides `bi192` by `bi192`
+
+Input:
+  * `rcx` - pointer to `bi192` dividend value
+  * `rdx` - pointer to `bi192` divisor value
+  * `r8` - pointer to `bi192` quotient value
+  * `r9` - pointer to `bi192` remainder value
 
 ## bi_div_rem_256_64
 
@@ -384,6 +389,17 @@ Input:
   * `r8` - pointer to `bi512` quotient value
   * `r9` - pointer to `bi512` remainder value
 
+# Leading zero count operations
+
+## bi_lzcnt_128
+Counts leading zero bits of `bi128` value
+
+Input:
+  * `rcx` - pointer to `bi128` value
+
+Output:
+  * `rax` - count of leading zero bits
+
 ## bi_lzcnt_192
 Counts leading zero bits of `bi192` value
 
@@ -401,7 +417,18 @@ Input:
 
 Output:
   * `rax` - count of leading zero bits
-  
+
+## bi_lzcnt_512
+Counts leading zero bits of `bi512` value
+
+Input:
+  * `rcx` - pointer to `bi512` value
+
+Output:
+  * `rax` - count of leading zero bits
+
+# Shift left operations
+
 ## bi_shl_assign_256_1
 
 Shifts `bi256` to the left by 1 bit. Result is stored in left value.

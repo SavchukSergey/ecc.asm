@@ -14,6 +14,9 @@ end if
 .fast_divisor_switch_ok:
 
 
+
+if dividend_bits > divisor_bits
+
     cmp   qword [rcx + (dividend_bits / 8) - 8], 0
     jnz   .fast_dividend_switch_ok
     mov   qword [r8 + (dividend_bits / 8) - 8], 0     ; clear high u64 of quotient
@@ -26,6 +29,8 @@ end if
     Call_DivRem (dividend_bits - 64), divisor_bits
     ret
 .fast_dividend_switch_ok:
+
+end if
 
 }
 

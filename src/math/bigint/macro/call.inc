@@ -3,6 +3,7 @@ if ~ definite __bi_call
 __bi_call equ 0
 
 include 'call.try_read_hex.inc'
+include 'call.rem.inc'
 
 macro Call_Shl bits {
   if bits = 128
@@ -650,6 +651,8 @@ macro Call_DivRem192X divisor_bits {
       call    bi_div_rem_192_192
   else if divisor_bits = 128
       call    bi_div_rem_192_128
+  else if divisor_bits = 192
+      call    bi_div_rem_192_192
   else if divisor_bits = 64
       call    bi_div_rem_192_64
   else
@@ -660,21 +663,6 @@ macro Call_DivRem192X divisor_bits {
   end if
 }
 
-
-macro Call_Rem256X divisor_bits {
-  if divisor_bits = 256
-      call    bi_rem_256_256
-  else if divisor_bits = 128
-      call    bi_rem_256_128
-  else if divisor_bits = 64
-      call    bi_rem_256_64
-  else
-    display 'unknown Call_Rem256X '
-    DisplayDec divisor_bits
-    display 13, 10
-    err
-  end if
-}
 
 macro Call_DivRem128X divisor_bits {
   if divisor_bits = 128
@@ -689,18 +677,6 @@ macro Call_DivRem128X divisor_bits {
   end if
 }
 
-macro Call_Rem128X divisor_bits {
-  if divisor_bits = 128
-      call    bi_rem_128_128
-  else if divisor_bits = 64
-      call    bi_rem_128_64
-  else
-    display 'unknown Call_Rem128X '
-    DisplayDec divisor_bits
-    display 13, 10
-    err
-  end if
-}
 
 
 macro Call_DivRem dividend_bits, divisor_bits {
@@ -722,22 +698,6 @@ macro Call_DivRem dividend_bits, divisor_bits {
   end if
 }
 
-macro Call_Rem dividend_bits, divisor_bits {
-  if dividend_bits = 512
-      Call_Rem512X divisor_bits
-  else if dividend_bits = 256
-      Call_Rem256X divisor_bits
-  else if dividend_bits = 128
-      Call_Rem128X divisor_bits
-  else
-    display 'unknown rem '
-    DisplayDec dividend_bits
-    display ', '
-    DisplayDec divisor_bits
-    display 13, 10
-    err
-  end if
-}
 
 
 macro Call_BitSet bits {
