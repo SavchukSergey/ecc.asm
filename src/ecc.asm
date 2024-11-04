@@ -103,6 +103,7 @@ section '.edata' export data readable
          bi_cmp_192_192, 'bi_cmp_192_192', \
          bi_cmp_256_128, 'bi_cmp_256_128', \
          bi_cmp_256_256, 'bi_cmp_256_256', \
+         bi_cmp_320_320, 'bi_cmp_320_320', \
          bi_cmp_512_128, 'bi_cmp_512_128', \
          bi_cmp_512_256, 'bi_cmp_512_256', \
          bi_cmp_512_512, 'bi_cmp_512_512', \
@@ -189,6 +190,7 @@ section '.edata' export data readable
          bi_div_rem_256_64, 'bi_div_rem_256_64', \
          bi_div_rem_256_128, 'bi_div_rem_256_128', \
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
+         bi_div_rem_320_64, 'bi_div_rem_320_64', \
          bi_div_rem_512_64, 'bi_div_rem_512_64', \
          bi_div_rem_512_128, 'bi_div_rem_512_128', \
          bi_div_rem_512_256, 'bi_div_rem_512_256', \

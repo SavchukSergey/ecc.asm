@@ -21,6 +21,9 @@ struc BigInteger192 {
 struc BigInteger256 {
   rb __BIG_INTEGER_BYTES_256
 }
+struc BigInteger320 {
+  rb __BIG_INTEGER_BYTES_320
+}
 struc BigInteger512 {
   rb __BIG_INTEGER_BYTES_512
 }
@@ -33,6 +36,7 @@ BigIntegerCode 64
 BigIntegerCode 128
 BigIntegerCode 192
 BigIntegerCode 256
+BigIntegerCode 320
 BigIntegerCode 512
 BigIntegerCode 1024
 
@@ -44,6 +48,8 @@ macro BigInteger name, bits {
     name BigInteger192
   else if bits = 256
     name BigInteger256
+  else if bits = 320
+    name BigInteger320
   else if bits = 512
     name BigInteger512
   else if bits = 1024

@@ -38,6 +38,7 @@ Full list of methods:
 | [bi_div_rem_256_64](#bi_div_rem_256_64)                 | Divides `bi256` by `bi64`                                   |
 | [bi_div_rem_256_128](#bi_div_rem_256_128)               | Divides `bi256` by `bi128`                                  |
 | [bi_div_rem_256_256](#bi_div_rem_256_256)               | Divides `bi256` by `bi256`                                  |
+| [bi_div_rem_320_64](#bi_div_rem_320_64)                 | Divides `bi320` by `bi64`                                   |
 | [bi_div_rem_512_256](#bi_div_rem_512_256)               | Divides `bi512` by `bi256`                                  |
 | [bi_div_rem_512_512](#bi_div_rem_512_512)               | Divides `bi512` by `bi512`                                  |
 | [bi_rem_128_64](#bi_rem_128_64)                         | Remainder `bi128` by `bi64`                                 |
@@ -54,6 +55,7 @@ Full list of methods:
 | [bi_cmp_128_128](#bi_cmp_128_128)                       | Compares two `bi128` values                                 |
 | [bi_cmp_192_192](#bi_cmp_192_192)                       | Compares two `bi192` values                                 |
 | [bi_cmp_256_256](#bi_cmp_256_256)                       | Compares two `bi256` values                                 |
+| [bi_cmp_320_320](#bi_cmp_320_320)                       | Compares two `bi320` values                                 |
 | [bi_cmp_512_512](#bi_cmp_512_512)                       | Compares two `bi512` values                                 |
 | [bi_cmp_1024_1024](#bi_cmp_1024_1024)                   | Compares two `bi1024` values                                |
 | [bi_mod_add_assign_256_256](#bi_mod_add_assign_256_256) | Adds two `bi256` values with modulo                         |
@@ -371,6 +373,16 @@ Input:
   * `r8` - pointer to `bi256` quotient value
   * `r9` - pointer to `bi256` remainder value
 
+## bi_div_rem_320_64
+
+Divides `bi320` by `bi64`
+
+Input:
+  * `rcx` - pointer to `bi320` dividend value
+  * `rdx` - `bi64` divisor value
+  * `r8` - pointer to `bi320` quotient value
+  * `r9` - pointer to `bi320` remainder value (actual result will be `bi64` with zeroed upper half)
+
 ## bi_div_rem_512_256
 Divides `bi512` by `bi256`
 
@@ -476,6 +488,15 @@ Compares two `bi256` values
 Input:
 * `rcx` - pointer to left `bi256` value
 * `rdx` - pointer to right `bi256` value
+
+Output:
+* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+
+## bi_cmp_320_320
+Compares two `bi320` values
+Input:
+* `rcx` - pointer to left `bi320` value
+* `rdx` - pointer to right `bi320` value
 
 Output:
 * `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise

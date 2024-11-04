@@ -11,6 +11,8 @@ macro CallBiTryReadHex bits {
       call    bi_try_read_hex_192
     else if bits = 256
       call    bi_try_read_hex_256
+    else if bits = 320
+      call    bi_try_read_hex_320
     else if bits = 512
       call    bi_try_read_hex_512
     else

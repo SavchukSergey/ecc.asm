@@ -2,7 +2,9 @@ include 'framework/run_test_fixture.inc'
 include 'framework/run_test_calibrate.inc'
 include '../src/macro/align.inc'
 include '../src/math/bigint.inc'
+include '../src/math/bigint/hex/index.inc'
 include 'test_context.inc'
+include 'asserts/index.inc'
 
 ecc_run_tests:
 	call	run_test_calibrate
