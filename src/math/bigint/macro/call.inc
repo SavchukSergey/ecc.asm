@@ -2,62 +2,13 @@ if ~ definite __bi_call
 
 __bi_call equ 0
 
-include 'call.try_read_hex.inc'
-include 'call.rem.inc'
+include 'call.add.inc'
 include 'call.div_rem.inc'
+include 'call.inc.inc'
+include 'call.rem.inc'
+include 'call.shl.inc'
+include 'call.try_read_hex.inc'
 
-macro Call_Shl bits {
-  if bits = 128
-      call    bi_shl_128
-  else if bits = 256
-      call    bi_shl_256
-  else if bits = 512
-      call    bi_shl_512
-  else
-      display 'unknown Call_Shl '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_ShlAssign bits {
-  if bits = 64
-      shl     qword [rcx], bits
-  else if bits = 128
-      call    bi_shl_assign_128
-  else if bits = 192
-      call    bi_shl_assign_192
-  else if bits = 256
-      call    bi_shl_assign_256
-  else if bits = 384
-      call    bi_shl_assign_384
-  else if bits = 448
-      call    bi_shl_assign_448
-  else if bits = 512
-      call    bi_shl_assign_512
-  else
-      display 'unknown Call_ShlAssign '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_ShlAssignX1 bits {
-  if bits = 128
-      call    bi_shl_assign_128_1
-  else if bits = 256
-      call    bi_shl_assign_256_1
-  else if bits = 512
-      call    bi_shl_assign_512_1
-  else
-      display 'unknown Call_ShlAssignX1 '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
 
 macro Call_Shr bits {
   if bits = 128
@@ -148,6 +99,8 @@ macro Call_ExtendX128 bits {
       call    bi_extend_192_128
   else if bits = 256
       call    bi_extend_256_128
+  else if bits = 320
+      call    bi_extend_320_128
   else if bits = 384
       call    bi_extend_384_128
   else if bits = 448
@@ -205,30 +158,6 @@ macro Call_Extend target_bits, source_bits {
   end if
 }
 
-
-macro Call_IncAssign bits {
-  if bits = 64
-      inc qword [rcx]
-  else if bits = 128
-      call    bi_inc_assign_128
-  else if bits = 192
-      call    bi_inc_assign_192
-  else if bits = 256
-      call    bi_inc_assign_256
-  else if bits = 384
-      call    bi_inc_assign_384
-  else if bits = 448
-      call    bi_inc_assign_448
-  else if bits = 512
-      call    bi_inc_assign_512
-  else
-      display 'unknown inc assign '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
 macro Call_Lzcnt bits {
   if bits = 128
       call    bi_lzcnt_128
@@ -273,6 +202,8 @@ macro Call_Cmp192X bits {
 macro Call_Cmp256X bits {
   if bits = 128
       call    bi_cmp_256_128
+  else if bits = 192
+      call    bi_cmp_256_192
   else if bits = 256
       call    bi_cmp_256_256
   else
@@ -401,137 +332,6 @@ macro Call_SubAssign left_bits, right_bits {
   end if
 }
 
-macro Call_AddAssign64X right_bits {
-  if right_bits = 64
-      add     [rcx], rdx
-  else
-      display 'unknown Call_AddAssign64X '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssign128X right_bits {
-  if right_bits = 128
-      call    bi_add_assign_128_128
-  else
-      display 'unknown Call_AddAssign128X '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssign192X right_bits {
-  if right_bits = 192
-      call    bi_add_assign_192_192
-  else
-      display 'unknown Call_AddAssign192X '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssign256X right_bits {
-  if right_bits = 128
-      call    bi_add_assign_256_128
-  else if right_bits = 256
-      call    bi_add_assign_256_256
-  else
-      display 'unknown Call_AddAssign256X '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssign384X right_bits {
-  if right_bits = 128
-      call    bi_add_assign_384_128
-  else if right_bits = 256
-      call    bi_add_assign_384_256
-  else if right_bits = 384
-      call    bi_add_assign_384_384
-  else
-      display 'unknown Call_AddAssign384X '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssign448X right_bits {
-  if right_bits = 448
-      call    bi_add_assign_448_448
-  else
-      display 'unknown Call_AddAssign448X '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssign512X right_bits {
-  if right_bits = 256
-      call    bi_add_assign_512_256
-  else if right_bits = 512
-      call    bi_add_assign_512_512
-  else
-      display 'unknown Call_AddAssign512X '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssignX128 bits {
-  if bits = 128
-      call    bi_add_assign_128_128
-  else if bits = 192
-      call    bi_add_assign_192_128
-  else if bits = 256
-      call    bi_add_assign_256_128
-  else if bits = 384
-      call    bi_add_assign_384_128
-  else if bits = 448
-      call    bi_add_assign_512_128
-  else if bits = 512
-      call    bi_add_assign_512_128
-  else
-      display 'unknown Call_AddAssignX128 '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_AddAssign left_bits, right_bits {
-  if left_bits = 64
-    Call_AddAssign64X right_bits
-  else if left_bits = 128
-    Call_AddAssign128X right_bits
-  else if left_bits = 192
-    Call_AddAssign192X right_bits
-  else if left_bits = 256
-    Call_AddAssign256X right_bits
-  else if left_bits = 384
-    Call_AddAssign384X right_bits
-  else if left_bits = 448
-    Call_AddAssign448X right_bits
-  else if left_bits = 512
-    Call_AddAssign512X right_bits
-  else
-      display 'unknown Call_AddAssign '
-      DisplayDec left_bits
-      display ', '
-      DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
 macro Call_MulX128 bits {
   if bits = 128
       call    bi_mul_128_128
@@ -582,6 +382,8 @@ macro Call_MulLowX128 bits {
 macro Call_MulLowX64 bits {
   if bits = 128
       call    bi_mul_low_128_64
+  else if bits = 192
+      call    bi_mul_low_192_64
   else if bits = 256
       call    bi_mul_low_256_64
   else if bits = 512

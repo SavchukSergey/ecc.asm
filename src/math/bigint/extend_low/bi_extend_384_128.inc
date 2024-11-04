@@ -5,6 +5,7 @@ bi_extend_384_128:
         mov     [rcx + 0], rax
         mov     rax, [rdx + 8]
         mov     [rcx + 8], rax
+        ;todo: avx clear
         mov     qword [rcx + 16], 0
         mov     qword [rcx + 24], 0
         mov     qword [rcx + 32], 0

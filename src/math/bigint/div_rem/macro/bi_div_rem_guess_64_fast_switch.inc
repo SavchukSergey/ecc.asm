@@ -8,11 +8,11 @@ end if
 
     mov   qword [r9 + (dividend_bits / 8) - 8], 0     ; clear high u64 of remainder
     ;todo: Jmp_DivRem
-    ;todo: after refactoring of remainder output width -> clear highest remainder qword before jump
+    ;todo: refactor all div_rem to return remainder same same as divisor
     Call_DivRem dividend_bits, (divisor_bits - 64)
     ret
 .fast_divisor_switch_ok:
-
+DIV_REM_GUESS_MIN_DIVISOR_SIZE = (divisor_bits - 64)
 
 
 if dividend_bits > divisor_bits
@@ -20,7 +20,6 @@ if dividend_bits > divisor_bits
     cmp   qword [rcx + (dividend_bits / 8) - 8], 0
     jnz   .fast_dividend_switch_ok
     mov   qword [r8 + (dividend_bits / 8) - 8], 0     ; clear high u64 of quotient
-    mov   qword [r9 + (dividend_bits / 8) - 8], 0     ; clear high u64 of remainder, todo: actually no need to set it after rfactoring
 
 if dividend_bits = 128
     mov   rcx, [rcx]

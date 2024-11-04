@@ -71,6 +71,7 @@ macro DivRemGuess64_DivisorSwitch dividend_bits, divisor_bits {
   end if
 }
 
+;todo: remove
 macro RemGuess64_DivisorSwitch dividend_bits, divisor_bits {
   if divisor_bits >= 128
     ;check for large divisor first than try to use smaller ones
@@ -94,8 +95,10 @@ macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
     DIV_REM_PARTIAL_DIVISOR_START = (divisor_bits - DIV_REM_PARTIAL_DIVISOR_SIZE) / 8
 
     ; Because of preliminary checks at the begining
+    if ~ definite DIV_REM_GUESS_MIN_DIVISOR_SIZE
     ; divisor_bits/2 < divisor width <= divisor_bits
     DIV_REM_GUESS_MIN_DIVISOR_SIZE = (divisor_bits/2)
+    end if
     
     ; divisor_lzcnt contains value as if divisor had same width as dividend
     DIV_REM_GUESS_IMAGINARY_BITS = dividend_bits - divisor_bits
