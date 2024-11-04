@@ -194,27 +194,23 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
 ;precalculate delta = mul(.divisor, .guess_128), using narrowest possible mul
     DIV_REM_GUESS_DELTA_SIZE = dividend_bits
 
-    ; mul(.divisor, .guess_128) returns result of 2 * divisor_bits width
-    DIV_REM_GUESS_DELTA_MUL_FULL_SIZE = 2 * divisor_bits
+    DIV_REM_GUESS_DELTA_MUL_64_SIZE = (divisor_bits + 64)
+    DIV_REM_GUESS_DELTA_MUL_128_SIZE = (divisor_bits + 128)
 
-    ; mul_low(.divisor, .guess_128) returns result of divisor_bits width
-    DIV_REM_GUESS_DELTA_MUL_LOW_SIZE = divisor_bits
-
-  if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_SIZE
-    DIV_REM_GUESS_DELTA_RAW_SIZE = DIV_REM_GUESS_DELTA_MUL_LOW_SIZE
-  else
-    DIV_REM_GUESS_DELTA_RAW_SIZE = DIV_REM_GUESS_DELTA_MUL_FULL_SIZE
-  end if
-    
     ;.guess_128 is actually 65-bit wide, meaning high(.guess_128) is either 1 or 0
     ; let's use 64-bit multiplification, and then fix cases when high(.guess_128) is 1
     mov     rcx, [.divisor]
     mov     rdx, qword [.guess_128]
     lea     r8, [.delta]
-  if DIV_REM_GUESS_DELTA_MUL_LOW_SIZE >= DIV_REM_GUESS_DELTA_SIZE
-    Call_MulLowX64 divisor_bits
+  if DIV_REM_GUESS_DELTA_MUL_64_SIZE > DIV_REM_GUESS_DELTA_SIZE
+    Call_MulLow divisor_bits, 64, DIV_REM_GUESS_DELTA_SIZE
   else
-    Call_MulX64 divisor_bits
+    Call_Mul divisor_bits, 64
+  end if
+
+  if DIV_REM_GUESS_DELTA_SIZE > DIV_REM_GUESS_DELTA_MUL_64_SIZE
+    lea     rcx, [.delta]
+    Call_ExtendAssign DIV_REM_GUESS_DELTA_SIZE, DIV_REM_GUESS_DELTA_MUL_64_SIZE
   end if
 
     cmp       qword [.guess_128 + 8], 0
@@ -222,13 +218,13 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
 .calc_delta_128:
     lea     rcx, [.delta + 8]
     mov     rdx, [.divisor]
-    Call_AddAssign DIV_REM_GUESS_DELTA_RAW_SIZE, divisor_bits    ; todo: DIV_REM_GUESS_DELTA_RAW_SIZE - 64
+    if DIV_REM_GUESS_DELTA_SIZE > divisor_bits
+      Call_AddAssign (DIV_REM_GUESS_DELTA_SIZE - 64), divisor_bits
+    else
+      Call_AddAssign (DIV_REM_GUESS_DELTA_SIZE - 64), divisor_bits - 64
+    end if
 .calc_delta_ok:
 
-  if DIV_REM_GUESS_DELTA_RAW_SIZE < DIV_REM_GUESS_DELTA_SIZE
-    lea     rcx, [.delta]
-    Call_ExtendAssign DIV_REM_GUESS_DELTA_SIZE, DIV_REM_GUESS_DELTA_RAW_SIZE
-  end if
 }
 
 macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
