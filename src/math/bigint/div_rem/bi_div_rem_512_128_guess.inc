@@ -3,6 +3,7 @@ if ~ definite bi_div_rem_512_128_guess
 ;include 'macro/bi_div_rem_guess_64.inc'
 
 include '../add/bi_add_assign_256_128.inc'
+include '../add/bi_add_assign_448_128.inc'
 include '../add/bi_add_assign_448_448.inc'
 include '../cmp/bi_cmp_512_128.inc'
 include '../extend_low/bi_extend_448_128.inc'
