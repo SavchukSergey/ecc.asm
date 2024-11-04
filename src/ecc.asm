@@ -42,6 +42,7 @@ section '.edata' export data readable
          bi_try_read_hex_192, 'bi_try_read_hex_192', \
          bi_try_read_hex_256, 'bi_try_read_hex_256', \
          bi_try_read_hex_320, 'bi_try_read_hex_320', \
+         bi_try_read_hex_384, 'bi_try_read_hex_384', \
          bi_try_read_hex_512, 'bi_try_read_hex_512', \
          bi_try_read_hex_1024, 'bi_try_read_hex_1024', \
 \
@@ -108,6 +109,7 @@ section '.edata' export data readable
          bi_cmp_256_192, 'bi_cmp_256_192', \
          bi_cmp_256_256, 'bi_cmp_256_256', \
          bi_cmp_320_320, 'bi_cmp_320_320', \
+         bi_cmp_384_384, 'bi_cmp_384_384', \
          bi_cmp_512_128, 'bi_cmp_512_128', \
          bi_cmp_512_256, 'bi_cmp_512_256', \
          bi_cmp_512_512, 'bi_cmp_512_512', \

@@ -62,8 +62,6 @@ macro Call_DivRem192X divisor_bits {
       call    bi_div_rem_192_192
   else if divisor_bits = 128
       call    bi_div_rem_192_128
-  else if divisor_bits = 192
-      call    bi_div_rem_192_192
   else if divisor_bits = 64
       call    bi_div_rem_192_64
   else

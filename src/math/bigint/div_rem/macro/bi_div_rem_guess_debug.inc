@@ -3,17 +3,24 @@ if ~ definite bi_div_rem_guess_debug
 bi_div_rem_guess_debug:
 
 macro DisplayDec value {
-  if value > 1000
+  original = value 
+  
+  if original >= 1000
     display '0' + (value / 1000)
-    DisplayDec value mod 1000
-  else if value > 100
-    display '0' + (value / 100)
-    display '0' + (value mod 100) / 10
-    display '0' + (value mod 10)
-  else
-    display '0' + (value mod 100) / 10
-    display '0' + (value mod 10)
+    value = value mod 1000
   end if
+
+  if original >= 100
+    display '0' + (value / 100)
+    value = value mod 100
+  end if
+
+  if original >= 10
+    display '0' + (value / 10)
+    value = value mod 10
+  end if
+
+  display '0' + value
 }
 
 macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {
