@@ -2,7 +2,7 @@ if ~ definite bi_mul_low_512_64
 
 include '../add/bi_add_assign_256_256.inc'
 include '../mul/bi_mul_256_64.inc'
-include 'bi_mul_low_256_64.inc'
+include 'bi_mul_256_64_low_256.inc'
 
 ;Multiplies bi512 by bi64 value and return low 512 bits
 ;input
@@ -38,7 +38,7 @@ end virtual
         add     rcx, __BIG_INTEGER_BYTES_256
         mov     rdx, [.right]
         lea     r8, [.temp]
-        call    bi_mul_low_256_64
+        call    bi_mul_256_64_low_256
 
         mov     rcx, [.result]
         add     rcx, __BIG_INTEGER_BYTES_256

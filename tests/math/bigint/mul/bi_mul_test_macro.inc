@@ -8,7 +8,7 @@ include '../../../../src/math/bigint/macro/call.inc'
 
 macro BiMulTestCoreMacro left_bits, right_bits {
   result_bits = (left_bits + right_bits)
-  result_bits = left_bits * 2             ;todo: remove
+
 virtual at rsp
 .locals_start:
   BigInteger .left, left_bits

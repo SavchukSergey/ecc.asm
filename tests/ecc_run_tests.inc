@@ -43,6 +43,10 @@ ecc_run_tests:
 	mov     rsi, .bi_sub_tests_fixture_name
 	call	run_test_fixture
 
+	mov     rax, __bi_mul_low_tests
+	mov     rsi, .bi_mul_low_tests_fixture_name
+	call	run_test_fixture
+
 	mov     rax, __bi_div_rem_tests
 	mov     rsi, .bi_div_rem_tests_fixture_name
 	call	run_test_fixture
@@ -63,6 +67,7 @@ ecc_run_tests:
 .bi_copy_fixture_name db 'bi_copy', 0
 .bi_add_tests_fixture_name db 'bi_add', 0
 .bi_sub_tests_fixture_name db 'bi_sub', 0
+.bi_mul_low_tests_fixture_name db 'bi_mul_low', 0
 .bi_div_rem_tests_fixture_name db 'bi_div_rem', 0
 .ecc_fixture_name db 'ecc', 0
 

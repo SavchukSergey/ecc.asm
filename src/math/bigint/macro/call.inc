@@ -382,11 +382,11 @@ macro Call_MulLowX128 bits {
 
 macro Call_MulLowX64 bits {
   if bits = 128
-      call    bi_mul_low_128_64
+      call    bi_mul_128_64_low_128
   else if bits = 192
-      call    bi_mul_low_192_64
+      call    bi_mul_192_64_low_192
   else if bits = 256
-      call    bi_mul_low_256_64
+      call    bi_mul_256_64_low_256
   else if bits = 512
       call    bi_mul_low_512_64
   else
