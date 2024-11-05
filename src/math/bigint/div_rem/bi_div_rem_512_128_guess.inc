@@ -10,6 +10,7 @@ include '../inc/bi_inc_assign_448.inc'
 include '../lzcnt/bi_lzcnt_128.inc'
 include '../mul/bi_mul_128_64.inc'
 include '../sub/bi_sub_assign_512_128.inc'
+include '../zero/bi_zero_320.inc'
 
 bi_div_rem_512_128_guess:
     DivRemGuess64_Prepare 512, 128
