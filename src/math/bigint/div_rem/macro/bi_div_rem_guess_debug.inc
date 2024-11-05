@@ -7,20 +7,20 @@ macro DisplayDec value {
   
   if original >= 1000
     display '0' + (value / 1000)
-    value = value mod 1000
   end if
+  value0 = value mod 1000
 
   if original >= 100
-    display '0' + (value / 100)
-    value = value mod 100
+    display '0' + (value0 / 100)
   end if
+  value1 = value0 mod 100
 
   if original >= 10
-    display '0' + (value / 10)
-    value = value mod 10
+    display '0' + (value1 / 10)
   end if
+  value2 = (value1 mod 10)
 
-  display '0' + value
+  display '0' + value2
 }
 
 macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {

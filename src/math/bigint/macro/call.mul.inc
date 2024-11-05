@@ -109,4 +109,64 @@ macro Call_Mul left_bits, right_bits {
   end if
 }
 
+macro Call_MulLow_192_64_X result_bits {
+  if result_bits = 192
+      call  bi_mul_low_192_64_192
+  else
+    display 'unknown Call_MulLow_192_64_X '
+    DisplayDec result_bits
+    display 13, 10
+  end if
+}
+
+macro Call_MulLow_192_X_X right_bits, result_bits {
+  if right_bits = 64
+      Call_MulLow_192_64_X result_bits
+  else
+    display 'unknown Call_MulLow_192_X_X '
+    DisplayDec right_bits
+    display ', '
+    DisplayDec result_bits
+    display 13, 10
+  end if
+}
+
+macro Call_MulLow_256_64_X result_bits {
+  if result_bits = 256
+      call  bi_mul_low_256_64_256
+  else
+    display 'unknown Call_MulLow_256_64_X '
+    DisplayDec result_bits
+    display 13, 10
+  end if
+}
+
+macro Call_MulLow_256_X_X right_bits, result_bits {
+  if right_bits = 64
+      Call_MulLow_256_64_X result_bits
+  else
+    display 'unknown Call_MulLow_256_X_X '
+    DisplayDec right_bits
+    display ', '
+    DisplayDec result_bits
+    display 13, 10
+  end if
+}
+
+macro Call_MulLow left_bits, right_bits, result_bits {
+  if left_bits = 256
+    Call_MulLow_256_X_X right_bits, result_bits
+  else if left_bits = 192
+    Call_MulLow_192_X_X right_bits, result_bits
+  else
+    display 'unknown Call_MulLow '
+    DisplayDec left_bits
+    display ', '
+    DisplayDec right_bits
+    display ', '
+    DisplayDec result_bits
+    display 13, 10
+  end if
+}
+
 end if
