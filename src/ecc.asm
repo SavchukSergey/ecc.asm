@@ -22,6 +22,7 @@ section '.edata' export data readable
          bi_zero_128, 'bi_zero_128', \
          bi_zero_192, 'bi_zero_192', \
          bi_zero_256, 'bi_zero_256', \
+         bi_zero_320, 'bi_zero_320', \
          bi_zero_512, 'bi_zero_512', \
          bi_zero_1024, 'bi_zero_1024', \
 \

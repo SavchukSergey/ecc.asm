@@ -5,6 +5,7 @@ Full list of methods:
 | [bi_zero_128](#bi_zero_128)                 | Zeroes `bi128` value                 |
 | [bi_zero_192](#bi_zero_192)                 | Zeroes `bi192` value                 |
 | [bi_zero_256](#bi_zero_256)                 | Zeroes `bi256` value                 |
+| [bi_zero_320](#bi_zero_320)                 | Zeroes `bi320` value                 |
 | [bi_zero_512](#bi_zero_512)                 | Zeroes `bi512` value                                        |
 | [bi_zero_1024](#bi_zero_1024)               | Zeroes `bi1024` value                |
 | [bi_one_128](#bi_one_128)                   | Sets 1 to `bi128` value              |
