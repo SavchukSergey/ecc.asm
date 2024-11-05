@@ -130,6 +130,7 @@ macro Call_ExtendX256 bits {
 
 macro Call_ExtendAssign target_bits, source_bits {
   delta_bits = target_bits - source_bits
+  ;todo: inline
   if delta_bits = 384
     lea     rcx, [rcx + source_bits / 8]
     call    bi_zero_384
@@ -139,6 +140,9 @@ macro Call_ExtendAssign target_bits, source_bits {
   else if delta_bits = 256
     lea     rcx, [rcx + source_bits / 8]
     call    bi_zero_256
+  else if delta_bits = 192
+    lea     rcx, [rcx + source_bits / 8]
+    call    bi_zero_192
   else if delta_bits = 128
     lea     rcx, [rcx + source_bits / 8]
     call    bi_zero_128
