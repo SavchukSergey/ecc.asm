@@ -170,7 +170,7 @@ section '.edata' export data readable
          bi_mul_192_64_low_192, 'bi_mul_192_64_low_192', \
          bi_mul_256_64_low_256, 'bi_mul_256_64_low_256', \
          bi_mul_low_256_128, 'bi_mul_low_256_128', \
-         bi_mul_low_256_256, 'bi_mul_low_256_256', \
+         bi_mul_256_256_low_256, 'bi_mul_256_256_low_256', \
          bi_mul_low_512_64, 'bi_mul_low_512_64' ,\
          bi_mul_low_512_512, 'bi_mul_low_512_512' ,\
 \

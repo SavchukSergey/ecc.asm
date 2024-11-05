@@ -69,7 +69,7 @@ end virtual
         lea     rcx, [.quotient]
         lea     rdx, [.s1]
         lea     r8, [.s2]
-        call    bi_mul_low_256_256
+        call    bi_mul_256_256_low_256
         lea     rcx, [.s2]
         lea     rdx, [.s0]
         call    bi_add_assign_256_256

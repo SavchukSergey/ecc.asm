@@ -1,6 +1,6 @@
 if ~ definite bi_mont_ctx_256_redc_256
 
-include '../mul_low/bi_mul_low_256_256.inc';
+include '../mul_low/bi_mul_256_256_low_256.inc';
 include 'bi_mont_ctx_256.inc';
 
 bi_mont_ctx_256_redc_256:
@@ -23,7 +23,7 @@ end virtual
         mov     rdx, [.ctx]
         lea     rdx, [rdx + MontgomeryContext256.mod_inv_r]
         lea     r8, [.m_256]
-        call    bi_mul_low_256_256
+        call    bi_mul_256_256_low_256
 
         lea     rcx, [.m_256]
         mov     rdx, [.ctx]

@@ -29,7 +29,7 @@ Full list of methods:
 | [bi_is_zero_256](#bi_is_zero_256)           | Check if `bi256` value is zero       |
 | [bi_one_256](#bi_one_256)                   | Sets 1 to `bi256` value              |
 | [bi_mul_256_256](#bi_mul_256_256)           | Multiplies two `bi256` values        |
-| [bi_mul_low_256_256](#bi_mul_low_256_256)               | Multiplies two `bi256` values and returns low `bi256` value |
+| [bi_mul_256_256_low_256](#bi_mul_256_256_low_256)               | Multiplies two `bi256` values and returns low `bi256` value |
 | [bi_div_rem_128_64](#bi_div_rem_128_64)                 | Divides `bi128` by `bi64`                                   |
 | [bi_div_rem_128_128](#bi_div_rem_128_128)               | Divides `bi128` by `bi128`                                  |
 | [bi_div_rem_192_64](#bi_div_rem_192_64)                 | Divides `bi192` by `bi64`                                   |
@@ -287,7 +287,7 @@ Input:
   * `rdx` - pointer to `bi256` right value
   * `r8` - pointer to `bi512` result value
 
-## bi_mul_low_256_256
+## bi_mul_256_256_low_256
 Multiplies two `bi256` values and returns low `bi256` value
 
 Input:
