@@ -12,7 +12,6 @@ Console_WriteUInt384Hex:
         pop     rcx
 
         push    rcx
-        mov     rcx, [rcx + 0]
         call    Console_WriteUInt128Hex
         pop     rcx
         ret

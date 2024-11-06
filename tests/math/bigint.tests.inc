@@ -69,10 +69,6 @@ __bi_tests_128:
 ;        dq __bi_one_test_#bits
 ;        db 'one', 0
 
-        dq __bi_mul_128_64_test
-        db 'bi_mul_128_64', 0
-        dq __bi_mul_128_128_test
-        db 'bi_mul_128_128', 0
         dq __bi_square_128_test
         db 'bi_square_128', 0
 
@@ -86,9 +82,6 @@ align 16
 __bi_tests_192:
         dq __bi_cmp_192_192_test
         db 'bi_cmp_192_192', 0
-
-        dq __bi_mul_192_64_test
-        db 'bi_mul_192_64', 0
 
         dq __bi_lzcnt_192_test
         db 'bi_lzcnt_192', 0
@@ -123,12 +116,6 @@ __bi_tests_256:
         dq __bi_shr_assign_256_test
         db 'bi_shr_assign_256', 0
 
-        dq __bi_mul_256_64_test
-        db 'bi_mul_256_64', 0
-        dq __bi_mul_256_128_test
-        db 'bi_mul_256_128', 0
-        dq __bi_mul_256_256_test
-        db 'bi_mul_256_256', 0
         dq __bi_square_256_test
         db 'bi_square_256', 0
 
@@ -208,13 +195,6 @@ __bi_tests_512:
 
         dq __bi_shr_assign_512_test
         db 'bi_shr_assign_512', 0
-
-        dq __bi_mul_512_64_test
-        db 'bi_mul_512_64', 0
-        dq __bi_mul_512_256_test
-        db 'bi_mul_512_256', 0
-        dq __bi_mul_512_512_test
-        db 'bi_mul_512_512', 0
 
         dq __bi_mod_inverse_512_test
         db 'bi_mod_inverse_512', 0

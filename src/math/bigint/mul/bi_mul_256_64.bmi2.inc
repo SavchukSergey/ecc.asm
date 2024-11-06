@@ -4,7 +4,7 @@ if ~ definite bi_mul_256_64_bmi2
 ;input
 ; rcx - left bi256 value
 ; rdx - right u64 value
-; r8 - result bi512 value
+; r8 - result bi320 value
 bi_mul_256_64_bmi2:
     CheckRegAligned rcx, 'bi_mul_256_64_bmi2 rcx'
     CheckRegAligned r8, 'bi_mul_256_64_bmi2 r8'
@@ -36,11 +36,6 @@ bi_mul_256_64_bmi2:
         mov     [r8 + 24], rax
         adc     rdx, 0
         mov     [r8 + 32], rdx
-
-        xor     rax, rax
-        mov     [r8 + 40], rax
-        mov     [r8 + 48], rax
-        mov     [r8 + 56], rax
 
         ret
 

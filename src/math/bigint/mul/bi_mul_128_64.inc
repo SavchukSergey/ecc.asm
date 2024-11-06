@@ -4,7 +4,7 @@ if ~ definite bi_mul_128_64
 ;input
 ;  rcx - pointer to left bi128 value
 ;  rdx - right u64 value
-;  r8 - pointer result bi256 value
+;  r8 - pointer result bi192 value
 bi_mul_128_64_basic:
     CheckRegAligned rcx, 'bi_mul_128_64 rcx'
     CheckRegAligned r8, 'bi_mul_128_64 r8'
@@ -21,7 +21,6 @@ bi_mul_128_64_basic:
         mov     [r8 + 16], rdx
 
         adc     qword [r8 + 16], 0
-        mov     qword [r8 + 24], 0
 
         ret
 
@@ -39,8 +38,6 @@ bi_mul_128_64_bmi2:
         add     [r8 + 8], rax
         adc     r9, 0
         mov     [r8 + 16], r9
-
-        mov     qword [r8 + 24], 0
 
         ret
 

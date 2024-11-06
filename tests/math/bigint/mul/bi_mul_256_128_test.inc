@@ -14,7 +14,7 @@ __bi_mul_256_128_test:
 
         lea     rcx, [rbx]
         lea     rdx, [rbx + __BIG_INTEGER_HEX_DIGITS_256]
-        lea     r8, [rbx + __BIG_INTEGER_HEX_DIGITS_256 +  + __BIG_INTEGER_HEX_DIGITS_128]
+        lea     r8, [rbx + __BIG_INTEGER_HEX_DIGITS_256 + __BIG_INTEGER_HEX_DIGITS_128]
         call    __bi_mul_256_128_test_core
 
         add     rbx, __BIG_INTEGER_HEX_DIGITS_256 + __BIG_INTEGER_HEX_DIGITS_128 + __BIG_INTEGER_HEX_DIGITS_384

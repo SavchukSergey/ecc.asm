@@ -1,6 +1,7 @@
 if ~ definite bi_mul_256_128
 
 include '../add/bi_add_assign_512_512.inc'
+include '../add/bi_add_assign_320_320.inc'
 include '../add/bi_add_assign_320_256.inc'
 include '../zero/bi_zero_512.inc'
 include 'bi_mul_128_64.inc'
@@ -11,7 +12,7 @@ include 'bi_mul_256_64.inc'
 ;input
 ;  rcx - left bi256 value
 ;  rdx - right bi128 value
-;  r8 - result bi512 value
+;  r8 - result bi384 value
 bi_mul_256_128____128_128:
 virtual at rsp
 .locals_start:
@@ -65,11 +66,11 @@ end virtual
 ;input
 ;  rcx - left bi256 value
 ;  rdx - right bi128 value
-;  r8 - result bi512 value
+;  r8 - result bi384 value
 bi_mul_256_128____256_64:
 virtual at rsp
 .locals_start:
-  .temp BigInteger512
+  .temp BigInteger320
   .left rq 1
   .right rq 1
   .result rq 1
@@ -91,6 +92,7 @@ end virtual
         mov     rdx, [.right]
         mov     rdx, [rdx]
         mov     r8, [.result]
+        mov     qword [r8 + 40], 0
         call    bi_mul_256_64
 
         mov     rcx, [.left]
@@ -102,7 +104,7 @@ end virtual
         mov     rcx, [.result]
         add     rcx, 8
         lea     rdx, [.temp]
-        call    bi_add_assign_320_256
+        call    bi_add_assign_320_320
 
         add     rsp, .locals_end - .locals_start
         ret

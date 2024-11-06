@@ -8,7 +8,7 @@ include '../add/bi_add_assign_128_128.inc'
 ;input
 ; rcx - pointer to left bi256 value
 ; rdx - right u64 value
-; r8 - pointer to result bi512 value
+; r8 - pointer to result bi320 value
 bi_mul_256_64_basic:
 virtual at rsp
 .locals_start:
@@ -30,7 +30,7 @@ end virtual
         mov     [.result], r8
 
         mov     rcx, [.result]
-        call    bi_zero_512
+        call    bi_zero_320
 
         mov     rcx, [.left]
         mov     rcx, [rcx + 0]

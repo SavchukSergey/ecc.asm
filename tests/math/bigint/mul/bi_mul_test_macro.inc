@@ -13,7 +13,9 @@ virtual at rsp
 .locals_start:
   BigInteger .left, left_bits
   BigInteger .right, right_bits
+  GuardPreField
   BigInteger .result, result_bits
+  GuardPostField
   .left_hex rq 1
   .right_hex rq 1
   .expected_hex rq 1
@@ -38,6 +40,9 @@ end virtual
         lea     rdx, [.right]
         CallBiTryReadHex right_bits
 
+        GuardInit
+
+
         call    test_context_start_measure
 .chunk_loop:
         lea     rcx, [.left]
@@ -55,6 +60,8 @@ end virtual
         mov     rcx, [.expected_hex]
         lea     rdx, [.result]
         CallBiAssertEqualHex result_bits
+
+        GuardCheck
 
         add     rsp, .locals_end - .locals_start
         ret

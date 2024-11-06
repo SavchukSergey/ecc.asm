@@ -3,6 +3,8 @@ if ~ definite bi_mul_256_256
 include '../zero/bi_zero_512.inc'
 include '../add/bi_add_assign_256_256.inc'
 include '../add/bi_add_assign_384_256.inc'
+include '../add/bi_add_assign_384_320.inc'
+include '../add/bi_add_assign_448_320.inc'
 include 'bi_mul_128_128.inc'
 
 ;Multiplies two bi256 values
@@ -89,7 +91,7 @@ end virtual
 bi_mul_256_256____256_64:
 virtual at rsp
 .locals_start:
-  .temp BigInteger512
+  .temp BigInteger320
   .left rq 1
   .right rq 1
   .result rq 1
@@ -107,12 +109,16 @@ end virtual
         mov     [.right], rdx
         mov     [.result], r8
 
+        mov     rcx, [.result]
+        mov     qword [rcx + 40], 0
+        mov     qword [rcx + 48], 0
+        mov     qword [rcx + 56], 0
+
         mov     rcx, [.left]
         mov     rdx, [.right]
         mov     rdx, [rdx]
         mov     r8, [.result]
         call    bi_mul_256_64
-
 
 
         mov     rcx, [.left]
@@ -121,10 +127,11 @@ end virtual
         lea     r8, [.temp]
         call    bi_mul_256_64
 
+; result is 384 bit wide (256bit * 64bit * 64bit)
         mov     rcx, [.result]
         add     rcx, 8
         lea     rdx, [.temp]
-        call    bi_add_assign_320_256
+        call    bi_add_assign_320_320
 
 
         mov     rcx, [.left]
@@ -133,11 +140,11 @@ end virtual
         lea     r8, [.temp]
         call    bi_mul_256_64
 
+; result is 448 bit wide (256bit * 64bit * 64bit * 64bit)
         mov     rcx, [.result]
         add     rcx, 16
         lea     rdx, [.temp]
-        call    bi_add_assign_320_256
-
+        call    bi_add_assign_384_320
 
 
         mov     rcx, [.left]
@@ -149,7 +156,8 @@ end virtual
         mov     rcx, [.result]
         add     rcx, 24
         lea     rdx, [.temp]
-        call    bi_add_assign_320_256
+        call    bi_add_assign_320_320
+
 
         add     rsp, .locals_end - .locals_start
         ret
