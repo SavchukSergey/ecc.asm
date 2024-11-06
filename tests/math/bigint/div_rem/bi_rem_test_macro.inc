@@ -11,8 +11,9 @@ virtual at rsp
 .locals_start:
   BigInteger .dividend, dividend_bits
   BigInteger .divisor, dividend_bits
+  GuardPreField
   BigInteger .remainder, dividend_bits
-
+  GuardPostField
   .pointer rq 1
 
   .dividend_hex rq 1
@@ -28,6 +29,7 @@ end virtual
     PrologCheckStackAligned '__bi_div_rem_test_core_macro'
     CheckRegAligned rbx, '__bi_div_rem_test_core_macro rbx'
 
+        GuardInit
 
         mov     [.pointer], rbx
 .loop:        
@@ -61,12 +63,19 @@ end virtual
         Call_Rem dividend_bits, divisor_bits
 
         mov     rcx, [.expected_remainder_hex]
+        add     rcx, (dividend_bits - divisor_bits) / 4
+if divisor_bits > 64
         lea     rdx, [.remainder]
-        CallBiAssertEqualHex dividend_bits
+else
+        mov     rdx, [.remainder]
+end if
+        CallBiAssertEqualHex divisor_bits
 
         add     [.pointer], (dividend_bits / 4) * 4
         jmp     .loop
 .end:
+
+        GuardCheck
 
         add     rsp, .locals_end - .locals_start
         ret
@@ -79,7 +88,9 @@ virtual at rsp
 .locals_start:
   BigInteger .dividend, dividend_bits
   BigInteger .divisor, dividend_bits
+  GuardPreField
   BigInteger .remainder, dividend_bits
+  GuardPostField
 
   .dividend_hex rq 1
   .divisor_hex rq 1
@@ -93,6 +104,8 @@ end virtual
 
     PrologCheckStackAligned '__bi_div_rem_test_performance_core_macro'
     CheckRegAligned rbx, '__bi_div_rem_test_performance_core_macro rbx'
+
+        GuardInit
 
         mov     [.pointer], rbx
 .loop:        
@@ -130,13 +143,20 @@ end virtual
         jnz     .chunk_loop
         call    test_context_end_measure
 
-        mov     rcx, [.expected_remainder_hex + (dividend_bits - divisor_bits) / 4]
+        mov     rcx, [.expected_remainder_hex]
+        add     rcx, (dividend_bits - divisor_bits) / 4
+if divisor_bits > 64
         lea     rdx, [.remainder]
+else
+        mov     rdx, [.remainder]
+end if
         CallBiAssertEqualHex divisor_bits
 
         add     [.pointer], (dividend_bits / 4) * 4
         jmp     .loop
 .end:
+
+        GuardCheck
 
         add     rsp, .locals_end - .locals_start
         ret

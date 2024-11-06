@@ -10,6 +10,7 @@ bi_div_rem_128_128:
     cmp     qword [rdx + 8], 0
     js      .huge_divisor
     cmovz   rdx, [rdx + 0]
+    mov     qword [r9 + 8], 0
     jz      bi_div_rem_128_64
 
 

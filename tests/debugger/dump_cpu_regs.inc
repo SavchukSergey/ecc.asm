@@ -1,5 +1,8 @@
 if ~ definite debugger_dump_cpu_regs
 
+include '../console/write_string.inc'
+include '../console/write_line.inc'
+
 macro debugger_dump_cpu_reg value, reg_label {
         push    rsi
         mov     rsi, reg_label
@@ -7,7 +10,7 @@ macro debugger_dump_cpu_reg value, reg_label {
         pop     rsi
         push    rax
         mov     rax, value
-        call    Console_WriteUInt64Hex
+        call    DebuggerDumpUInt64Hex
         pop     rax
         push    rsi
         mov     rsi, .tab_separator
@@ -64,7 +67,7 @@ debugger_dump_cpu_regs:
 
 ;input
 ;  rax - value to dump
-Console_WriteUInt64Hex:
+DebuggerDumpUInt64Hex:
         push    rax rcx rdx
         mov     rdx, rax
         mov     rcx, 16
@@ -87,3 +90,5 @@ Console_WriteUInt64Hex:
         loop    .loop
         pop     rdx rcx rax
         ret
+
+end if

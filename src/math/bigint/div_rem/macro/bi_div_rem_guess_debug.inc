@@ -1,27 +1,9 @@
 if ~ definite bi_div_rem_guess_debug
 
+include '../../../../../tests/console/write_line.inc'
+
 bi_div_rem_guess_debug:
 
-macro DisplayDec value {
-  original = value 
-  
-  if original >= 1000
-    display '0' + (value / 1000)
-  end if
-  value0 = value mod 1000
-
-  if original >= 100
-    display '0' + (value0 / 100)
-  end if
-  value1 = value0 mod 100
-
-  if original >= 10
-    display '0' + (value1 / 10)
-  end if
-  value2 = (value1 mod 10)
-
-  display '0' + value2
-}
 
 macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {
   if definite BI_DEV_REM_GUESS_64_DEBUG
@@ -202,7 +184,6 @@ macro DivRemGuess64_LoopStart dividend_bits, divisor_bits {
   end if
 }
 
-bi_div_rem_guess_debug:
 bi_div_rem_dump_dividend_msg:          db 'dividend:          ', 0
 bi_div_rem_dump_divisor_msg:           db 'divisor:           ', 0
 bi_div_rem_dump_divisor_shifted_msg:   db 'divisor shifted:   ', 0
