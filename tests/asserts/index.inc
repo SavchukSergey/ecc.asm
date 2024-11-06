@@ -9,6 +9,7 @@ include 'bi_assert_equal_256.inc'
 include 'bi_assert_equal_320.inc'
 include 'bi_assert_equal_384.inc'
 include 'bi_assert_equal_512.inc'
+include 'bi_assert_equal_576.inc'
 include 'bi_assert_equal_768.inc'
 include 'bi_assert_equal_1024.inc'
 
@@ -19,11 +20,14 @@ include 'bi_assert_equal_hex_256.inc'
 include 'bi_assert_equal_hex_320.inc'
 include 'bi_assert_equal_hex_384.inc'
 include 'bi_assert_equal_hex_512.inc'
+include 'bi_assert_equal_hex_576.inc'
 include 'bi_assert_equal_hex_768.inc'
 include 'bi_assert_equal_hex_1024.inc'
 
 macro CallBiAssertEqualHex bits {
-    if bits = 128
+    if bits = 64
+      call    bi_assert_equal_hex_64
+    else if bits = 128
       call    bi_assert_equal_hex_128
     else if bits = 192
       call    bi_assert_equal_hex_192
@@ -35,6 +39,8 @@ macro CallBiAssertEqualHex bits {
       call    bi_assert_equal_hex_384
     else if bits = 512
       call    bi_assert_equal_hex_512
+    else if bits = 576
+      call    bi_assert_equal_hex_576
     else if bits = 768
       call    bi_assert_equal_hex_768
     else if bits = 1024

@@ -245,6 +245,17 @@ macro Call_Cmp512X bits {
   end if
 }
 
+macro Call_Cmp576X bits {
+  if bits = 576
+      call    bi_cmp_576_576
+  else
+      display 'unknown Call_Cmp576X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
 
 macro Call_Cmp left_bits, right_bits {
   if left_bits = 128
@@ -255,6 +266,8 @@ macro Call_Cmp left_bits, right_bits {
       Call_Cmp256X right_bits
   else if left_bits = 512
       Call_Cmp512X right_bits
+  else if left_bits = 576
+      Call_Cmp576X right_bits
   else
       display 'unknown Call_Cmp '
       DisplayDec left_bits
@@ -275,6 +288,8 @@ macro Call_Zero bits {
       call    bi_zero_256
   else if bits = 512
       call    bi_zero_512
+  else if bits = 576
+      call    bi_zero_576
   else if bits = 1024
       call    bi_zero_1024
   else

@@ -1,15 +1,16 @@
 include '../../../../src/math/bigint/mul/bi_mul_128_128.inc'
 
+include 'bi_mul_test_macro.inc'
+
 __bi_mul_128_128_test_core:
 BiMulTestCoreMacro 128, 128
 
 
 __bi_mul_128_128_test:
         push    rbx
-
         lea     rbx, [__bi_mul_128_128_test_cases]
-.loop:
 
+.loop:
         lea     rcx, [rbx]
         lea     rdx, [rbx + __BIG_INTEGER_HEX_DIGITS_128]
         lea     r8, [rbx + __BIG_INTEGER_HEX_DIGITS_128 + __BIG_INTEGER_HEX_DIGITS_128]

@@ -5,9 +5,11 @@ include 'bi_mul_test_macro.inc'
 __bi_mul_256_256_test_core:
 BiMulTestCoreMacro 256, 256
 
+
 __bi_mul_256_256_test:
         sub     rsp, 8
         lea     rbx, [__bi_mul_256_256_test_cases]
+
 .loop:
         lea     rcx, [rbx]
         lea     rdx, [rbx + __BIG_INTEGER_HEX_DIGITS_256]

@@ -130,9 +130,9 @@ end virtual
         jnz     .chunk_loop
         call    test_context_end_measure
 
-        mov     rcx, [.expected_remainder_hex]
+        mov     rcx, [.expected_remainder_hex + (dividend_bits - divisor_bits) / 4]
         lea     rdx, [.remainder]
-        CallBiAssertEqualHex dividend_bits
+        CallBiAssertEqualHex divisor_bits
 
         add     [.pointer], (dividend_bits / 4) * 4
         jmp     .loop

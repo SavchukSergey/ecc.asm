@@ -9,6 +9,7 @@ BiMulTestCoreMacro 256, 64
 __bi_mul_256_64_test:
         push    rbx
         lea     rbx, [__bi_mul_256_64_test_cases]
+
 .loop:
         lea     rcx, [rbx]
         lea     rdx, [rbx + __BIG_INTEGER_HEX_DIGITS_256]

@@ -60,6 +60,7 @@ Full list of methods:
 | [bi_cmp_320_320](#bi_cmp_320_320)                       | Compares two `bi320` values                                 |
 | [bi_cmp_384_384](#bi_cmp_384_384)                       | Compares two `bi384` values                                 |
 | [bi_cmp_512_512](#bi_cmp_512_512)                       | Compares two `bi512` values                                 |
+| [bi_cmp_576_576](#bi_cmp_576_576)                       | Compares two `bi576` values                                 |
 | [bi_cmp_1024_1024](#bi_cmp_1024_1024)                   | Compares two `bi1024` values                                |
 | [bi_mod_add_assign_256_256](#bi_mod_add_assign_256_256) | Adds two `bi256` values with modulo                         |
 | [bi_mod_sub_assign_256_256](#bi_mod_sub_assign_256_256) | Subtracts two `bi256` values with modulo                    |
@@ -527,6 +528,15 @@ Compares two `bi512` values
 Input:
 * `rcx` - pointer to left `bi512` value
 * `rdx` - pointer to right `bi512` value
+
+Output:
+* `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
+
+## bi_cmp_576_576
+Compares two `bi576` values
+Input:
+* `rcx` - pointer to left `bi576` value
+* `rdx` - pointer to right `bi576` value
 
 Output:
 * `rax` - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise

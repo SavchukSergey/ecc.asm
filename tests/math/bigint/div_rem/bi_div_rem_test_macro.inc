@@ -69,7 +69,7 @@ end virtual
         lea     rdx, [.quotient]
         CallBiAssertEqualHex dividend_bits
 
-        mov     rcx, [.expected_remainder_hex]
+        mov     rcx, [.expected_remainder_hex + (dividend_bits - divisor_bits) / 4]
         lea     rdx, [.remainder]
         CallBiAssertEqualHex dividend_bits
 

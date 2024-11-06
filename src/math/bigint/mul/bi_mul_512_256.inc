@@ -1,6 +1,7 @@
 if ~ definite bi_mul_512_256
 
 include '../add/bi_add_assign_640_512.inc'
+include '../add/bi_add_assign_576_576.inc'
 include '../zero/bi_zero_1024.inc'
 include 'bi_mul_256_256.inc'
 
@@ -8,7 +9,7 @@ include 'bi_mul_256_256.inc'
 ;input
 ; rcx - pointer to left bi512 value
 ; rdx - pointer to right bi256 value
-; r8 - pointer to result bi1024 value
+; r8 - pointer to result bi768 value
 bi_mul_512_256____64_64:
 virtual at rsp
 .locals_start:
@@ -62,11 +63,11 @@ end virtual
 ;input
 ; rcx - pointer to left bi512 value
 ; rdx - pointer to right bi256 value
-; r8 - pointer to result bi1024 value
+; r8 - pointer to result bi768 value
 bi_mul_512_256:
 virtual at rsp
 .locals_start:
-  .temp BigInteger1024
+  .temp BigInteger576
   .left rq 1
   .right rq 1
   .result rq 1
@@ -84,6 +85,10 @@ end virtual
         mov     [.right], rdx
         mov     [.result], r8
 
+        mov     qword [r8 + 72], 0
+        mov     qword [r8 + 80], 0
+        mov     qword [r8 + 88], 0
+
         mov     rcx, [.left]
         mov     rdx, [.right]
         mov     rdx, [rdx + 0]
@@ -97,10 +102,11 @@ end virtual
         lea     r8, [.temp]
         call    bi_mul_512_64
 
+; result is 640 bit wide (512bit * 64bit * 64bit)
         mov     rcx, [.result]
         add     rcx, 8
         lea     rdx, [.temp]
-        call    bi_add_assign_640_512
+        call    bi_add_assign_576_576
 
 
         mov     rcx, [.left]
@@ -109,10 +115,11 @@ end virtual
         lea     r8, [.temp]
         call    bi_mul_512_64
 
+; result is 704 bit wide (512bit * 64bit * 64bit * 64bit)
         mov     rcx, [.result]
         add     rcx, 16
         lea     rdx, [.temp]
-        call    bi_add_assign_640_512
+        call    bi_add_assign_576_576
 
 
         mov     rcx, [.left]
@@ -121,10 +128,11 @@ end virtual
         lea     r8, [.temp]
         call    bi_mul_512_64
 
+; result is 768 bit wide (512bit * 64bit * 64bit * 64bit * 64bit)
         mov     rcx, [.result]
         add     rcx, 24
         lea     rdx, [.temp]
-        call    bi_add_assign_640_512
+        call    bi_add_assign_576_576
 
 .end:
         add     rsp, .locals_end - .locals_start

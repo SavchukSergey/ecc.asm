@@ -2,12 +2,13 @@ if ~ definite bi_mul_512_64
 
 include '../mul/bi_mul_64_64.inc'
 include '../add/bi_add_assign_128_128.inc'
+include '../zero/bi_zero_576.inc'
 
 ;Multiplies bi512 by u64
 ;input
 ; rcx - pointer to left bi512 value
 ; rdx - right u64 value
-; r8 - pointer to result bi1024 value
+; r8 - pointer to result bi576 value
 bi_mul_512_64_basic:
 virtual at rsp
 .locals_start:
@@ -29,7 +30,7 @@ end virtual
         mov     [.result], r8
 
         mov     rcx, [.result]
-        call    bi_zero_1024
+        call    bi_zero_576
 
 
         mov     rcx, [.left]
@@ -193,14 +194,6 @@ bi_mul_512_64_bmi2:
         mov     [r8 + 56], rax
         adc     rdx, 0
         mov     [r8 + 64], rdx
-
-        xor     rax, rax
-        mov     [r8 + 72], rax
-        mov     [r8 + 80], rax
-        mov     [r8 + 88], rax
-        mov     [r8 + 96], rax
-        mov     [r8 + 104], rax
-        mov     [r8 + 112], rax
 
         ret
 

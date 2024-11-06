@@ -39,11 +39,6 @@ bi_div_rem_320_64:
         mov     [r8 + 0], rax
 
         mov     qword [r9 + 0], rdx
-        ;todo: avx clear
-        mov     qword [r9 + 8], 0
-        mov     qword [r9 + 16], 0
-        mov     qword [r9 + 24], 0
-        mov     qword [r9 + 32], 0
 
         pop     rbx
         ret
