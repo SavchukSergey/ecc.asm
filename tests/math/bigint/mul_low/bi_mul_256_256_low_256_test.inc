@@ -1,52 +1,9 @@
 include '../../../../src/math/bigint/mul_low/bi_mul_256_256_low_256.inc'
 
+include 'bi_mul_low_test_macro.inc'
+
 __bi_mul_256_256_low_256_test_core:
-virtual at rsp
-.locals_start:
-  .left BigInteger256
-  .right BigInteger256
-  .result BigInteger256
-  .left_hex rq 1
-  .right_hex rq 1
-  .expected_hex rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
-
-    PrologCheckStackAligned '__bi_mul_256_256_low_256_test_core'
-    CheckRegAligned rcx, '__bi_mul_256_256_low_256_test_core rcx'
-    CheckRegAligned rdx, '__bi_mul_256_256_low_256_test_core rdx'
-    CheckRegAligned r8, '__bi_mul_256_256_low_256_test_core r8'
-
-        mov     [.left_hex], rcx
-        mov     [.right_hex], rdx
-        mov     [.expected_hex], r8
-
-        mov     rcx, [.left_hex]
-        lea     rdx, [.left]
-        call    bi_try_read_hex_256
-
-        mov     rcx, [.right_hex]
-        lea     rdx, [.right]
-        call    bi_try_read_hex_256
-
-        call    test_context_start_measure
-.chunk_loop:
-        lea     rcx, [.left]
-        lea     rdx, [.right]
-        lea     r8, [.result]
-        call    bi_mul_256_256_low_256
-        call    test_context_measure_dec_chunk
-        jnz     .chunk_loop
-        call    test_context_end_measure
-
-        mov     rcx, [.expected_hex]
-        lea     rdx, [.result]
-        call    bi_assert_equal_hex_256
-
-        add     rsp, .locals_end - .locals_start
-        ret
+BiMulLowTestCoreMacro 256, 256, 256
 
 __bi_mul_256_256_low_256_test:
         push    rbx
@@ -54,11 +11,11 @@ __bi_mul_256_256_low_256_test:
         mov     rbx, __bi_mul_256_256_low_256_test_cases
 .loop:
         lea     rcx, [rbx + 0]
-        lea     rdx, [rbx + 64]
-        lea     r8, [rbx + 128]
+        lea     rdx, [rbx + __BIG_INTEGER_HEX_DIGITS_256]
+        lea     r8, [rbx + __BIG_INTEGER_HEX_DIGITS_256 + __BIG_INTEGER_HEX_DIGITS_256]
         call    __bi_mul_256_256_low_256_test_core
 
-        add     rbx, 64 + 64 + 64
+        add     rbx, __BIG_INTEGER_HEX_DIGITS_256 + __BIG_INTEGER_HEX_DIGITS_256 + __BIG_INTEGER_HEX_DIGITS_256
         cmp     rbx, __bi_mul_256_256_low_256_test_cases.end
         jb      .loop
 

@@ -1,5 +1,6 @@
 include 'bi_mul_128_64_low_128_test.inc'
 include 'bi_mul_128_128_low_128_test.inc'
+include 'bi_mul_192_64_low_192_test.inc'
 include 'bi_mul_256_64_low_256_test.inc'
 include 'bi_mul_256_128_low_256_test.inc'
 include 'bi_mul_256_256_low_256_test.inc'
@@ -12,6 +13,8 @@ __bi_mul_low_tests:
     dq __bi_mul_128_128_low_128_test
     db 'bi_mul_128_128_low_128', 0
 
+    dq __bi_mul_192_64_low_192_test
+    db 'bi_mul_192_64_low_192', 0
 
     dq __bi_mul_256_64_low_256_test
     db 'bi_mul_256_64_low_256', 0

@@ -1,14 +1,12 @@
-if ~ definite __bi_mul_macro
+if ~ definite __bi_mul_low_macro
 
-__bi_mul_macro equ 0
+__bi_mul_low_macro equ 0
 
 include '../../../asserts/index.inc'
 include '../../../../src/math/bigint/macro/call.try_read_hex.inc'
 include '../../../../src/math/bigint/macro/call.inc'
 
-macro BiMulTestCoreMacro left_bits, right_bits {
-  result_bits = (left_bits + right_bits)
-
+macro BiMulLowTestCoreMacro left_bits, right_bits, result_bits {
 virtual at rsp
 .locals_start:
   BigInteger .left, left_bits
@@ -23,10 +21,10 @@ virtual at rsp
 .locals_end:
 end virtual
         sub     rsp, .locals_end - .locals_start
-    PrologCheckStackAligned '__bi_mul_test_performance_core_macro'
-    CheckRegAligned rcx, '__bi_mul_test_performance_core_macro rcx'
-    CheckRegAligned rdx, '__bi_mul_test_performance_core_macro rdx'
-    CheckRegAligned r8, '__bi_mul_test_performance_core_macro r8'
+    PrologCheckStackAligned '__bi_mul_low_test_performance_core_macro'
+    CheckRegAligned rcx, '__bi_mul_low_test_performance_core_macro rcx'
+    CheckRegAligned rdx, '__bi_mul_low_test_performance_core_macro rdx'
+    CheckRegAligned r8, '__bi_mul_low_test_performance_core_macro r8'
 
         mov     [.left_hex], rcx
         mov     [.right_hex], rdx
@@ -51,7 +49,7 @@ end virtual
         mov     rdx, [.right]
   end if
         lea     r8, [.result]
-        Call_Mul left_bits, right_bits
+        Call_MulLow left_bits, right_bits, result_bits
         call    test_context_measure_dec_chunk
         jnz     .chunk_loop
         call    test_context_end_measure

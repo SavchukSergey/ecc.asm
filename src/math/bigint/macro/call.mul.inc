@@ -109,6 +109,47 @@ macro Call_Mul left_bits, right_bits {
   end if
 }
 
+
+
+macro Call_MulLow_128_64_X result_bits {
+  if result_bits = 128
+      call  bi_mul_128_64_low_128
+  else
+    display 'unknown Call_MulLow_128_64_X '
+    DisplayDec result_bits
+    display 13, 10
+    err
+  end if
+}
+
+macro Call_MulLow_128_128_X result_bits {
+  if result_bits = 128
+      call  bi_mul_128_128_low_128
+  else
+    display 'unknown Call_MulLow_128_128_X '
+    DisplayDec result_bits
+    display 13, 10
+    err
+  end if
+}
+
+macro Call_MulLow_128_X_X right_bits, result_bits {
+  if right_bits = 64
+      Call_MulLow_128_64_X result_bits
+  else if right_bits = 128
+      Call_MulLow_128_128_X result_bits
+  else
+    display 'unknown Call_MulLow_128_X_X '
+    DisplayDec right_bits
+    display ', '
+    DisplayDec result_bits
+    display 13, 10
+    err
+  end if
+}
+
+
+
 macro Call_MulLow_192_64_X result_bits {
   if result_bits = 192
       call  bi_mul_192_64_low_192
@@ -116,6 +157,7 @@ macro Call_MulLow_192_64_X result_bits {
     display 'unknown Call_MulLow_192_64_X '
     DisplayDec result_bits
     display 13, 10
+    err
   end if
 }
 
@@ -128,6 +170,7 @@ macro Call_MulLow_192_X_X right_bits, result_bits {
     display ', '
     DisplayDec result_bits
     display 13, 10
+    err
   end if
 }
 
@@ -138,18 +181,46 @@ macro Call_MulLow_256_64_X result_bits {
     display 'unknown Call_MulLow_256_64_X '
     DisplayDec result_bits
     display 13, 10
+    err
+  end if
+}
+
+macro Call_MulLow_256_128_X result_bits {
+  if result_bits = 256
+      call  bi_mul_256_128_low_256
+  else
+    display 'unknown Call_MulLow_256_128_X '
+    DisplayDec result_bits
+    display 13, 10
+    err
+  end if
+}
+
+macro Call_MulLow_256_256_X result_bits {
+  if result_bits = 256
+      call  bi_mul_256_256_low_256
+  else
+    display 'unknown Call_MulLow_256_256_X '
+    DisplayDec result_bits
+    display 13, 10
+    err
   end if
 }
 
 macro Call_MulLow_256_X_X right_bits, result_bits {
   if right_bits = 64
       Call_MulLow_256_64_X result_bits
+  else if right_bits = 128
+      Call_MulLow_256_128_X result_bits
+  else if right_bits = 256
+      Call_MulLow_256_256_X result_bits
   else
     display 'unknown Call_MulLow_256_X_X '
     DisplayDec right_bits
     display ', '
     DisplayDec result_bits
     display 13, 10
+    err
   end if
 }
 
@@ -160,18 +231,33 @@ macro Call_MulLow_512_64_X result_bits {
     display 'unknown Call_MulLow_512_64_X '
     DisplayDec result_bits
     display 13, 10
+    err
+  end if
+}
+
+macro Call_MulLow_512_512_X result_bits {
+  if result_bits = 512
+      call  bi_mul_512_512_low_512
+  else
+    display 'unknown Call_MulLow_512_512_X '
+    DisplayDec result_bits
+    display 13, 10
+    err
   end if
 }
 
 macro Call_MulLow_512_X_X right_bits, result_bits {
   if right_bits = 64
       Call_MulLow_512_64_X result_bits
+  else if right_bits = 512
+      Call_MulLow_512_512_X result_bits
   else
     display 'unknown Call_MulLow_512_X_X '
     DisplayDec right_bits
     display ', '
     DisplayDec result_bits
     display 13, 10
+    err
   end if
 }
 
@@ -182,6 +268,8 @@ macro Call_MulLow left_bits, right_bits, result_bits {
     Call_MulLow_256_X_X right_bits, result_bits
   else if left_bits = 192
     Call_MulLow_192_X_X right_bits, result_bits
+  else if left_bits = 128
+    Call_MulLow_128_X_X right_bits, result_bits
   else
     display 'unknown Call_MulLow '
     DisplayDec left_bits
@@ -190,6 +278,7 @@ macro Call_MulLow left_bits, right_bits, result_bits {
     display ', '
     DisplayDec result_bits
     display 13, 10
+    err
   end if
 }
 
