@@ -403,7 +403,7 @@ macro Call_MulLowX64 bits {
   else if bits = 256
       call    bi_mul_256_64_low_256
   else if bits = 512
-      call    bi_mul_low_512_64
+      call    bi_mul_512_64_low_512
   else
       display 'unknown Call_MulLowX64 '
       DisplayDec bits

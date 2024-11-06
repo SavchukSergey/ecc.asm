@@ -4,7 +4,7 @@ include 'macro/bi_div_rem_guess_64.inc'
 
 include '../extend_low/bi_extend_256_128.inc'
 include '../inc/bi_inc_assign_256.inc'
-include '../mul_low/bi_mul_low_512_64.inc'
+include '../mul_low/bi_mul_512_64_low_512.inc'
 
 bi_div_rem_512_512_guess:
     DivRemGuess64_Prepare 512, 512

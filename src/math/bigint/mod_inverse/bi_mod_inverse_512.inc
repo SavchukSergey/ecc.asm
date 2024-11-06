@@ -4,7 +4,7 @@ include '../add/bi_add_assign_512_512.inc'
 include '../copy/bi_copy_512.inc'
 include '../div_rem/bi_div_rem_512_512.inc'
 include '../is_zero/bi_is_zero_512.inc'
-include '../mul_low/bi_mul_low_512_512.inc'
+include '../mul_low/bi_mul_512_512_low_512.inc'
 include '../one/bi_one_512.inc'
 include '../sub/bi_sub_512_512.inc'
 
@@ -74,7 +74,7 @@ end virtual
         lea     rcx, [.quotient]
         lea     rdx, [.s1]
         lea     r8, [.s2]
-        call    bi_mul_low_512_512
+        call    bi_mul_512_512_low_512
         lea     rcx, [.s2]
         lea     rdx, [.s0]
         call    bi_add_assign_512_512

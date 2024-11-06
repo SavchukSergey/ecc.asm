@@ -1,7 +1,7 @@
 if ~ definite bi_mul_128_128_low_128_basic
 
 include '../mul/bi_mul_64_64.inc'
-include 'bi_mul_low_64_64.inc'
+include 'bi_mul_64_64_low_64.inc'
 
 ;Multiplies two bi128 values
 ;input
@@ -39,7 +39,7 @@ end virtual
         mov     rcx, [rcx + 0]
         mov     rdx, [.right]
         mov     rdx, [rdx + 8]
-        call    bi_mul_low_64_64
+        call    bi_mul_64_64_low_64
         mov     r8, [.result]
         add     [r8 + 8], rax
 
@@ -47,7 +47,7 @@ end virtual
         mov     rcx, [rcx + 8]
         mov     rdx, [.right]
         mov     rdx, [rdx + 0]
-        call    bi_mul_low_64_64
+        call    bi_mul_64_64_low_64
         mov     r8, [.result]
         add     [r8 + 8], rax
 

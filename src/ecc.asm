@@ -167,15 +167,15 @@ section '.edata' export data readable
          bi_mul_512_256, 'bi_mul_512_256' ,\
          bi_mul_512_512, 'bi_mul_512_512' ,\
 \
-         bi_mul_low_64_64, 'bi_mul_low_64_64', \
+         bi_mul_64_64_low_64, 'bi_mul_64_64_low_64', \
          bi_mul_128_64_low_128, 'bi_mul_128_64_low_128', \
          bi_mul_128_128_low_128, 'bi_mul_128_128_low_128', \
          bi_mul_192_64_low_192, 'bi_mul_192_64_low_192', \
          bi_mul_256_64_low_256, 'bi_mul_256_64_low_256', \
          bi_mul_256_128_low_256, 'bi_mul_256_128_low_256', \
          bi_mul_256_256_low_256, 'bi_mul_256_256_low_256', \
-         bi_mul_low_512_64, 'bi_mul_low_512_64' ,\
-         bi_mul_low_512_512, 'bi_mul_low_512_512' ,\
+         bi_mul_512_64_low_512, 'bi_mul_512_64_low_512' ,\
+         bi_mul_512_512_low_512, 'bi_mul_512_512_low_512' ,\
 \
          bi_square_64, 'bi_square_64' ,\
          bi_square_128, 'bi_square_128' ,\
