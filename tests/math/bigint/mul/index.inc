@@ -4,6 +4,7 @@ include 'bi_mul_192_64_test.inc'
 include 'bi_mul_256_64_test.inc'
 include 'bi_mul_256_128_test.inc'
 include 'bi_mul_256_256_test.inc'
+include 'bi_mul_320_64_test.inc'
 include 'bi_mul_512_64_test.inc'
 include 'bi_mul_512_256_test.inc'
 include 'bi_mul_512_512_test.inc'
@@ -23,6 +24,9 @@ __bi_mul_tests:
     db 'bi_mul_256_128', 0
     dq __bi_mul_256_256_test
     db 'bi_mul_256_256', 0
+
+    dq __bi_mul_320_64_test
+    db 'bi_mul_320_64', 0
 
     dq __bi_mul_512_64_test
     db 'bi_mul_512_64', 0

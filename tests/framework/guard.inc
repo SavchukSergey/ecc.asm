@@ -2,6 +2,8 @@ if ~ definite guard
 
 guard equ 0
 
+include '../console/consts.inc'
+
 macro GuardPreField {
  .guard_pre rq 1
 }
