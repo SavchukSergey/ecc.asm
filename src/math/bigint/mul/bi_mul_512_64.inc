@@ -166,25 +166,25 @@ bi_mul_512_64_bmi2:
 
         mov     rdx, [r9 + 24]
         mulx    rdx, rax, rcx
-        adcx    rax, [r8 + 24]       ; CF = carry for [result + 24]
+        adcx    rax, [r8 + 24]       ; CF = carry for [result + 32]
         mov     [r8 + 24], rax
         mov     [r8 + 32], rdx
 
         mov     rdx, [r9 + 32]
         mulx    rdx, rax, rcx
-        adcx    rax, [r8 + 32]       ; CF = carry for [result + 32]
+        adcx    rax, [r8 + 32]       ; CF = carry for [result + 40]
         mov     [r8 + 32], rax
         mov     [r8 + 40], rdx
 
         mov     rdx, [r9 + 40]
         mulx    rdx, rax, rcx
-        adcx    rax, [r8 + 40]       ; CF = carry for [result + 40]
+        adcx    rax, [r8 + 40]       ; CF = carry for [result + 48]
         mov     [r8 + 40], rax
         mov     [r8 + 48], rdx
 
         mov     rdx, [r9 + 48]
         mulx    rdx, rax, rcx
-        adcx    rax, [r8 + 48]       ; CF = carry for [result + 48]
+        adcx    rax, [r8 + 48]       ; CF = carry for [result + 56]
         mov     [r8 + 48], rax
         mov     [r8 + 56], rdx
 

@@ -97,6 +97,8 @@ macro Call_AddAssign448X right_bits {
       call    bi_add_assign_448_256
   else if right_bits = 320
       call    bi_add_assign_448_320
+  else if right_bits = 384
+      call    bi_add_assign_448_384
   else if right_bits = 448
       call    bi_add_assign_448_448
   else

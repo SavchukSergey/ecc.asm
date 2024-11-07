@@ -48,7 +48,6 @@ virtual at rsp
 end virtual
 	DivRemGuess64_Prolog 512, 256
 	DivRemGuess64_DivisorLzcnt 512, 256
-	DivRemGuess64_DivisorSwitch 512, 256
 
 	DivRemGuess64_PrepareLoop 512, 256
 	DivRemGuess64_ShiftDivisor 512, 256

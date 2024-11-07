@@ -19,6 +19,9 @@ include '../zero/bi_zero_320.inc'
 include '../zero/bi_zero_320.inc'
 include '../copy/bi_copy_320.inc'
 
+include 'bi_div_rem_256_128.inc'
+include 'bi_div_rem_320_64.inc'
+
 bi_div_rem_320_128_guess:
     DivRemGuess64_FastSwitch 320, 128
     DivRemGuess64_Prepare 320, 128

@@ -28,8 +28,12 @@ macro Call_DivRem512X divisor_bits {
 }
 
 macro Call_DivRem448X divisor_bits {
-  if divisor_bits = 384
+  if divisor_bits = 448
+      call    bi_div_rem_448_448
+  else if divisor_bits = 384
       call    bi_div_rem_448_384
+  else if divisor_bits = 320
+      call    bi_div_rem_448_320
   else if divisor_bits = 256
       call    bi_div_rem_448_256
   else if divisor_bits = 192
@@ -47,7 +51,11 @@ macro Call_DivRem448X divisor_bits {
 }
 
 macro Call_DivRem384X divisor_bits {
-  if divisor_bits = 256
+  if divisor_bits = 384
+      call    bi_div_rem_384_384
+  else if divisor_bits = 320
+      call    bi_div_rem_384_320
+  else if divisor_bits = 256
       call    bi_div_rem_384_256
   else if divisor_bits = 192
       call    bi_div_rem_384_192

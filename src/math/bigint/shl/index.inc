@@ -4,6 +4,7 @@ bi_shl_index equ 0
 
 include 'bi_shl_128.inc'
 include 'bi_shl_256.inc'
+include 'bi_shl_384.inc'
 include 'bi_shl_512.inc'
 
 include 'bi_shl_assign_128_1.inc'

@@ -14,6 +14,9 @@ include '../shl/index.inc'
 include '../inc/index.inc'
 include '../zero/bi_zero_320.inc'
 
+include 'bi_div_rem_448_128.inc'
+include 'bi_div_rem_512_64.inc'
+
 bi_div_rem_512_128_guess:
     DivRemGuess64_FastSwitch 512, 128
     DivRemGuess64_Prepare 512, 128

@@ -125,6 +125,96 @@ local .reg_unaligned_msg, .reg_aligned
 end if
 }
 
+macro CheckRegBi320Alignment reg, msg {
+if CHECK_REG_ALIGNMENT = 1
+local .reg_unaligned_msg, .reg_aligned
+
+    test    reg, 0x0f
+    jz      .reg_aligned
+
+    push    rsi
+    mov     rsi, reg_bi320_unaligned_prefix_msg
+    call    Console_WriteString
+
+    mov     rsi, .reg_bi320_unaligned_msg
+    call    Console_WriteString
+    pop     rsi
+
+    mov     rcx, reg
+    call    Console_WriteUInt64Hex
+
+    call    Console_WriteLine
+
+    int3
+.reg_bi320_unaligned_msg:
+  db msg
+  db '=', 0
+
+.reg_aligned:
+end if
+}
+
+
+
+macro CheckRegBi384Alignment reg, msg {
+if CHECK_REG_ALIGNMENT = 1
+local .reg_unaligned_msg, .reg_aligned
+
+    test    reg, 0x0f
+    jz      .reg_aligned
+
+    push    rsi
+    mov     rsi, reg_bi384_unaligned_prefix_msg
+    call    Console_WriteString
+
+    mov     rsi, .reg_bi384_unaligned_msg
+    call    Console_WriteString
+    pop     rsi
+
+    mov     rcx, reg
+    call    Console_WriteUInt64Hex
+
+    call    Console_WriteLine
+
+    int3
+.reg_bi384_unaligned_msg:
+  db msg
+  db '=', 0
+
+.reg_aligned:
+end if
+}
+
+
+macro CheckRegBi448Alignment reg, msg {
+if CHECK_REG_ALIGNMENT = 1
+local .reg_unaligned_msg, .reg_aligned
+
+    test    reg, 0x0f
+    jz      .reg_aligned
+
+    push    rsi
+    mov     rsi, reg_bi448_unaligned_prefix_msg
+    call    Console_WriteString
+
+    mov     rsi, .reg_bi448_unaligned_msg
+    call    Console_WriteString
+    pop     rsi
+
+    mov     rcx, reg
+    call    Console_WriteUInt64Hex
+
+    call    Console_WriteLine
+
+    int3
+.reg_bi448_unaligned_msg:
+  db msg
+  db '=', 0
+
+.reg_aligned:
+end if
+}
+
 macro CheckRegBi512Alignment reg, msg {
 if CHECK_REG_ALIGNMENT = 1
 local .reg_unaligned_msg, .reg_aligned
@@ -183,6 +273,9 @@ reg_unaligned_prefix_msg db 'reg is unaligned ', 0
 reg_bi128_unaligned_prefix_msg db 'reg bi128 is unaligned ', 0
 reg_bi192_unaligned_prefix_msg db 'reg bi192 is unaligned ', 0
 reg_bi256_unaligned_prefix_msg db 'reg bi256 is unaligned ', 0
+reg_bi320_unaligned_prefix_msg db 'reg bi320 is unaligned ', 0
+reg_bi384_unaligned_prefix_msg db 'reg bi384 is unaligned ', 0
+reg_bi448_unaligned_prefix_msg db 'reg bi448 is unaligned ', 0
 reg_bi512_unaligned_prefix_msg db 'reg bi512 is unaligned ', 0
 
 end if

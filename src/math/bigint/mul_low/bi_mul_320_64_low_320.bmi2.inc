@@ -1,13 +1,13 @@
-if ~ definite bi_mul_320_64_bmi2
+if ~ definite bi_mul_320_64_low_320_bmi2
 
-;Multiplies bi320 by u64
+;Multiplies bi320 by bi64 value and return low 320 bits
 ;input
-; rcx - left bi320 value
-; rdx - right u64 value
-; r8 - result bi384 value
-bi_mul_320_64_bmi2:
-    CheckRegAligned rcx, 'bi_mul_320_64_bmi2 rcx'
-    CheckRegAligned r8, 'bi_mul_320_64_bmi2 r8'
+;  rcx - pointer to bi320 left value
+;  rdx - bi64 right value
+;  r8 - result value (low 320 bits)
+bi_mul_320_64_low_320_bmi2:
+    CheckRegBi320Alignment rcx, 'bi_mul_320_64_low_320_bmi2 rcx'
+    CheckRegBi320Alignment r8, 'bi_mul_320_64_low_320_bmi2 r8'
 
         mov     r9, rcx
         mov     rcx, rdx
@@ -38,10 +38,7 @@ bi_mul_320_64_bmi2:
 
         mov     rdx, [r9 + 32]
         mulx    rdx, rax, rcx
-        adcx    rax, [r8 + 32]       ; CF = carry for [result + 40]
-        mov     [r8 + 32], rax
-        adc     rdx, 0
-        mov     [r8 + 40], rdx
+        adc     [r8 + 32], rax
 
         ret
 

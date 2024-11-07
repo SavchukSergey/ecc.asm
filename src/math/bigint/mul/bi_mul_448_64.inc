@@ -1,13 +1,13 @@
-if ~ definite bi_mul_320_64_bmi2
+if ~ definite bi_mul_448_64
 
-;Multiplies bi320 by u64
+;Multiplies bi448 by u64
 ;input
-; rcx - left bi320 value
+; rcx - left bi448 value
 ; rdx - right u64 value
-; r8 - result bi384 value
-bi_mul_320_64_bmi2:
-    CheckRegAligned rcx, 'bi_mul_320_64_bmi2 rcx'
-    CheckRegAligned r8, 'bi_mul_320_64_bmi2 r8'
+; r8 - result bi512 value
+bi_mul_448_64:
+    CheckRegAligned rcx, 'bi_mul_448_64_bmi2 rcx'
+    CheckRegAligned r8, 'bi_mul_448_64_bmi2 r8'
 
         mov     r9, rcx
         mov     rcx, rdx
@@ -40,9 +40,20 @@ bi_mul_320_64_bmi2:
         mulx    rdx, rax, rcx
         adcx    rax, [r8 + 32]       ; CF = carry for [result + 40]
         mov     [r8 + 32], rax
-        adc     rdx, 0
         mov     [r8 + 40], rdx
 
-        ret
+        mov     rdx, [r9 + 40]
+        mulx    rdx, rax, rcx
+        adcx    rax, [r8 + 40]       ; CF = carry for [result + 48]
+        mov     [r8 + 40], rax
+        mov     [r8 + 48], rdx
 
+        mov     rdx, [r9 + 48]
+        mulx    rdx, rax, rcx
+        adcx    rax, [r8 + 48]       ; CF = carry for [result + 56]
+        mov     [r8 + 48], rax
+        adc     rdx, 0
+        mov     [r8 + 56], rdx
+
+        ret
 end if

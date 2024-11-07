@@ -260,6 +260,8 @@ macro Call_Cmp384X bits {
       call    bi_cmp_384_192
   else if bits = 256
       call    bi_cmp_384_256
+  else if bits = 320
+      call    bi_cmp_384_320
   else if bits = 384
       call    bi_cmp_384_384
   else
@@ -277,6 +279,10 @@ macro Call_Cmp448X bits {
       call    bi_cmp_448_192
   else if bits = 256
       call    bi_cmp_448_256
+  else if bits = 320
+      call    bi_cmp_448_320
+  else if bits = 384
+      call    bi_cmp_448_384
   else if bits = 448
       call    bi_cmp_448_448
   else
