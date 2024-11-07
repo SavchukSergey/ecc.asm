@@ -1,0 +1,28 @@
+include '../../../../src/math/bigint/div_rem/bi_div_rem_320_192.inc'
+
+include 'bi_div_rem_test_macro.inc'
+
+__bi_div_rem_320_192_test_core:
+BiDivRemTestCoreMacro 320, 192
+
+__bi_div_rem_320_192_test_measure_core:
+BiDivRemTestPerformanceCoreMacro 320, 192
+
+
+__bi_div_rem_320_192_test:
+        sub     rsp, 8
+        PrologCheckStackAligned '__bi_div_rem_320_192_test'
+
+        mov     rbx, __bi_div_rem_320_64_test_cases
+        call    __bi_div_rem_320_192_test_core
+
+        mov     rbx, __bi_div_rem_320_128_test_cases
+        call    __bi_div_rem_320_192_test_core
+
+        mov     rbx, __bi_div_rem_320_192_test_cases
+        call    __bi_div_rem_320_192_test_measure_core
+
+        add     rsp, 8
+
+        ret
+

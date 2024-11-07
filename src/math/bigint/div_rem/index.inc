@@ -28,6 +28,9 @@ include 'bi_div_rem_256_256.inc'
 
 include 'bi_div_rem_320_64.inc'
 
+include 'bi_div_rem_384_64.inc'
+include 'bi_div_rem_384_128.inc'
+
 include 'bi_div_rem_448_64.inc'
 include 'bi_div_rem_448_128.inc'
 

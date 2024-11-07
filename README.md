@@ -50,6 +50,7 @@ Full list of methods:
 | [bi_lzcnt_128](#bi_lzcnt_128)                           | Counts leading zero bits of `bi128`                         |
 | [bi_lzcnt_192](#bi_lzcnt_192)                           | Counts leading zero bits of `bi192`                         |
 | [bi_lzcnt_256](#bi_lzcnt_256)                           | Counts leading zero bits of `bi256`                         |
+| [bi_lzcnt_384](#bi_lzcnt_384)                           | Counts leading zero bits of `bi384`                         |
 | [bi_lzcnt_448](#bi_lzcnt_448)                           | Counts leading zero bits of `bi448`                         |
 | [bi_lzcnt_512](#bi_lzcnt_512)                           | Counts leading zero bits of `bi512`                         |
 | [bi_shl_assign_256_1](#bi_shl_assign_256_1)             | Shifts `bi256` to the left by 1 bit                         |

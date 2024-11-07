@@ -3,7 +3,7 @@ if ~ definite bi_sub_assign_512_256
 ;Subtracts bi256 from bi512 value
 ;input:
 ;  rcx - left bi512 value. The modified value.
-;  rdx - right bi128 value
+;  rdx - right bi256 value
 ;output
 ;  rax - set to 1 if borrow
 ;  CF - set to 1 if borrow

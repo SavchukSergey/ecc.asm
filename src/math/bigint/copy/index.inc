@@ -1,4 +1,7 @@
 include 'bi_copy_128.inc'
 include 'bi_copy_192.inc'
 include 'bi_copy_256.inc'
+include 'bi_copy_320.inc'
+include 'bi_copy_384.inc'
+include 'bi_copy_448.inc'
 include 'bi_copy_512.inc'

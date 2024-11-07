@@ -10,6 +10,10 @@ include 'bi_div_rem_256_128_test.inc'
 include 'bi_div_rem_256_192_test.inc'
 include 'bi_div_rem_256_256_test.inc'
 include 'bi_div_rem_320_64_test.inc'
+include 'bi_div_rem_320_128_test.inc'
+include 'bi_div_rem_320_192_test.inc'
+include 'bi_div_rem_384_64_test.inc'
+include 'bi_div_rem_384_128_test.inc'
 include 'bi_div_rem_448_64_test.inc'
 include 'bi_div_rem_448_128_test.inc'
 include 'bi_div_rem_512_64_test.inc'
@@ -58,7 +62,20 @@ __bi_div_rem_tests:
 
     dq __bi_div_rem_320_64_test
     db 'bi_div_rem_320_64', 0
+
+;todo: freezes
+;    dq __bi_div_rem_320_128_test
+;    db 'bi_div_rem_320_128', 0
+
+;    dq __bi_div_rem_320_192_test
+;    db 'bi_div_rem_320_192', 0
     
+    dq __bi_div_rem_384_64_test
+    db 'bi_div_rem_384_64', 0
+    
+    dq __bi_div_rem_384_128_test
+    db 'bi_div_rem_384_128', 0
+
     dq __bi_div_rem_448_64_test
     db 'bi_div_rem_448_64', 0
     

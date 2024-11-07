@@ -20,6 +20,7 @@ include '../zero/bi_zero_448.inc'
 include '../copy/bi_copy_448.inc'
 
 bi_div_rem_448_128_guess:
+    DivRemGuess64_FastSwitch 448, 128
     DivRemGuess64_Prepare 448, 128
 virtual at rsp
   label .locals_start
@@ -42,7 +43,6 @@ virtual at rsp
 end virtual
 	DivRemGuess64_Prolog 448, 128
 	DivRemGuess64_DivisorLzcnt 448, 128
-	DivRemGuess64_DivisorSwitch 448, 128
 
 	DivRemGuess64_PrepareLoop 448, 128
 	DivRemGuess64_ShiftDivisor 448, 128

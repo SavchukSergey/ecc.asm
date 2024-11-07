@@ -1,3 +1,5 @@
+if ~ definite bi_add_index
+
 include 'bi_add_128_128.inc'
 include 'bi_add_192_192.inc'
 include 'bi_add_256_256.inc'
@@ -6,8 +8,10 @@ include 'bi_add_assign_128_128.inc'
 include 'bi_add_assign_192_128.inc'
 include 'bi_add_assign_192_192.inc'
 include 'bi_add_assign_256_128.inc'
+include 'bi_add_assign_256_192.inc'
 include 'bi_add_assign_256_256.inc'
 include 'bi_add_assign_320_128.inc'
+include 'bi_add_assign_320_192.inc'
 include 'bi_add_assign_320_256.inc'
 include 'bi_add_assign_320_320.inc'
 include 'bi_add_assign_384_128.inc'
@@ -26,3 +30,5 @@ include 'bi_add_assign_640_512.inc'
 include 'bi_add_assign_768_512.inc'
 include 'bi_add_assign_1024_512.inc'
 include 'bi_add_assign_1024_1024.inc'
+
+end if

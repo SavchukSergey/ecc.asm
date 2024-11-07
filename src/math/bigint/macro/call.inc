@@ -181,6 +181,10 @@ macro Call_Lzcnt bits {
       call    bi_lzcnt_192
   else if bits = 256
       call    bi_lzcnt_256
+  else if bits = 320
+      call    bi_lzcnt_320
+  else if bits = 384
+      call    bi_lzcnt_384
   else if bits = 448
       call    bi_lzcnt_448
   else if bits = 512
@@ -232,9 +236,47 @@ macro Call_Cmp256X bits {
   end if
 }
 
+macro Call_Cmp320X bits {
+  if bits = 128
+      call    bi_cmp_320_128
+  else if bits = 192
+      call    bi_cmp_320_192
+  else if bits = 256
+      call    bi_cmp_320_256
+  else if bits = 320
+      call    bi_cmp_320_320
+  else
+      display 'unknown Call_Cmp320X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_Cmp384X bits {
+  if bits = 128
+      call    bi_cmp_384_128
+  else if bits = 192
+      call    bi_cmp_384_192
+  else if bits = 256
+      call    bi_cmp_384_256
+  else if bits = 384
+      call    bi_cmp_384_384
+  else
+      display 'unknown Call_Cmp384X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
 macro Call_Cmp448X bits {
   if bits = 128
       call    bi_cmp_448_128
+  else if bits = 192
+      call    bi_cmp_448_192
+  else if bits = 256
+      call    bi_cmp_448_256
   else if bits = 448
       call    bi_cmp_448_448
   else
@@ -248,8 +290,16 @@ macro Call_Cmp448X bits {
 macro Call_Cmp512X bits {
   if bits = 128
       call    bi_cmp_512_128
+  else if bits = 192
+      call    bi_cmp_512_192
   else if bits = 256
       call    bi_cmp_512_256
+  else if bits = 320
+      call    bi_cmp_512_320
+  else if bits = 384
+      call    bi_cmp_512_384
+  else if bits = 448
+      call    bi_cmp_512_448
   else if bits = 512
       call    bi_cmp_512_512
   else
@@ -279,6 +329,10 @@ macro Call_Cmp left_bits, right_bits {
       Call_Cmp192X right_bits
   else if left_bits = 256
       Call_Cmp256X right_bits
+  else if left_bits = 320
+      Call_Cmp320X right_bits
+  else if left_bits = 384
+      Call_Cmp384X right_bits
   else if left_bits = 448
       Call_Cmp448X right_bits
   else if left_bits = 512
@@ -288,7 +342,7 @@ macro Call_Cmp left_bits, right_bits {
   else
       display 'unknown Call_Cmp '
       DisplayDec left_bits
-      DisplayDec ', '
+      display ', '
       DisplayDec right_bits
       display 13, 10
       err 
@@ -303,6 +357,10 @@ macro Call_Zero bits {
       call    bi_zero_192
   else if bits = 256
       call    bi_zero_256
+  else if bits = 320
+      call    bi_zero_320
+  else if bits = 384
+      call    bi_zero_384
   else if bits = 448
       call    bi_zero_448
   else if bits = 512
@@ -326,6 +384,10 @@ macro Call_Copy bits {
       call    bi_copy_192
   else if bits = 256
       call    bi_copy_256
+  else if bits = 320
+      call    bi_copy_320
+  else if bits = 384
+      call    bi_copy_384
   else if bits = 448
       call    bi_copy_448
   else if bits = 512
@@ -343,12 +405,16 @@ macro Call_Copy bits {
 macro Call_SubAssign_512_X right_bits {
   if (right_bits) = 128
       call    bi_sub_assign_512_128
+  else if (right_bits) = 192
+      call    bi_sub_assign_512_192
   else if (right_bits) = 256
       call    bi_sub_assign_512_256
+  else if (right_bits) = 320
+      call    bi_sub_assign_512_320
   else if (right_bits) = 384
       call    bi_sub_assign_512_384
   else if (right_bits) = 448
-      call    bi_sub_assign_512_512
+      call    bi_sub_assign_512_448
   else if (right_bits) = 512
       call    bi_sub_assign_512_512
   else
@@ -366,6 +432,8 @@ macro Call_SubAssign_448_X right_bits {
       call    bi_sub_assign_448_192
   else if (right_bits) = 256
       call    bi_sub_assign_448_256
+  else if (right_bits) = 320
+      call    bi_sub_assign_448_320
   else if (right_bits) = 384
       call    bi_sub_assign_448_384
   else if (right_bits) = 448
@@ -385,10 +453,29 @@ macro Call_SubAssign_384_X right_bits {
       call    bi_sub_assign_384_192
   else if (right_bits) = 256
       call    bi_sub_assign_384_256
+  else if (right_bits) = 320
+      call    bi_sub_assign_384_320
   else if (right_bits) = 384
       call    bi_sub_assign_384_384
   else
       display 'unknown Call_SubAssign_384_X '
+      DisplayDec (right_bits)
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_SubAssign_320_X right_bits {
+  if (right_bits) = 128
+      call    bi_sub_assign_320_128
+  else if (right_bits) = 192
+      call    bi_sub_assign_320_192
+  else if (right_bits) = 256
+      call    bi_sub_assign_320_256
+  else if (right_bits) = 320
+      call    bi_sub_assign_320_320
+  else
+      display 'unknown Call_SubAssign_320_X '
       DisplayDec (right_bits)
       display 13, 10
       err 
@@ -430,6 +517,8 @@ macro Call_SubAssign left_bits, right_bits {
       Call_SubAssign_192_X right_bits
   else if left_bits = 256
       Call_SubAssign_256_X right_bits
+  else if left_bits = 320
+      Call_SubAssign_320_X right_bits
   else if left_bits = 384
       Call_SubAssign_384_X right_bits
   else if left_bits = 448
