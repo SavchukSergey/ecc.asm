@@ -29,7 +29,7 @@ virtual at rsp
   label .locals_start
   .delta BigInteger320
   .guess_q BigInteger320
-  .remainder_shifted BigInteger256
+  .remainder_shifted BigInteger128
   .guess_128 BigInteger256
 
   .divisor_shifted rq 1

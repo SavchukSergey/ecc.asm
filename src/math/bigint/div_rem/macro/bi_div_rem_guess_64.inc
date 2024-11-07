@@ -282,10 +282,14 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
 .loop:
         DivRemGuess64_LoopStart dividend_bits, divisor_bits
         DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits
+        DivRemGuess64_DumpDivisorShifted dividend_bits, divisor_bits
         DivRemGuess64_Guess dividend_bits, divisor_bits
 
+        DivRemGuess64_DumpGuess dividend_bits, divisor_bits
+
         DivRemGuess64_CalcDelta dividend_bits, divisor_bits
-        DivRemGuess64_ExtendGuess dividend_bits, divisor_bits
+        DivRemGuess64_DumpDelta dividend_bits, divisor_bits
+        DivRemGuess64_ExtendGuess dividend_bits, divisor_bits ;todo: remove?
 
         cmp     [.correction], 0
         jz     .correction_2_ok
@@ -293,6 +297,9 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_ShiftDelta dividend_bits, divisor_bits
         DivRemGuess64_ShiftGuess dividend_bits, divisor_bits
 .correction_2_ok:
+
+        DivRemGuess64_DumpGuessFixed dividend_bits, divisor_bits
+        DivRemGuess64_DumpDeltaShifted dividend_bits, divisor_bits
 
         DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
         DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits

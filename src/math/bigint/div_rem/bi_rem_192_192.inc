@@ -7,7 +7,7 @@ bi_rem_192_192:
 virtual at rsp
   label .locals_start
   .delta BigInteger192
-  .remainder_shifted BigInteger192
+  .remainder_shifted BigInteger128
   .guess_128 BigInteger128
   .guess_192 BigInteger192
   .guess_q BigInteger192

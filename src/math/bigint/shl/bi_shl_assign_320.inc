@@ -10,7 +10,7 @@ bi_shl_assign_320:
         mov     rbx, rcx
         mov     rcx, rdx
 
-        lea     rdi, [rbx + 32 - 8]
+        lea     rdi, [rbx + 40 - 8]
 
         mov     rsi, rcx
         shr     rsi, 6

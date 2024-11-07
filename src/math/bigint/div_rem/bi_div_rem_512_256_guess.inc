@@ -21,7 +21,11 @@ include '../sub/bi_sub_assign_512_512.inc'
 include '../inc/bi_inc_assign_384.inc'
 include '../mul/bi_mul_256_128.inc'
 
+include 'bi_div_rem_448_256.inc'
+include 'bi_div_rem_512_192.inc'
+
 bi_div_rem_512_256_guess:
+    DivRemGuess64_FastSwitch 512, 256
     DivRemGuess64_Prepare 512, 256
 virtual at rsp
   label .locals_start

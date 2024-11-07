@@ -15,6 +15,7 @@ include '../inc/index.inc'
 include '../zero/bi_zero_320.inc'
 
 bi_div_rem_512_128_guess:
+    DivRemGuess64_FastSwitch 512, 128
     DivRemGuess64_Prepare 512, 128
 virtual at rsp
   label .locals_start
@@ -37,7 +38,6 @@ virtual at rsp
 end virtual
 	DivRemGuess64_Prolog 512, 128
 	DivRemGuess64_DivisorLzcnt 512, 128
-	DivRemGuess64_DivisorSwitch 512, 128
 
 	DivRemGuess64_PrepareLoop 512, 128
 	DivRemGuess64_ShiftDivisor 512, 128

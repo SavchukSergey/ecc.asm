@@ -22,7 +22,7 @@ virtual at rsp
   label .locals_start
   .delta BigInteger384
   .guess_q BigInteger384
-  .remainder_shifted BigInteger192
+  .remainder_shifted BigInteger128
   .guess_128 BigInteger128
 
   .divisor_shifted rq 1
