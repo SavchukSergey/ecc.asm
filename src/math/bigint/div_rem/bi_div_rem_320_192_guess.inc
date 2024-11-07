@@ -8,8 +8,8 @@ include '../cmp/index.inc'
 include '../sub/bi_sub_assign_320_192.inc'
 include '../add/index.inc'
 
+include 'bi_div_rem_256_192.inc'
 include 'bi_div_rem_320_128.inc'
-include 'bi_div_rem_192_192.inc'
 
 bi_div_rem_320_192_guess:
     DivRemGuess64_FastSwitch 320, 192
