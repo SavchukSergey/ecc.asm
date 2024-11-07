@@ -15,13 +15,17 @@ macro DivRemGuess64_DumpArgs dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_WriteUIntHex bits {
-  if bits = 128
+  if bits = 64
+    call    Console_WriteUInt64Hex
+  else if bits = 128
     call    Console_WriteUInt128Hex
-  end if
-  if bits = 256
+  else if bits = 192
+    call    Console_WriteUInt192Hex
+  else if bits = 256
     call    Console_WriteUInt256Hex
-  end if
-  if bits = 512
+  else if bits = 320
+    call    Console_WriteUInt320Hex
+  else if bits = 512
     call    Console_WriteUInt512Hex
   end if
 }
@@ -62,7 +66,7 @@ macro DivRemGuess64_DumpDivisorShifted dividend_bits, divisor_bits {
     pop     rsi
 
     mov     rcx, [.divisor_shifted]
-    DivRemGuess64_WriteUInt64Hex divisor_bits
+    DivRemGuess64_WriteUIntHex 64
 
     call    Console_WriteLine
   end if
@@ -89,7 +93,7 @@ macro DivRemGuess64_DumpGuess dividend_bits, divisor_bits {
     call    Console_WriteString
     pop     rsi
 
-    mov     rcx, [.guess_128]
+    lea     rcx, [.guess_128]
     call    Console_WriteUInt128Hex
 
     call    Console_WriteLine
