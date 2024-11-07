@@ -44,21 +44,26 @@ Full list of methods:
 | [bi_div_rem_512_256](#bi_div_rem_512_256)               | Divides `bi512` by `bi256`                                  |
 | [bi_div_rem_512_512](#bi_div_rem_512_512)               | Divides `bi512` by `bi512`                                  |
 | [bi_rem_128_64](#bi_rem_128_64)                         | Remainder `bi128` by `bi64`                                 |
-| [bi_rem_128_128](#bi_rem_128_128)                       | Remainder `bi128` by `bi128`                                 |
+| [bi_rem_128_128](#bi_rem_128_128)                       | Remainder `bi128` by `bi128`                                |
 | [bi_rem_192_64](#bi_rem_192_64)                         | Remainder `bi192` by `bi64`                                 |
 | [bi_rem_256_64](#bi_rem_256_64)                         | Remainder `bi256` by `bi64`                                 |
 | [bi_lzcnt_128](#bi_lzcnt_128)                           | Counts leading zero bits of `bi128`                         |
 | [bi_lzcnt_192](#bi_lzcnt_192)                           | Counts leading zero bits of `bi192`                         |
 | [bi_lzcnt_256](#bi_lzcnt_256)                           | Counts leading zero bits of `bi256`                         |
+| [bi_lzcnt_448](#bi_lzcnt_448)                           | Counts leading zero bits of `bi448`                         |
 | [bi_lzcnt_512](#bi_lzcnt_512)                           | Counts leading zero bits of `bi512`                         |
 | [bi_shl_assign_256_1](#bi_shl_assign_256_1)             | Shifts `bi256` to the left by 1 bit                         |
 | [bi_shr_assign_256_1](#bi_shr_assign_256_1)             | Shifts `bi256` to the right by 1 bit                        |
 | [bi_shl_assign_256](#bi_shl_assign_256)                 | Shifts `bi256` to the left                                  |
+| [bi_shl_assign_320](#bi_shl_assign_320)                 | Shifts `bi320` to the left                                  |
 | [bi_cmp_128_128](#bi_cmp_128_128)                       | Compares two `bi128` values                                 |
 | [bi_cmp_192_192](#bi_cmp_192_192)                       | Compares two `bi192` values                                 |
 | [bi_cmp_256_256](#bi_cmp_256_256)                       | Compares two `bi256` values                                 |
+| [bi_cmp_320_128](#bi_cmp_320_128)                       | Compares `bi320` to `bi128` value                           |
 | [bi_cmp_320_320](#bi_cmp_320_320)                       | Compares two `bi320` values                                 |
 | [bi_cmp_384_384](#bi_cmp_384_384)                       | Compares two `bi384` values                                 |
+| [bi_cmp_448_128](#bi_cmp_448_128)                       | Compares `bi448` to `bi128` value                           |
+| [bi_cmp_448_448](#bi_cmp_448_448)                       | Compares two `bi448` values                                 |
 | [bi_cmp_512_512](#bi_cmp_512_512)                       | Compares two `bi512` values                                 |
 | [bi_cmp_576_576](#bi_cmp_576_576)                       | Compares two `bi576` values                                 |
 | [bi_cmp_1024_1024](#bi_cmp_1024_1024)                   | Compares two `bi1024` values                                |

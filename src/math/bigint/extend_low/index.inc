@@ -1,3 +1,7 @@
+if ~ definite bi_extend_low_index
+
+bi_extend_low_index equ 0
+
 include 'bi_extend_128_64.inc'
 include 'bi_extend_192_64.inc'
 include 'bi_extend_192_128.inc'
@@ -16,3 +20,5 @@ include 'bi_extend_assign_128_64.inc'
 include 'bi_extend_assign_192_64.inc'
 include 'bi_extend_assign_384_64.inc'
 include 'bi_extend_assign_448_64.inc'
+
+end if

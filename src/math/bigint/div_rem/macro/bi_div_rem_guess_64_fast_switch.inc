@@ -6,7 +6,7 @@ if divisor_bits = 128
     mov   rdx, [rdx]
 end if
 
-    mov   qword [r9 + (dividend_bits / 8) - 8], 0     ; clear high u64 of remainder
+    mov   qword [r9 + (divisor_bits / 8) - 8], 0     ; clear high u64 of remainder
     ;todo: Jmp_DivRem
     ;todo: refactor all div_rem to return remainder same same as divisor
     Call_DivRem dividend_bits, (divisor_bits - 64)

@@ -1,11 +1,11 @@
 if ~ definite bi_div_rem_512_64
 
-;Divides bi512 by u64
+;Divides bi512 by bi64
 ;input:
 ;   rcx - pointer to bi512 dividend
 ;   rdx - u64 divisor
 ;   r8 - pointer to bi512 quotient
-;   r9 - pointer to bi512 remainder (actual result will be u64)
+;   r9 - pointer to bi64 remainder
 bi_div_rem_512_64:
         push    rbx
 
@@ -52,10 +52,6 @@ bi_div_rem_512_64:
         div     rbx
         ;rdx - remainder, rax - quotient
         mov     [r8 + 0], rax
-
-        vpxor   ymm1, ymm1, ymm1
-        vmovdqu [r9], ymm1
-        vmovdqu [r9 + 32], ymm1
 
         mov     qword [r9 + 0], rdx
 

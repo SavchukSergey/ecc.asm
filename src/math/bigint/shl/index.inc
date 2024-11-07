@@ -1,3 +1,7 @@
+if ~ definite bi_shl_index
+
+bi_shl_index equ 0
+
 include 'bi_shl_128.inc'
 include 'bi_shl_256.inc'
 include 'bi_shl_512.inc'
@@ -14,5 +18,8 @@ include 'bi_shl_assign_512_256.inc'
 include 'bi_shl_assign_128.inc'
 include 'bi_shl_assign_192.inc'
 include 'bi_shl_assign_256.inc'
+include 'bi_shl_assign_320.inc'
 include 'bi_shl_assign_448.inc'
 include 'bi_shl_assign_512.inc'
+
+end if

@@ -1,11 +1,11 @@
 if ~ definite bi_div_rem_192_64
 
-;Divides bi192 by u64
+;Divides bi192 by bi64
 ;input:
 ;   rcx - pointer to bi192 divident
-;   rdx - u64 divisor
+;   rdx - bi64 divisor
 ;   r8 - pointer to bi192 quotient
-;   r9 - pointer to bi192 remainder (actual result will be u64)
+;   r9 - pointer to bi64 remainder
 bi_div_rem_192_64:
         push    rbx
 
@@ -29,8 +29,6 @@ bi_div_rem_192_64:
         mov     [r8 + 0], rax
 
         mov     qword [r9 + 0], rdx
-        mov     qword [r9 + 8], 0
-        mov     qword [r9 + 16], 0
 
         pop     rbx
         ret

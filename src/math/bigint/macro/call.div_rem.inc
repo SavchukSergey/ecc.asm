@@ -21,6 +21,19 @@ macro Call_DivRem512X divisor_bits {
   end if
 }
 
+macro Call_DivRem448X divisor_bits {
+  if divisor_bits = 128
+      call    bi_div_rem_448_128
+  else if divisor_bits = 64
+      call    bi_div_rem_448_64
+  else
+    display 'unknown Call_DivRem448X '
+    DisplayDec divisor_bits
+    display 13, 10
+    err
+  end if
+}
+
 macro Call_DivRem320X divisor_bits {
   if divisor_bits = 320
       call    bi_div_rem_320_320
@@ -91,6 +104,8 @@ macro Call_DivRem128X divisor_bits {
 macro Call_DivRem dividend_bits, divisor_bits {
   if dividend_bits = 512
       Call_DivRem512X divisor_bits
+  else if dividend_bits = 448
+      Call_DivRem448X divisor_bits
   else if dividend_bits = 320
       Call_DivRem320X divisor_bits
   else if dividend_bits = 256

@@ -23,6 +23,7 @@ section '.edata' export data readable
          bi_zero_192, 'bi_zero_192', \
          bi_zero_256, 'bi_zero_256', \
          bi_zero_320, 'bi_zero_320', \
+         bi_zero_448, 'bi_zero_448', \
          bi_zero_512, 'bi_zero_512', \
          bi_zero_576, 'bi_zero_576', \
          bi_zero_1024, 'bi_zero_1024', \
@@ -38,6 +39,7 @@ section '.edata' export data readable
          bi_copy_128, 'bi_copy_128', \
          bi_copy_192, 'bi_copy_192', \
          bi_copy_256, 'bi_copy_256', \
+         bi_copy_448, 'bi_copy_448', \
          bi_copy_512, 'bi_copy_512', \
 \
          bi_try_read_hex_128, 'bi_try_read_hex_128', \
@@ -45,6 +47,7 @@ section '.edata' export data readable
          bi_try_read_hex_256, 'bi_try_read_hex_256', \
          bi_try_read_hex_320, 'bi_try_read_hex_320', \
          bi_try_read_hex_384, 'bi_try_read_hex_384', \
+         bi_try_read_hex_448, 'bi_try_read_hex_448', \
          bi_try_read_hex_512, 'bi_try_read_hex_512', \
          bi_try_read_hex_576, 'bi_try_read_hex_576', \
          bi_try_read_hex_1024, 'bi_try_read_hex_1024', \
@@ -85,10 +88,13 @@ section '.edata' export data readable
          bi_sub_512_512, 'bi_sub_512_512', \
 \
          bi_sub_assign_128_128, 'bi_sub_assign_128_128', \
+         bi_sub_assign_192_128, 'bi_sub_assign_192_128', \
          bi_sub_assign_192_192, 'bi_sub_assign_192_192', \
          bi_sub_assign_256_128, 'bi_sub_assign_256_128', \
+         bi_sub_assign_256_192, 'bi_sub_assign_256_192', \
          bi_sub_assign_256_256, 'bi_sub_assign_256_256', \
          bi_sub_assign_384_384, 'bi_sub_assign_384_384', \
+         bi_sub_assign_448_128, 'bi_sub_assign_448_128', \
          bi_sub_assign_448_448, 'bi_sub_assign_448_448', \
          bi_sub_assign_512_128, 'bi_sub_assign_512_128', \
          bi_sub_assign_512_192, 'bi_sub_assign_512_192', \
@@ -114,8 +120,11 @@ section '.edata' export data readable
          bi_cmp_256_128, 'bi_cmp_256_128', \
          bi_cmp_256_192, 'bi_cmp_256_192', \
          bi_cmp_256_256, 'bi_cmp_256_256', \
+         bi_cmp_320_128, 'bi_cmp_320_128', \
          bi_cmp_320_320, 'bi_cmp_320_320', \
          bi_cmp_384_384, 'bi_cmp_384_384', \
+         bi_cmp_448_128, 'bi_cmp_448_128', \
+         bi_cmp_448_448, 'bi_cmp_448_448', \
          bi_cmp_512_128, 'bi_cmp_512_128', \
          bi_cmp_512_256, 'bi_cmp_512_256', \
          bi_cmp_512_512, 'bi_cmp_512_512', \
@@ -208,6 +217,8 @@ section '.edata' export data readable
          bi_div_rem_256_192, 'bi_div_rem_256_192', \
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
          bi_div_rem_320_64, 'bi_div_rem_320_64', \
+         bi_div_rem_448_64, 'bi_div_rem_448_64', \
+         bi_div_rem_448_128, 'bi_div_rem_448_128', \
          bi_div_rem_512_64, 'bi_div_rem_512_64', \
          bi_div_rem_512_128, 'bi_div_rem_512_128', \
          bi_div_rem_512_256, 'bi_div_rem_512_256', \
@@ -228,6 +239,7 @@ section '.edata' export data readable
          bi_lzcnt_128, 'bi_lzcnt_128',\
          bi_lzcnt_192, 'bi_lzcnt_192',\
          bi_lzcnt_256, 'bi_lzcnt_256',\
+         bi_lzcnt_448, 'bi_lzcnt_448',\
          bi_lzcnt_512, 'bi_lzcnt_512',\
 \
          bi_extend_128_64, 'bi_extend_128_64',\

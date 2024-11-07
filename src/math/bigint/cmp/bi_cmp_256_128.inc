@@ -11,11 +11,9 @@ bi_cmp_256_128:
     CheckRegAligned rcx, 'bi_cmp_256_128 rcx'
     CheckRegAligned rdx, 'bi_cmp_256_128 rdx'
 
-        cmp     qword [rcx + 24], 0
-        ja      .greater
-
-        cmp     qword [rcx + 16], 0
-        ja      .greater
+        mov     rax, [rcx + 24]
+        or      rax, [rcx + 16]
+        jnz     .greater
 
         mov     rax, [rcx + 8]
         cmp     rax, [rdx + 8]

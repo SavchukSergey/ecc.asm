@@ -181,6 +181,8 @@ macro Call_Lzcnt bits {
       call    bi_lzcnt_192
   else if bits = 256
       call    bi_lzcnt_256
+  else if bits = 448
+      call    bi_lzcnt_448
   else if bits = 512
       call    bi_lzcnt_512
   else
@@ -230,6 +232,19 @@ macro Call_Cmp256X bits {
   end if
 }
 
+macro Call_Cmp448X bits {
+  if bits = 128
+      call    bi_cmp_448_128
+  else if bits = 448
+      call    bi_cmp_448_448
+  else
+      display 'unknown Call_Cmp448X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
+
 macro Call_Cmp512X bits {
   if bits = 128
       call    bi_cmp_512_128
@@ -264,6 +279,8 @@ macro Call_Cmp left_bits, right_bits {
       Call_Cmp192X right_bits
   else if left_bits = 256
       Call_Cmp256X right_bits
+  else if left_bits = 448
+      Call_Cmp448X right_bits
   else if left_bits = 512
       Call_Cmp512X right_bits
   else if left_bits = 576
@@ -286,6 +303,8 @@ macro Call_Zero bits {
       call    bi_zero_192
   else if bits = 256
       call    bi_zero_256
+  else if bits = 448
+      call    bi_zero_448
   else if bits = 512
       call    bi_zero_512
   else if bits = 576
@@ -307,6 +326,8 @@ macro Call_Copy bits {
       call    bi_copy_192
   else if bits = 256
       call    bi_copy_256
+  else if bits = 448
+      call    bi_copy_448
   else if bits = 512
       call    bi_copy_512
   else if bits = 1024
@@ -319,7 +340,7 @@ macro Call_Copy bits {
   end if
 }
 
-macro Call_SubAssign512X right_bits {
+macro Call_SubAssign_512_X right_bits {
   if (right_bits) = 128
       call    bi_sub_assign_512_128
   else if (right_bits) = 256
@@ -331,7 +352,71 @@ macro Call_SubAssign512X right_bits {
   else if (right_bits) = 512
       call    bi_sub_assign_512_512
   else
-      display 'unknown Call_SubAssign512X '
+      display 'unknown Call_SubAssign_512_X '
+      DisplayDec (right_bits)
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_SubAssign_448_X right_bits {
+  if (right_bits) = 128
+      call    bi_sub_assign_448_128
+  else if (right_bits) = 192
+      call    bi_sub_assign_448_192
+  else if (right_bits) = 256
+      call    bi_sub_assign_448_256
+  else if (right_bits) = 384
+      call    bi_sub_assign_448_384
+  else if (right_bits) = 448
+      call    bi_sub_assign_448_448
+  else
+      display 'unknown Call_SubAssign_448_X '
+      DisplayDec (right_bits)
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_SubAssign_384_X right_bits {
+  if (right_bits) = 128
+      call    bi_sub_assign_384_128
+  else if (right_bits) = 192
+      call    bi_sub_assign_384_192
+  else if (right_bits) = 256
+      call    bi_sub_assign_384_256
+  else if (right_bits) = 384
+      call    bi_sub_assign_384_384
+  else
+      display 'unknown Call_SubAssign_384_X '
+      DisplayDec (right_bits)
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_SubAssign_256_X right_bits {
+  if (right_bits) = 128
+      call    bi_sub_assign_256_128
+  else if (right_bits) = 192
+      call    bi_sub_assign_256_192
+  else if (right_bits) = 256
+      call    bi_sub_assign_256_256
+  else
+      display 'unknown Call_SubAssign_256_X '
+      DisplayDec (right_bits)
+      display 13, 10
+      err 
+  end if
+}
+
+macro Call_SubAssign_192_X right_bits {
+  if (right_bits) = 128
+      call    bi_sub_assign_192_128
+  else if (right_bits) = 192
+      call    bi_sub_assign_192_192
+  else
+      display 'unknown Call_SubAssign_192_X '
       DisplayDec (right_bits)
       display 13, 10
       err 
@@ -339,20 +424,18 @@ macro Call_SubAssign512X right_bits {
 }
 
 macro Call_SubAssign left_bits, right_bits {
-;todo: implement asymmetric sub
   if left_bits = 128
       call    bi_sub_assign_128_128
   else if left_bits = 192
-      call    bi_sub_assign_192_192
+      Call_SubAssign_192_X right_bits
   else if left_bits = 256
-      call    bi_sub_assign_256_256
+      Call_SubAssign_256_X right_bits
   else if left_bits = 384
-      call    bi_sub_assign_384_384
+      Call_SubAssign_384_X right_bits
   else if left_bits = 448
-      call    bi_sub_assign_448_448
+      Call_SubAssign_448_X right_bits
   else if left_bits = 512
-;      call    bi_sub_assign_512_512
-      Call_SubAssign512X right_bits
+      Call_SubAssign_512_X right_bits
   else
       display 'unknown Call_SubAssign '
       DisplayDec left_bits

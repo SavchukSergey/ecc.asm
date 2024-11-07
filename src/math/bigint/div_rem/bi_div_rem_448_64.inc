@@ -1,17 +1,27 @@
-if ~ definite bi_div_rem_320_64
+if ~ definite bi_div_rem_448_64
 
-;Divides bi320 by bi64
+;Divides bi448 by bi64
 ;input:
-;   rcx - pointer to bi320 divident
-;   rdx - bi64 divisor
-;   r8 - pointer to bi320 quotient
+;   rcx - pointer to bi448 dividend
+;   rdx - u64 divisor
+;   r8 - pointer to bi448 quotient
 ;   r9 - pointer to bi64 remainder
-bi_div_rem_320_64:
+bi_div_rem_448_64:
         push    rbx
 
         mov     rbx, rdx
 
         xor     rdx, rdx
+
+        mov     rax, [rcx + 48]
+        div     rbx
+        ;rdx - remainder, rax - quotient
+        mov     [r8 + 48], rax
+
+        mov     rax, [rcx + 40]
+        div     rbx
+        ;rdx - remainder, rax - quotient
+        mov     [r8 + 40], rax
 
         mov     rax, [rcx + 32]
         div     rbx

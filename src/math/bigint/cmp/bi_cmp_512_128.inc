@@ -11,23 +11,13 @@ bi_cmp_512_128:
     CheckRegAligned rcx, 'bi_cmp_512_128 rcx'
     CheckRegAligned rdx, 'bi_cmp_512_128 rdx'
 
-        cmp     qword [rcx + 56], 0
-        ja      .greater
-
-        cmp     qword [rcx + 48], 0
-        ja      .greater
-
-        cmp     qword [rcx + 40], 0
-        ja      .greater
-
-        cmp     qword [rcx + 32], 0
-        ja      .greater
-
-        cmp     qword [rcx + 24], 0
-        ja      .greater
-
-        cmp     qword [rcx + 16], 0
-        ja      .greater
+        mov     rax, [rcx + 56]
+        or      rax, [rcx + 48]
+        or      rax, [rcx + 40]
+        or      rax, [rcx + 32]
+        or      rax, [rcx + 24]
+        or      rax, [rcx + 16]
+        jnz     .greater
 
         mov     rax, [rcx + 8]
         cmp     rax, [rdx + 8]
