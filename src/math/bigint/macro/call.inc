@@ -9,6 +9,7 @@ include 'call.mul.inc'
 include 'call.rem.inc'
 include 'call.shl.inc'
 include 'call.shr.inc'
+include 'call.rnd.inc'
 include 'call.try_read_hex.inc'
 
 
@@ -290,6 +291,16 @@ macro Call_Cmp576X bits {
   end if
 }
 
+macro Call_Cmp1024X bits {
+  if bits = 1024
+      call    bi_cmp_1024_1024
+  else
+      display 'unknown Call_Cmp1024X '
+      DisplayDec bits
+      display 13, 10
+      err 
+  end if
+}
 
 macro Call_Cmp left_bits, right_bits {
   if left_bits = 128
@@ -308,6 +319,8 @@ macro Call_Cmp left_bits, right_bits {
       Call_Cmp512X right_bits
   else if left_bits = 576
       Call_Cmp576X right_bits
+  else if left_bits = 1024
+      Call_Cmp1024X right_bits
   else
       display 'unknown Call_Cmp '
       DisplayDec left_bits

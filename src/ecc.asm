@@ -303,6 +303,10 @@ section '.edata' export data readable
          bi_mont_ctx_256_pow, 'bi_mont_ctx_256_pow',\
 \
          bi_rnd_128, 'bi_rnd_128', \
+         bi_rnd_192, 'bi_rnd_192', \
          bi_rnd_256, 'bi_rnd_256', \
+         bi_rnd_320, 'bi_rnd_320', \
+         bi_rnd_384, 'bi_rnd_384', \
+         bi_rnd_448, 'bi_rnd_448', \
          bi_rnd_512, 'bi_rnd_512', \
          bi_rnd_1024, 'bi_rnd_1024'

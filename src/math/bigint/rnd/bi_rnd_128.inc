@@ -8,7 +8,7 @@ bi_rnd_128:
         mov     rdi, rcx
         mov     rcx, __BIG_INTEGER_QWORDS_128
 .loop:
-        call    bi_rnd_u64
+        call    bi_rnd_64
         mov     [rdi + rcx * 8 - 8], rax
         loop    .loop
         pop     rdi

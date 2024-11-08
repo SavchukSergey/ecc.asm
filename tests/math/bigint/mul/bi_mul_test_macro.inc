@@ -19,10 +19,10 @@ virtual at rsp
 .locals_end:
 end virtual
         sub     rsp, .locals_end - .locals_start
-    PrologCheckStackAligned '__bi_mul_test_performance_core_macro'
-    CheckRegAligned rcx, '__bi_mul_test_performance_core_macro rcx'
-    CheckRegAligned rdx, '__bi_mul_test_performance_core_macro rdx'
-    CheckRegAligned r8, '__bi_mul_test_performance_core_macro r8'
+    PrologCheckStackAligned '__bi_mul_test_core_macro'
+    CheckRegAligned rcx, '__bi_mul_test_core_macro rcx'
+    CheckRegAligned rdx, '__bi_mul_test_core_macro rdx'
+    CheckRegAligned r8, '__bi_mul_test_core_macro r8'
 
         mov     [.left_hex], rcx
         mov     [.right_hex], rdx

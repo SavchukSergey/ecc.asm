@@ -1,12 +1,12 @@
-if ~ definite bi_rnd_256
+if ~ definite bi_rnd_448
 
-;Randomize bi256 value
+;Randomize bi448 value
 ;input
 ;  rcx - value to be randomized
-bi_rnd_256:
+bi_rnd_448:
         push    rdi
         mov     rdi, rcx
-        mov     rcx, __BIG_INTEGER_QWORDS_256
+        mov     rcx, __BIG_INTEGER_QWORDS_448
 .loop:
         call    bi_rnd_64
         mov     [rdi + rcx * 8 - 8], rax
