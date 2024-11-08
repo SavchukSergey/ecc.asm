@@ -60,15 +60,6 @@ macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
 }
 
 ;todo: remove
-macro DivRemGuess64_DivisorSwitch dividend_bits, divisor_bits {
-  if divisor_bits >= 128
-    ;check for large divisor first than try to use smaller ones
-    cmp     rax, dividend_bits - (divisor_bits / 2)            ;todo: dividend_bits must be divisor_bits?
-    jae      .divisor_small
-  end if
-}
-
-;todo: remove
 macro RemGuess64_DivisorSwitch dividend_bits, divisor_bits {
   if divisor_bits >= 128
     ;check for large divisor first than try to use smaller ones

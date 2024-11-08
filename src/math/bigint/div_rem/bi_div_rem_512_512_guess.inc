@@ -1,6 +1,7 @@
 if ~ definite bi_div_rem_512_512_guess
 
 bi_div_rem_512_512_guess:
+    DivRemGuess64_FastSwitch 512, 512
     DivRemGuess64_Prepare 512, 512
 virtual at rsp
   label .locals_start
@@ -23,7 +24,6 @@ virtual at rsp
 end virtual
 	DivRemGuess64_Prolog 512, 512
 	DivRemGuess64_DivisorLzcnt 512, 512
-	DivRemGuess64_DivisorSwitch 512, 512
 
 	DivRemGuess64_PrepareLoop 512, 512
 	DivRemGuess64_ShiftDivisor 512, 512
