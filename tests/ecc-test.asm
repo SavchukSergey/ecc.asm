@@ -23,9 +23,8 @@ start:
 	ret
 
 include 'console/enable_vt_processing.inc'
-
-include 'test_output_html.inc'
 include 'ecc_run_tests.inc'
+include 'output/html/index.inc'
 include 'framework/bind_thread_to_single_core.inc'
 
 section '.bss' data readable writeable

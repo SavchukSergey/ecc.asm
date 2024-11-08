@@ -12,7 +12,7 @@ entry $
 	mov      eax, 60	; sys_exit
 	syscall
 
-include 'test_output_html.inc'
+include 'output/html/index.inc'
 include 'ecc_run_tests.inc'
 
 segment readable writeable
