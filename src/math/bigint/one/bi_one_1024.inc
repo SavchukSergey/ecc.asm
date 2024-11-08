@@ -1,8 +1,5 @@
 if ~ definite bi_one_1024
 
-include '../zero/bi_zero_512.inc'
-include 'bi_one_512.inc'
-
 ;Sets 1 to bi1024 value
 ;input
 ; rcx - pointer to result

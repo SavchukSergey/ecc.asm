@@ -1,4 +1,3 @@
-include '../../src/macro/align.inc'
 ;THREAD_ALL_ACCESS = 0x001F03FF
 
 bind_thread_to_single_core:

@@ -1,8 +1,5 @@
 if ~ definite bi_mod_half_assign_256
 
-include '../shr/bi_shr_assign_256_1.inc'
-include '../add/bi_add_assign_256_256.inc'
-
 ;Halfs bi256 value
 ;input:
 ;  rcx - pointer to left bi256 value. The modified value

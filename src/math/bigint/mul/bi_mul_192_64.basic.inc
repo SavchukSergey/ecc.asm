@@ -1,8 +1,5 @@
 if ~ definite bi_mul_192_64_basic
 
-include '../add/bi_add_assign_192_128.inc'
-include '../add/bi_add_assign_128_128.inc'
-
 ;Multiplies bi192 by u64
 ;input
 ; rcx - pointer to left bi192 value

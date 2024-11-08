@@ -1,8 +1,5 @@
 if ~ definite bi_mont_ctx_256_pow
 
-include '../copy/bi_copy_256.inc'
-include '../bit_check/bi_bit_check_256.inc'
-
 bi_mont_ctx_256_pow:
 virtual at rsp
   label .locals_start

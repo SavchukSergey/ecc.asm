@@ -154,7 +154,7 @@ macro Call_DivRem dividend_bits, divisor_bits {
   else if dividend_bits = 128
       Call_DivRem128X divisor_bits
   else
-    display 'unknown div_rem '
+    display 'unknown Call_DivRem '
     DisplayDec dividend_bits
     display ', '
     DisplayDec divisor_bits

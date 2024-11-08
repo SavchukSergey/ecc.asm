@@ -1,7 +1,3 @@
-include '../../../../src/math/bigint/mul_low/bi_mul_128_64_low_128.inc'
-
-include 'bi_mul_low_test_macro.inc'
-
 __bi_mul_128_64_low_128_test_core:
 BiMulLowTestCoreMacro 128, 64, 128
 

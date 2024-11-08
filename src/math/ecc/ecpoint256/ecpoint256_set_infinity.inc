@@ -1,6 +1,3 @@
-
-include 'ecpoint256.inc'
-
 if ~ definite ecpoint256_set_infinity
 
 ;Sets to point at infinity

@@ -1,8 +1,5 @@
 if ~ definite bi_mul_256_64_low_256_basic
 
-include '../mul/bi_mul_128_64.inc'
-include '../mul_low/bi_mul_128_64_low_128.inc'
-
 ;Multiplies bi256 by bi64 value and return low 256 bits
 ;input
 ;  rcx - pointer to bi256 left value

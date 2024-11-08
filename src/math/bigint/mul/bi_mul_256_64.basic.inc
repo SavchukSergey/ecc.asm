@@ -1,9 +1,5 @@
 if ~ definite bi_mul_256_64_basic
 
-include '../add/bi_add_assign_256_128.inc'
-include '../add/bi_add_assign_192_128.inc'
-include '../add/bi_add_assign_128_128.inc'
-
 ;Multiplies bi256 by u64
 ;input
 ; rcx - pointer to left bi256 value

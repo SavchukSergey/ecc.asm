@@ -1,9 +1,5 @@
 if ~ definite bi_mont_ctx_256_square
 
-include 'bi_mont_ctx_256.inc';
-include 'bi_mont_ctx_256_redc_512.inc';
-include '../square/bi_square_256.inc';
-
 bi_mont_ctx_256_square:
 virtual at rsp
   label .locals_start

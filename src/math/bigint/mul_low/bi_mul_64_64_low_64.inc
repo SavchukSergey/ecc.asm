@@ -7,6 +7,7 @@ if ~ definite bi_mul_64_64_low_64
 ;output
 ;  rax - result bi64 value (low 64 bits)
 bi_mul_64_64_low_64:
+;todo: bmi2
         mov     rax, rcx
         mul     rdx
         ret

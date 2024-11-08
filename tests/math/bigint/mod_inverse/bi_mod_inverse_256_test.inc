@@ -1,6 +1,3 @@
-include '../../../../src/math/bigint/mod_inverse/bi_mod_inverse_256.inc'
-include '../../../assert.inc'
-
 __bi_mod_inverse_256_test:
 virtual at rsp
 .locals_start:

@@ -1,6 +1,3 @@
-include '../../../../src/math/bigint/add/bi_add_192_192.inc'
-include '../../../assert.inc'
-
 __bi_add_192_192_test:
 virtual at rsp
 .locals_start:

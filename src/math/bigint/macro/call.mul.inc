@@ -149,7 +149,7 @@ macro Call_Mul left_bits, right_bits {
   else if left_bits = 128
       Call_Mul128X right_bits
   else
-    display 'unknown mul '
+    display 'unknown Call_Mul '
     DisplayDec left_bits
     display ', '
     DisplayDec right_bits

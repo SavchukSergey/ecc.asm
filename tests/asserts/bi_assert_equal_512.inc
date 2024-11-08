@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_512_512.inc'
-include '../console/write_u512_hex.inc'
-
 if ~ definite bi_assert_equal_512
 
 ;Asserts two bi512 values to be equal

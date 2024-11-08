@@ -8,9 +8,9 @@ if ~ definite bi_add_256_256
 ;output:
 ;  rax, CF - set to 1 if overflow
 bi_add_256_256:
-    CheckRegAligned rcx, 'bi_add_256_256 rcx'
-    CheckRegAligned rdx, 'bi_add_256_256 rdx'
-    CheckRegAligned r8, 'bi_add_256_256 r8'
+    CheckRegBi256Alignment rcx, 'bi_add_256_256 rcx'
+    CheckRegBi256Alignment rdx, 'bi_add_256_256 rdx'
+    CheckRegBi256Alignment r8, 'bi_add_256_256 r8'
 
         mov     rax, [rcx]
         add     rax, [rdx]

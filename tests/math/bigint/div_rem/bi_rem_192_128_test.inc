@@ -1,7 +1,3 @@
-include '../../../../src/math/bigint/div_rem/bi_rem_192_128.inc'
-
-include 'bi_rem_test_macro.inc'
-
 __bi_rem_192_128_test_core:
 BiRemTestCoreMacro 192, 128
 

@@ -2,10 +2,6 @@ if ~ definite __bi_mul_macro
 
 __bi_mul_macro equ 0
 
-include '../../../asserts/index.inc'
-include '../../../../src/math/bigint/macro/call.try_read_hex.inc'
-include '../../../../src/math/bigint/macro/call.inc'
-
 macro BiMulTestCoreMacro left_bits, right_bits {
   result_bits = (left_bits + right_bits)
 

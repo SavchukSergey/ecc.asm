@@ -1,7 +1,5 @@
 if ~ definite bi_mod_negate_512
 
-include '../sub/bi_sub_512_512.inc'
-
 ;Negates bi512 values modulo
 ;input:
 ;  rcx - pointer to left bi512 value.

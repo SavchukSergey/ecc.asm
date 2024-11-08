@@ -1,9 +1,5 @@
 if ~ definite bi_mul_512_64_low_512
 
-include '../add/bi_add_assign_256_256.inc'
-include '../mul/bi_mul_256_64.inc'
-include 'bi_mul_256_64_low_256.inc'
-
 ;Multiplies bi512 by bi64 value and return low 512 bits
 ;input
 ;  rcx - pointer to bi512 left value

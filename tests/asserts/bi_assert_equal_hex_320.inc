@@ -1,7 +1,5 @@
 if ~ definite bi_assert_equal_hex_320
 
-include '../../src/math/bigint/hex/bi_try_read_hex_320.inc'
-
 ;Asserts two bi320 values to be equal
 ;input
 ;  rcx - expected hex

@@ -1,6 +1,3 @@
-include '../../../../src/math/bigint/lzcnt/bi_lzcnt_192.inc'
-include '../../../assert.inc'
-
 __bi_lzcnt_192_test_core:
 virtual at rsp
 .locals_start:

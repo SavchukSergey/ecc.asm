@@ -1,6 +1,8 @@
 include 'bi_mul_64_64_low_64.inc'
 include 'bi_mul_128_64_low_128.inc'
 include 'bi_mul_128_128_low_128.inc'
+include 'bi_mul_192_64_low_192.inc'
+include 'bi_mul_256_64_low_256.inc'
 include 'bi_mul_256_128_low_256.inc'
 include 'bi_mul_256_256_low_256.inc'
 include 'bi_mul_320_64_low_320.inc'

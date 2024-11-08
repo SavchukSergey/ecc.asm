@@ -1,12 +1,10 @@
 if ~ definite bi_zero_448
 
-include '../config.inc'
-
 ;Zeroes bi448 value
 ;input
 ; rcx - pointer to result
 bi_zero_448_basic:
-    CheckRegAligned rcx, 'bi_zero_448 rcx'
+    CheckRegBi448Alignment rcx, 'bi_zero_448 rcx'
 
         xor     rax, rax
         mov     [rcx], rax

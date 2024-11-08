@@ -1,5 +1,3 @@
-include '../../console/write_string.inc'
-
 test_output_test_name_cell:
     push    rcx
     mov     rsi, .test_name_prefix

@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_384_384.inc'
-include '../console/write_u384_hex.inc'
-
 if ~ definite bi_assert_equal_384
 
 ;Asserts two bi384 values to be equal

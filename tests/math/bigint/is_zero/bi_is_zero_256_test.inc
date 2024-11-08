@@ -1,5 +1,3 @@
-include '../../../../src/math/bigint/is_zero/bi_is_zero_256.inc'
-
 __bi_is_zero_256_test_core:
 virtual at rsp
 .locals_start:

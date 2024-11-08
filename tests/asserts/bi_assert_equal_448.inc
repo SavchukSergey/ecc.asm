@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_448_448.inc'
-include '../console/write_u448_hex.inc'
-
 if ~ definite bi_assert_equal_448
 
 ;Asserts two bi448 values to be equal

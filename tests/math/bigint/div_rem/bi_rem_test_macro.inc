@@ -2,10 +2,6 @@ if ~ definite __bi_rem_macro
 
 __bi_rem_macro equ 0
 
-include '../../../asserts/index.inc'
-include '../../../../src/math/bigint/macro/call.try_read_hex.inc'
-include '../../../../src/math/bigint/macro/call.inc'
-
 macro BiRemTestCoreMacro dividend_bits, divisor_bits {
 virtual at rsp
 .locals_start:

@@ -1,23 +1,5 @@
 if ~ definite bi_div_rem_448_128_guess
 
-;include 'macro/bi_div_rem_guess_64.inc'
-
-include '../add/index.inc'
-include '../cmp/index.inc'
-include '../extend_low/index.inc'
-include '../lzcnt/bi_lzcnt_128.inc'
-include '../lzcnt/bi_lzcnt_448.inc'
-include '../sub/bi_sub_assign_448_128.inc'
-include '../sub/bi_sub_assign_448_448.inc'
-include '../shl/index.inc'
-include '../inc/index.inc'
-include '../zero/bi_zero_320.inc'
-include '../zero/bi_zero_448.inc'
-include '../copy/bi_copy_448.inc'
-
-include 'bi_div_rem_384_128.inc'
-include 'bi_div_rem_448_64.inc'
-
 bi_div_rem_448_128_guess:
     DivRemGuess64_FastSwitch 448, 128
     DivRemGuess64_Prepare 448, 128

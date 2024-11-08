@@ -1,3 +1,4 @@
+include 'bi_rnd_64.inc'
 include 'bi_rnd_128.inc'
 include 'bi_rnd_256.inc'
 include 'bi_rnd_512.inc'

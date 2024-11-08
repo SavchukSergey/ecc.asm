@@ -1,8 +1,5 @@
 if ~ definite bi_shr_256
 
-include '../copy/bi_copy_256.inc'
-include 'bi_shr_assign_256.inc'
-
 ; Shifts right
 ;input
 ;  rcx - source value

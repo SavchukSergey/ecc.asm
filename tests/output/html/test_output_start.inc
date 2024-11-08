@@ -1,10 +1,9 @@
-include '../../console/write_string.inc'
-
 test_output_start:
     mov     rsi, .msg
     call    Console_WriteString
 
     ret
+
 .msg db \
 '<!doctype html>', 13, 10, \
 '<html lang="en">', 13, 10, \

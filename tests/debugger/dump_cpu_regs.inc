@@ -1,8 +1,5 @@
 if ~ definite debugger_dump_cpu_regs
 
-include '../console/write_string.inc'
-include '../console/write_line.inc'
-
 macro debugger_dump_cpu_reg value, reg_label {
         push    rsi
         mov     rsi, reg_label

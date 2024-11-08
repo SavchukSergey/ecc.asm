@@ -1,12 +1,10 @@
 if ~ definite bi_zero_512
 
-include '../config.inc'
-
 ;Zeroes bi512 value
 ;input
 ; rcx - pointer to result
 bi_zero_512_basic:
-    CheckRegAligned rcx, 'bi_zero_512_basic rcx'
+    CheckRegBi512Alignment rcx, 'bi_zero_512_basic rcx'
 
         xor     rax, rax
         mov     [rcx], rax
@@ -21,7 +19,7 @@ bi_zero_512_basic:
 
 
 bi_zero_512_avx2:
-    CheckRegAligned rcx, 'bi_zero_512_avx2 rcx'
+    CheckRegBi512Alignment rcx, 'bi_zero_512_avx2 rcx'
 
         vpxor   ymm1, ymm1, ymm1
         vmovdqu [rcx], ymm1

@@ -1,6 +1,3 @@
-include '../../../src/math/ecc/secp256k1_point_add.inc'
-include '../../assert.inc'
-
 __secp256k1_point_add_test:
 virtual at rsp
 .locals_start:

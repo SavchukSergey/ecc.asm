@@ -1,5 +1,3 @@
-include '../../../../src/math/bigint/cmp/bi_cmp_256_256.inc'
-
 __bi_cmp_256_256_test:
 virtual at rsp
 .locals_start:
@@ -71,5 +69,4 @@ end virtual
 .mid_hex       db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b48'
 .close_mid_hex db '54fbe3f5a695828adc6b0e3849d201a8f2d1ba55c19a4c0a79b58e72a1354b49'
 .big_hex       db 'a67d4db1549eef7091f9fb898ca5178a3ebf6e0df17b64eff331bea5eb416377'
-
 

@@ -132,7 +132,7 @@ macro Call_AddAssignX128 bits {
   else if bits = 384
       call    bi_add_assign_384_128
   else if bits = 448
-      call    bi_add_assign_512_128
+      call    bi_add_assign_448_128
   else if bits = 512
       call    bi_add_assign_512_128
   else

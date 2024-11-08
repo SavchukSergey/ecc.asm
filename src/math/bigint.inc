@@ -2,6 +2,8 @@ if ~ definite bigint
 
 bigint:
 
+include '../macro/align.inc'
+
 macro BigIntegerCode bits {
 __BIG_INTEGER_BITS_#bits = #bits
 __BIG_INTEGER_BYTES_#bits = __BIG_INTEGER_BITS_#bits / 8
@@ -9,7 +11,6 @@ __BIG_INTEGER_WORDS_#bits = __BIG_INTEGER_BYTES_#bits / 2
 __BIG_INTEGER_DWORDS_#bits = __BIG_INTEGER_WORDS_#bits / 2
 __BIG_INTEGER_QWORDS_#bits = __BIG_INTEGER_DWORDS_#bits / 2
 __BIG_INTEGER_HEX_DIGITS_#bits = __BIG_INTEGER_BITS_#bits / 4
-
 }
 
 struc BigInteger64 {

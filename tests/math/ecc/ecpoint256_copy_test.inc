@@ -1,5 +1,3 @@
-include '../../../src/math/ecc/ecpoint256/ecpoint256_copy.inc'
-
 __ecpoint256_copy_test:
 virtual at rsp
 .locals_start:

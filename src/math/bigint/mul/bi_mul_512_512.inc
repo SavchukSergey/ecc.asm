@@ -1,11 +1,5 @@
 if ~ definite bi_mul_512_512
 
-include '../zero/bi_zero_1024.inc'
-include '../add/bi_add_assign_512_512.inc'
-include '../add/bi_add_assign_768_512.inc'
-include '../add/bi_add_assign_1024_512.inc'
-include 'bi_mul_256_256.inc'
-
 ;Multiplies two bi512 values
 ;input
 ; rcx - pointer to left bi512 value

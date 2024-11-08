@@ -14,6 +14,8 @@ include 'bi_assert_equal_576.inc'
 include 'bi_assert_equal_768.inc'
 include 'bi_assert_equal_1024.inc'
 
+include 'ecp_assert_equal_256.inc'
+
 include 'bi_assert_equal_hex_64.inc'
 include 'bi_assert_equal_hex_128.inc'
 include 'bi_assert_equal_hex_192.inc'
@@ -25,6 +27,8 @@ include 'bi_assert_equal_hex_512.inc'
 include 'bi_assert_equal_hex_576.inc'
 include 'bi_assert_equal_hex_768.inc'
 include 'bi_assert_equal_hex_1024.inc'
+
+include 'ecp_assert_equal_hex_256.inc'
 
 macro CallBiAssertEqualHex bits {
     if bits = 64

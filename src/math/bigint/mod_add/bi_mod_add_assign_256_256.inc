@@ -1,9 +1,5 @@
 if ~ definite bi_mod_add_assign_256_256
 
-include '../add/bi_add_assign_256_256.inc'
-include '../sub/bi_sub_assign_256_256.inc'
-include '../cmp/bi_cmp_256_256.inc'
-
 ;Adds two bi256 values
 ;input:
 ;  rcx - pointer to left bi256 value. The modified value

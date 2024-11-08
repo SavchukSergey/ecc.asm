@@ -1,13 +1,5 @@
 if ~ definite bi_mod_inverse_512
 
-include '../add/bi_add_assign_512_512.inc'
-include '../copy/bi_copy_512.inc'
-include '../div_rem/bi_div_rem_512_512.inc'
-include '../is_zero/bi_is_zero_512.inc'
-include '../mul_low/bi_mul_512_512_low_512.inc'
-include '../one/bi_one_512.inc'
-include '../sub/bi_sub_512_512.inc'
-
 ;Calculates modular inverse
 ;input:
 ;  rcx - bi512 value.

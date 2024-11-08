@@ -1,10 +1,8 @@
 if ~ definite bi_copy_384
 
-include '../config.inc'
-
 bi_copy_384_basic:
-        CheckRegAligned rcx, 'bi_copy_384_basic rcx'
-        CheckRegAligned rdx, 'bi_copy_384_basic rcx'
+        CheckRegBi384Alignment rcx, 'bi_copy_384_basic rcx'
+        CheckRegBi384Alignment rdx, 'bi_copy_384_basic rcx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
@@ -21,8 +19,8 @@ bi_copy_384_basic:
         ret
 
 bi_copy_384_avx2:
-        CheckRegAligned rcx, 'bi_copy_384_avx2 rcx'
-        CheckRegAligned rdx, 'bi_copy_384_avx2 rcx'
+        CheckRegBi384Alignment rcx, 'bi_copy_384_avx2 rcx'
+        CheckRegBi384Alignment rdx, 'bi_copy_384_avx2 rcx'
 
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1

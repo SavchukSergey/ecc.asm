@@ -1,6 +1,3 @@
-include '../test_context.inc'
-include '../../src/macro/align.inc'
-
 run_test_fixture:
 	push	rax rbx rsi
 virtual at rsp

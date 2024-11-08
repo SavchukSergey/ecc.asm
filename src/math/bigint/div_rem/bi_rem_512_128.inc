@@ -1,7 +1,5 @@
 if ~ definite bi_rem_512_128
 
-include 'bi_div_rem_512_128.inc'
-
 include 'bi_rem_512_128_dac.inc'
 
 ;todo: check why slower then generic Rem macro

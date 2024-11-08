@@ -2,8 +2,8 @@ if ~ definite bi_add_assign_192_192
 
 ;Adds two bi192 values
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
+;  rcx - pointer to left bi192 value. The modified value
+;  rdx - pointer to right bi192 value
 ;output:
 ;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow

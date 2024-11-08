@@ -1,6 +1,3 @@
-include '../../../../src/math/bigint/mod_square/bi_mod_square_256.inc'
-include '../../../assert.inc'
-
 __bi_mod_square_256_test_core:
 virtual at rsp
 .locals_start:

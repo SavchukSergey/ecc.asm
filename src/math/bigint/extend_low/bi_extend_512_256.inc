@@ -1,8 +1,8 @@
 if ~ definite bi_extend_512_256
 
 bi_extend_512_256_avx2:
-        CheckRegAligned rcx, 'bi_extend_512_256_avx2 rcx'
-        CheckRegAligned rdx, 'bi_extend_512_256_avx2 rdx'
+        CheckRegBi512Alignment rcx, 'bi_extend_512_256_avx2 rcx'
+        CheckRegBi256Alignment rdx, 'bi_extend_512_256_avx2 rdx'
 ;todo: require 32-bit alignment and use vmovdqa     
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1
@@ -12,8 +12,8 @@ bi_extend_512_256_avx2:
         ret
 
 bi_extend_512_256_basic:
-        CheckRegAligned rcx, 'bi_extend_512_256_basic rcx'
-        CheckRegAligned rdx, 'bi_extend_512_256_basic rdx'
+        CheckRegBi512Alignment rcx, 'bi_extend_512_256_basic rcx'
+        CheckRegBi256Alignment rdx, 'bi_extend_512_256_basic rdx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax

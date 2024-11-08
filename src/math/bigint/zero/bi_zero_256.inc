@@ -1,12 +1,10 @@
 if ~ definite bi_zero_256
 
-include '../config.inc'
-
 ;Zeroes bi256 value
 ;input
 ; rcx - pointer to result
 bi_zero_256_basic:
-    CheckRegAligned rcx, 'bi_zero_256 rcx'
+    CheckRegBi256Alignment rcx, 'bi_zero_256 rcx'
 
         xor     rax, rax
         mov     [rcx], rax

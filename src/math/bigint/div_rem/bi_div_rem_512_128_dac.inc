@@ -1,9 +1,6 @@
 if ~ definite bi_div_rem_512_128_dac
 ; divide and conqueror
 
-include '../extend_low/bi_extend_512_128.inc'
-include 'bi_div_rem_256_128.inc'
-
 bi_div_rem_512_128_dac:
 virtual at rsp
   label .locals_start

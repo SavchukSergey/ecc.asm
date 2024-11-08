@@ -2,10 +2,6 @@ if ~ definite __bi_mul_low_macro
 
 __bi_mul_low_macro equ 0
 
-include '../../../asserts/index.inc'
-include '../../../../src/math/bigint/macro/call.try_read_hex.inc'
-include '../../../../src/math/bigint/macro/call.inc'
-
 macro BiMulLowTestCoreMacro left_bits, right_bits, result_bits {
 virtual at rsp
 .locals_start:

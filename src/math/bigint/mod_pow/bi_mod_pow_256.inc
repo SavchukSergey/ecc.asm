@@ -1,9 +1,5 @@
 if ~ definite bi_mod_pow_256
 
-include '../one/bi_one_256.inc'
-include '../copy/bi_copy_256.inc'
-include '../bit_check/bi_bit_check_256.inc'
-
 bi_mod_pow_256:
 virtual at rsp
   label .locals_start

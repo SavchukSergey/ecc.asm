@@ -1,11 +1,5 @@
 if ~ definite bi_mont_ctx_256_init
 
-include 'bi_mont_ctx_256.inc';
-include '../div_rem/bi_div_rem_512_256.inc';
-include '../extend_low/bi_extend_512_256.inc';
-include '../mod_inverse/bi_mod_inverse_512.inc';
-include '../mod_negate/bi_mod_negate_256.inc';
-
 bi_mont_ctx_256_init:
 virtual at rsp
   label .locals_start

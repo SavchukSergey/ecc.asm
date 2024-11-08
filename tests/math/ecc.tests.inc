@@ -1,4 +1,3 @@
-include '../../src/math/ecc/ecp_try_read_hex_256.inc'
 include 'ecc/index.inc'
 
 align 16

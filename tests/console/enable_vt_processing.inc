@@ -1,5 +1,3 @@
-include 'consts.inc'
-
 ENABLE_VIRTUAL_TERMINAL_PROCESSING equ 4
 
 enable_vt_processing:

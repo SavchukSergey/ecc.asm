@@ -11,7 +11,6 @@ proc DllEntryPoint hinstDLL,fdwReason,lpvReserved
 endp
 
 
-include 'macro/align.inc'
 include 'math/bigint.inc'
 include 'math/bigint/index.inc'
 include 'math/ecc/index.inc'

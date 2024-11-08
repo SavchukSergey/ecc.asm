@@ -1,7 +1,5 @@
 if ~ definite bi_div_rem_guess_debug
 
-include '../../../../../tests/console/write_line.inc'
-
 bi_div_rem_guess_debug:
 
 

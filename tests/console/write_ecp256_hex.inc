@@ -1,7 +1,5 @@
 if ~ definite Console_WriteECP256Hex
 
-include '../../src/math/ecc/ecpoint256/ecpoint256.inc'
-
 ;input
 ; rcx - pointer to ecp256
 Console_WriteECP256Hex:

@@ -1,6 +1,3 @@
-
-include 'ecpoint256.inc'
-
 if ~ definite ecpoint256_is_infinity
 
 ;Checks if point is at infinity

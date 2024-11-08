@@ -1,5 +1,3 @@
-include '../../../../src/math/bigint/square/bi_square_256.inc'
-
 __bi_square_256_test_core:
 virtual at rsp
 .locals_start:

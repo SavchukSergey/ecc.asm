@@ -1,5 +1,3 @@
-include '../../../../src/math/bigint/shl/bi_shl_assign_256_1.inc'
-
 __bi_shl_assign_256_1_test:
 virtual at rsp
 .locals_start:

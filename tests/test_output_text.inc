@@ -51,8 +51,3 @@ test_output_test_name_cell:
 
 .test_name_prefix db '| ', 0
 .test_name_suffix db 0x1b, '[33G', ' |', 0
-
-
-
-
-

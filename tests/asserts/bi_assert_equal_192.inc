@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_192_192.inc'
-include '../console/write_u192_hex.inc'
-
 if ~ definite bi_assert_equal_192
 
 ;Asserts two bi192 values to be equal

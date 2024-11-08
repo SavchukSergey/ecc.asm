@@ -1,13 +1,5 @@
 if ~ definite bi_div_rem_384_320_guess
 
-include 'macro/bi_div_rem_guess_64.inc'
-
-include '../cmp/index.inc'
-include '../sub/index.inc'
-
-include 'bi_div_rem_320_320.inc'
-include 'bi_div_rem_384_256.inc'
-
 bi_div_rem_384_320_guess:
     DivRemGuess64_FastSwitch 384, 320
     DivRemGuess64_Prepare 384, 320

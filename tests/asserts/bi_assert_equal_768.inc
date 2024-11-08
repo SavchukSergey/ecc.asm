@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_768_768.inc'
-include '../console/write_u768_hex.inc'
-
 if ~ definite bi_assert_equal_768
 
 ;Asserts two bi768 values to be equal

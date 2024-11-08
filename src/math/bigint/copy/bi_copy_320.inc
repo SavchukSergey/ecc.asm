@@ -1,10 +1,8 @@
 if ~ definite bi_copy_320
 
-include '../config.inc'
-
 bi_copy_320_basic:
-        CheckRegAligned rcx, 'bi_copy_320_basic rcx'
-        CheckRegAligned rdx, 'bi_copy_320_basic rcx'
+        CheckRegBi320Alignment rcx, 'bi_copy_320_basic rcx'
+        CheckRegBi320Alignment rdx, 'bi_copy_320_basic rcx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
@@ -19,8 +17,8 @@ bi_copy_320_basic:
         ret
 
 bi_copy_320_avx2:
-        CheckRegAligned rcx, 'bi_copy_320_avx2 rcx'
-        CheckRegAligned rdx, 'bi_copy_320_avx2 rcx'
+        CheckRegBi320Alignment rcx, 'bi_copy_320_avx2 rcx'
+        CheckRegBi320Alignment rdx, 'bi_copy_320_avx2 rcx'
 
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1

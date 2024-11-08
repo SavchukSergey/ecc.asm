@@ -1,9 +1,5 @@
 if ~ definite bi_mod_mul_256_256
 
-include '../mul/bi_mul_256_256.inc'
-include '../div_rem/bi_rem_512_256.inc'
-include '../copy/bi_copy_256.inc'
-
 bi_mod_mul_256_256:
 virtual at rsp
   label .locals_start

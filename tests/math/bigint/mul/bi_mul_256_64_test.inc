@@ -1,7 +1,3 @@
-include '../../../../src/math/bigint/mul/bi_mul_256_64.inc'
-
-include 'bi_mul_test_macro.inc'
-
 __bi_mul_256_64_test_core:
 BiMulTestCoreMacro 256, 64
 

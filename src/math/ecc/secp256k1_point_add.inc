@@ -1,11 +1,3 @@
-include 'ecpoint256/ecpoint256.inc'
-include 'ecpoint256/ecpoint256_is_infinity.inc'
-include 'ecpoint256/ecpoint256_set_infinity.inc'
-include 'ecpoint256/ecpoint256_copy.inc'
-include 'secp256k1.inc'
-include '../bigint/mod_half/bi_mod_half_assign_256.inc'
-include '../bigint/mod_sub/bi_mod_sub_256_256.inc'
-
 if ~ definite secp256k1_point_add
 
 ;Adds to secp256k1 points

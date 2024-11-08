@@ -1,7 +1,5 @@
 if ~ definite Console_WriteLine
 
-;include 'write_string.inc'
-
 Console_WriteLine:
         push    rsi
         mov     rsi, Console_WriteLine_CRLF

@@ -1,13 +1,5 @@
 if ~ definite bi_mul_256_128
 
-include '../add/bi_add_assign_512_512.inc'
-include '../add/bi_add_assign_320_320.inc'
-include '../add/bi_add_assign_320_256.inc'
-include '../zero/bi_zero_512.inc'
-include 'bi_mul_128_64.inc'
-include 'bi_mul_128_128.inc'
-include 'bi_mul_256_64.inc'
-
 ;Multiplies bi256 value by bi128 value
 ;input
 ;  rcx - left bi256 value

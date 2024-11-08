@@ -1,5 +1,3 @@
-include '../../../../src/math/bigint/cmp/bi_cmp_128_128.inc'
-
 __bi_cmp_128_128_test:
 virtual at rsp
 .locals_start:

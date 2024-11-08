@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_320_320.inc'
-include '../console/write_u320_hex.inc'
-
 if ~ definite bi_assert_equal_320
 
 ;Asserts two bi320 values to be equal

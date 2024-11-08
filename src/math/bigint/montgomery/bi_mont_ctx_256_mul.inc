@@ -1,9 +1,5 @@
 if ~ definite bi_mont_ctx_256_mul
 
-include 'bi_mont_ctx_256.inc';
-include 'bi_mont_ctx_256_redc_512.inc';
-include '../mul/bi_mul_256_256.inc';
-
 bi_mont_ctx_256_mul:
 virtual at rsp
   label .locals_start

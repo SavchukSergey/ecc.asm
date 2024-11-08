@@ -1,6 +1,3 @@
-include '../console/write_u64_hex.inc'
-include '../console/consts.inc'
-
 if ~ definite bi_assert_equal_64
 
 ;Asserts two u64 values to be equal

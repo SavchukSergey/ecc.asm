@@ -1,8 +1,5 @@
 if ~ definite bi_rem_512_256
 
-include 'bi_div_rem_512_256.inc'
-include 'bi_rem_512_128.inc'
-
 bi_rem_512_256:
     DivRemGuess64_Prepare 512, 256
 virtual at rsp

@@ -8,8 +8,8 @@ if ~ definite bi_cmp_320_256
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_320_256:
-    CheckRegAligned rcx, 'bi_cmp_320_256 rcx'
-    CheckRegAligned rdx, 'bi_cmp_320_256 rdx'
+    CheckRegBi320Alignment rcx, 'bi_cmp_320_256 rcx'
+    CheckRegBi256Alignment rdx, 'bi_cmp_320_256 rdx'
 
         cmp     qword [rcx + 32], 0
         ja      .greater

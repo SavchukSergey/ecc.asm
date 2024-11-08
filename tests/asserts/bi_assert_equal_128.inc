@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_128_128.inc'
-include '../console/write_u128_hex.inc'
-
 if ~ definite bi_assert_equal_128
 
 ;Asserts two bi128 values to be equal

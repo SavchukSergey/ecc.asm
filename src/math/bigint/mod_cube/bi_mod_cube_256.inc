@@ -1,6 +1,3 @@
-include '../mod_mul/bi_mod_mul_256_256.inc'
-include '../mod_square/bi_mod_square_256.inc'
-
 if ~ definite bi_mod_cube_256
 
 ;Cubes bi256 with modulus

@@ -8,9 +8,9 @@ if ~ definite bi_add_192_192
 ;output:
 ;  rax, CF - set to 1 if overflow
 bi_add_192_192:
-    CheckRegAligned rcx, 'bi_add_192_192 rcx'
-    CheckRegAligned rdx, 'bi_add_192_192 rdx'
-    CheckRegAligned r8, 'bi_add_192_192 r8'
+    CheckRegBi192Alignment rcx, 'bi_add_192_192 rcx'
+    CheckRegBi192Alignment rdx, 'bi_add_192_192 rdx'
+    CheckRegBi192Alignment r8, 'bi_add_192_192 r8'
 
         mov     rax, [rcx]
         add     rax, [rdx]

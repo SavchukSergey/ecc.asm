@@ -1,6 +1,3 @@
-include '../../../../src/math/bigint/mod_add/bi_mod_add_assign_256_256.inc'
-include '../../../assert.inc'
-
 __bi_mod_add_assign_256_256_test_core:
 virtual at rsp
 .locals_start:

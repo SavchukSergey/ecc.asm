@@ -6,7 +6,7 @@ if ~ definite bi_mul_64_64
 ;  rdx - right bi64 value
 ;  r8 - pointer to result bi128 value
 bi_mul_64_64:
-    CheckRegAligned r8, 'bi_mul_64_64 r8'
+    CheckRegBi128Alignment r8, 'bi_mul_64_64 r8'
 
     if BMI2_ENABLED
         mulx    rdx, rax, rcx

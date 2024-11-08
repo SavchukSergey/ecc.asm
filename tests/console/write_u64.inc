@@ -1,7 +1,5 @@
 if ~ definite Console_WriteUInt64
 
-include 'write_char.inc'
-
 ;input
 ; rcx - value to dump
 Console_WriteUInt64:

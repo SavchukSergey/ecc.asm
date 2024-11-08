@@ -1,8 +1,5 @@
 if ~ definite bi_rem_512_128_dac
 
-include '../extend_low/bi_extend_512_128.inc'
-include 'bi_rem_256_128.inc'
-
 bi_rem_512_128_dac:
 virtual at rsp
   label .locals_start

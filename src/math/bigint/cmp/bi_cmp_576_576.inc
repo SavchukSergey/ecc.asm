@@ -8,8 +8,8 @@ if ~ definite bi_cmp_576_576
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_576_576:
-    CheckRegAligned rcx, 'bi_cmp_576_576 rcx'
-    CheckRegAligned rdx, 'bi_cmp_576_576 rdx'
+    CheckRegBi576Alignment rcx, 'bi_cmp_576_576 rcx'
+    CheckRegBi576Alignment rdx, 'bi_cmp_576_576 rdx'
 
         mov     rax, [rcx + 64]
         cmp     rax, [rdx + 64]

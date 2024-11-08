@@ -9,9 +9,9 @@ if ~ definite bi_sub_192_192
 ;  rax - set to 1 if borrow
 ;  CF - set to 1 if borrow
 bi_sub_192_192:
-        CheckRegAligned rcx, 'bi_sub_192_192 rcx'
-        CheckRegAligned rdx, 'bi_sub_192_192 rdx'
-        CheckRegAligned r8, 'bi_sub_192_192 r8'
+        CheckRegBi192Alignment rcx, 'bi_sub_192_192 rcx'
+        CheckRegBi192Alignment rdx, 'bi_sub_192_192 rdx'
+        CheckRegBi192Alignment r8, 'bi_sub_192_192 r8'
 
         mov     rax, [rcx]
         sub     rax, [rdx]

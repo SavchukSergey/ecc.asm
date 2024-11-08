@@ -1,5 +1,3 @@
-include '../../../../src/math/bigint/shr/bi_shr_assign_512.inc'
-
 __bi_shr_assign_512_test_core:
 virtual at rsp
 .locals_start:

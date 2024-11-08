@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_256_256.inc'
-include '../console/write_u256_hex.inc'
-
 if ~ definite bi_assert_equal_256
 
 ;Asserts two bi256 values to be equal

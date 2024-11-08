@@ -1,6 +1,3 @@
-include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_init.inc'
-include '../../../assert.inc'
-
 __bi_mont_ctx_256_init_test:
 virtual at rsp
 .locals_start:

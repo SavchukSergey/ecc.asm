@@ -1,7 +1,5 @@
 if ~ definite bi_try_read_hex_384
 
-include '../../../text/hex_parse_reverse_bytes.inc'
-
 ;Reads bi as hex string
 ;input
 ; rcx - pointer to __BIG_INTEGER_HEX_DIGITS_384 string

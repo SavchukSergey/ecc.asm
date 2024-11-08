@@ -1,10 +1,5 @@
 if ~ definite bi_mul_512_256
 
-include '../add/bi_add_assign_640_512.inc'
-include '../add/bi_add_assign_576_576.inc'
-include '../zero/bi_zero_1024.inc'
-include 'bi_mul_256_256.inc'
-
 ;Multiplies bi512 by bi256 value
 ;input
 ; rcx - pointer to left bi512 value

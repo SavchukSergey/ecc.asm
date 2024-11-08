@@ -1,3 +1,6 @@
+include 'bi_div_rem_test_macro.inc'
+include 'bi_rem_test_macro.inc'
+
 include 'bi_div_rem_test_cases.inc'
 
 include 'bi_div_rem_128_64_test.inc'
@@ -19,6 +22,7 @@ include 'bi_div_rem_448_128_test.inc'
 include 'bi_div_rem_512_64_test.inc'
 include 'bi_div_rem_512_128_test.inc'
 include 'bi_div_rem_512_256_test.inc'
+;include 'bi_div_rem_512_448_test.inc'
 include 'bi_div_rem_512_512_test.inc'
 
 include 'bi_rem_128_64_test.inc'
@@ -32,6 +36,7 @@ include 'bi_rem_512_64_test.inc'
 include 'bi_rem_512_128_test.inc'
 include 'bi_rem_512_256_test.inc'
 
+align 16
 __bi_div_rem_tests:
     dq __bi_div_rem_128_64_test
     db 'bi_div_rem_128_64', 0
@@ -63,7 +68,6 @@ __bi_div_rem_tests:
     dq __bi_div_rem_320_64_test
     db 'bi_div_rem_320_64', 0
 
-;todo: freezes
     dq __bi_div_rem_320_128_test
     db 'bi_div_rem_320_128', 0
 
@@ -90,6 +94,9 @@ __bi_div_rem_tests:
 
     dq __bi_div_rem_512_256_test
     db 'bi_div_rem_512_256', 0
+;
+;    dq __bi_div_rem_512_448_test
+;    db 'bi_div_rem_512_448', 0
 
     dq __bi_div_rem_512_512_test
     db 'bi_div_rem_512_512', 0

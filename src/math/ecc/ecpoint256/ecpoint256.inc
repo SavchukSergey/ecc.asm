@@ -1,8 +1,6 @@
 
 if ~ definite ecpoint256
 
-include '../../bigint.inc'
-
 ecpoint256:
 
 struc ECPoint256 {

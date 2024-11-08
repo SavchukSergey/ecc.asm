@@ -1,11 +1,5 @@
 if ~ definite bi_mod_mul_256_256_bits
 
-include '../zero/bi_zero_256.inc'
-include '../copy/bi_copy_256.inc'
-include '../bit_check/bi_bit_check_256.inc'
-include '../mod_add/bi_mod_add_assign_256_256.inc'
-include '../mod_add/bi_mod_double_assign_256.inc'
-
 bi_mod_mul_256_256_bits:
 virtual at rsp
   label .locals_start

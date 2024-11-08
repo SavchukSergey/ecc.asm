@@ -15,9 +15,6 @@ include 'bi_div_rem_guess_64_init_remainder.inc'
 include 'bi_div_rem_guess_64_shift_remainder.inc'
 include 'bi_div_rem_guess_64_fast_switch.inc'
 
-include '../../config.inc'
-include '../../macro/call.inc'
-
 ;todo: when approaching to divisorLZC switch to compare-and-subtract strategy
 ;todo: bi_exract_128_bits(remainderLZC) to get remainder first 128-bit meaningful bits
 

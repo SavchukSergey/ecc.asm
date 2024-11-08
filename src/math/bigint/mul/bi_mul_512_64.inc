@@ -1,9 +1,5 @@
 if ~ definite bi_mul_512_64
 
-include '../mul/bi_mul_64_64.inc'
-include '../add/bi_add_assign_128_128.inc'
-include '../zero/bi_zero_576.inc'
-
 ;Multiplies bi512 by u64
 ;input
 ; rcx - pointer to left bi512 value

@@ -1,10 +1,8 @@
 if ~ definite bi_copy_192
 
-include '../config.inc'
-
 bi_copy_192_basic:
-        CheckRegAligned rcx, 'bi_copy_192_basic rcx'
-        CheckRegAligned rdx, 'bi_copy_192_basic rcx'
+        CheckRegBi192Alignment rcx, 'bi_copy_192_basic rcx'
+        CheckRegBi192Alignment rdx, 'bi_copy_192_basic rcx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
@@ -15,8 +13,8 @@ bi_copy_192_basic:
         ret
 
 bi_copy_192_avx2:
-        CheckRegAligned rcx, 'bi_copy_192_avx2 rcx'
-        CheckRegAligned rdx, 'bi_copy_192_avx2 rcx'
+        CheckRegBi192Alignment rcx, 'bi_copy_192_avx2 rcx'
+        CheckRegBi192Alignment rdx, 'bi_copy_192_avx2 rcx'
 
         vmovdqu xmm1, [rdx]
         vmovdqu [rcx], xmm1

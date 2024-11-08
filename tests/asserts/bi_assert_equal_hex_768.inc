@@ -1,7 +1,5 @@
 if ~ definite bi_assert_equal_hex_768
 
-include '../../src/math/bigint/hex/bi_try_read_hex_768.inc'
-
 ;Asserts two bi768 values to be equal
 ;input
 ;  rcx - expected hex

@@ -1,10 +1,9 @@
-include '../../console/write_string.inc'
-
 test_output_start_chapter_table:
     mov     rsi, .msg
     call    Console_WriteString
 
     ret
+
 .msg db \
 '<table class="table table-striped table-hover">', 13, 10, \
 '  <colgroup>', 13, 10, \

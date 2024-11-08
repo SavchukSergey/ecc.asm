@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_576_576.inc'
-include '../console/write_u576_hex.inc'
-
 if ~ definite bi_assert_equal_576
 
 ;Asserts two bi576 values to be equal

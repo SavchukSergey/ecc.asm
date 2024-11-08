@@ -1,6 +1,3 @@
-include '../../src/math/bigint/cmp/bi_cmp_1024_1024.inc'
-include '../console/write_u1024_hex.inc'
-
 if ~ definite bi_assert_equal_1024
 
 ;Asserts two bi1024 values to be equal

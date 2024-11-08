@@ -1,7 +1,5 @@
 if ~ definite bi_is_zero_256
 
-include '../config.inc'
-
 ;Checks if bi256 value is zero
 ;input
 ;  rcx - pointer to result
@@ -9,7 +7,7 @@ include '../config.inc'
 ;  rax - 1 if value is zero, 0 otherwise
 ;  ZF = 1 if value is zero, 0 otherwise
 bi_is_zero_256_basic:
-    CheckRegAligned rcx, 'bi_is_zero_256_basic rcx'
+    CheckRegBi256Alignment rcx, 'bi_is_zero_256_basic rcx'
 
         xor     rax, rax
         or      rax, [rcx]
@@ -27,7 +25,7 @@ bi_is_zero_256_basic:
 ;  rax - 1 if value is zero, 0 otherwise
 ;  ZF = 1 if value is zero, 0 otherwise
 bi_is_zero_256_avx2:
-    CheckRegAligned rcx, 'bi_is_zero_256_avx2 rcx'
+    CheckRegBi256Alignment rcx, 'bi_is_zero_256_avx2 rcx'
 
         vmovdqu ymm1, [rcx]
         vptest  ymm1, ymm1

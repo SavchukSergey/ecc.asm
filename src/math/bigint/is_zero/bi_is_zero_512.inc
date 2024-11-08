@@ -1,7 +1,5 @@
 if ~ definite bi_is_zero_512
 
-include '../config.inc'
-
 ;Checks if bi512 value is zero
 ;input
 ;  rcx - pointer to result

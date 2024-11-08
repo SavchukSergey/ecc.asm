@@ -1,8 +1,5 @@
 if ~ definite bi_mul_128_128_low_128_basic
 
-include '../mul/bi_mul_64_64.inc'
-include 'bi_mul_64_64_low_64.inc'
-
 ;Multiplies two bi128 values
 ;input
 ; rcx - pointer to left bi128 value
@@ -20,9 +17,9 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
     PrologCheckStackAligned 'bi_mul_128_128_low_128_basic'
-    CheckRegAligned rcx, 'bi_mul_128_128_low_128_basic rcx'
-    CheckRegAligned rdx, 'bi_mul_128_128_low_128_basic rdx'
-    CheckRegAligned r8, 'bi_mul_128_128_low_128_basic r8'
+    CheckRegBi128Alignment rcx, 'bi_mul_128_128_low_128_basic rcx'
+    CheckRegBi128Alignment rdx, 'bi_mul_128_128_low_128_basic rdx'
+    CheckRegBi128Alignment r8, 'bi_mul_128_128_low_128_basic r8'
 
         mov     [.left], rcx
         mov     [.right], rdx

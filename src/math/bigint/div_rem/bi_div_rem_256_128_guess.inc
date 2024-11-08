@@ -1,23 +1,5 @@
 if ~ definite bi_div_rem_256_128_guess
 
-include 'macro/bi_div_rem_guess_64.inc'
-
-include '../add/index.inc'
-include '../cmp/index.inc'
-include '../copy/bi_copy_256.inc'
-include '../extend_low/bi_extend_192_128.inc'
-include '../inc/bi_inc_assign_192.inc'
-include '../lzcnt/bi_lzcnt_256.inc'
-include '../mul_low/bi_mul_256_128_low_256.inc'
-include '../shl/bi_shl_256.inc'
-include '../shl/bi_shl_assign_192.inc'
-include '../shl/bi_shl_assign_256.inc'
-include '../sub/index.inc'
-include '../zero/bi_zero_256.inc'
-
-include 'bi_div_rem_192_128.inc'
-include 'bi_div_rem_256_64.inc'
-
 bi_div_rem_256_128_guess:
     DivRemGuess64_FastSwitch 256, 128
     DivRemGuess64_Prepare 256, 128

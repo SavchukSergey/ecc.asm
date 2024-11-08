@@ -1,10 +1,8 @@
 if ~ definite bi_copy_448
 
-include '../config.inc'
-
 bi_copy_448_basic:
-        CheckRegAligned rcx, 'bi_copy_448_basic rcx'
-        CheckRegAligned rdx, 'bi_copy_448_basic rcx'
+        CheckRegBi448Alignment rcx, 'bi_copy_448_basic rcx'
+        CheckRegBi448Alignment rdx, 'bi_copy_448_basic rcx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
@@ -23,8 +21,8 @@ bi_copy_448_basic:
         ret
 
 bi_copy_448_avx2:
-        CheckRegAligned rcx, 'bi_copy_448_avx2 rcx'
-        CheckRegAligned rdx, 'bi_copy_448_avx2 rcx'
+        CheckRegBi448Alignment rcx, 'bi_copy_448_avx2 rcx'
+        CheckRegBi448Alignment rdx, 'bi_copy_448_avx2 rcx'
 
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1

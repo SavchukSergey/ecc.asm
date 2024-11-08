@@ -1,9 +1,5 @@
 if ~ definite bi_div_rem_384_384_guess
 
-include 'macro/bi_div_rem_guess_64.inc'
-
-include 'bi_div_rem_384_320.inc'
-
 bi_div_rem_384_384_guess:
     DivRemGuess64_FastSwitch 384, 384
     DivRemGuess64_Prepare 384, 384

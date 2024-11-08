@@ -1,6 +1,3 @@
-include '../../../../src/math/bigint/mod_sub/bi_mod_sub_256_256.inc'
-include '../../../assert.inc'
-
 __bi_mod_sub_256_256_test_core:
 virtual at rsp
 .locals_start:

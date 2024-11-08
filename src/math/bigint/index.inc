@@ -1,3 +1,7 @@
+include 'config.inc'
+
+include 'macro/call.inc'
+
 include 'add/index.inc'
 include 'bit_check/index.inc'
 include 'bit_clear/index.inc'
@@ -19,7 +23,6 @@ include 'mod_half/index.inc'
 include 'mod_inverse/index.inc'
 include 'mod_mul/index.inc'
 include 'mod_negate/index.inc'
-include 'mod_pow/index.inc'
 include 'mod_pow/index.inc'
 include 'mod_square/index.inc'
 include 'mod_sub/index.inc'

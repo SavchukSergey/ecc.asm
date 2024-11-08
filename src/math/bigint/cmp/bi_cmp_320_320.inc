@@ -8,8 +8,8 @@ if ~ definite bi_cmp_320_320
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_320_320:
-    CheckRegAligned rcx, 'bi_cmp_320_320 rcx'
-    CheckRegAligned rdx, 'bi_cmp_320_320 rdx'
+    CheckRegBi320Alignment rcx, 'bi_cmp_320_320 rcx'
+    CheckRegBi320Alignment rdx, 'bi_cmp_320_320 rdx'
 
         mov     rax, [rcx + 32]
         cmp     rax, [rdx + 32]

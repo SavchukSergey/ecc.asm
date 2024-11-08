@@ -1,6 +1,3 @@
-include '../../console/write_string.inc'
-include '../../console/write_u64.inc'
-
 test_output_test_max_ticks_cell:
     push    rcx
     mov     rsi, .prefix

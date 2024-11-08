@@ -1,3 +1,8 @@
+include 'hex_format_digit.inc'
+include 'hex_parse_digit.inc'
+include 'hex_parse_byte.inc'
+include 'hex_parse_reverse_bytes.inc'
+
 include 'bi_try_read_hex_64.inc'
 include 'bi_try_read_hex_128.inc'
 include 'bi_try_read_hex_192.inc'

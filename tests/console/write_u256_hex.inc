@@ -1,7 +1,5 @@
 if ~ definite Console_WriteUInt256Hex
 
-include 'write_u128_hex.inc'
-
 ;input
 ; rcx - pointer to bi256
 Console_WriteUInt256Hex:

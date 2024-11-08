@@ -1,9 +1,5 @@
 if ~ definite bi_mod_tripple_assign_256
 
-include '../shl/bi_shl_assign_256_1.inc'
-include '../sub/bi_sub_assign_256_256.inc'
-include '../cmp/bi_cmp_256_256.inc'
-
 ;Tripples bi256 value
 ;input:
 ;  rcx - pointer to left bi256 value. The modified value

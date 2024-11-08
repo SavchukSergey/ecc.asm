@@ -1,7 +1,5 @@
 if ~ definite bi_mul_448_128
 
-include 'bi_mul_448_64.inc'
-
 ;Multiplies bi448 value by bi128 value
 ;input
 ;  rcx - left bi448 value

@@ -1,9 +1,5 @@
 if ~ definite bi_mul_256_128_low_256
 
-include '../mul/bi_mul_128_128.inc'
-include '../add/bi_add_assign_128_128.inc'
-include 'bi_mul_128_128_low_128.inc'
-
 ;Multiplies bi256 by bi128 value and return low 256 bits
 ;input
 ;  rcx - pointer to bi256 left value
@@ -23,7 +19,7 @@ end virtual
 
     PrologCheckStackAligned 'bi_mul_256_128_low_256'
     CheckRegAligned rcx, 'bi_mul_256_128_low_256 rcx'
-    CheckRegAligned rdx, 'bi_mul_256_128_low_256 rdx'
+    CheckRegBi128Alignment rdx, 'bi_mul_256_128_low_256 rdx'
     CheckRegAligned r8, 'bi_mul_256_128_low_256 r8'
 
         mov     [.left], rcx

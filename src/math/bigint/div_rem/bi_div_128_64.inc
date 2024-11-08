@@ -16,8 +16,8 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
     PrologCheckStackAligned 'bi_div_128_64'
-    CheckRegAligned rcx, 'bi_div_128_64 rcx'
-    CheckRegAligned r8, 'bi_div_128_64 r8'
+    CheckRegBi128Alignment rcx, 'bi_div_128_64 rcx'
+    CheckRegBi128Alignment r8, 'bi_div_128_64 r8'
 
         mov     [.dividend], rcx
         mov     [.divisor], rdx

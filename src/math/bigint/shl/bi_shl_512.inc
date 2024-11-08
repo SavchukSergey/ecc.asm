@@ -1,8 +1,5 @@
 if ~ definite bi_shl_512
 
-include '../copy/bi_copy_512.inc'
-include 'bi_shl_assign_512.inc'
-
 ; Shifts left
 ;input
 ;  rcx - source value

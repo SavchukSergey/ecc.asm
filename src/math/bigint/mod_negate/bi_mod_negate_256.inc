@@ -1,7 +1,5 @@
 if ~ definite bi_mod_negate_256
 
-include '../sub/bi_sub_256_256.inc'
-
 ;Negates bi256 values modulo
 ;input:
 ;  rcx - pointer to left bi256 value.

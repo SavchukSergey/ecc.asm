@@ -1,10 +1,5 @@
 if ~ definite bi_square_128
 
-include '../zero/bi_zero_256.inc'
-include '../add/bi_add_assign_128_128.inc'
-include '../add/bi_add_assign_192_128.inc'
-include 'bi_square_64.inc'
-
 ;Squares bi128 value
 ;input
 ; rcx - pointer to bi128 value

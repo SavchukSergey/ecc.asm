@@ -1,5 +1,3 @@
-include '../../../../src/math/bigint/copy/bi_copy_192.inc'
-
 __bi_copy_192_test:
 virtual at rsp
 .locals_start:

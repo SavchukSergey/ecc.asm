@@ -7,8 +7,8 @@ if ~ definite bi_add_assign_128_128
 ;output:
 ;  rax, CF - set to 1 if overflow
 bi_add_assign_128_128:
-;        CheckRegAligned rcx, 'bi_add_assign_128_128 rcx'
-;        CheckRegAligned rdx, 'bi_add_assign_128_128 rdx'
+        CheckRegBi128Alignment rcx, 'bi_add_assign_128_128 rcx'
+        CheckRegBi128Alignment rdx, 'bi_add_assign_128_128 rdx'
         
         mov     rax, [rdx]
         add     [rcx], rax

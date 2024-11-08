@@ -1,9 +1,5 @@
 if ~ definite __bi_mont_ctx_256_convert_test
 
-include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_init.inc'
-include '../../../../src/math/bigint/montgomery/bi_mont_ctx_256_convert.inc'
-include '../../../assert.inc'
-
 __bi_mont_ctx_256_convert_test_core:
 virtual at rsp
 .locals_start:

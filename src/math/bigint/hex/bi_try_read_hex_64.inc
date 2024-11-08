@@ -2,8 +2,6 @@ if ~ definite bi_try_read_hex_64
 
 ;todo: swap params so first param is writeable using same approach everywhere
 
-include '../../../text/hex_parse_reverse_bytes.inc'
-
 ;Reads bi as hex string
 ;input
 ; rcx - pointer to __BIG_INTEGER_HEX_DIGITS_64 string

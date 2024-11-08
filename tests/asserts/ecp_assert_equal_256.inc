@@ -1,9 +1,5 @@
 if ~ definite ecp_assert_equal_256
 
-include '../../src/math/bigint/cmp/bi_cmp_256_256.inc'
-include '../../src/math/ecc/ecpoint256/ecpoint256.inc'
-include '../console/write_ecp256_hex.inc'
-
 ;Asserts two ecp256 values to be equal
 ;input
 ; rcx - expected
