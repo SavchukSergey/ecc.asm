@@ -14,19 +14,26 @@ include 'bi_div_rem_guess_64_recheck_multi.inc'
 include 'bi_div_rem_guess_64_init_remainder.inc'
 include 'bi_div_rem_guess_64_shift_remainder.inc'
 include 'bi_div_rem_guess_64_fast_switch.inc'
+include 'bi_div_rem_guess_64_prepare.inc'
+include 'bi_div_rem_guess_64_prolog.inc'
+include 'bi_div_rem_guess_64_shift_divisor.inc'
 
 ;todo: when approaching to divisorLZC switch to compare-and-subtract strategy
 ;todo: bi_exract_128_bits(remainderLZC) to get remainder first 128-bit meaningful bits
 
 macro DivRemGuess64 dividend_bits, divisor_bits {
+  ;check if we can downgrade to narrower width
   DivRemGuess64_FastSwitch dividend_bits, divisor_bits
+
+  ; prepare constants
   DivRemGuess64_Prepare dividend_bits, divisor_bits
 virtual at rsp
   label .locals_start
   BigInteger .delta, dividend_bits
   .remainder_shifted BigInteger128
-  .guess_128 BigInteger128
-  BigInteger .guess_q, dividend_bits
+
+  .guess_128:
+  BigInteger .guess_q, DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
 
   .divisor_shifted rq 1
   
@@ -54,36 +61,6 @@ end virtual
 	DivRemGuess64_RecheckMulti dividend_bits, divisor_bits
 }
 
-macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
-    sub     rsp, .locals_end - .locals_start
-    mov     [.dividend], rcx
-    mov     [.divisor], rdx
-    mov     [.quotient], r8
-    mov     [.remainder], r9
-
-    PrologCheckStackAligned 'DivRemGuess64_Prolog'
-    CheckRegAligned rcx, 'DivRemGuess64_Prolog rcx'
-    CheckRegAligned rdx, 'DivRemGuess64_Prolog rdx'
-    CheckRegAligned r8, 'DivRemGuess64_Prolog r8'
-    CheckRegAligned r9, 'DivRemGuess64_Prolog r9'
-
-
-    DivRemGuess64_DumpArgs dividend_bits, divisor_bits
-}
-
-macro RemGuess64_Prolog dividend_bits, divisor_bits {
-    sub     rsp, .locals_end - .locals_start
-    mov     [.dividend], rcx
-    mov     [.divisor], rdx
-    mov     [.remainder], r8
-
-    PrologCheckStackAligned 'RemGuess64_Prolog'
-    CheckRegAligned rcx, 'RemGuess64_Prolog rcx'
-    CheckRegAligned rdx, 'RemGuess64_Prolog rdx'
-    CheckRegAligned r8, 'RemGuess64_Prolog r8'
-
-    DivRemGuess64_DumpArgs dividend_bits, divisor_bits
-}
 
 
 macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
@@ -106,46 +83,9 @@ macro RemGuess64_DivisorSwitch dividend_bits, divisor_bits {
 
 
 
-
-
-
-
-
-macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
-    DIV_REM_PARTIAL_DIVIDEND_SIZE = 128
-    DIV_REM_PARTIAL_DIVISOR_SIZE = 64
-    DIV_REM_MAX_REMAINDER_BOOST = (dividend_bits - DIV_REM_PARTIAL_DIVIDEND_SIZE)
-
-    DIV_REM_PARTIAL_DIVISOR_START = (divisor_bits - DIV_REM_PARTIAL_DIVISOR_SIZE) / 8
-
-    ; Because of preliminary checks at the begining
-    if ~ definite DIV_REM_GUESS_MIN_DIVISOR_SIZE
-    ; divisor_bits/2 < divisor width <= divisor_bits
-    DIV_REM_GUESS_MIN_DIVISOR_SIZE = (divisor_bits/2)
-    end if
-    
-    ; divisor_lzcnt contains value as if divisor had same width as dividend
-    DIV_REM_GUESS_IMAGINARY_BITS = dividend_bits - divisor_bits
-    
-    DIV_REM_GUESS_QUOTIENT_SIZE = dividend_bits
-    DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE = (dividend_bits - DIV_REM_GUESS_MIN_DIVISOR_SIZE)
-    DIV_REM_GUESS_REMAINDER_SIZE = dividend_bits
-    DIV_REM_GUESS_REMAINDER_ACTUAL_SIZE = divisor_bits
-}
-
-
 macro DivRemGuess64_InitQuotient dividend_bits, divisor_bits {
-    mov     rcx, [.quotient]
-if dividend_bits = 256
-  if AVX2_ENABLED = 1
-    vpxor   ymm1, ymm1, ymm1
-    vmovdqu [rcx], ymm1
-  else
-    Call_Zero dividend_bits
-  end if
-else
-    Call_Zero dividend_bits
-end if
+  mov     rcx, [.quotient]
+  Fast_Zero dividend_bits
 }
 
 macro DivRemGuess64_PrepareLoop dividend_bits, divisor_bits {
@@ -157,36 +97,7 @@ macro RemGuess64_PrepareLoop dividend_bits, divisor_bits {
     DivRemGuess64_InitRemainder dividend_bits, divisor_bits
 }
 
-macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
-if divisor_bits = 128
-      mov     r8, [.divisor]
-      mov     rdx, [r8 + 8]
-      mov     rax, [r8 + 0]
-      lzcnt   rcx, rdx
-      shld    rdx, rax, cl
-      mov     qword [.divisor_shifted], rdx
-else
-;shift divisor to the left, so the most meaningful bit is always the highest bit
-    mov     rax, [.divisor_lzcnt]
-  if DIV_REM_GUESS_IMAGINARY_BITS > 0
-    sub     rax, DIV_REM_GUESS_IMAGINARY_BITS    ;todo: remove
-  end if
-  ;todo: if divisor is 128 bit can be simplified
-; divisor_bits is at least 128-bit wide
-      mov     rcx, rax
-      and     rax, -64
-      shr     rax, 3                              ; rax now is count of highest zero qwords multiplied by 8
-      mov     rdx, (divisor_bits shr 3) - 16      ; we need two qwords to build one
-      sub     rdx, rax
 
-      mov     rax, [.divisor]
-      mov     r8, [rax + rdx]
-      mov     r9, [rax + rdx + 8]
-      shld    r9, r8, cl
-      mov     qword [.divisor_shifted], r9
-
-end if
-}
 
 macro DivRemGuess64_Guess dividend_bits, divisor_bits {
 ;divide highest 128 bit of remainder by highest 64 bit of divisor
@@ -258,11 +169,13 @@ macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_ExtendGuess dividend_bits, divisor_bits {
-  if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE > 128
-    ;todo: .guess_q and guess_128 can be combined if guess_q is cleared at start. Check everywhere
-    lea     rcx, [.guess_q]
-    lea     rdx, [.guess_128]
-    Call_ExtendX128 DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+  ;do not care about large guess'es that will not fit into quotient
+  DIV_REM_GUESS_QUOTIENT_HIGH_SIZE = DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE - 128
+  if DIV_REM_GUESS_QUOTIENT_HIGH_SIZE = 64
+    mov     qword [.guess_q + 128 / 8], 0
+  else if DIV_REM_GUESS_QUOTIENT_HIGH_SIZE > 0
+    lea     rcx, [.guess_q + 128 / 8]
+    Fast_Zero DIV_REM_GUESS_QUOTIENT_HIGH_SIZE
   end if
 }
 
@@ -271,15 +184,9 @@ macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
     mov     rcx, [.correction]
     shl     qword [.guess_128], cl
   else
-    if DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE <= 128
-      lea     rcx, [.guess_128]
-      mov     rdx, [.correction]
-      Call_ShlAssign 128
-    else
-      lea     rcx, [.guess_q]
-      mov     rdx, [.correction]
-      Call_ShlAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
-    end if
+    lea     rcx, [.guess_q]
+    mov     rdx, [.correction]
+    Call_ShlAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
   end if
 }
 

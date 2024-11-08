@@ -1,13 +1,13 @@
 if ~ definite bi_rem_192_192
 
 bi_rem_192_192:
-    DivRemGuess64_Prepare 192, 192
+    RemGuess64_Prepare 192, 192
 virtual at rsp
   label .locals_start
   .delta BigInteger192
   .remainder_shifted BigInteger128
-  .guess_128 BigInteger128
-  .guess_192 BigInteger192
+  
+  .guess_128:
   .guess_q BigInteger192
 
   .dividend rq 1

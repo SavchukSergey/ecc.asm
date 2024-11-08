@@ -11,6 +11,8 @@ include 'call.shl.inc'
 include 'call.shr.inc'
 include 'call.rnd.inc'
 include 'call.try_read_hex.inc'
+include 'call.zero.inc'
+include 'call.copy.inc'
 
 
 macro Call_ExtendAssignX64 bits {
@@ -326,59 +328,6 @@ macro Call_Cmp left_bits, right_bits {
       DisplayDec left_bits
       display ', '
       DisplayDec right_bits
-      display 13, 10
-      err 
-  end if
-}
-
-
-macro Call_Zero bits {
-  if bits = 128
-      call    bi_zero_128
-  else if bits = 192
-      call    bi_zero_192
-  else if bits = 256
-      call    bi_zero_256
-  else if bits = 320
-      call    bi_zero_320
-  else if bits = 384
-      call    bi_zero_384
-  else if bits = 448
-      call    bi_zero_448
-  else if bits = 512
-      call    bi_zero_512
-  else if bits = 576
-      call    bi_zero_576
-  else if bits = 1024
-      call    bi_zero_1024
-  else
-      display 'unknown zero '
-      DisplayDec bits
-      display 13, 10
-      err 
-  end if
-}
-
-macro Call_Copy bits {
-  if bits = 128
-      call    bi_copy_128
-  else if bits = 192
-      call    bi_copy_192
-  else if bits = 256
-      call    bi_copy_256
-  else if bits = 320
-      call    bi_copy_320
-  else if bits = 384
-      call    bi_copy_384
-  else if bits = 448
-      call    bi_copy_448
-  else if bits = 512
-      call    bi_copy_512
-  else if bits = 1024
-      call    bi_copy_1024
-  else
-      display 'unknown copy '
-      DisplayDec bits
       display 13, 10
       err 
   end if

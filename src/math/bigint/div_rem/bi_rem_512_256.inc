@@ -1,7 +1,7 @@
 if ~ definite bi_rem_512_256
 
 bi_rem_512_256:
-    DivRemGuess64_Prepare 512, 256
+    RemGuess64_Prepare 512, 256
 virtual at rsp
   label .locals_start
   .delta BigInteger512

@@ -1,7 +1,7 @@
 if ~ definite bi_rem_256_128
 
 bi_rem_256_128:
-    DivRemGuess64_Prepare 256, 128
+    RemGuess64_Prepare 256, 128
 virtual at rsp
   label .locals_start
   .delta BigInteger256

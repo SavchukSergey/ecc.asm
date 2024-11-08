@@ -12,7 +12,6 @@ end if
     Call_DivRem dividend_bits, (divisor_bits - 64)
     ret
 .fast_divisor_switch_ok:
-DIV_REM_GUESS_MIN_DIVISOR_SIZE = (divisor_bits - 64)
 
 
 if dividend_bits > divisor_bits
