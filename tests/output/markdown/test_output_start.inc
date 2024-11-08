@@ -4,4 +4,4 @@ test_output_start:
 
     ret
 
-.msg db 'ecc.asm tests', 13, 10, 0
+.msg db '# ecc.asm tests', 13, 10, 13, 10, 0

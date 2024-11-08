@@ -1,7 +1,7 @@
-test_output_start:
+test_output_end_chapter_table:
     mov     rsi, .msg
     call    Console_WriteString
-
     ret
-
-.msg db 'ecc.asm tests', 13, 10, 0
+.msg db \
+13, 10, \
+0
