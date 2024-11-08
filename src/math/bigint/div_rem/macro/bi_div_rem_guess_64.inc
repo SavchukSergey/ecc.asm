@@ -18,6 +18,42 @@ include 'bi_div_rem_guess_64_fast_switch.inc'
 ;todo: when approaching to divisorLZC switch to compare-and-subtract strategy
 ;todo: bi_exract_128_bits(remainderLZC) to get remainder first 128-bit meaningful bits
 
+macro DivRemGuess64 dividend_bits, divisor_bits {
+  DivRemGuess64_FastSwitch dividend_bits, divisor_bits
+  DivRemGuess64_Prepare dividend_bits, divisor_bits
+virtual at rsp
+  label .locals_start
+  BigInteger .delta, dividend_bits
+  .remainder_shifted BigInteger128
+  .guess_128 BigInteger128
+  BigInteger .guess_q, dividend_bits
+
+  .divisor_shifted rq 1
+  
+  .dividend rq 1
+  .divisor rq 1
+  .quotient rq 1
+  .remainder rq 1
+
+  .divisor_lzcnt rq 1
+  
+  .correction rq 1
+  AlignLocalsStackFrame
+  label .locals_end
+end virtual
+	DivRemGuess64_Prolog dividend_bits, divisor_bits
+	DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits
+	DivRemGuess64_PrepareLoop dividend_bits, divisor_bits
+	DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits
+
+	DivRemGuess64_Loop dividend_bits, divisor_bits
+
+.end:
+	DivRemGuess64_Epilog dividend_bits, divisor_bits
+	DivRemGuess64_RecheckOnce dividend_bits, divisor_bits
+	DivRemGuess64_RecheckMulti dividend_bits, divisor_bits
+}
+
 macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
     sub     rsp, .locals_end - .locals_start
     mov     [.dividend], rcx

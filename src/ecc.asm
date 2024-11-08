@@ -221,13 +221,28 @@ section '.edata' export data readable
          bi_div_rem_256_256, 'bi_div_rem_256_256', \
          bi_div_rem_320_64, 'bi_div_rem_320_64', \
          bi_div_rem_320_128, 'bi_div_rem_320_128', \
+         bi_div_rem_320_256, 'bi_div_rem_320_256', \
+         bi_div_rem_320_320, 'bi_div_rem_320_320', \
          bi_div_rem_384_64, 'bi_div_rem_384_64', \
          bi_div_rem_384_128, 'bi_div_rem_384_128', \
+         bi_div_rem_384_192, 'bi_div_rem_384_192', \
+         bi_div_rem_384_256, 'bi_div_rem_384_256', \
+         bi_div_rem_384_320, 'bi_div_rem_384_320', \
+         bi_div_rem_384_384, 'bi_div_rem_384_384', \
          bi_div_rem_448_64, 'bi_div_rem_448_64', \
          bi_div_rem_448_128, 'bi_div_rem_448_128', \
+         bi_div_rem_448_192, 'bi_div_rem_448_192', \
+         bi_div_rem_448_256, 'bi_div_rem_448_256', \
+         bi_div_rem_448_320, 'bi_div_rem_448_320', \
+         bi_div_rem_448_384, 'bi_div_rem_448_384', \
+         bi_div_rem_448_448, 'bi_div_rem_448_448', \
          bi_div_rem_512_64, 'bi_div_rem_512_64', \
          bi_div_rem_512_128, 'bi_div_rem_512_128', \
+         bi_div_rem_512_192, 'bi_div_rem_512_192', \
          bi_div_rem_512_256, 'bi_div_rem_512_256', \
+         bi_div_rem_512_320, 'bi_div_rem_512_320', \
+         bi_div_rem_512_384, 'bi_div_rem_512_384', \
+         bi_div_rem_512_448, 'bi_div_rem_512_448', \
          bi_div_rem_512_512, 'bi_div_rem_512_512', \
 \
          bi_bit_clear_128, 'bi_bit_clear_128',\
