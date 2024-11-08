@@ -11,6 +11,6 @@ test_output_test_status_cell:
     call    Console_WriteString
     ret
 
-.failed db '![Static Badge](https://img.shields.io/badge/FAILED-red?style=for-the-badge) |', 0
-.passed db '![Static Badge](https://img.shields.io/badge/PASSED-green?style=for-the-badge) |', 0
+.failed db ' :x: |', 0
+.passed db ' :heavy_check_mark: |', 0
 
