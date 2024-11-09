@@ -4,9 +4,11 @@ __bi_call equ 0
 
 include 'call.add.inc'
 include 'call.div_rem.inc'
+include 'jmp.div_rem.inc'
 include 'call.inc.inc'
 include 'call.mul.inc'
 include 'call.rem.inc'
+include 'jmp.rem.inc'
 include 'call.shl.inc'
 include 'call.shr.inc'
 include 'call.rnd.inc'

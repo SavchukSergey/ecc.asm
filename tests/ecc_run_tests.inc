@@ -5,6 +5,8 @@ include 'console/index.inc'
 include 'framework/index.inc'
 include 'asserts/index.inc'
 
+include 'output/shared/index.inc'
+
 include 'math/bigint.tests.inc'
 include 'math/ecc.tests.inc'
 

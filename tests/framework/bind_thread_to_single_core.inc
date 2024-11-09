@@ -1,5 +1,7 @@
 ;THREAD_ALL_ACCESS = 0x001F03FF
 
+;todo: Linux
+
 bind_thread_to_single_core:
 virtual at rsp
   label .locals_start

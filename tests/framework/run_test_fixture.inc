@@ -85,7 +85,10 @@ end virtual
 	call	test_output_test_status_cell
 	jmp	    .test_end
 .test_end:
+    xor     rax, rax
 	mov     rcx, [.context.measures_min]
+	test    rcx, rcx
+	cmovs   rcx, rax
 	call	test_output_test_min_ticks_cell
 
 	mov	    rcx, [.context.measures_max]

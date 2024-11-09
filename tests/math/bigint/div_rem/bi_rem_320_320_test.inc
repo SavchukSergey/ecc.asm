@@ -1,8 +1,8 @@
 __bi_rem_320_320_test_core:
-BiRemTestCoreMacro 320, 256
+BiRemTestCoreMacro 320, 320
 
 __bi_rem_320_320_test_measure_core:
-BiRemTestPerformanceCoreMacro 320, 256
+BiRemTestPerformanceCoreMacro 320, 320
 
 
 __bi_rem_320_320_test:

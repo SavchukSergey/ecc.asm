@@ -1,26 +1,18 @@
-if ~ definite bi_rem_512_64
+if ~ definite bi_rem_384_64
 
-;Calculates remainder of bi512 divided by u64
+;Calculates remainder of bi384 divided by u64
 ;input:
-;   rcx - pointer to bi512 divident
+;   rcx - pointer to bi384 divident
 ;   rdx - u64 divisor
 ;   r8 - pointer to bi64 remainder
-bi_rem_512_64:
-    CheckRegBi512Alignment rcx, 'bi_rem_512_64 rcx'
+bi_rem_384_64:
+    CheckRegBi384Alignment rcx, 'bi_rem_384_64 rcx'
 
         push    rbx
 
         mov     rbx, rdx
 
         xor     rdx, rdx
-
-        mov     rax, [rcx + 56]
-        div     rbx
-        ;rdx - remainder, rax - quotient
-
-        mov     rax, [rcx + 48]
-        div     rbx
-        ;rdx - remainder, rax - quotient
 
         mov     rax, [rcx + 40]
         div     rbx

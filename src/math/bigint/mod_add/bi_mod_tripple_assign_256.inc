@@ -5,8 +5,8 @@ if ~ definite bi_mod_tripple_assign_256
 ;  rcx - pointer to left bi256 value. The modified value
 ;  rdx - pointer to bi256 modulus
 bi_mod_tripple_assign_256:
-    CheckRegAligned rcx, 'bi_mod_tripple_assign_256 rcx'
-    CheckRegAligned rdx, 'bi_mod_tripple_assign_256 rdx'
+    CheckRegBi256Alignment rcx, 'bi_mod_tripple_assign_256 rcx'
+    CheckRegBi256Alignment rdx, 'bi_mod_tripple_assign_256 rdx'
 
         xor     rax, rax    ;OF = 0, CF = 0
 

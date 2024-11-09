@@ -18,7 +18,7 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
         PrologCheckStackAligned 'bi_mul_512_256'
-        CheckRegAligned rcx, 'bi_mul_512_256 rcx'
+        CheckRegBi512Alignment rcx, 'bi_mul_512_256 rcx'
         CheckRegAligned rdx, 'bi_mul_512_256 rdx'
         CheckRegAligned r8, 'bi_mul_512_256 r8'
 

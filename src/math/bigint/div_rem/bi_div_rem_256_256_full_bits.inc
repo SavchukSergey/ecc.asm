@@ -15,10 +15,10 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
         PrologCheckStackAligned 'bi_div_rem_256_256_full_bits'
-        CheckRegAligned rcx, 'bi_div_rem_256_256_full_bits rcx'
-        CheckRegAligned rdx, 'bi_div_rem_256_256_full_bits rdx'
-        CheckRegAligned r8, 'bi_div_rem_256_256_full_bits r8'
-        CheckRegAligned r9, 'bi_div_rem_256_256_full_bits r9'
+        CheckRegBi256Alignment rcx, 'bi_div_rem_256_256_full_bits rcx'
+        CheckRegBi256Alignment rdx, 'bi_div_rem_256_256_full_bits rdx'
+        CheckRegBi256Alignment r8, 'bi_div_rem_256_256_full_bits r8'
+        CheckRegBi256Alignment r9, 'bi_div_rem_256_256_full_bits r9'
 
         mov     [.dividend], rcx
         mov     [.divisor], rdx

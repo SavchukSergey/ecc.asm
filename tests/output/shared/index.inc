@@ -1,0 +1,1 @@
+include 'test_output_cpu_name.inc'

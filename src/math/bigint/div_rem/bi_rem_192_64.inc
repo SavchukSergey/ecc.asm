@@ -6,7 +6,7 @@ if ~ definite bi_rem_192_64
 ;   rdx - u64 divisor
 ;   r8 - pointer to bi64 remainder
 bi_rem_192_64:
-    CheckRegAligned rcx, 'bi_rem_192_64 rcx'
+    CheckRegBi192Alignment rcx, 'bi_rem_192_64 rcx'
 
         push    rbx
 

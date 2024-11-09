@@ -28,9 +28,9 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
         PrologCheckStackAligned 'bi_mod_inverse_512'
-        CheckRegAligned rcx, 'bi_mod_inverse_512 rcx'
-        CheckRegAligned rdx, 'bi_mod_inverse_512 rdx'
-        CheckRegAligned r8, 'bi_mod_inverse_512 r8'
+        CheckRegBi512Alignment rcx, 'bi_mod_inverse_512 rcx'
+        CheckRegBi512Alignment rdx, 'bi_mod_inverse_512 rdx'
+        CheckRegBi512Alignment r8, 'bi_mod_inverse_512 r8'
 
         mov     [.value], rcx
         mov     [.modulus], rdx

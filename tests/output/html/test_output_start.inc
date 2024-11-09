@@ -2,6 +2,11 @@ test_output_start:
     mov     rsi, .msg
     call    Console_WriteString
 
+    mov     rsi, .cpu_info
+    call    Console_WriteString
+
+    call    test_output_cpu_name
+
     ret
 
 .msg db \
@@ -13,3 +18,5 @@ test_output_start:
 '  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">', 13, 10, \
 '</head>', 13, 10, \
 '<body data-bs-theme="dark">', 13, 10, 0
+
+.cpu_info db '<h1>Cpu Info</h1>', 13, 10, 13, 10, 0

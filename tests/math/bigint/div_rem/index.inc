@@ -19,8 +19,10 @@ include 'bi_div_rem_320_256_test.inc'
 include 'bi_div_rem_320_320_test.inc'
 include 'bi_div_rem_384_64_test.inc'
 include 'bi_div_rem_384_128_test.inc'
+include 'bi_div_rem_384_192_test.inc'
 include 'bi_div_rem_448_64_test.inc'
 include 'bi_div_rem_448_128_test.inc'
+include 'bi_div_rem_448_192_test.inc'
 include 'bi_div_rem_512_64_test.inc'
 include 'bi_div_rem_512_128_test.inc'
 include 'bi_div_rem_512_256_test.inc'
@@ -41,6 +43,12 @@ include 'bi_rem_320_128_test.inc'
 include 'bi_rem_320_192_test.inc'
 include 'bi_rem_320_256_test.inc'
 include 'bi_rem_320_320_test.inc'
+include 'bi_rem_384_64_test.inc'
+include 'bi_rem_384_128_test.inc'
+include 'bi_rem_384_192_test.inc'
+include 'bi_rem_448_64_test.inc'
+include 'bi_rem_448_128_test.inc'
+include 'bi_rem_448_192_test.inc'
 include 'bi_rem_512_64_test.inc'
 include 'bi_rem_512_128_test.inc'
 include 'bi_rem_512_256_test.inc'
@@ -94,6 +102,9 @@ __bi_div_rem_tests:
     
     dq __bi_div_rem_384_128_test
     db 'bi_div_rem_384_128', 0
+
+    dq __bi_div_rem_384_192_test
+    db 'bi_div_rem_384_192', 0
 
     dq __bi_div_rem_448_64_test
     db 'bi_div_rem_448_64', 0
@@ -157,6 +168,24 @@ __bi_div_rem_tests:
 
     dq __bi_rem_320_320_test
     db 'bi_rem_320_320', 0
+
+    dq __bi_rem_384_64_test
+    db 'bi_rem_384_64', 0
+
+    dq __bi_rem_384_128_test
+    db 'bi_rem_384_128', 0
+
+    dq __bi_rem_384_192_test
+    db 'bi_rem_384_192', 0
+
+    dq __bi_rem_448_64_test
+    db 'bi_rem_448_64', 0
+
+    dq __bi_rem_448_128_test
+    db 'bi_rem_448_128', 0
+
+    dq __bi_rem_448_192_test
+    db 'bi_rem_448_192', 0
 
     dq __bi_rem_512_64_test
     db 'bi_rem_512_64', 0

@@ -4,7 +4,7 @@ if ~ definite bi_shr_assign_512_128
 ;input
 ; rcx - value
 bi_shr_assign_512_128_basic:
-    CheckRegAligned rcx, 'bi_shr_assign_512_128_basic rcx'
+    CheckRegBi512Alignment rcx, 'bi_shr_assign_512_128_basic rcx'
 
         mov     rax, [rcx + 16]
         mov     [rcx + 0], rax
