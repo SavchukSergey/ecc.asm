@@ -4,7 +4,7 @@ if ~ definite bi_rem_256_64
 ;input:
 ;   rcx - pointer to bi256 divident
 ;   rdx - u64 divisor
-;   r8 - pointer to bi256 remainder (actual result will be u64)
+;   r8 - pointer to bi64 remainder
 bi_rem_256_64:
     CheckRegAligned rcx, 'bi_rem_256_64 rcx'
 
@@ -31,9 +31,6 @@ bi_rem_256_64:
         ;rdx - remainder, rax - quotient
 
         mov     qword [r8 + 0], rdx
-        mov     qword [r8 + 8], 0
-        mov     qword [r8 + 16], 0
-        mov     qword [r8 + 24], 0
 
         pop     rbx
         ret

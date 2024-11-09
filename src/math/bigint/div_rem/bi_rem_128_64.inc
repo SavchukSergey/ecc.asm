@@ -4,7 +4,7 @@ if ~ definite bi_rem_128_64
 ;input:
 ;   rcx - pointer to bi128 dividend
 ;   rdx - u64 divisor
-;   r8 - pointer to bi128 remainder (actual result will be u64)
+;   r8 - pointer to bi64 remainder
 bi_rem_128_64:
         push    rbx
 
@@ -21,7 +21,6 @@ bi_rem_128_64:
         ;rdx - remainder, rax - quotient
 
         mov     qword [r8 + 0], rdx
-        mov     qword [r8 + 8], 0
 
         pop     rbx
         ret

@@ -4,7 +4,7 @@ if ~ definite bi_rem_512_64
 ;input:
 ;   rcx - pointer to bi512 divident
 ;   rdx - u64 divisor
-;   r8 - pointer to bi512 remainder (actual result will be u64)
+;   r8 - pointer to bi64 remainder
 bi_rem_512_64:
     CheckRegAligned rcx, 'bi_rem_512_64 rcx'
 
@@ -45,10 +45,6 @@ bi_rem_512_64:
         mov     rax, [rcx + 0]
         div     rbx
         ;rdx - remainder, rax - quotient
-
-        vpxor   ymm1, ymm1, ymm1
-        vmovdqu [r8], ymm1
-        vmovdqu [r8 + 32], ymm1
 
         mov     qword [r8 + 0], rdx
 

@@ -33,7 +33,7 @@ virtual at rsp
   .remainder_shifted BigInteger128
 
   .guess_128:
-  BigInteger .guess_q, DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+  BigInteger .guess_q, DIV_REM_GUESS_QUOTIENT_GUESS_SIZE
 
   .divisor_shifted rq 1
   
@@ -61,6 +61,44 @@ end virtual
 	DivRemGuess64_RecheckMulti dividend_bits, divisor_bits
 }
 
+macro RemGuess64 dividend_bits, divisor_bits {
+  ;check if we can downgrade to narrower width
+  RemGuess64_FastSwitch dividend_bits, divisor_bits
+
+  ; prepare constants
+  RemGuess64_Prepare dividend_bits, divisor_bits
+virtual at rsp
+  label .locals_start
+  BigInteger .delta, dividend_bits
+  .remainder_shifted BigInteger128
+
+  .guess_128:
+  BigInteger .guess_q, DIV_REM_GUESS_QUOTIENT_GUESS_SIZE
+
+  .divisor_shifted rq 1
+  
+  .dividend rq 1
+  .divisor rq 1
+  .remainder rq 1
+
+  .divisor_lzcnt rq 1
+  
+  .correction rq 1
+  AlignLocalsStackFrame
+  label .locals_end
+end virtual
+	RemGuess64_Prolog dividend_bits, divisor_bits
+	DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits
+	RemGuess64_PrepareLoop dividend_bits, divisor_bits
+	DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits
+
+	RemGuess64_Loop dividend_bits, divisor_bits
+
+.end:
+	DivRemGuess64_Epilog dividend_bits, divisor_bits
+	RemGuess64_RecheckOnce dividend_bits, divisor_bits
+	RemGuess64_RecheckMulti dividend_bits, divisor_bits
+}
 
 
 macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {

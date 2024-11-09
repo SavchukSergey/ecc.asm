@@ -1,18 +1,26 @@
-if ~ definite bi_rem_192_64
+if ~ definite bi_rem_320_64
 
-;Calculates remainder of bi192 divided by u64
+;Calculates remainder of bi320 divided by u64
 ;input:
-;   rcx - pointer to bi192 divident
+;   rcx - pointer to bi320 divident
 ;   rdx - u64 divisor
 ;   r8 - pointer to bi64 remainder
-bi_rem_192_64:
-    CheckRegAligned rcx, 'bi_rem_192_64 rcx'
+bi_rem_320_64:
+    CheckRegAligned rcx, 'bi_rem_320_64 rcx'
 
         push    rbx
 
         mov     rbx, rdx
 
         xor     rdx, rdx
+
+        mov     rax, [rcx + 32]
+        div     rbx
+        ;rdx - remainder, rax - quotient
+
+        mov     rax, [rcx + 24]
+        div     rbx
+        ;rdx - remainder, rax - quotient
 
         mov     rax, [rcx + 16]
         div     rbx
