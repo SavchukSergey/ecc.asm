@@ -10,3 +10,5 @@ include 'test_context_finalize.inc'
 include 'test_context_init.inc'
 include 'test_context_measure_dec_chunk.inc'
 include 'test_context_start_measure.inc'
+
+include 'bind_thread_to_single_core.inc'

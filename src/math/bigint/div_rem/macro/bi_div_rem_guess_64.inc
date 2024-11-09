@@ -7,7 +7,6 @@ if definite BI_DEV_REM_GUESS_64_DEBUG
   include 'bi_div_rem_guess_debug.inc'
 end if
 
-include 'bi_div_rem_guess_64_small_divisor.inc'
 include 'bi_div_rem_guess_64_epilog.inc'
 include 'bi_div_rem_guess_64_recheck_once.inc'
 include 'bi_div_rem_guess_64_recheck_multi.inc'
@@ -110,17 +109,6 @@ macro DivRemGuess64_DivisorLzcnt dividend_bits, divisor_bits {
     mov     [.divisor_lzcnt], rax
 }
 
-;todo: remove
-macro RemGuess64_DivisorSwitch dividend_bits, divisor_bits {
-  if divisor_bits >= 128
-    ;check for large divisor first than try to use smaller ones
-    cmp     rax, dividend_bits - (divisor_bits / 2)            ;todo: dividend_bits must be divisor_bits?
-    jae      .divisor_small
-  end if
-}
-
-
-
 macro DivRemGuess64_InitQuotient dividend_bits, divisor_bits {
   mov     rcx, [.quotient]
   Fast_Zero dividend_bits
@@ -145,18 +133,22 @@ macro DivRemGuess64_Guess dividend_bits, divisor_bits {
 .divisor_max:
         mov     rdx, qword [.remainder_shifted + 8]; divide by 2^64
         mov     qword [.guess_128], rdx
+if DIV_REM_GUESS_QUOTIENT_GUESS_SIZE > 64
         mov     qword [.guess_128 + 8], 0
+end if
         jmp     .divisor_ok
 .divisor_not_max:
 ; partial quotient is 65-bit wide max
         mov     rax, qword [.remainder_shifted + 0]
         mov     rdx, qword [.remainder_shifted + 8]
+if DIV_REM_GUESS_QUOTIENT_GUESS_SIZE > 64
         mov     r9, rdx
         sub     r9, r8
         cmovnc  rdx, r9
         setnc   r9b
         movzx   r9, r9b
         mov     qword [.guess_128 + 8], r9
+end if
         div     r8
         mov     qword [.guess_128 + 0], rax
 
@@ -186,6 +178,8 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
     Call_ExtendAssign DIV_REM_GUESS_DELTA_SIZE, DIV_REM_GUESS_DELTA_MUL_64_SIZE
   end if
 
+
+if DIV_REM_GUESS_QUOTIENT_GUESS_SIZE > 64
     cmp       qword [.guess_128 + 8], 0
     jz        .calc_delta_ok
 .calc_delta_128:
@@ -197,7 +191,7 @@ macro DivRemGuess64_CalcDelta dividend_bits, divisor_bits {
       Call_AddAssign (DIV_REM_GUESS_DELTA_SIZE - 64), divisor_bits - 64
     end if
 .calc_delta_ok:
-
+end if
 }
 
 macro DivRemGuess64_ShiftDelta dividend_bits, divisor_bits {
@@ -274,7 +268,6 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_UpdateQuotient dividend_bits, divisor_bits
 
         jmp     .loop
-        DivRemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits
 .loop_ok:
 }
 
@@ -295,7 +288,6 @@ macro RemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_ApplyDelta dividend_bits, divisor_bits
 
         jmp     .loop
-        RemGuess64_DivisorSmallSwitch dividend_bits, divisor_bits
 .loop_ok:
 }
 

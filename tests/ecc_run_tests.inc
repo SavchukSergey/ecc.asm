@@ -11,6 +11,8 @@ include 'math/bigint.tests.inc'
 include 'math/ecc.tests.inc'
 
 ecc_run_tests:
+	call	bind_thread_to_single_core
+
 	call	run_test_calibrate
 
 	call	test_output_start

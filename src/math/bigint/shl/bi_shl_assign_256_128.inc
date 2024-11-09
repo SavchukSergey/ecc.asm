@@ -4,7 +4,7 @@ if ~ definite bi_shl_assign_256_128
 ;input
 ; rcx - value
 bi_shl_assign_256_128_basic:
-    CheckRegAligned rcx, 'bi_shl_assign_256_128_basic rcx'
+    CheckRegBi256Alignment rcx, 'bi_shl_assign_256_128_basic rcx'
 
         mov     rax, [rcx + 8]
         mov     [rcx + 24], rax
@@ -22,13 +22,13 @@ bi_shl_assign_256_128_basic:
 ; rcx - value
 bi_shl_assign_256_128_avx:
 ;todo: avx2 with shuffle
-    CheckRegAligned rcx, 'bi_shl_assign_256_128_avx rcx'
+    CheckRegBi256Alignment rcx, 'bi_shl_assign_256_128_avx rcx'
 
         vmovdqu xmm1, [rcx]
         vmovdqu [rcx + 16], xmm1
 
-        vpxor   ymm1, ymm1, ymm1
-        vmovdqu [rcx], xmm1
+        vpxor   ymm2, ymm2, ymm2
+        vmovdqu [rcx], xmm2
 
         ret
 
