@@ -41,6 +41,11 @@ virtual at rsp
   .quotient rq 1
   .remainder rq 1
 
+if dividend_bits = divisor_bits
+else
+  BigInteger .remainder_temp, dividend_bits
+end if
+
   .divisor_lzcnt rq 1
   
   .correction rq 1
@@ -79,6 +84,11 @@ virtual at rsp
   .dividend rq 1
   .divisor rq 1
   .remainder rq 1
+
+if dividend_bits = divisor_bits
+else
+  BigInteger .remainder_temp, dividend_bits
+end if
 
   .divisor_lzcnt rq 1
   
@@ -223,7 +233,11 @@ macro DivRemGuess64_ShiftGuess dividend_bits, divisor_bits {
 }
 
 macro DivRemGuess64_ApplyDelta dividend_bits, divisor_bits {
+if dividend_bits = divisor_bits
       mov     rcx, [.remainder]
+else
+      lea     rcx, [.remainder_temp]
+end if
       lea     rdx, [.delta]
       Call_SubAssign dividend_bits, dividend_bits
 }

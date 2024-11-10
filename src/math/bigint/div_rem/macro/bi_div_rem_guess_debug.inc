@@ -77,7 +77,11 @@ macro DivRemGuess64_DumpRemainder dividend_bits, divisor_bits {
     call    Console_WriteString
     pop     rsi
 
+if dividend_bits = divisor_bits
     mov     rcx, [.remainder]
+else
+      lea     rcx, [.remainder_temp]
+end if
     DivRemGuess64_WriteUIntHex dividend_bits
 
     call    Console_WriteLine
@@ -171,7 +175,11 @@ macro DivRemGuess64_DumpNewValues dividend_bits, divisor_bits {
     call    Console_WriteString
     pop     rsi
 
+if dividend_bits = divisor_bits
     mov     rcx, [.remainder]
+else
+    lea     rcx, [.remainder_temp]
+end if
     DivRemGuess64_WriteUIntHex dividend_bits
     call    Console_WriteLine
   end if

@@ -8,7 +8,7 @@ virtual at rsp
   BigInteger .dividend, dividend_bits
   BigInteger .divisor, dividend_bits
   GuardPreField
-  BigInteger .remainder, dividend_bits
+  BigInteger .remainder, divisor_bits
   GuardPostField
   .pointer rq 1
 

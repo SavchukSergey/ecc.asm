@@ -1,12 +1,20 @@
 macro DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits {
 ;shift remainder to the left, so the most meaningful bit is always the highest bit
+if dividend_bits = divisor_bits
       mov     rcx, [.remainder]
+else
+      lea     rcx, [.remainder_temp]
+end if
       Call_Lzcnt dividend_bits
       cmp     rax, [.divisor_lzcnt]
       jae     .recheck_once
 
       mov     rcx, rax
+if dividend_bits = divisor_bits
       mov     rdx, [.remainder]
+else
+      lea     rdx, [.remainder_temp]
+end if
 ;dividend is now wider than 128 bits, we can skip some checks here
 
 ; scale down guess to trim fractional part of division
