@@ -12,4 +12,6 @@ virtual at 0
   ECAffinePoint256 ECAffinePoint256
 end virtual
 
+__EC_AFFINE_POINT_256_HEX_DIGITS = __BIG_INTEGER_HEX_DIGITS_256 + __BIG_INTEGER_HEX_DIGITS_256
+
 end if

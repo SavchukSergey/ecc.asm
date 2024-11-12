@@ -44,7 +44,6 @@ end virtual
         add     rsp, .locals_end - .locals_start
         ret
 
-;todo: test double point
 align 16
 __ec_affine_point_256_add_test_cases:
   db '575611bf4bbc952c0d5b9c3b87147d1ce3381e34f688e2a2d9844761b0dc36c2'
