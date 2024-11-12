@@ -356,5 +356,6 @@ section '.edata' export data readable
          ec_affine_point_256_try_read_hex, 'ec_affine_point_256_try_read_hex', \
          ec_affine_point_256_is_infinity, 'ec_affine_point_256_is_infinity', \
          ec_affine_point_256_set_infinity, 'ec_affine_point_256_set_infinity', \
-         ec_projective_point_256_try_read_hex, 'ec_projective_point_256_try_read_hex'
-         ec_projective_point_256_from_affine_point, 'ec_projective_point_256_from_affine_point'
+         ec_projective_point_256_try_read_hex, 'ec_projective_point_256_try_read_hex', \
+         ec_projective_point_256_from_affine_point, 'ec_projective_point_256_from_affine_point', \
+         ec_projective_point_256_to_affine_point, 'ec_projective_point_256_to_affine_point'

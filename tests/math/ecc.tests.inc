@@ -8,6 +8,8 @@ __secp256k1_tests:
         db 'ec_projective_point_256_copy', 0
         dq __ec_projective_point_256_from_affine_point_test
         db 'ec_projective_point_256_from_affine_point', 0
+        dq __ec_projective_point_256_to_affine_point_test
+        db 'ec_projective_point_256_to_affine_point', 0
         dq __secp256k1_point_add_test
         db 'secp256k1_point_add', 0
         dq 0
