@@ -1,5 +1,7 @@
 include 'ec_affine_point_256.inc'
 include 'ec_affine_point_256_try_read_hex.inc'
 include 'ec_affine_point_256_copy.inc'
+include 'ec_affine_point_256_double.inc'
+include 'ec_affine_point_256_add.inc'
 include 'ec_affine_point_256_is_infinity.inc'
 include 'ec_affine_point_256_set_infinity.inc'

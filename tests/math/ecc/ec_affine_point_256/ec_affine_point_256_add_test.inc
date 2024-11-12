@@ -1,4 +1,4 @@
-__secp256k1_point_add_test:
+__ec_affine_point_256_add_test:
 virtual at rsp
 .locals_start:
    .left ECAffinePoint256
@@ -11,14 +11,16 @@ end virtual
 
     PrologCheckStackAligned '__secp256k1_point_add_test'
 
-        mov     rbx,  __secp256k1_point_add_test_cases 
+        mov     rbx,  __ec_affine_point_256_add_test_cases
 .loop:
         lea     rcx, [.left]
         lea     rdx, [rbx + 0]
+        mov     r8, secp256k1
         call    ec_affine_point_256_try_read_hex
 
         lea     rcx, [.right]
         lea     rdx, [rbx + 128]
+        mov     r8, secp256k1
         call    ec_affine_point_256_try_read_hex
 
         call    test_context_start_measure
@@ -26,7 +28,7 @@ end virtual
         lea     rcx, [.left]
         lea     rdx, [.right]
         lea     r8, [.result]
-        call    secp256k1_point_add
+        call    ec_affine_point_256_add
         call    test_context_measure_dec_chunk
         jnz     .chunk_loop
         call    test_context_end_measure
@@ -36,7 +38,7 @@ end virtual
         call    ec_affine_point_256_assert_equal_hex
 
         add     rbx, (__BIG_INTEGER_BYTES_256 * 2) * 2 * 3
-        cmp     rbx, __secp256k1_point_add_test_cases.end
+        cmp     rbx, __ec_affine_point_256_add_test_cases.end
         jb      .loop
 
         add     rsp, .locals_end - .locals_start
@@ -44,7 +46,7 @@ end virtual
 
 ;todo: test double point
 align 16
-__secp256k1_point_add_test_cases:
+__ec_affine_point_256_add_test_cases:
   db '575611bf4bbc952c0d5b9c3b87147d1ce3381e34f688e2a2d9844761b0dc36c2'
   db 'ca55bd03a22ed3bd3d36ff4c6dc09aa768984a3f32c662640a38af949a384810'
 

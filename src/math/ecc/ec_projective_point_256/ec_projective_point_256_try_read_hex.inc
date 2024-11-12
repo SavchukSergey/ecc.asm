@@ -4,6 +4,7 @@ if ~ definite ec_projective_point_256_try_read_hex
 ;input
 ; rcx - pointer to destination ECProjectivePoint256
 ; rdx - pointer to hex string
+;  r8 - pointer to ECCurve256
 ;output
 ;  rax - 1 success
 ;  rax - 0 failure
@@ -18,6 +19,8 @@ end virtual
         sub     rsp, .locals_end - .locals_start
         mov     [.point], rcx
         mov     [.hex], rdx
+
+        mov     [rcx + ECProjectivePoint256.curve], r8
 
 ;x
         mov     rcx, [.hex]

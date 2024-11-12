@@ -1,11 +1,11 @@
-if ~ definite secp256k1_point_add
+if ~ definite ec_affine_point_256_add
 
 ;Adds to secp256k1 points
 ;input:
 ;  rcx - pointer to left secp256k1 point
 ;  rdx - pointer to right secp256k1 point
 ;  r8 - pointer to ECAffinePoint256 result
-secp256k1_point_add:
+ec_affine_point_256_add:
 virtual at rsp
   label .locals_start
   .dx BigInteger256
@@ -15,20 +15,24 @@ virtual at rsp
   .temp BigInteger256
   .left rq 1
   .right rq 1
+  .curve rq 1
   .result rq 1
   AlignLocalsStackFrame
   label .locals_end
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned 'secp256k1_point_add'
-    CheckRegAligned rcx, 'secp256k1_point_add rcx'
-    CheckRegAligned rdx, 'secp256k1_point_add rdx'
-    CheckRegAligned r8, 'secp256k1_point_add r8'
+    PrologCheckStackAligned 'ec_affine_point_256_add'
+    CheckRegAligned rcx, 'ec_affine_point_256_add rcx'
+    CheckRegAligned rdx, 'ec_affine_point_256_add rdx'
+    CheckRegAligned r8, 'ec_affine_point_256_add r8'
 
         mov     [.left], rcx
         mov     [.right], rdx
         mov     [.result], r8
+
+        mov     r9, [rcx + ECAffinePoint256.curve]
+        mov     [.curve], r9
 
         mov     rcx, [.left]
         call    ec_affine_point_256_is_infinity
@@ -117,35 +121,13 @@ end virtual
         ret 
 
 .double:
-;           3 * (left.x ^ 2) + curve.A
-; m =    ---------------------------------
-;             2 * left.y
         mov     rcx, [.left]
-        mov     rdx, secp256k1_p
-        lea     r8, [.temp]
-        call    bi_mod_square_256
+        mov     rdx, [.result]
+        call    ec_affine_point_256_double
 
-        lea     rcx, [.temp]
-        mov     rdx, secp256k1_p
-        call    bi_mod_tripple_assign_256
+        add     rsp, .locals_end - .locals_start
+        ret 
 
-        lea     rcx, [.temp]
-        mov     rdx, secp256k1_a
-        mov     r8, secp256k1_p
-        call    bi_mod_add_assign_256_256
-
-        lea     rcx, [.temp]
-        mov     rdx, [.left]
-        add     rdx, ECAffinePoint256.y
-        mov     r8, secp256k1_p
-        lea     r9, [.m]
-        call    bi_mod_div_256_256
-
-        lea     rcx, [.m]
-        mov     rdx, secp256k1_p
-        call    bi_mod_half_assign_256
-
-        jmp     .got_m
 .use_right:
         mov     rcx, [.result]
         mov     rdx, [.right]

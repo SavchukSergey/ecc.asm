@@ -17,6 +17,7 @@ end virtual
 
         mov     [.expected_hex], rcx
         mov     [.actual], rdx
+        mov     r8, [rdx + ECProjectivePoint256.curve]
 
         lea     rcx, [.expected]
         mov     rdx, [.expected_hex]

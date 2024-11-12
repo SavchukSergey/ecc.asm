@@ -12,6 +12,7 @@ end virtual
 
         lea     rcx, [.source_point]
         lea     rdx, [.source_point_hex]
+        mov     r8, secp256k1
         call    ec_affine_point_256_try_read_hex
 
         call    test_context_start_measure

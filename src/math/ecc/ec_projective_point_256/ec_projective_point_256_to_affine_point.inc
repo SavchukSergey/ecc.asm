@@ -3,7 +3,6 @@
 ; input:
 ;  rcx - pointer to source ECProjectivePoint256
 ;  rdx - pointer to destination ECAffinePoint256
-;   r8 - pointer to ECCurve256
 ec_projective_point_256_to_affine_point:
 virtual at rsp
 .locals_start:
@@ -17,7 +16,10 @@ end virtual
         sub     rsp, .locals_end - .locals_start
         mov     [.source], rcx
         mov     [.result], rdx
+        mov     r8, [rcx + ECProjectivePoint256.curve]
         mov     [.curve], r8
+
+        mov     [rdx + ECAffinePoint256.curve], r8
 
         mov     rcx, [.source]
         lea     rcx, [rcx + ECProjectivePoint256.z]

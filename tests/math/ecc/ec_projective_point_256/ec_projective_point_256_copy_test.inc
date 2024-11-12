@@ -8,6 +8,7 @@ end virtual
     enter   .locals_end - .locals_start, 0  
     lea     rcx, [.source]
     lea     rdx, [.source_hex]
+    mov     r8, secp256k1
     call    ec_projective_point_256_try_read_hex
 
     call    test_context_start_measure

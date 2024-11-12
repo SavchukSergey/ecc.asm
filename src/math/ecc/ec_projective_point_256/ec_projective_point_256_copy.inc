@@ -4,8 +4,10 @@ if ~ definite ec_projective_point_256_copy
 ;input:
 ;  rcx - pointer to target ECProjectivePoint256
 ;  rdx - pointer to source ECProjectivePoint256
-
-; same signature, same result
-ec_projective_point_256_copy = bi_copy_768
+ec_projective_point_256_copy:
+    Fast_Copy 768
+    mov       rax, [rdx + ECProjectivePoint256.curve]
+    mov       [rcx + ECProjectivePoint256.curve], rax
+    ret
 
 end if

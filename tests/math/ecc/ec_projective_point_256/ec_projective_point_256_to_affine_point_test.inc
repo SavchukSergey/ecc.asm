@@ -12,13 +12,13 @@ end virtual
 
         lea     rcx, [.source_point]
         lea     rdx, [.source_point_hex]
+        mov     r8, secp256k1
         call    ec_projective_point_256_try_read_hex
 
         call    test_context_start_measure
 .chunk_loop:
         lea     rcx, [.source_point]
         lea     rdx, [.result_point]
-        mov     r8, secp256k1
         call    ec_projective_point_256_to_affine_point
         call    test_context_measure_dec_chunk
         jnz     .chunk_loop

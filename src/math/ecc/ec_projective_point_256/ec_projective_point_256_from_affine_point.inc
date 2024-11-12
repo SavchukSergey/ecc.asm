@@ -15,6 +15,9 @@ end virtual
         mov     [.result], rcx
         mov     [.source], rdx
 
+        mov     rax, [rdx + ECAffinePoint256.curve]
+        mov     [rcx + ECProjectivePoint256.curve], rax
+
         mov     rcx, [.result]
         mov     rdx, [.source]
         Fast_Copy 256
