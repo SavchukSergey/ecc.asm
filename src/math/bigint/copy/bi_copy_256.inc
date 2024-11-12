@@ -2,7 +2,7 @@ if ~ definite bi_copy_256
 
 bi_copy_256_basic:
         CheckRegBi256Alignment rcx, 'bi_copy_256_basic rcx'
-        CheckRegBi256Alignment rdx, 'bi_copy_256_basic rcx'
+        CheckRegBi256Alignment rdx, 'bi_copy_256_basic rdx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
@@ -16,7 +16,7 @@ bi_copy_256_basic:
 
 bi_copy_256_avx2:
         CheckRegBi256Alignment rcx, 'bi_copy_256_avx2 rcx'
-        CheckRegBi256Alignment rdx, 'bi_copy_256_avx2 rcx'
+        CheckRegBi256Alignment rdx, 'bi_copy_256_avx2 rdx'
 
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1

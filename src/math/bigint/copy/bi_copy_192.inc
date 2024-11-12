@@ -2,7 +2,7 @@ if ~ definite bi_copy_192
 
 bi_copy_192_basic:
         CheckRegBi192Alignment rcx, 'bi_copy_192_basic rcx'
-        CheckRegBi192Alignment rdx, 'bi_copy_192_basic rcx'
+        CheckRegBi192Alignment rdx, 'bi_copy_192_basic rdx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
@@ -14,7 +14,7 @@ bi_copy_192_basic:
 
 bi_copy_192_avx2:
         CheckRegBi192Alignment rcx, 'bi_copy_192_avx2 rcx'
-        CheckRegBi192Alignment rdx, 'bi_copy_192_avx2 rcx'
+        CheckRegBi192Alignment rdx, 'bi_copy_192_avx2 rdx'
 
         vmovdqu xmm1, [rdx]
         vmovdqu [rcx], xmm1

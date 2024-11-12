@@ -20,6 +20,7 @@ include 'write_u576_hex.inc'
 include 'write_u768_hex.inc'
 include 'write_u1024_hex.inc'
 
-include 'write_ecp256_hex.inc'
+include 'write_ec_affine_point256_hex.inc'
+include 'write_ec_projective_point256_hex.inc'
 
 end if

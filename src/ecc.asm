@@ -41,6 +41,7 @@ section '.edata' export data readable
          bi_copy_256, 'bi_copy_256', \
          bi_copy_448, 'bi_copy_448', \
          bi_copy_512, 'bi_copy_512', \
+         bi_copy_768, 'bi_copy_768', \
 \
          bi_try_read_hex_128, 'bi_try_read_hex_128', \
          bi_try_read_hex_192, 'bi_try_read_hex_192', \
@@ -349,4 +350,11 @@ section '.edata' export data readable
          bi_rnd_384, 'bi_rnd_384', \
          bi_rnd_448, 'bi_rnd_448', \
          bi_rnd_512, 'bi_rnd_512', \
-         bi_rnd_1024, 'bi_rnd_1024'
+         bi_rnd_1024, 'bi_rnd_1024', \
+\
+         ec_affine_point_256_copy, 'ec_affine_point_256_copy', \
+         ec_affine_point_256_try_read_hex, 'ec_affine_point_256_try_read_hex', \
+         ec_affine_point_256_is_infinity, 'ec_affine_point_256_is_infinity', \
+         ec_affine_point_256_set_infinity, 'ec_affine_point_256_set_infinity', \
+         ec_projective_point_256_try_read_hex, 'ec_projective_point_256_try_read_hex'
+         ec_projective_point_256_from_affine_point, 'ec_projective_point_256_from_affine_point'

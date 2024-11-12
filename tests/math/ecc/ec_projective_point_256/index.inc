@@ -1,0 +1,2 @@
+include 'ec_projective_point_256_copy_test.inc'
+include 'ec_projective_point_256_from_affine_point_test.inc'

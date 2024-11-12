@@ -14,6 +14,8 @@ macro Call_Copy bits {
       call    bi_copy_448
   else if bits = 512
       call    bi_copy_512
+  else if bits = 768
+      call    bi_copy_768
   else if bits = 1024
       call    bi_copy_1024
   else

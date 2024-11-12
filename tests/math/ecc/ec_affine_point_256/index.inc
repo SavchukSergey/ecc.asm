@@ -1,0 +1,1 @@
+include 'ec_affine_point_256_copy_test.inc'

@@ -9,7 +9,7 @@ bi_copy_128_basic:
 
 bi_copy_128_avx2:
         CheckRegBi128Alignment rcx, 'bi_copy_128_avx2 rcx'
-        CheckRegBi128Alignment rdx, 'bi_copy_128_avx2 rcx'
+        CheckRegBi128Alignment rdx, 'bi_copy_128_avx2 rdx'
 
         vmovdqu xmm1, [rdx]
         vmovdqu [rcx], xmm1

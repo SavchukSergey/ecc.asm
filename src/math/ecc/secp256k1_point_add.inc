@@ -4,7 +4,7 @@ if ~ definite secp256k1_point_add
 ;input:
 ;  rcx - pointer to left secp256k1 point
 ;  rdx - pointer to right secp256k1 point
-;  r8 - pointer to ecpoint256 result
+;  r8 - pointer to ECAffinePoint256 result
 secp256k1_point_add:
 virtual at rsp
   label .locals_start
@@ -31,11 +31,11 @@ end virtual
         mov     [.result], r8
 
         mov     rcx, [.left]
-        call    ecpoint256_is_infinity
+        call    ec_affine_point_256_is_infinity
         jz      .use_right
 
         mov     rcx, [.right]
-        call    ecpoint256_is_infinity
+        call    ec_affine_point_256_is_infinity
         jz      .use_left
 
 ; dx = right.x - left.x
@@ -46,9 +46,9 @@ end virtual
         call    bi_mod_sub_256_256
 ; dy = right.y - left.y
         mov     rcx, [.right]
-        add     rcx, ECPoint256.y
+        add     rcx, ECAffinePoint256.y
         mov     rdx, [.left]
-        add     rdx, ECPoint256.y
+        add     rdx, ECAffinePoint256.y
         mov     r8, secp256k1_p
         lea     r9, [.dy]
         call    bi_mod_sub_256_256
@@ -94,13 +94,13 @@ end virtual
         lea     rdx, [.m]
         mov     r8, secp256k1_p
         mov     r9, [.result]
-        add     r9, ECPoint256.y
+        add     r9, ECAffinePoint256.y
         call    bi_mod_mul_256_256
 
         mov     rcx, [.result]
-        add     rcx, ECPoint256.y
+        add     rcx, ECAffinePoint256.y
         mov     rdx, [.left]
-        add     rdx, ECPoint256.y
+        add     rdx, ECAffinePoint256.y
         mov     r8, secp256k1_p
         call    bi_mod_sub_assign_256_256
 
@@ -112,7 +112,7 @@ end virtual
         jz      .double
 .infinity:
         mov     rcx, [.result]
-        call    ecpoint256_set_infinity
+        call    ec_affine_point_256_set_infinity
         add     rsp, .locals_end - .locals_start
         ret 
 
@@ -136,7 +136,7 @@ end virtual
 
         lea     rcx, [.temp]
         mov     rdx, [.left]
-        add     rdx, ECPoint256.y
+        add     rdx, ECAffinePoint256.y
         mov     r8, secp256k1_p
         lea     r9, [.m]
         call    bi_mod_div_256_256
@@ -149,14 +149,14 @@ end virtual
 .use_right:
         mov     rcx, [.result]
         mov     rdx, [.right]
-        call    ecpoint256_copy
+        call    ec_affine_point_256_copy
         add     rsp, .locals_end - .locals_start
         ret      
 
 .use_left:
         mov     rcx, [.left]
         mov     rdx, [.right]
-        call    ecpoint256_copy
+        call    ec_affine_point_256_copy
         add     rsp, .locals_end - .locals_start
         ret  
 

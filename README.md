@@ -8,13 +8,14 @@ Full list of methods:
 | [bi_zero_320](#bi_zero_320)                 | Zeroes `bi320` value                 |
 | [bi_zero_512](#bi_zero_512)                 | Zeroes `bi512` value                                        |
 | [bi_zero_1024](#bi_zero_1024)               | Zeroes `bi1024` value                |
-| [bi_one_128](#bi_one_128)                   | Sets 1 to `bi128` value              |
+| [bi_one_128](#bi_one_128)                               | Sets 1 to `bi128` value                                     |
 | [bi_copy_128](#bi_copy_128)                             | Copies `bi128` value                                        |
 | [bi_copy_192](#bi_copy_192)                             | Copies `bi192` value                                        |
 | [bi_copy_256](#bi_copy_256)                             | Copies `bi256` value                                        |
 | [bi_copy_512](#bi_copy_512)                             | Copies `bi512` value                                        |
-| [bi_add_128_128](#bi_add_128_128)           | Adds two `bi128` values              |
-| [bi_add_192_192](#bi_add_192_192)           | Adds two `bi192` values              |
+| [bi_copy_768](#bi_copy_768)                             | Copies `bi768` value                                        |
+| [bi_add_128_128](#bi_add_128_128)                       | Adds two `bi128` values                                     |
+| [bi_add_192_192](#bi_add_192_192)                       | Adds two `bi192` values                                     |
 | [bi_add_256_256](#bi_add_256_256)           | Adds two `bi256` values              |
 | [bi_add_512_512](#bi_add_512_512)           | Adds two `bi512` values              |
 | [bi_sub_128_128](#bi_sub_128_128)           | Subtracts two `bi128` values         |
@@ -142,6 +143,14 @@ Copies `bi512` value
 Input:
   * `rcx` - pointer to `bi512` target value
   * `rdx` - pointer to `bi512` source value
+
+## bi_copy_768
+
+Copies `bi768` value
+
+Input:
+  * `rcx` - pointer to `bi768` target value
+  * `rdx` - pointer to `bi768` source value
 
 
 # bi128 operations

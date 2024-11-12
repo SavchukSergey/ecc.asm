@@ -2,7 +2,7 @@ if ~ definite bi_copy_384
 
 bi_copy_384_basic:
         CheckRegBi384Alignment rcx, 'bi_copy_384_basic rcx'
-        CheckRegBi384Alignment rdx, 'bi_copy_384_basic rcx'
+        CheckRegBi384Alignment rdx, 'bi_copy_384_basic rdx'
 
         mov     rax, [rdx + 0]
         mov     [rcx + 0], rax
@@ -20,7 +20,7 @@ bi_copy_384_basic:
 
 bi_copy_384_avx2:
         CheckRegBi384Alignment rcx, 'bi_copy_384_avx2 rcx'
-        CheckRegBi384Alignment rdx, 'bi_copy_384_avx2 rcx'
+        CheckRegBi384Alignment rdx, 'bi_copy_384_avx2 rdx'
 
         vmovdqu ymm1, [rdx]
         vmovdqu [rcx], ymm1

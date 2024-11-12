@@ -19,6 +19,7 @@ include 'bi_div_rem_guess_64_shift_divisor.inc'
 
 ;todo: when approaching to divisorLZC switch to compare-and-subtract strategy
 ;todo: bi_exract_128_bits(remainderLZC) to get remainder first 128-bit meaningful bits
+;todo: special case when dividend_bits = divisor_bits
 
 macro DivRemGuess64 dividend_bits, divisor_bits {
   ;check if we can downgrade to narrower width

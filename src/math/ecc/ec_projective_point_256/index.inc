@@ -1,0 +1,4 @@
+include 'ec_projective_point_256.inc'
+include 'ec_projective_point_256_copy.inc'
+include 'ec_projective_point_256_from_affine_point.inc'
+include 'ec_projective_point_256_try_read_hex.inc'
