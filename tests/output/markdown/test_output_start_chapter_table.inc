@@ -4,6 +4,6 @@ test_output_start_chapter_table:
 
     ret
 .msg db \
-'| Name                           | Status | Min CPU ticks | Max CPU ticks |', 13, 10, \
-'| :------------------------------| :----: | ------------: | ------------: |', 13, 10, \
+'| Name                           | Status | Min CPU ticks | Max CPU ticks | RPS   |', 13, 10, \
+'| :------------------------------| :----: | ------------: | ------------: |-----: |', 13, 10, \
 0

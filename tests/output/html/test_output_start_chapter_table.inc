@@ -11,6 +11,7 @@ test_output_start_chapter_table:
 '    <col style="width: 128px" />', 13, 10, \
 '    <col style="width: 192px" />', 13, 10, \
 '    <col style="width: 192px" />', 13, 10, \
+'    <col style="width: 192px" />', 13, 10, \
 '  </colgroup>', 13, 10, \
 '  <thead>', 13, 10, \
 '    <tr>', 13, 10, \
@@ -25,6 +26,9 @@ test_output_start_chapter_table:
 '      </th>', 13, 10, \
 '      <th scope="col" class="text-end">', 13, 10, \
 '        Max CPU ticks', 13, 10, \
+'      </th>', 13, 10, \
+'      <th scope="col" class="text-end">', 13, 10, \
+'        RPS', 13, 10, \
 '      </th>', 13, 10, \
 '    </tr>', 13, 10, \
 '  </thead>', 13, 10, \

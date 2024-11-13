@@ -93,6 +93,24 @@ end virtual
 
 	mov	    rcx, [.context.measures_max]
 	call	test_output_test_max_ticks_cell
+ 
+    xor     rax, rax
+	mov     rbx, [.context.measures_min]
+	test    rbx, rbx
+	cmovs   rbx, rax
+	test    rbx, rbx
+	jz      .rps_na
+.rps_available:
+    xor     rdx, rdx
+	mov     rax, 3000000000
+	div     rbx
+	mov     rcx, rax
+	call    test_output_test_rps_cell
+	jmp     .rps_ok
+.rps_na:
+    mov     rcx, -1
+	call    test_output_test_rps_cell
+.rps_ok:
 
 	call	test_output_end_test
 
