@@ -375,6 +375,9 @@ section '.edata' export data readable
          ec_projective_point_256_is_infinity, 'ec_projective_point_256_is_infinity', \
          ec_projective_point_256_set_infinity, 'ec_projective_point_256_set_infinity', \
          ec_projective_point_256_add, 'ec_projective_point_256_add', \
+         ec_projective_point_256_add_assign, 'ec_projective_point_256_add_assign', \
          ec_projective_point_256_double, 'ec_projective_point_256_double', \
+         ec_projective_point_256_double_assign, 'ec_projective_point_256_double_assign', \
+         ec_projective_point_256_shl, 'ec_projective_point_256_shl', \
          ec_projective_point_256_from_affine_point, 'ec_projective_point_256_from_affine_point', \
          ec_projective_point_256_to_affine_point, 'ec_projective_point_256_to_affine_point'

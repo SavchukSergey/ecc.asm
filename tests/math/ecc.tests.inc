@@ -21,6 +21,8 @@ __ecc_tests:
         db 'ec_projective_point_256_copy', 0
         dq __ec_projective_point_256_double_test
         db 'ec_projective_point_256_double', 0
+        dq __ec_projective_point_256_shl_test
+        db 'ec_projective_point_256_shl', 0
         dq __ec_projective_point_256_add_test
         db 'ec_projective_point_256_add', 0
         dq __ec_projective_point_256_from_affine_point_test
