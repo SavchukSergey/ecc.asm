@@ -360,7 +360,10 @@ section '.edata' export data readable
          ec_affine_point_256_add_assign, 'ec_affine_point_256_add_assign', \
          ec_affine_point_256_double, 'ec_affine_point_256_double', \
          ec_affine_point_256_double_assign, 'ec_affine_point_256_double_assign', \
+         ec_affine_point_256_sub, 'ec_affine_point_256_sub', \
+         ec_affine_point_256_sub_assign, 'ec_affine_point_256_sub_assign', \
          ec_affine_point_256_shl, 'ec_affine_point_256_shl', \
+         ec_affine_point_256_shl_assign, 'ec_affine_point_256_shl_assign', \
          ec_affine_point_256_mul, 'ec_affine_point_256_mul', \
          ec_affine_point_256_negate, 'ec_affine_point_256_negate', \
          ec_projective_point_256_try_read_hex, 'ec_projective_point_256_try_read_hex', \

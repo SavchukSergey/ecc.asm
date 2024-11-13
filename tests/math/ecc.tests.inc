@@ -10,6 +10,8 @@ __secp256k1_tests:
         db 'ec_affine_point_256_shl', 0
         dq __ec_affine_point_256_add_test
         db 'ec_affine_point_256_add', 0
+        dq __ec_affine_point_256_sub_test
+        db 'ec_affine_point_256_sub', 0
         dq __ec_affine_point_256_mul_test
         db 'ec_affine_point_256_mul', 0
         dq __ec_affine_point_256_negate_test

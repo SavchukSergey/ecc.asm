@@ -14,7 +14,7 @@ end virtual
         sub     rsp, .locals_end - .locals_start
 
     PrologCheckStackAligned 'ec_affine_point_256_double_assign'
-    CheckRegAligned rcx, 'ec_affine_point_256_double_assign rcx'
+    CheckRegBi256Alignment rcx, 'ec_affine_point_256_double_assign rcx'
 
         mov     [.left], rcx
 

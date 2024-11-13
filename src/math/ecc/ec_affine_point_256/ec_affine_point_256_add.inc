@@ -1,9 +1,9 @@
 if ~ definite ec_affine_point_256_add
 
-;Adds to secp256k1 points
+;Adds to ECAffinePoint256 points
 ;input:
-;  rcx - pointer to left secp256k1 point
-;  rdx - pointer to right secp256k1 point
+;  rcx - pointer to left ECAffinePoint256 point
+;  rdx - pointer to right ECAffinePoint256 point
 ;  r8 - pointer to ECAffinePoint256 result
 ec_affine_point_256_add:
 virtual at rsp
