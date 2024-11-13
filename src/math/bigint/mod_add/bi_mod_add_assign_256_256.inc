@@ -15,6 +15,7 @@ bi_mod_add_assign_256_256:
 
         call    bi_add_assign_256_256
         jc      .fix
+
         mov     rdx, r8
         call    bi_cmp_256_256
         jae     .fix
