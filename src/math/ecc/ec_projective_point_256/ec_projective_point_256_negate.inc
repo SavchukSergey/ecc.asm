@@ -1,6 +1,6 @@
 if ~ definite ec_projective_point_256_negate
 
-;Copies ECProjectivePoint256
+;Negates ECProjectivePoint256
 ;input:
 ;  rcx - pointer to source ECProjectivePoint256
 ;  rdx - pointer to destination ECProjectivePoint256
@@ -31,12 +31,12 @@ end virtual
         lea     rdx, [rdx + ECProjectivePoint256.z]
         Fast_Copy 256
 
-        lea     rcx, [r9 + ECCurve256.modulus]
-        mov     rdx, [.source]
-        lea     rdx, [rdx + ECProjectivePoint256.y]
+        mov     rcx, [.source]
+        lea     rcx, [rcx + ECProjectivePoint256.y]
+        lea     rdx, [r9 + ECCurve256.modulus]
         mov     r8, [.result]
         lea     r8, [r8 + ECProjectivePoint256.y]
-        call    bi_sub_256_256
+        call    bi_mod_negate_256
 
         add     rsp, .locals_end - .locals_start
         ret

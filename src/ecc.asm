@@ -344,7 +344,13 @@ section '.edata' export data readable
          bi_mont_ctx_256_redc_512, 'bi_mont_ctx_256_redc_512',\
          bi_mont_ctx_256_mul, 'bi_mont_ctx_256_mul',\
          bi_mont_ctx_256_square, 'bi_mont_ctx_256_square',\
+         bi_mont_ctx_256_cube, 'bi_mont_ctx_256_cube',\
          bi_mont_ctx_256_pow, 'bi_mont_ctx_256_pow',\
+         bi_mont_ctx_256_add_assign, 'bi_mont_ctx_256_add_assign',\
+         bi_mont_ctx_256_sub_assign, 'bi_mont_ctx_256_sub_assign',\
+         bi_mont_ctx_256_sub, 'bi_mont_ctx_256_sub',\
+         bi_mont_ctx_256_double_assign, 'bi_mont_ctx_256_double_assign',\
+         bi_mont_ctx_256_tripple_assign, 'bi_mont_ctx_256_tripple_assign',\
 \
          bi_rnd_128, 'bi_rnd_128', \
          bi_rnd_192, 'bi_rnd_192', \
@@ -401,5 +407,7 @@ section '.edata' export data readable
          ec_projective_mont_point_256_shl_assign, 'ec_projective_mont_point_256_shl_assign', \
          ec_projective_mont_point_256_mul, 'ec_projective_mont_point_256_mul', \
          ec_projective_mont_point_256_negate, 'ec_projective_mont_point_256_negate', \
+         ec_projective_mont_point_256_from_affine_point, 'ec_projective_mont_point_256_from_affine_point', \
+         ec_projective_mont_point_256_to_affine_point, 'ec_projective_mont_point_256_to_affine_point', \
          ec_projective_mont_point_256_from_projective_point, 'ec_projective_mont_point_256_from_projective_point', \
          ec_projective_mont_point_256_to_projective_point, 'ec_projective_mont_point_256_to_projective_point'

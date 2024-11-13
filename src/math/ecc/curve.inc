@@ -6,6 +6,7 @@ struc ECCurve256 {
   .gy BigInteger256
   .n BigInteger256
   .h BigInteger256
+  .mont MontgomeryContext256
 }
 
 virtual at 0

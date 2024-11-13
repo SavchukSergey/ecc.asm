@@ -9,7 +9,7 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned '__secp256k1_point_mul_test'
+    PrologCheckStackAligned '__ec_projective_mont_point_256_mul_test'
 
         mov     rbx,  __ec_projective_mont_point_256_mul_test_cases
 .loop:
@@ -18,7 +18,7 @@ end virtual
         mov     r8, secp256k1
         call    ec_projective_mont_point_256_try_read_hex
 
-        lea     rcx, [rbx + __EC_projective_mont_point_256_HEX_DIGITS]
+        lea     rcx, [rbx + __EC_PROJECTIVE_MONT_POINT_256_HEX_DIGITS]
         lea     rdx, [.multiplier]
         call    bi_try_read_hex_256
 
@@ -33,11 +33,11 @@ end virtual
         jnz     .chunk_loop
         call    test_context_end_measure
 
-        lea     rcx, [rbx + __EC_projective_mont_point_256_HEX_DIGITS + __BIG_INTEGER_HEX_DIGITS_256]
+        lea     rcx, [rbx + __EC_PROJECTIVE_MONT_POINT_256_HEX_DIGITS + __BIG_INTEGER_HEX_DIGITS_256]
         lea     rdx, [.result]
         call    ec_projective_mont_point_256_assert_equal_hex
 
-        add     rbx, __EC_projective_mont_point_256_HEX_DIGITS * 2 + __BIG_INTEGER_HEX_DIGITS_256
+        add     rbx, __EC_PROJECTIVE_MONT_POINT_256_HEX_DIGITS * 2 + __BIG_INTEGER_HEX_DIGITS_256
         cmp     rbx, __ec_projective_mont_point_256_mul_test_cases.end
         jb      .loop
 

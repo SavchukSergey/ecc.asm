@@ -18,18 +18,18 @@ end virtual
         call    test_context_start_measure
     .chunk_loop:
         lea     rcx, [.source]
-        mov     rdx, [rbx + __EC_projective_mont_point_256_HEX_DIGITS]
+        mov     rdx, [rbx + __EC_PROJECTIVE_MONT_POINT_256_HEX_DIGITS]
         lea     r8, [.target]
         call    ec_projective_mont_point_256_shl
         call    test_context_measure_dec_chunk
         jnz     .chunk_loop
         call    test_context_end_measure
 
-        lea     rcx, [rbx + __EC_projective_mont_point_256_HEX_DIGITS + 8]
+        lea     rcx, [rbx + __EC_PROJECTIVE_MONT_POINT_256_HEX_DIGITS + 8]
         lea     rdx, [.target]
         call    ec_projective_mont_point_256_assert_equal_hex
 
-        add     rbx, __EC_projective_mont_point_256_HEX_DIGITS * 2 + 8
+        add     rbx, __EC_PROJECTIVE_MONT_POINT_256_HEX_DIGITS * 2 + 8
         cmp     rbx, __ec_projective_mont_point_256_shl_test_cases.end
         jb      .loop
 

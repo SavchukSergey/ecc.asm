@@ -5,6 +5,7 @@ include 'bi_mont_ctx_256_pow_test.inc'
 include 'bi_mont_ctx_256_redc_256_test.inc'
 include 'bi_mont_ctx_256_redc_512_test.inc'
 include 'bi_mont_ctx_256_square_test.inc'
+include 'bi_mont_ctx_256_cube_test.inc'
 
 align 16
 __bi_mont_tests:
@@ -20,6 +21,8 @@ __bi_mont_tests:
     db 'bi_mont_ctx_256_mul', 0
     dq __bi_mont_ctx_256_square_test
     db 'bi_mont_ctx_256_square', 0
+    dq __bi_mont_ctx_256_cube_test
+    db 'bi_mont_ctx_256_cube', 0
     dq __bi_mont_ctx_256_pow_test
     db 'bi_mont_ctx_256_pow', 0
 
