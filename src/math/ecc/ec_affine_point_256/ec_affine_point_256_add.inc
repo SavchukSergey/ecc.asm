@@ -137,8 +137,8 @@ end virtual
         ret      
 
 .use_left:
-        mov     rcx, [.left]
-        mov     rdx, [.right]
+        mov     rcx, [.result]
+        mov     rdx, [.left]
         call    ec_affine_point_256_copy
         add     rsp, .locals_end - .locals_start
         ret  

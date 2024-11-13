@@ -121,7 +121,7 @@ ecc_run_tests:
 	mov     rsi, .bi_mont_tests_fixture_name
 	call	run_test_fixture
 
-	mov     rax, __secp256k1_tests
+	mov     rax, __ecc_tests
 	mov     rsi, .ecc_fixture_name
 	call	run_test_fixture
 
@@ -156,4 +156,3 @@ ecc_run_tests:
 .bi_mont_tests_fixture_name db 'bi_mont', 0
 .bi_square_tests_fixture_name db 'bi_square', 0
 .ecc_fixture_name db 'ecc', 0
-

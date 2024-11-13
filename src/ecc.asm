@@ -26,6 +26,7 @@ section '.edata' export data readable
          bi_zero_448, 'bi_zero_448', \
          bi_zero_512, 'bi_zero_512', \
          bi_zero_576, 'bi_zero_576', \
+         bi_zero_768, 'bi_zero_768', \
          bi_zero_1024, 'bi_zero_1024', \
 \
          bi_one_128, 'bi_one_128', \
@@ -366,6 +367,12 @@ section '.edata' export data readable
          ec_affine_point_256_shl_assign, 'ec_affine_point_256_shl_assign', \
          ec_affine_point_256_mul, 'ec_affine_point_256_mul', \
          ec_affine_point_256_negate, 'ec_affine_point_256_negate', \
+\
+         ec_projective_point_256_copy, 'ec_projective_point_256_copy', \
          ec_projective_point_256_try_read_hex, 'ec_projective_point_256_try_read_hex', \
+         ec_projective_point_256_is_infinity, 'ec_projective_point_256_is_infinity', \
+         ec_projective_point_256_set_infinity, 'ec_projective_point_256_set_infinity', \
+         ec_projective_point_256_add, 'ec_projective_point_256_add', \
+         ec_projective_point_256_double, 'ec_projective_point_256_double', \
          ec_projective_point_256_from_affine_point, 'ec_projective_point_256_from_affine_point', \
          ec_projective_point_256_to_affine_point, 'ec_projective_point_256_to_affine_point'
