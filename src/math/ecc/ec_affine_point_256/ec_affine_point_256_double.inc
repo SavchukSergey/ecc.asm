@@ -25,8 +25,11 @@ end virtual
 
         mov     [.source], rcx
         mov     [.result], rdx
+
         mov     r8, [rcx + ECAffinePoint256.curve]
         mov     [.curve], r8
+        mov     [rdx + ECAffinePoint256.curve], r8
+
         lea     r8, [r8 + ECCurve256.modulus]
         mov     [.modulus], r8
 

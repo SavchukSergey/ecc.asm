@@ -33,6 +33,7 @@ end virtual
 
         mov     r9, [rcx + ECAffinePoint256.curve]
         mov     [.curve], r9
+        mov     [r8 + ECAffinePoint256.curve], r9
 
         mov     rcx, [.left]
         call    ec_affine_point_256_is_infinity

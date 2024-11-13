@@ -11,6 +11,8 @@ virtual at rsp
   .source rq 1
   .multiplier rq 1
   .result rq 1
+  .bit rq 1
+  .acc ECAffinePoint256
   AlignLocalsStackFrame
   label .locals_end
 end virtual
@@ -24,6 +26,33 @@ end virtual
         mov     [.source], rcx
         mov     [.multiplier], rdx
         mov     [.result], r8
+
+        mov     rcx, [.result]
+        call    ec_affine_point_256_set_infinity
+
+        lea     rcx, [.acc]
+        mov     rdx, [.source]
+        call    ec_affine_point_256_copy
+
+        mov     [.bit], 0
+.loop:
+        mov     rcx, [.multiplier]
+        mov     rdx, [.bit]
+        call    bi_bit_check_256
+        test    rax, rax
+        jz      .zero_bit
+
+        mov     rcx, [.result]
+        lea     rdx, [.acc]
+        call    ec_affine_point_256_add_assign
+ .zero_bit:
+        lea     rcx, [.acc]
+        call    ec_affine_point_256_double_assign
+
+        inc     [.bit]
+        cmp     [.bit], 256
+        jb      .loop
+
 
         add     rsp, .locals_end - .locals_start
         ret
