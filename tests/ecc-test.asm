@@ -24,6 +24,9 @@ include 'console/enable_vt_processing.inc'
 include 'ecc_run_tests.inc'
 include 'output/html/index.inc'
 
+section '.data' data readable
+include '../src/data.inc'
+
 section '.bss' data readable writeable
 calibration_shift rq 1
 

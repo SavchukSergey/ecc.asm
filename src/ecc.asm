@@ -15,6 +15,9 @@ include 'math/bigint.inc'
 include 'math/bigint/index.inc'
 include 'math/ecc/index.inc'
 
+section '.data' data readable
+include 'data.inc'
+
 section '.edata' export data readable
 
   export 'ecc.dll',\

@@ -9,7 +9,7 @@
             "command": "${env:FASM_PATH}/fasm.exe",
             "args": [
                 "${workspaceFolder}/src/ecc.asm", 
-                "${workspaceFolder}/src/binative.dll"
+                "${workspaceFolder}/src/ecc.dll"
             ],
             "options": {
                 "cwd": "${env:FASM_PATH}",

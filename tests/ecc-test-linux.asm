@@ -15,5 +15,8 @@ entry $
 include 'output/html/index.inc'
 include 'ecc_run_tests.inc'
 
+segment readable
+include '../src/data.inc'
+
 segment readable writeable
 calibration_shift rq 1
