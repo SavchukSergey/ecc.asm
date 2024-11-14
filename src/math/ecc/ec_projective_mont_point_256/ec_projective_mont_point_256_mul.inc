@@ -1,6 +1,6 @@
 if ~ definite ec_projective_mont_point_256_mul
 
-;Muls ECProjectiveMontgomeryPoint256 point
+;Multiplies ECProjectiveMontgomeryPoint256 point
 ;input:
 ;  rcx - pointer to source ECProjectiveMontgomeryPoint256 point
 ;  rdx - pointer to bi256 multiplier

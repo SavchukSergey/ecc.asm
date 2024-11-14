@@ -133,6 +133,10 @@ ecc_run_tests:
 	mov     rsi, .ec_projective_mont_point_fixture_name
 	call	run_test_fixture
 
+	mov     rax, __secp256k1_tests
+	mov     rsi, .secp256k1_fixture_name
+	call	run_test_fixture
+
 	call	test_output_end
     ret
 
@@ -166,3 +170,4 @@ ecc_run_tests:
 .ec_affine_point_fixture_name db 'ec_affine_point', 0
 .ec_projective_point_fixture_name db 'ec_projective_point', 0
 .ec_projective_mont_point_fixture_name db 'ec_projective_mont_point', 0
+.secp256k1_fixture_name db 'secp256k1', 0

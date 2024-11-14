@@ -411,4 +411,6 @@ section '.edata' export data readable
          ec_projective_mont_point_256_from_affine_point, 'ec_projective_mont_point_256_from_affine_point', \
          ec_projective_mont_point_256_to_affine_point, 'ec_projective_mont_point_256_to_affine_point', \
          ec_projective_mont_point_256_from_projective_point, 'ec_projective_mont_point_256_from_projective_point', \
-         ec_projective_mont_point_256_to_projective_point, 'ec_projective_mont_point_256_to_projective_point'
+         ec_projective_mont_point_256_to_projective_point, 'ec_projective_mont_point_256_to_projective_point', \
+\
+         secp256k1_get_affine_point, 'secp256k1_get_affine_point'
