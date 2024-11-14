@@ -8,7 +8,7 @@ include 'asserts/index.inc'
 include 'output/shared/index.inc'
 
 include 'math/bigint.tests.inc'
-include 'math/ecc.tests.inc'
+include 'math/ecc/index.inc'
 
 ecc_run_tests:
 	call	bind_thread_to_single_core
@@ -121,8 +121,16 @@ ecc_run_tests:
 	mov     rsi, .bi_mont_tests_fixture_name
 	call	run_test_fixture
 
-	mov     rax, __ecc_tests
-	mov     rsi, .ecc_fixture_name
+	mov     rax, __ec_affine_point_tests
+	mov     rsi, .ec_affine_point_fixture_name
+	call	run_test_fixture
+
+	mov     rax, __ec_projective_point_tests
+	mov     rsi, .ec_projective_point_fixture_name
+	call	run_test_fixture
+
+	mov     rax, __ec_projective_mont_point_tests
+	mov     rsi, .ec_projective_mont_point_fixture_name
 	call	run_test_fixture
 
 	call	test_output_end
@@ -155,4 +163,6 @@ ecc_run_tests:
 .bi_mod_inverse_tests_fixture_name db 'bi_mod_inverse', 0
 .bi_mont_tests_fixture_name db 'bi_mont', 0
 .bi_square_tests_fixture_name db 'bi_square', 0
-.ecc_fixture_name db 'ecc', 0
+.ec_affine_point_fixture_name db 'ec_affine_point', 0
+.ec_projective_point_fixture_name db 'ec_projective_point', 0
+.ec_projective_mont_point_fixture_name db 'ec_projective_mont_point', 0
