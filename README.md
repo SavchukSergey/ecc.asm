@@ -1,4 +1,7 @@
 # ecc.asm
+
+Blazing fast library written in pure assembly language that implements big integer math and elliptic curve cryptography
+
 Full list of methods:
 
 | Name                                                                   | Description                                                                      |
@@ -164,7 +167,7 @@ Full list of methods:
 | [bi_mod_half_assign_256](#bi_mod_half_assign_256)                      |                                                                                  |
 | [bi_mod_inverse_256](#bi_mod_inverse_256)                              | Calculates modular inverse of `bi256`                                            |
 | [bi_mod_inverse_512](#bi_mod_inverse_512)                              | Calculates modular inverse of `bi512`                                            |
-| [bi_mod_mul_256_256](#bi_mod_mul_256_256)                              |                                                                                  |
+| [bi_mod_mul_256_256](#bi_mod_mul_256_256)                              | Performs modular multiplication of two `bi256` values                            |
 | [bi_mod_negate_256](#bi_mod_negate_256)                                | Negates `bi256` value modulo                                                     |
 | [bi_mod_negate_512](#bi_mod_negate_512)                                | Negates `bi512` value modulo                                                     |
 | [bi_mod_pow_256](#bi_mod_pow_256)                                      |                                                                                  |
@@ -198,7 +201,7 @@ Full list of methods:
 | [bi_mul_256_128](#bi_mul_256_128)                                      |                                                                                  |
 | [bi_mul_64_64_low_64](#bi_mul_64_64_low_64)                            |                                                                                  |
 | [bi_mul_256_128_low_256](#bi_mul_256_128_low_256)                      |                                                                                  |
-| [bi_mul_256_256](#bi_mul_256_256)                                      |                                                                                  |
+| [bi_mul_256_256](#bi_mul_256_256)                                      | Multiplies two `bi256` values                                                    |
 | [bi_mul_256_64_low_256](#bi_mul_256_64_low_256)                        |                                                                                  |
 | [bi_mul_320_64](#bi_mul_320_64)                                        |                                                                                  |
 | [bi_mul_320_64_low_320](#bi_mul_320_64_low_320)                        |                                                                                  |
@@ -358,7 +361,7 @@ Full list of methods:
 | [ec_affine_point_256_is_infinity](#ec_affine_point_256_is_infinity)    |                                                                                  |
 | [ec_affine_point_256_mul](#ec_affine_point_256_mul)                    |                                                                                  |
 | [ec_affine_point_256_negate](#ec_affine_point_256_negate)              |                                                                                  |
-| [ec_affine_point_256_set_infinity](#ec_affine_point_256_set_infinity)  |                                                                                  |
+| [ec_affine_point_256_set_infinity](#ec_affine_point_256_set_infinity)  | Sets `ECAffinePoint256` to infinity                                              |
 | [ec_affine_point_256_shl](#ec_affine_point_256_shl)                    |                                                                                  |
 | [ec_affine_point_256_shl_assign](#ec_affine_point_256_shl_assign)      |                                                                                  |
 | [ec_affine_point_256_sub](#ec_affine_point_256_sub)                    |                                                                                  |
@@ -374,7 +377,7 @@ Full list of methods:
 | [ec_projective_mont_point_256_is_infinity](#ec_projective_mont_point_256_is_infinity) |                                                                                  |
 | [ec_projective_mont_point_256_mul](#ec_projective_mont_point_256_mul)  |                                                                                  |
 | [ec_projective_mont_point_256_negate](#ec_projective_mont_point_256_negate) |                                                                                  |
-| [ec_projective_mont_point_256_set_infinity](#ec_projective_mont_point_256_set_infinity) |                                                                                  |
+| [ec_projective_mont_point_256_set_infinity](#ec_projective_mont_point_256_set_infinity) | Sets `ECProjectiveMontgomeryPoint256` to infinity                                |
 | [ec_projective_mont_point_256_shl](#ec_projective_mont_point_256_shl)  |                                                                                  |
 | [ec_projective_mont_point_256_shl_assign](#ec_projective_mont_point_256_shl_assign) |                                                                                  |
 | [ec_projective_mont_point_256_sub](#ec_projective_mont_point_256_sub)  |                                                                                  |
@@ -391,7 +394,7 @@ Full list of methods:
 | [ec_projective_point_256_is_infinity](#ec_projective_point_256_is_infinity) |                                                                                  |
 | [ec_projective_point_256_mul](#ec_projective_point_256_mul)            |                                                                                  |
 | [ec_projective_point_256_negate](#ec_projective_point_256_negate)      |                                                                                  |
-| [ec_projective_point_256_set_infinity](#ec_projective_point_256_set_infinity) |                                                                                  |
+| [ec_projective_point_256_set_infinity](#ec_projective_point_256_set_infinity) | Sets `ECProjectivePoint256` to infinity                                          |
 | [ec_projective_point_256_shl](#ec_projective_point_256_shl)            |                                                                                  |
 | [ec_projective_point_256_shl_assign](#ec_projective_point_256_shl_assign) |                                                                                  |
 | [ec_projective_point_256_sub](#ec_projective_point_256_sub)            |                                                                                  |
@@ -2280,13 +2283,21 @@ Inputs:
 
 `rdx` - pointer to `bi512` modulus
 
-`r8` - pointer `bi512` result
+`r8` - pointer to `bi512` result
 
 
 
 ## bi_mod_mul_256_256
 
+Performs modular multiplication of two `bi256` values
 
+Inputs: 
+
+`rcx` - pointer to `bi256` value.
+
+`rdx` - pointer to `bi256` modulus
+
+`r8` - pointer to `bi256` result
 
 
 
@@ -2532,7 +2543,15 @@ Inputs:
 
 ## bi_mul_256_256
 
+Multiplies two `bi256` values
 
+Inputs: 
+
+`rcx` - pointer to left `bi256` value
+
+`rdx` - pointer to right `bi256` value
+
+`r8` - pointer to result `bi512` value
 
 
 
@@ -3572,7 +3591,11 @@ Inputs:
 
 ## ec_affine_point_256_set_infinity
 
+Sets `ECAffinePoint256` to infinity
 
+Inputs: 
+
+`rcx` - pointer to `ECAffinePoint256`
 
 
 
@@ -3680,7 +3703,11 @@ Inputs:
 
 ## ec_projective_mont_point_256_set_infinity
 
+Sets `ECProjectiveMontgomeryPoint256` to infinity
 
+Inputs: 
+
+`rcx` - pointer to `ECProjectiveMontgomeryPoint256`
 
 
 
@@ -3800,7 +3827,11 @@ Inputs:
 
 ## ec_projective_point_256_set_infinity
 
+Sets `ECProjectivePoint256` to infinity
 
+Inputs: 
+
+`rcx` - pointer to `ECProjectivePoint256`
 
 
 

@@ -277,7 +277,8 @@ function writeTOC() {
 
 }
 
-console.log("# ecc.asm")
+console.log("# ecc.asm\r\n")
+console.log("Blazing fast library written in pure assembly language that implements big integer math and elliptic curve cryptography\r\n")
 console.log('Full list of methods:\r\n');
 
 writeTOC();

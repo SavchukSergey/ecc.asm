@@ -2,7 +2,7 @@
 ;input:
 ;  rcx - pointer to bi512 value.
 ;  rdx - pointer to bi512 modulus
-;  r8 - pointer bi512 result
+;  r8 - pointer to bi512 result
 bi_mod_inverse_512:
 virtual at rsp
 .locals_start:

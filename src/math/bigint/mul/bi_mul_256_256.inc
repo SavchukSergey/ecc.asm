@@ -1,10 +1,9 @@
-if ~ definite bi_mul_256_256
-
 ;Multiplies two bi256 values
-;input
-; rcx - left value
-; rdx - right value
-; r8 - result value
+;input:
+; rcx - pointer to left bi256 value
+; rdx - pointer to right bi256 value
+; r8 - pointer to result bi512 value
+
 bi_mul_256_256____128_128:
 virtual at rsp
 .locals_start:
@@ -75,12 +74,6 @@ end virtual
         add     rsp, .locals_end - .locals_start
         ret
 
-
-;Multiplies bi256 value by bi256 value
-;input
-;  rcx - left bi256 value
-;  rdx - right bi256 value
-;  r8 - result bi512 value
 bi_mul_256_256____256_64:
 virtual at rsp
 .locals_start:
@@ -156,5 +149,3 @@ end virtual
         ret
 
 bi_mul_256_256 = bi_mul_256_256____256_64
-
-end if

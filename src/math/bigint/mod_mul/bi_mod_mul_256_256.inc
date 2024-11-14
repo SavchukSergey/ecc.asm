@@ -1,4 +1,8 @@
-if ~ definite bi_mod_mul_256_256
+;Performs modular multiplication of two bi256 values
+;input:
+;  rcx - pointer to bi256 value.
+;  rdx - pointer to bi256 modulus
+;  r8 - pointer to bi256 result
 
 bi_mod_mul_256_256:
 virtual at rsp
@@ -41,5 +45,3 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
-
-end if
