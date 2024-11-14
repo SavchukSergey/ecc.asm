@@ -1,9 +1,7 @@
-if ~ definite bi_is_zero_512
-
 ;Checks if bi512 value is zero
-;input
-;  rcx - pointer to result
-;output
+;input:
+;  rcx - pointer to bi512 value
+;output:
 ;  rax - 1 if value is zero, 0 otherwise
 bi_is_zero_512_basic:
         xor     rax, rax
@@ -32,6 +30,4 @@ if AVX2_ENABLED = 1
   bi_is_zero_512 = bi_is_zero_512_avx2
 else
   bi_is_zero_512 = bi_is_zero_512_basic
-end if
-
 end if

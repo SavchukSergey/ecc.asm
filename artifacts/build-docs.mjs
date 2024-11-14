@@ -200,7 +200,8 @@ const keywords = [
   'bi64', 'bi128', 'bi192', 'bi256', 'bi320', 'bi384', 'bi448', 'bi512', 'bi576', 'bi640', 'bi768', 'bi1024',
   'ECAffinePoint256',
   'ECProjectivePoint256',
-  'ECProjectiveMontgomeryPoint256'
+  'ECProjectiveMontgomeryPoint256',
+  'MontgomeryContext256'
 ];
 
 /**

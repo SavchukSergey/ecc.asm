@@ -1,11 +1,10 @@
-if ~ definite bi_div_rem_320_64
-
 ;Divides bi320 by bi64
 ;input:
 ;   rcx - pointer to bi320 divident
 ;   rdx - bi64 divisor
 ;   r8 - pointer to bi320 quotient
 ;   r9 - pointer to bi64 remainder
+
 bi_div_rem_320_64:
         push    rbx
 
@@ -42,4 +41,3 @@ bi_div_rem_320_64:
 
         pop     rbx
         ret
-end if

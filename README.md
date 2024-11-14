@@ -93,13 +93,13 @@ Full list of methods:
 | [bi_div_rem_128_64](#bi_div_rem_128_64)                                | Divides `bi128` by `bi64`                                                        |
 | [bi_div_rem_128_128](#bi_div_rem_128_128)                              | Divides `bi128` by `bi128`                                                       |
 | [bi_div_rem_192_64](#bi_div_rem_192_64)                                | Divides `bi192` by `bi64`                                                        |
-| [bi_div_rem_192_128](#bi_div_rem_192_128)                              |                                                                                  |
+| [bi_div_rem_192_128](#bi_div_rem_192_128)                              | Divides `bi192` by `bi128`                                                       |
 | [bi_div_rem_192_192](#bi_div_rem_192_192)                              |                                                                                  |
 | [bi_div_rem_256_64](#bi_div_rem_256_64)                                | Divides `bi256` by `bi64`                                                        |
-| [bi_div_rem_256_128](#bi_div_rem_256_128)                              |                                                                                  |
+| [bi_div_rem_256_128](#bi_div_rem_256_128)                              | Divides `bi256` by `bi128`                                                       |
 | [bi_div_rem_256_192](#bi_div_rem_256_192)                              |                                                                                  |
-| [bi_div_rem_256_256](#bi_div_rem_256_256)                              |                                                                                  |
-| [bi_div_rem_320_64](#bi_div_rem_320_64)                                |                                                                                  |
+| [bi_div_rem_256_256](#bi_div_rem_256_256)                              | Divides `bi256` by `bi256`                                                       |
+| [bi_div_rem_320_64](#bi_div_rem_320_64)                                | Divides `bi320` by `bi64`                                                        |
 | [bi_div_rem_320_128](#bi_div_rem_320_128)                              |                                                                                  |
 | [bi_div_rem_320_192](#bi_div_rem_320_192)                              |                                                                                  |
 | [bi_div_rem_320_256](#bi_div_rem_320_256)                              |                                                                                  |
@@ -143,15 +143,15 @@ Full list of methods:
 | [bi_extend_assign_192_64](#bi_extend_assign_192_64)                    |                                                                                  |
 | [bi_extend_assign_384_64](#bi_extend_assign_384_64)                    |                                                                                  |
 | [bi_extend_assign_448_64](#bi_extend_assign_448_64)                    |                                                                                  |
-| [bi_inc_assign_128](#bi_inc_assign_128)                                |                                                                                  |
-| [bi_inc_assign_192](#bi_inc_assign_192)                                |                                                                                  |
-| [bi_inc_assign_256](#bi_inc_assign_256)                                |                                                                                  |
-| [bi_inc_assign_320](#bi_inc_assign_320)                                |                                                                                  |
-| [bi_inc_assign_384](#bi_inc_assign_384)                                |                                                                                  |
-| [bi_inc_assign_448](#bi_inc_assign_448)                                |                                                                                  |
-| [bi_inc_assign_512](#bi_inc_assign_512)                                |                                                                                  |
-| [bi_is_zero_256](#bi_is_zero_256)                                      |                                                                                  |
-| [bi_is_zero_512](#bi_is_zero_512)                                      |                                                                                  |
+| [bi_inc_assign_128](#bi_inc_assign_128)                                | Increments `bi128` value                                                         |
+| [bi_inc_assign_192](#bi_inc_assign_192)                                | Increments `bi192` value                                                         |
+| [bi_inc_assign_256](#bi_inc_assign_256)                                | Increments `bi256` value                                                         |
+| [bi_inc_assign_320](#bi_inc_assign_320)                                | Increments `bi320` value                                                         |
+| [bi_inc_assign_384](#bi_inc_assign_384)                                | Increments `bi384` value                                                         |
+| [bi_inc_assign_448](#bi_inc_assign_448)                                | Increments `bi448` value                                                         |
+| [bi_inc_assign_512](#bi_inc_assign_512)                                | Increments `bi512` value                                                         |
+| [bi_is_zero_256](#bi_is_zero_256)                                      | Checks if `bi256` value is zero                                                  |
+| [bi_is_zero_512](#bi_is_zero_512)                                      | Checks if `bi512` value is zero                                                  |
 | [bi_lzcnt_128](#bi_lzcnt_128)                                          | Counts leading zero bits of `bi128`                                              |
 | [bi_lzcnt_192](#bi_lzcnt_192)                                          | Counts leading zero bits of `bi192`                                              |
 | [bi_lzcnt_256](#bi_lzcnt_256)                                          | Counts leading zero bits of `bi256`                                              |
@@ -163,7 +163,7 @@ Full list of methods:
 | [bi_mod_add_assign_256_256](#bi_mod_add_assign_256_256)                |                                                                                  |
 | [bi_mod_cube_256](#bi_mod_cube_256)                                    |                                                                                  |
 | [bi_mod_div_256_256](#bi_mod_div_256_256)                              |                                                                                  |
-| [bi_mod_double_assign_256](#bi_mod_double_assign_256)                  |                                                                                  |
+| [bi_mod_double_assign_256](#bi_mod_double_assign_256)                  | Doubles `bi256` value                                                            |
 | [bi_mod_half_assign_256](#bi_mod_half_assign_256)                      |                                                                                  |
 | [bi_mod_inverse_256](#bi_mod_inverse_256)                              | Calculates modular inverse of `bi256`                                            |
 | [bi_mod_inverse_512](#bi_mod_inverse_512)                              | Calculates modular inverse of `bi512`                                            |
@@ -173,13 +173,13 @@ Full list of methods:
 | [bi_mod_pow_256](#bi_mod_pow_256)                                      |                                                                                  |
 | [bi_mod_square_256](#bi_mod_square_256)                                | Squares `bi256` with modulus                                                     |
 | [bi_mod_sub_256_256](#bi_mod_sub_256_256)                              | Subtracts two `bi256` values                                                     |
-| [bi_mod_sub_assign_256_256](#bi_mod_sub_assign_256_256)                |                                                                                  |
+| [bi_mod_sub_assign_256_256](#bi_mod_sub_assign_256_256)                | Subtracts two `bi256` values                                                     |
 | [bi_mod_tripple_assign_256](#bi_mod_tripple_assign_256)                |                                                                                  |
 | [bi_mont_ctx_256_add](#bi_mont_ctx_256_add)                            |                                                                                  |
-| [bi_mont_ctx_256_add_assign](#bi_mont_ctx_256_add_assign)              |                                                                                  |
+| [bi_mont_ctx_256_add_assign](#bi_mont_ctx_256_add_assign)              | Adds two `bi256` value in montgomery form                                        |
 | [bi_mont_ctx_256_convert](#bi_mont_ctx_256_convert)                    |                                                                                  |
-| [bi_mont_ctx_256_cube](#bi_mont_ctx_256_cube)                          |                                                                                  |
-| [bi_mont_ctx_256_double_assign](#bi_mont_ctx_256_double_assign)        |                                                                                  |
+| [bi_mont_ctx_256_cube](#bi_mont_ctx_256_cube)                          | Cubes `bi256` value in montgomery form                                           |
+| [bi_mont_ctx_256_double_assign](#bi_mont_ctx_256_double_assign)        | Doubles `bi256` value in montgomery form                                         |
 | [bi_mont_ctx_256_init](#bi_mont_ctx_256_init)                          |                                                                                  |
 | [bi_mont_ctx_256_mul](#bi_mont_ctx_256_mul)                            |                                                                                  |
 | [bi_mont_ctx_256_pow](#bi_mont_ctx_256_pow)                            |                                                                                  |
@@ -187,7 +187,7 @@ Full list of methods:
 | [bi_mont_ctx_256_redc_512](#bi_mont_ctx_256_redc_512)                  |                                                                                  |
 | [bi_mont_ctx_256_square](#bi_mont_ctx_256_square)                      |                                                                                  |
 | [bi_mont_ctx_256_sub](#bi_mont_ctx_256_sub)                            |                                                                                  |
-| [bi_mont_ctx_256_sub_assign](#bi_mont_ctx_256_sub_assign)              |                                                                                  |
+| [bi_mont_ctx_256_sub_assign](#bi_mont_ctx_256_sub_assign)              | Subtracts two `bi256` value in montgomery form                                   |
 | [bi_mont_ctx_256_tripple_assign](#bi_mont_ctx_256_tripple_assign)      |                                                                                  |
 | [bi_mul_192_64_low_192](#bi_mul_192_64_low_192)                        |                                                                                  |
 | [bi_mul_256_256_low_256](#bi_mul_256_256_low_256)                      |                                                                                  |
@@ -1763,7 +1763,17 @@ Inputs:
 
 ## bi_div_rem_192_128
 
+Divides `bi192` by `bi128`
 
+Inputs: 
+
+`rcx` - pointer to `bi192` divident
+
+`rdx` - pointer to `bi128` divisor
+
+`r8` - pointer to `bi192` quotient
+
+`r9` - pointer to `bi128` remainder
 
 
 
@@ -1791,7 +1801,17 @@ Inputs:
 
 ## bi_div_rem_256_128
 
+Divides `bi256` by `bi128`
 
+Inputs: 
+
+`rcx` - pointer to `bi256` divident
+
+`rdx` - pointer to `bi128` divisor
+
+`r8` - pointer to `bi256` quotient
+
+`r9` - pointer to `bi128` remainder
 
 
 
@@ -1803,13 +1823,41 @@ Inputs:
 
 ## bi_div_rem_256_256
 
+Divides `bi256` by `bi256`
 
+Inputs: 
+
+`rcx` - pointer to `bi256` divident
+
+`rdx` - pointer to `bi256` divisor
+
+`r8` - pointer to `bi256` quotient
+
+`r9` - pointer to `bi256` remainder
+
+include 'bi_div_rem_256_256_full_bits.inc'
+
+bi_div_rem_256_256 equ bi_div_rem_256_256_full_bits
+
+include 'bi_div_rem_256_256_bits.inc'
+
+bi_div_rem_256_256 equ bi_div_rem_256_256_bits
 
 
 
 ## bi_div_rem_320_64
 
+Divides `bi320` by `bi64`
 
+Inputs: 
+
+`rcx` - pointer to `bi320` divident
+
+`rdx` - `bi64` divisor
+
+`r8` - pointer to `bi320` quotient
+
+`r9` - pointer to `bi64` remainder
 
 
 
@@ -2073,55 +2121,143 @@ Inputs:
 
 ## bi_inc_assign_128
 
+Increments `bi128` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi128` value. The modified value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if overflow
+
+`CF` - set to 1 if overflow
 
 
 
 ## bi_inc_assign_192
 
+Increments `bi192` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi192` value. The modified value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if overflow
+
+`CF` - set to 1 if overflow
 
 
 
 ## bi_inc_assign_256
 
+Increments `bi256` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi256` value. The modified value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if overflow
+
+`CF` - set to 1 if overflow
 
 
 
 ## bi_inc_assign_320
 
+Increments `bi320` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi320` value. The modified value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if overflow
+
+`CF` - set to 1 if overflow
 
 
 
 ## bi_inc_assign_384
 
+Increments `bi384` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi384` value. The modified value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if overflow
+
+`CF` - set to 1 if overflow
 
 
 
 ## bi_inc_assign_448
 
+Increments `bi448` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi448` value. The modified value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if overflow
+
+`CF` - set to 1 if overflow
 
 
 
 ## bi_inc_assign_512
 
+Increments `bi512` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi512` value. The modified value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if overflow
+
+`CF` - set to 1 if overflow
 
 
 
 ## bi_is_zero_256
 
+Checks if `bi256` value is zero
 
+Inputs: 
+
+`rcx` - pointer to `bi256` value
+
+Outputs: 
+
+`rax` - 1 if value is zero, 0 otherwise
+
+`ZF` = 1 if value is zero, 0 otherwise
 
 
 
 ## bi_is_zero_512
 
+Checks if `bi512` value is zero
 
+Inputs: 
+
+`rcx` - pointer to `bi512` value
+
+Outputs: 
+
+`rax` - 1 if value is zero, 0 otherwise
 
 
 
@@ -2249,7 +2385,13 @@ Outputs:
 
 ## bi_mod_double_assign_256
 
+Doubles `bi256` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi256` value. The modified value
+
+`rdx` - pointer to `bi256` modulus
 
 
 
@@ -2367,7 +2509,15 @@ Inputs:
 
 ## bi_mod_sub_assign_256_256
 
+Subtracts two `bi256` values
 
+Inputs: 
+
+`rcx` - pointer to left `bi256` value. The modified value.
+
+`rdx` - pointer to right `bi256` value
+
+`r8` - pointer to `bi256` modulus
 
 
 
@@ -2385,7 +2535,15 @@ Inputs:
 
 ## bi_mont_ctx_256_add_assign
 
+Adds two `bi256` value in montgomery form
 
+Inputs: 
+
+`rcx` - pointer to `bi256` left montgomery value. Modified value
+
+`rdx` - pointer to `bi256` right montgomery value.
+
+`r8` - pointer to `MontgomeryContext256`
 
 
 
@@ -2397,13 +2555,27 @@ Inputs:
 
 ## bi_mont_ctx_256_cube
 
+Cubes `bi256` value in montgomery form
 
+Inputs: 
+
+`rcx` - pointer to `bi256` montgomery value. Modified value
+
+`rdx` - pointer to `MontgomeryContext256`
+
+`r8` - pointer to `bi256` montgomery result
 
 
 
 ## bi_mont_ctx_256_double_assign
 
+Doubles `bi256` value in montgomery form
 
+Inputs: 
+
+`rcx` - pointer to `bi256` montgomery value. Modified value
+
+`rdx` - pointer to `MontgomeryContext256`
 
 
 
@@ -2451,7 +2623,15 @@ Inputs:
 
 ## bi_mont_ctx_256_sub_assign
 
+Subtracts two `bi256` value in montgomery form
 
+Inputs: 
+
+`rcx` - pointer to `bi256` left montgomery value. Modified value
+
+`rdx` - pointer to `bi256` right montgomery value.
+
+`r8` - pointer to `MontgomeryContext256`
 
 
 

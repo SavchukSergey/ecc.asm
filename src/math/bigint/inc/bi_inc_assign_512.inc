@@ -1,8 +1,6 @@
-if ~ definite bi_inc_assign_512
-
 ;Increments bi512 value
 ;input:
-;  rcx - left value. The modified value
+;  rcx - pointer to left bi512 value. The modified value
 ;output:
 ;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow
@@ -22,4 +20,3 @@ bi_inc_assign_512:
         setc    al
         movzx   rax, al
         ret
-end if

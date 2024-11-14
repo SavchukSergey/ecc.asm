@@ -1,5 +1,3 @@
-if ~ definite bi_mod_double_assign_256
-
 ;Doubles bi256 value
 ;input:
 ;  rcx - pointer to left bi256 value. The modified value
@@ -22,4 +20,3 @@ bi_mod_double_assign_256:
         call    bi_sub_assign_256_256
         add     rsp, 8
         ret
-end if

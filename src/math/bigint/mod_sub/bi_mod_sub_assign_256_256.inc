@@ -1,10 +1,8 @@
-if ~ definite bi_mod_sub_assign_256_256
-
 ;Subtracts two bi256 values
 ;input:
-;  rcx - left value. The modified value.
-;  rdx - right value
-;  r8 - modulus
+;  rcx - pointer to left bi256 value. The modified value.
+;  rdx - pointer to right bi256 value
+;  r8 - pointer to bi256 modulus
 bi_mod_sub_assign_256_256:
         CheckRegAligned rcx, 'bi_mod_sub_assign_256_256 rcx'
         CheckRegAligned rdx, 'bi_mod_sub_assign_256_256 rdx'
@@ -19,4 +17,3 @@ bi_mod_sub_assign_256_256:
         call    bi_add_assign_256_256
         pop     rdx
         ret
-end if

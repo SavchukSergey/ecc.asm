@@ -1,8 +1,6 @@
-if ~ definite bi_inc_assign_192
-
 ;Increments bi192 value
 ;input:
-;  rcx - left value. The modified value
+;  rcx - pointer to left bi192 value. The modified value
 ;output:
 ;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow
@@ -15,4 +13,3 @@ bi_inc_assign_192:
         setc    al
         movzx   rax, al
         ret
-end if
