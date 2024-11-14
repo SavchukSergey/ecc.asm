@@ -346,9 +346,10 @@ section '.edata' export data readable
          bi_mont_ctx_256_square, 'bi_mont_ctx_256_square',\
          bi_mont_ctx_256_cube, 'bi_mont_ctx_256_cube',\
          bi_mont_ctx_256_pow, 'bi_mont_ctx_256_pow',\
+         bi_mont_ctx_256_add, 'bi_mont_ctx_256_add',\
+         bi_mont_ctx_256_sub, 'bi_mont_ctx_256_sub',\
          bi_mont_ctx_256_add_assign, 'bi_mont_ctx_256_add_assign',\
          bi_mont_ctx_256_sub_assign, 'bi_mont_ctx_256_sub_assign',\
-         bi_mont_ctx_256_sub, 'bi_mont_ctx_256_sub',\
          bi_mont_ctx_256_double_assign, 'bi_mont_ctx_256_double_assign',\
          bi_mont_ctx_256_tripple_assign, 'bi_mont_ctx_256_tripple_assign',\
 \

@@ -16,6 +16,7 @@ virtual at rsp
   .left rq 1
   .right rq 1
   .curve rq 1
+  .modulus rq 1
   .result rq 1
   AlignLocalsStackFrame
   label .locals_end
@@ -34,6 +35,9 @@ end virtual
         mov     r9, [rcx + ECAffinePoint256.curve]
         mov     [.curve], r9
         mov     [r8 + ECAffinePoint256.curve], r9
+        mov     r9, [.curve]
+        lea     r9, [r9 + ECCurve256.modulus]
+        mov     [.modulus], r9
 
         mov     rcx, [.left]
         call    ec_affine_point_256_is_infinity
@@ -46,7 +50,7 @@ end virtual
 ; dx = right.x - left.x
         mov     rcx, [.right]
         mov     rdx, [.left]
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         lea     r9, [.dx]
         call    bi_mod_sub_256_256
 ; dy = right.y - left.y
@@ -54,7 +58,7 @@ end virtual
         add     rcx, ECAffinePoint256.y
         mov     rdx, [.left]
         add     rdx, ECAffinePoint256.y
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         lea     r9, [.dy]
         call    bi_mod_sub_256_256
 
@@ -65,39 +69,39 @@ end virtual
 ; m = dy / dx
         lea     rcx, [.dy]
         lea     rdx, [.dx]
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         lea     r9, [.m]
         call    bi_mod_div_256_256
 .got_m:
 ; m2 = m ^ 2
         lea     rcx, [.m]
-        mov     rdx, secp256k1_p
+        mov     rdx, [.modulus]
         lea     r8, [.m2]
         call    bi_mod_square_256
 
 ;result.x = m2 - left.x - right.x
         lea     rcx, [.m2]
         mov     rdx, [.left]
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         mov     r9, [.result]
         call    bi_mod_sub_256_256
 
         mov     rcx, [.result]
         mov     rdx, [.right]
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         call    bi_mod_sub_assign_256_256
 
 
 ;result.y = m * (left.x - result.x) - left.y
         mov     rcx, [.left]
         mov     rdx, [.result]
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         lea     r9, [.temp]
         call    bi_mod_sub_256_256
 
         lea     rcx, [.temp]
         lea     rdx, [.m]
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         mov     r9, [.result]
         add     r9, ECAffinePoint256.y
         call    bi_mod_mul_256_256
@@ -106,7 +110,7 @@ end virtual
         add     rcx, ECAffinePoint256.y
         mov     rdx, [.left]
         add     rdx, ECAffinePoint256.y
-        mov     r8, secp256k1_p
+        mov     r8, [.modulus]
         call    bi_mod_sub_assign_256_256
 
         add     rsp, .locals_end - .locals_start

@@ -75,7 +75,7 @@ end virtual
         lea     r9, [.rxz]
         call    bi_mod_mul_256_256
 
-;lyz = left.Y.ModMul(right.Z, modulus)
+;lyz = left.Y.ModMul(right.Z, Modulus)
         mov     rcx, [.left]
         lea     rcx, [rcx + ECProjectivePoint256.y]
         mov     rdx, [.right]
@@ -84,7 +84,7 @@ end virtual
         lea     r9, [.lyz]
         call    bi_mod_mul_256_256
 
-;ryz = right.Y.ModMul(left.Z, modulus)
+;ryz = right.Y.ModMul(left.Z, Modulus)
         mov     rcx, [.right]
         lea     rcx, [rcx + ECProjectivePoint256.y]
         mov     rdx, [.left]
@@ -127,7 +127,7 @@ end virtual
         lea     r8, [.dy2]
         call    bi_mod_square_256
 
-;z2 = left.Z.ModMul(right.Z, Modulus);
+;z2 = left.Z.ModMul(right.Z, Modulus)
         mov     rcx, [.left]
         lea     rcx, [rcx + ECProjectivePoint256.z]
         mov     rdx, [.right]

@@ -9,7 +9,7 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned '__secp256k1_point_add_test'
+    PrologCheckStackAligned '__ec_projective_point_256_add_test'
 
         mov     rbx,  __ec_projective_point_256_add_test_cases
 .loop:

@@ -9,7 +9,7 @@ virtual at rsp
 end virtual
         sub     rsp, .locals_end - .locals_start
 
-    PrologCheckStackAligned '__secp256k1_point_add_test'
+    PrologCheckStackAligned '__ec_projective_mont_point_256_add_test'
 
         mov     rbx,  __ec_projective_mont_point_256_add_test_cases
 .loop:
@@ -46,16 +46,16 @@ end virtual
 
 align 16
 __ec_projective_mont_point_256_add_test_cases:
-  db '73c467b2018ef7022c9a162aaf43e4c4b5cb846d4c0c2ec8d1aae52195c8ae53'
-  db '1cf6ac2793df7f1d72aa6b5a053956a7e61d6466c96af9b829f657dcc5b5cfc6'
-  db '3204bf067b51771a4b3509ec7de9dfb84622b2cd6564dff69735bcb48377a94e'
+  db '96e6b51d86cc74119556e2dad4965d5f385b8f72ab12613a2d7f3bcf74a81385'
+  db '6bc8994d2ff8b18e145821876517018ba9b7c533b221e9dfb639e5bfd55abdc4'
+  db '6e2c90fc3b29f9af00159d56fcfb4f80f2fea7c4fb96f0a5966664a8931caa3c'
 
-  db 'a3686c2854ff9781d6bea653742575e0dd55c4c0cf327ce9dde25691749da421'
-  db '33287fe75ee2c097b60cb96c6447c559da0bd6fb3d47f607d1cd466db8ec7823'
-  db 'e57c04d41bbfc43c1572585271b82169feba725ef83b2dd4a2a3dcb08c0ded40'
+  db 'd0a9287039b5b1d143e6f6ecf21936dcfb8994292b94fce0f1730f963e82f378'
+  db 'a4f4129df588b6c08ffa58d172c136b52d6f855ee3b15a3e9392fe70d08ea32d'
+  db '833579bd538e7d654116041a99b4dba37ad1aaa4bef5967137a146afde8e8463'
 
-  db 'c0c92c4ced50f5ec45ab32357c2310d653ec6b9fe6367930a92bd355a673a176'
-  db '10663b5bb6ba9d80d48c14bd32d23d006afa905d3a5a70d79e0e11386e130387'
-  db '98ba4d97152caebd8301295404011bbc5b39b298f62d73109cc21b5cd1bd5697'
+  db 'a3cf2eab4d1af2fa5361ea6866e2038dc33ad52739764c20a51ae7fdff068b29'
+  db '558d35135f8890aabb298ab454c7cc301bd8370169339d93f655a1157c4d32a3'
+  db 'a9ee70f267e39c0a0309190a6874754949ee2388913b440f27d5fe348b755e9a'
 
 .end:
