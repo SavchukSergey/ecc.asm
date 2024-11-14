@@ -1,10 +1,8 @@
-if ~ definite bi_add_256_256
-
 ;Adds two bi256 values
 ;input:
-;  rcx - left value
-;  rdx - right value
-;  r8 - result value
+;  rcx - pointer to left bi256 value
+;  rdx - pointer to right bi256 value
+;  r8 - pointer to result bi256 value
 ;output:
 ;  rax, CF - set to 1 if overflow
 bi_add_256_256:
@@ -31,5 +29,3 @@ bi_add_256_256:
         setc    al
         movzx   rax, al
         ret
-
-end if

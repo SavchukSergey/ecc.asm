@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_256_256
-
-;Adds two bi256 values
+;Adds two bi256 values and assigns result to the left bi256 value
 ;input:
 ;  rcx - pointer to left bi256 value. The modified value
 ;  rdx - pointer to right bi256 value
@@ -19,4 +17,3 @@ bi_add_assign_256_256:
         setc    al
         movzx   rax, al
         ret
-end if

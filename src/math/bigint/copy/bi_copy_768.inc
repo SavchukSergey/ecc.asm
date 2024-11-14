@@ -1,4 +1,7 @@
-if ~ definite bi_copy_768
+;Copies bi768 value
+;input:
+;  rcx - pointer to destination bi768
+;  rdx - pointer to source bi768
 
 bi_copy_768_basic:
         CheckRegBi768Alignment rcx, 'bi_copy_768_basic rcx'
@@ -50,6 +53,4 @@ if AVX2_ENABLED = 1
   bi_copy_768 = bi_copy_768_avx2
 else
   bi_copy_768 = bi_copy_768_basic
-end if
-
 end if

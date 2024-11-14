@@ -1,9 +1,7 @@
-if ~ definite bi_lzcnt_256
-
-;Counts leading zero bits
-;input
+;Counts leading zero bits of bi256
+;input:
 ;  rcx - pointer to bi256
-;output
+;output:
 ;  rax - leading zero bits count
 bi_lzcnt_256:
         xor     rax, rax
@@ -24,5 +22,3 @@ bi_lzcnt_256:
 .end:
         add     rax, rdx
         ret
-
-end if

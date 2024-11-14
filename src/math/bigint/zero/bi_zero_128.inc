@@ -1,7 +1,5 @@
-if ~ definite bi_zero_128
-
 ;Zeroes bi128 value
-;input
+;input:
 ;  rcx - pointer to bi128 value
 bi_zero_128_basic:
     CheckRegBi128Alignment rcx, 'bi_zero_128 rcx'
@@ -17,5 +15,3 @@ bi_zero_128_avx2:
         ret
 
 bi_zero_128 = bi_zero_128_avx2
-
-end if

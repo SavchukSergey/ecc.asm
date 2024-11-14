@@ -1,3 +1,5 @@
+;@docs-ignore
+
 AVX512_ENABLED = 0
 AVX2_ENABLED = 1
 AVX_ENABLED = 1

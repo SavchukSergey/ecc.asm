@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite __bi_call_div_rem
 
 __bi_call_div_rem equ 0

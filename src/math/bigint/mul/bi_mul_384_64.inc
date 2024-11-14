@@ -1,9 +1,9 @@
 if ~ definite bi_mul_384_64
 
-;Multiplies bi384 by u64
+;Multiplies bi384 by bi64
 ;input
 ; rcx - left bi384 value
-; rdx - right u64 value
+; rdx - right bi64 value
 ; r8 - result bi448 value
 bi_mul_384_64:
     CheckRegAligned rcx, 'bi_mul_384_64_bmi2 rcx'

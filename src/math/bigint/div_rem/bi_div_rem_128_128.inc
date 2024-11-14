@@ -1,5 +1,3 @@
-if ~ definite bi_div_rem_128_128
-
 ;Divides bi128 by bi128
 ;input:
 ;   rcx - pointer to bi128 dividend
@@ -107,4 +105,3 @@ bi_div_rem_128_128:
 
     pop     rbx
     ret
-end if

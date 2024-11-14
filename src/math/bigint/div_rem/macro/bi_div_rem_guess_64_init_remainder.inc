@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro DivRemGuess64_InitRemainder dividend_bits, divisor_bits {
 if dividend_bits = divisor_bits
     mov     rcx, [.remainder]

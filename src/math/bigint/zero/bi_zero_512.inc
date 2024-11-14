@@ -1,8 +1,6 @@
-if ~ definite bi_zero_512
-
 ;Zeroes bi512 value
-;input
-; rcx - pointer to result
+;input:
+; rcx - pointer to bi512 result
 bi_zero_512_basic:
     CheckRegBi512Alignment rcx, 'bi_zero_512_basic rcx'
 
@@ -39,6 +37,4 @@ else
   else
     bi_zero_512 = bi_zero_512_basic
   end if
-end if
-
 end if

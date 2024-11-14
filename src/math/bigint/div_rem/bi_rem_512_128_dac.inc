@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite bi_rem_512_128_dac
 
 bi_rem_512_128_dac:

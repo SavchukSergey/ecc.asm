@@ -1,8 +1,6 @@
-if ~ definite bi_bit_clear_128
-
-;Sets a bit in bi128 value
+;Clears a bit in bi128 value
 ;input:
-;  rcx - value to change
+;  rcx - pointer to bi128 value to change
 ;  rdx - bit
 bi_bit_clear_128:
         mov     rax, rdx
@@ -10,5 +8,3 @@ bi_bit_clear_128:
         and     rdx, 0x3f
         btc     qword [rcx + 8 * rax], rdx
         ret
-
-end if

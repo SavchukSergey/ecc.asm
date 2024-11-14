@@ -1,4 +1,7 @@
-if ~ definite bi_copy_128
+;Copies bi128 value
+;input:
+;  rcx - pointer to destination bi128
+;  rdx - pointer to source bi128
 
 bi_copy_128_basic:
         mov     rax, [rdx + 0]
@@ -19,6 +22,4 @@ if AVX2_ENABLED = 1
   bi_copy_128 = bi_copy_128_avx2
 else
   bi_copy_128 = bi_copy_128_basic
-end if
-
 end if

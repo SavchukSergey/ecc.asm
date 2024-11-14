@@ -1,4 +1,7 @@
-if ~ definite bi_copy_320
+;Copies bi320 value
+;input:
+;  rcx - pointer to destination bi320
+;  rdx - pointer to source bi320
 
 bi_copy_320_basic:
         CheckRegBi320Alignment rcx, 'bi_copy_320_basic rcx'
@@ -34,4 +37,3 @@ else
   bi_copy_320 = bi_copy_320_basic
 end if
 
-end if

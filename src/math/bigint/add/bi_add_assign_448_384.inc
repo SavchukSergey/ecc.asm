@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_448_384
-
-;Adds bio bi448 and bi384 values
+;Adds two bi448 and bi384 values and assigns result to the left bi448 value
 ;input:
 ;  rcx - pointer to left bi448 value. The modified value
 ;  rdx - pointer to right bi384 value
@@ -26,4 +24,3 @@ bi_add_assign_448_384:
         setc    al
         movzx   rax, al
         ret
-end if

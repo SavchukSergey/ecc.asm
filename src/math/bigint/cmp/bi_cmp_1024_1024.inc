@@ -1,10 +1,8 @@
-if ~ definite bi_cmp_1024_1024
-
 ;Compares two bi1024 values
-;input
+;input:
 ; rcx - left bi1024 value
 ; rdx - right bi1024 value
-; output
+;output:
 ; rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_1024_1024:
@@ -27,4 +25,3 @@ bi_cmp_1024_1024:
         ;keep CPU flags
         cmp     rax, 0
         ret
-end if

@@ -1,3 +1,4 @@
+;@docs-ignore
 
 macro Call_Zero bits {
   if bits = 128

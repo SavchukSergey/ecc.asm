@@ -1,9 +1,7 @@
-if ~ definite bi_add_assign_128_128
-
-;Adds two bi128 values
+;Adds two bi128 values and assigns result to the left bi128 value
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
+;  rcx - pointer to left bi128 value. The modified value
+;  rdx - pointer to right bi128 value
 ;output:
 ;  rax, CF - set to 1 if overflow
 bi_add_assign_128_128:
@@ -17,4 +15,3 @@ bi_add_assign_128_128:
         setc    al
         movzx   rax, al
         ret
-end if

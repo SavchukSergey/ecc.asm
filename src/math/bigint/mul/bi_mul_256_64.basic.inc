@@ -1,9 +1,9 @@
-if ~ definite bi_mul_256_64_basic
+;@docs-ignore
 
-;Multiplies bi256 by u64
-;input
+;Multiplies bi256 by bi64
+;input:
 ; rcx - pointer to left bi256 value
-; rdx - right u64 value
+; rdx - right bi64 value
 ; r8 - pointer to result bi320 value
 bi_mul_256_64_basic:
 virtual at rsp
@@ -75,5 +75,3 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
-
-end if

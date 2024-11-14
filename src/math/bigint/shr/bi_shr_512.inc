@@ -1,10 +1,9 @@
-if ~ definite bi_shr_512
-
-; Shifts right
-;input
-;  rcx - source value
-;  rdx - target value
+;Shifts right bi512 value
+;input:
+;  rcx - pointer to source bi512 value
+;  rdx - pointer to target bi512 value
 ;  r8 - bits
+
 bi_shr_512:
     CheckRegAligned rcx, 'bi_shr_512 rcx'
     CheckRegAligned rdx, 'bi_shr_512 rdx'
@@ -17,5 +16,3 @@ bi_shr_512:
         mov     rdx, r8
         call    bi_shr_assign_512
         ret
-
-end if

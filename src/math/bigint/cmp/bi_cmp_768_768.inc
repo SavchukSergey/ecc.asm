@@ -1,10 +1,8 @@
-if ~ definite bi_cmp_768_768
-
 ;Compares two bi768 values
-;input
+;input:
 ;  rcx - pointer to left bi768 value
 ;  rdx - pointer to right bi768 value
-;output
+;output:
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_768_768:
@@ -83,5 +81,3 @@ bi_cmp_768_768:
         ;keep CPU flags
         mov     rax, 1
         ret
-
-end if

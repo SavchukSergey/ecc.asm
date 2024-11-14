@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro DivRemGuess64_Prolog dividend_bits, divisor_bits {
     sub     rsp, .locals_end - .locals_start
     mov     [.dividend], rcx

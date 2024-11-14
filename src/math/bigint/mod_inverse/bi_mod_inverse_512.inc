@@ -1,10 +1,8 @@
-if ~ definite bi_mod_inverse_512
-
-;Calculates modular inverse
+;Calculates modular inverse of bi512
 ;input:
-;  rcx - bi512 value.
-;  rdx - bi512 modulus
-;  r8 - bi512 result
+;  rcx - pointer to bi512 value.
+;  rdx - pointer to bi512 modulus
+;  r8 - pointer bi512 result
 bi_mod_inverse_512:
 virtual at rsp
 .locals_start:
@@ -109,4 +107,3 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
-end if

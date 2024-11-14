@@ -1,5 +1,3 @@
-if ~ definite bi_div_rem_256_64
-
 ;Divides bi256 by bi64
 ;input:
 ;   rcx - pointer to bi256 divident
@@ -37,4 +35,3 @@ bi_div_rem_256_64:
 
         pop     rbx
         ret
-end if

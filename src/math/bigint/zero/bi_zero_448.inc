@@ -1,8 +1,6 @@
-if ~ definite bi_zero_448
-
 ;Zeroes bi448 value
-;input
-; rcx - pointer to result
+;input:
+; rcx - pointer to bi448 result
 bi_zero_448_basic:
     CheckRegBi448Alignment rcx, 'bi_zero_448 rcx'
 
@@ -27,6 +25,4 @@ if AVX2_ENABLED = 1
   bi_zero_448 = bi_zero_448_avx2
 else
   bi_zero_448 = bi_zero_448_basic
-end if
-
 end if

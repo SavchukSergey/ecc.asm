@@ -1,9 +1,7 @@
-if ~ definite bi_rem_128_64
-
-;Calculates remainder of bi128 divided by u64
+;Calculates remainder of bi128 dividend by bi64
 ;input:
 ;   rcx - pointer to bi128 dividend
-;   rdx - u64 divisor
+;   rdx - bi64 divisor
 ;   r8 - pointer to bi64 remainder
 bi_rem_128_64:
         push    rbx
@@ -24,4 +22,3 @@ bi_rem_128_64:
 
         pop     rbx
         ret
-end if

@@ -1,9 +1,9 @@
 if ~ definite bi_mul_128_64
 
-;Multiplies bi128 by u64
+;Multiplies bi128 by bi64
 ;input
 ;  rcx - pointer to left bi128 value
-;  rdx - right u64 value
+;  rdx - right bi64 value
 ;  r8 - pointer result bi192 value
 bi_mul_128_64_basic:
     CheckRegAligned rcx, 'bi_mul_128_64 rcx'

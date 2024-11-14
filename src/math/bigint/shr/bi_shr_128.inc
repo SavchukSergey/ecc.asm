@@ -1,10 +1,9 @@
-if ~ definite bi_shr_128
-
-; Shifts right
-;input
-;  rcx - source value
-;  rdx - target value
+;Shifts right bi128 value
+;input:
+;  rcx - pointer to source bi128 value
+;  rdx - pointer to target bi128 value
 ;  r8 - bits
+
 bi_shr_128:
     CheckRegBi128Alignment rcx, 'bi_shr_128 rcx'
     CheckRegBi128Alignment rdx, 'bi_shr_128 rdx'
@@ -17,5 +16,3 @@ bi_shr_128:
         mov     rdx, r8
         call    bi_shr_assign_128
         ret
-
-end if

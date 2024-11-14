@@ -1,9 +1,9 @@
 if ~ definite bi_mul_192_64_basic
 
-;Multiplies bi192 by u64
+;Multiplies bi192 by bi64
 ;input
 ; rcx - pointer to left bi192 value
-; rdx - right u64 value
+; rdx - right bi64 value
 ; r8 - pointer to result bi256 value
 bi_mul_192_64_basic:
 virtual at rsp

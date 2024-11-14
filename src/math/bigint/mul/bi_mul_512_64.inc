@@ -1,9 +1,9 @@
 if ~ definite bi_mul_512_64
 
-;Multiplies bi512 by u64
+;Multiplies bi512 by bi64
 ;input
 ; rcx - pointer to left bi512 value
-; rdx - right u64 value
+; rdx - right bi64 value
 ; r8 - pointer to result bi576 value
 bi_mul_512_64_basic:
 virtual at rsp
@@ -130,10 +130,10 @@ end virtual
 
 
 
-;Multiplies bi512 by u64
+;Multiplies bi512 by bi64
 ;input
 ; rcx - left bi512 value
-; rdx - right u64 value
+; rdx - right bi64 value
 ; r8 - result bi1024 value
 bi_mul_512_64_bmi2:
     CheckRegAligned rcx, 'bi_mul_512_64_bmi2 rcx'

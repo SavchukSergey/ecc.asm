@@ -1,5 +1,3 @@
-if ~ definite bi_add_128_128
-
 ;Adds two bi128 values
 ;input:
 ;  rcx - pointer to left bi128 value
@@ -21,5 +19,3 @@ bi_add_128_128:
         setc    al
         movzx   rax, al
         ret
-
-end if

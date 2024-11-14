@@ -1,10 +1,8 @@
-if ~ definite bi_mod_inverse_256
-
-;Calculates modular inverse
+;Calculates modular inverse of bi256
 ;input:
-;  rcx - bi256 value.
-;  rdx - bi256 modulus
-;  r8 - bi256 result
+;  rcx - pointer to bi256 value.
+;  rdx - pointer to bi256 modulus
+;  r8 - pointer to bi256 result
 bi_mod_inverse_256:
 virtual at rsp
 .locals_start:
@@ -109,4 +107,3 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
-end if

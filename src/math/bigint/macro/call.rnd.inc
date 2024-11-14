@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite __bi_call_rnd
 
 __bi_call_rnd equ 0

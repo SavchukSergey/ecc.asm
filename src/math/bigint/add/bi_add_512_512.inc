@@ -1,5 +1,3 @@
-if ~ definite bi_add_512_512
-
 ;Adds two bi512 values
 ;input:
 ;  rcx - left value
@@ -47,4 +45,3 @@ bi_add_512_512:
         setc    al
         movzx   rax, al
         ret
-end if

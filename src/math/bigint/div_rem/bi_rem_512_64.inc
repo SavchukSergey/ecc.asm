@@ -1,9 +1,9 @@
 if ~ definite bi_rem_512_64
 
-;Calculates remainder of bi512 divided by u64
+;Calculates remainder of bi512 dividend by bi64
 ;input:
 ;   rcx - pointer to bi512 divident
-;   rdx - u64 divisor
+;   rdx - bi64 divisor
 ;   r8 - pointer to bi64 remainder
 bi_rem_512_64:
     CheckRegBi512Alignment rcx, 'bi_rem_512_64 rcx'

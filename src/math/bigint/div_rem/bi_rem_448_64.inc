@@ -1,9 +1,9 @@
 if ~ definite bi_rem_448_64
 
-;Calculates remainder of bi448 divided by u64
+;Calculates remainder of bi448 dividend by bi64
 ;input:
 ;   rcx - pointer to bi448 divident
-;   rdx - u64 divisor
+;   rdx - bi64 divisor
 ;   r8 - pointer to bi64 remainder
 bi_rem_448_64:
     CheckRegBi448Alignment rcx, 'bi_rem_448_64 rcx'

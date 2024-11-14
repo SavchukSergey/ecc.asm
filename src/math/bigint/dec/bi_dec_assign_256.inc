@@ -1,8 +1,6 @@
-if ~ definite bi_dec_assign_256
-
 ;Decrements bi256 value
 ;input:
-;  rcx - left value. The modified value
+;  rcx - pointer to left bi256 value. The modified value
 ;output:
 ;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow
@@ -18,4 +16,3 @@ bi_dec_assign_256:
         setc    al
         movzx   rax, al
         ret
-end if

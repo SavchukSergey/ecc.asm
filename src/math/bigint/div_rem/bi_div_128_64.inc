@@ -1,9 +1,7 @@
-if ~ definite bi_div_128_64
-
-;Divides bi128 by u64
+;Divides bi128 by bi64
 ;input:
 ;  rcx - pointer to bi128 dividend
-;  rdx - u64 divisor
+;  rdx - bi64 divisor
 ;  r8 - pointer to bi128 quotient
 bi_div_128_64:
 virtual at rsp
@@ -37,4 +35,3 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
-end if

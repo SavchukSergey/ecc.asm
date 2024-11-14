@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite bi_mod_mul_256_256_bits
 
 bi_mod_mul_256_256_bits:

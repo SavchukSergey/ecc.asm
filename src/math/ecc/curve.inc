@@ -1,3 +1,5 @@
+;@docs-ignore
+
 struc ECCurve256 {
   .modulus BigInteger256
   .a BigInteger256

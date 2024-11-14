@@ -1,5 +1,3 @@
-if ~ definite bi_mod_square_256
-
 ;Squares bi256 with modulus
 ;input:
 ;  rcx - pointer to bi256 value.
@@ -42,5 +40,3 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
-
-end if

@@ -1,5 +1,5 @@
 
-; Converts affine point to projective point
+; Converts ECAffinePoint256 to ECProjectivePoint256
 ; input:
 ;  rcx - pointer to destination ECProjectivePoint256
 ;  rdx - pointer to source ECAffinePoint256

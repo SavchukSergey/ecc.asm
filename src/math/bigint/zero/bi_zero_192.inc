@@ -1,8 +1,6 @@
-if ~ definite bi_zero_192
-
 ;Zeroes bi192 value
-;input
-; rcx - pointer to result
+;input:
+; rcx - pointer to bi192 result
 bi_zero_192_basic:
     CheckRegBi192Alignment rcx, 'bi_zero_192 rcx'
 
@@ -25,6 +23,4 @@ if AVX2_ENABLED = 1
   bi_zero_192 = bi_zero_192_avx2
 else
   bi_zero_192 = bi_zero_192_basic
-end if
-
 end if

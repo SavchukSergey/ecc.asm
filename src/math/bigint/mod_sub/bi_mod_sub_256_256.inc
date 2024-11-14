@@ -1,5 +1,3 @@
-if ~ definite bi_mod_sub_256_256
-
 ;Subtracts two bi256 values
 ;input:
 ;  rcx - pointer to left bi256 value
@@ -29,4 +27,3 @@ bi_mod_sub_256_256:
 
         add      rsp, 8
         ret
-end if

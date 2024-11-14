@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro DivRemGuess64_RecheckMulti dividend_bits, divisor_bits {
 .recheck_multi:
 if dividend_bits = divisor_bits

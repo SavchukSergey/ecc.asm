@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro DivRemBits dividend_bits, divisor_bits {
   DIV_REM_BITS_DIVIDEND_SIZE = dividend_bits
   DIV_REM_BITS_DIVISOR_SIZE = divisor_bits

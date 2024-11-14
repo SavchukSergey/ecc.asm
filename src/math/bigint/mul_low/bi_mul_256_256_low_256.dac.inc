@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite bi_mul_256_256_low_256
 
 ;Multiplies two bi256 values

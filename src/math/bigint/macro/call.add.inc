@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite __bi_call_add
 
 __bi_call_add equ 0

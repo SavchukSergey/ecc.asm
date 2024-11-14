@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite ec_projective_point_256
 
 ec_projective_point_256:

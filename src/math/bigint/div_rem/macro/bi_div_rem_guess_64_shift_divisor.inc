@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro DivRemGuess64_ShiftDivisor dividend_bits, divisor_bits {
 ;shift divisor to the left, so the most meaningful bit is always the highest bit
 if divisor_bits = 128

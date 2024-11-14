@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_576_576
-
-;Adds two bi576 values
+;Adds two bi576 values and assigns result to the left bi576 value
 ;input:
 ;  rcx - left value. The modified value
 ;  rdx - right value
@@ -28,4 +26,3 @@ bi_add_assign_576_576:
         setc    al
         movzx   rax, al
         ret
-end if

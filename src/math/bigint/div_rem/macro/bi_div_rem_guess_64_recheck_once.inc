@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro DivRemGuess64_RecheckOnce dividend_bits, divisor_bits {
 .recheck_once:
 ;remainder has same leading zeroes count as divisor so we can safely compare lowest divisor_bits bits

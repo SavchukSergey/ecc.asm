@@ -1,6 +1,4 @@
-if ~ definite bi_mod_negate_512
-
-;Negates bi512 values modulo
+;Negates bi512 value modulo
 ;input:
 ;  rcx - pointer to left bi512 value.
 ;  rdx - pointer to modulus bi512 value
@@ -14,4 +12,3 @@ bi_mod_negate_512:
         xchg     rcx, rdx
         call    bi_sub_512_512
         ret
-end if

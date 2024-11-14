@@ -3,7 +3,7 @@ if ~ definite bi_div_rem_384_64
 ;Divides bi384 by bi64
 ;input:
 ;   rcx - pointer to bi384 dividend
-;   rdx - u64 divisor
+;   rdx - bi64 divisor
 ;   r8 - pointer to bi384 quotient
 ;   r9 - pointer to bi64 remainder
 bi_div_rem_384_64:

@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_640_512
-
-;Adds two bi640 values
+;Adds bi640 and bi512 values and assigns result to the left bi640 value
 ;input:
 ;  rcx - pointer to left bi640 value. The modified value
 ;  rdx - pointer to right bi512 value
@@ -30,5 +28,3 @@ bi_add_assign_640_512:
 
         setc    al                 ;rax is cleared before
         ret
-
-end if

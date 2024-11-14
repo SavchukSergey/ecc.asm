@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro DivRemGuess64_Prepare dividend_bits, divisor_bits {
     DIV_REM_PARTIAL_DIVIDEND_SIZE = 128
     DIV_REM_PARTIAL_DIVISOR_SIZE = 64

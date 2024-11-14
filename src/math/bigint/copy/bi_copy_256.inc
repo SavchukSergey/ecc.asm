@@ -1,4 +1,7 @@
-if ~ definite bi_copy_256
+;Copies bi256 value
+;input:
+;  rcx - pointer to destination bi256
+;  rdx - pointer to source bi256
 
 bi_copy_256_basic:
         CheckRegBi256Alignment rcx, 'bi_copy_256_basic rcx'
@@ -26,6 +29,4 @@ if AVX2_ENABLED = 1
   bi_copy_256 = bi_copy_256_avx2
 else
   bi_copy_256 = bi_copy_256_basic
-end if
-
 end if

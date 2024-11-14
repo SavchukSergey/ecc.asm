@@ -1,6 +1,6 @@
 if ~ definite bi_assert_equal_64
 
-;Asserts two u64 values to be equal
+;Asserts two bi64 values to be equal
 ;input
 ; rcx - expected
 ; rdx - actual
@@ -30,7 +30,7 @@ bi_assert_equal_64:
         pop     rsi rax
         ret
 
-.msg_1 db TEXT_COLOR_ERROR, 'Expected u64:', 13, 10, 'A: ', 0
+.msg_1 db TEXT_COLOR_ERROR, 'Expected bi64:', 13, 10, 'A: ', 0
 .msg_2 db 13, 10, 'E: ', 0
 .msg_3 db 13, 10, 0
 

@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_320_192
-
-;Adds bi320 and bi192 values
+;Adds bi320 and bi192 values and assigns result to the left bi320 value
 ;input:
 ;  rcx - pointer to left bi320 value. The modified value
 ;  rdx - pointer to right bi192 value
@@ -22,4 +20,3 @@ bi_add_assign_320_192:
 
         setc    al                 ;rax is cleared before
         ret
-end if

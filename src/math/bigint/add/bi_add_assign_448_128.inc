@@ -1,9 +1,7 @@
-if ~ definite bi_add_assign_448_128
-
-;Adds two bi448 values
+;Adds bi448 and bi128 values and assigns result to the left bi448 value
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
+;  rcx - pointer to left bi448 value. The modified value
+;  rdx - pointer to right bi128 value
 ;output:
 ;  rax, CF - set to 1 if overflow
 ;  CF - set to 1 if overflow
@@ -23,4 +21,3 @@ bi_add_assign_448_128:
 
         setc    al                 ;rax is cleared before
         ret
-end if

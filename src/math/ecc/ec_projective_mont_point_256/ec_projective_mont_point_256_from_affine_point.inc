@@ -1,4 +1,4 @@
-; Converts affine point to projective montgomery point
+; Converts ECAffinePoint256 to ECProjectiveMontgomeryPoint256
 ; input:
 ;  rcx - pointer to destination ECProjectiveMontgomeryPoint256
 ;  rdx - pointer to source ECAffinePoint256

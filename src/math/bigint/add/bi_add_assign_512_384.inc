@@ -1,9 +1,7 @@
-if ~ definite bi_add_assign_512_384
-
-;Adds two bi512 values
+;Adds bi512 and bi384 values and assigns result to the left bi512 value
 ;input:
-;  rcx - left value. The modified value
-;  rdx - right value
+;  rcx - pointer to left bi512 value. The modified value
+;  rdx - pointer to right bi384 value
 ;output:
 ;  rax, CF - set to 1 if overflow
 bi_add_assign_512_384:
@@ -27,4 +25,3 @@ bi_add_assign_512_384:
         setc    al
         movzx   rax, al
         ret
-end if

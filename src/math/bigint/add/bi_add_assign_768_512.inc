@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_768_512
-
-;Adds two bi768 values
+;Adds two bi768 values and assigns result to the left bi768 value
 ;input:
 ;  rcx - pointer to left bi768 value. The modified value
 ;  rdx - pointer to right bi512 value
@@ -32,5 +30,3 @@ bi_add_assign_768_512:
 
         setc    al                 ;rax is cleared before
         ret
-
-end if

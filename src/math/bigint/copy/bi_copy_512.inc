@@ -1,4 +1,7 @@
-if ~ definite bi_copy_512
+;Copies bi512 value
+;input:
+;  rcx - pointer to destination bi512
+;  rdx - pointer to source bi512
 
 bi_copy_512_basic:
         CheckRegBi512Alignment rcx, 'bi_copy_512_basic rcx'
@@ -39,6 +42,4 @@ if AVX2_ENABLED = 1
   bi_copy_512 = bi_copy_512_avx2
 else
   bi_copy_512 = bi_copy_512_basic
-end if
-
 end if

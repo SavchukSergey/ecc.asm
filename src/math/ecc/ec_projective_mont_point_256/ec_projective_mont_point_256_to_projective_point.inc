@@ -1,5 +1,5 @@
 
-; Converts projective montgomery point to projective point
+; Converts ECProjectiveMontgomeryPoint256 to ECProjectivePoint256
 ; input:
 ;  rcx - pointer to source ECProjectiveMontgomeryPoint256
 ;  rdx - pointer to destination ECProjectivePoint256

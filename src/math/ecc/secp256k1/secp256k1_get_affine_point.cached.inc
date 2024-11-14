@@ -1,3 +1,5 @@
+;@docs-ignore
+
 secp256k1_get_affine_point:
 virtual at rsp
   label .locals_start

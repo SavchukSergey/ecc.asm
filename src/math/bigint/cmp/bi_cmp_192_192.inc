@@ -1,10 +1,8 @@
-if ~ definite bi_cmp_192_192
-
 ;Compares two bi192 values
-;input
+;input:
 ;  rcx - pointer to left bi192 value
 ;  rdx - pointer to right bi192 value
-;output
+;output:
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_192_192:
@@ -38,5 +36,3 @@ bi_cmp_192_192:
         ;keep CPU flags
         mov     rax, 1
         ret
-
-end if

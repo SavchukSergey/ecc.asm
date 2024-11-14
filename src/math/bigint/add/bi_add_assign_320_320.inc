@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_320_320
-
-;Adds two bi320 values
+;Adds two bi320 values and assigns result to the left bi320 value
 ;input:
 ;  rcx - left value. The modified value
 ;  rdx - right value
@@ -20,4 +18,3 @@ bi_add_assign_320_320:
         setc    al
         movzx   rax, al
         ret
-end if

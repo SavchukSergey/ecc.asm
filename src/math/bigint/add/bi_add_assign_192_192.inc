@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_192_192
-
-;Adds two bi192 values
+;Adds two bi192 values and assigns result to the left bi192 value
 ;input:
 ;  rcx - pointer to left bi192 value. The modified value
 ;  rdx - pointer to right bi192 value
@@ -17,4 +15,3 @@ bi_add_assign_192_192:
         setc    al
         movzx   rax, al
         ret
-end if

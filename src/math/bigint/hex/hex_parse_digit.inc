@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite hex_parse_digit
 
 ;input

@@ -1,6 +1,4 @@
-if ~ definite bi_mod_negate_256
-
-;Negates bi256 values modulo
+;Negates bi256 value modulo
 ;input:
 ;  rcx - pointer to left bi256 value.
 ;  rdx - pointer to modulus bi256 value
@@ -19,5 +17,3 @@ bi_mod_negate_256:
         mov       rcx, r8
         Fast_Zero 256
         ret
-
-end if

@@ -1,9 +1,9 @@
 if ~ definite bi_rem_384_64
 
-;Calculates remainder of bi384 divided by u64
+;Calculates remainder of bi384 dividend by bi64
 ;input:
 ;   rcx - pointer to bi384 divident
-;   rdx - u64 divisor
+;   rdx - bi64 divisor
 ;   r8 - pointer to bi64 remainder
 bi_rem_384_64:
     CheckRegBi384Alignment rcx, 'bi_rem_384_64 rcx'

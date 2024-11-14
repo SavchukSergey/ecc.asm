@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite __bi_jmp_rem
 
 __bi_jmp_rem equ 0

@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if definite ECC_TESTS
   CHECK_REG_ALIGNMENT = 0
   CHECK_STACK_ALIGNMENT = 0

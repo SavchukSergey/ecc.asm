@@ -1,6 +1,6 @@
 if ~ definite bi_rem_128_128
 
-;Calculates remainder of bi128 divided by u64
+;Calculates remainder of bi128 dividend by bi64
 ;input:
 ;   rcx - pointer to bi128 dividend
 ;   rdx - pointer to bi128 divisor

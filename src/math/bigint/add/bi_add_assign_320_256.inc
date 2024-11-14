@@ -1,8 +1,6 @@
-if ~ definite bi_add_assign_320_256
-
-;Adds bi320 and bi256 values
+;Adds bi320 and bi256 values and assigns result to the left bi320 value
 ;input:
-;  rcx - pointer to left bi320E value. The modified value
+;  rcx - pointer to left bi320 value. The modified value
 ;  rdx - pointer to right bi256 value
 ;output:
 ;  rax, CF - set to 1 if overflow
@@ -27,4 +25,3 @@ bi_add_assign_320_256:
 
         setc    al                 ;rax is cleared before
         ret
-end if

@@ -1,3 +1,5 @@
+;@docs-ignore
+
 macro Call_Shr bits {
   if bits = 128
       call    bi_shr_128

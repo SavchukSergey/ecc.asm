@@ -1,8 +1,6 @@
-if ~ definite bi_bit_check_512
-
-;Sets a bit in bi512 value
+;Checks bit in bi512 value
 ;input:
-;  rcx - value to change
+;  rcx - pointer of bi512 value to test
 ;  rdx - bit
 ;output:
 ;  rax - 1 if bit is set
@@ -14,5 +12,3 @@ bi_bit_check_512:
         setc    al
         movzx   rax, al
         ret
-
-end if

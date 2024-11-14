@@ -1,10 +1,8 @@
-if ~ definite bi_cmp_320_256
-
 ;Compares bi320 to bi256 values
-;input
+;input:
 ;  rcx - pointer to bi320 left value
 ;  rdx - pointer to bi256 right value
-;output
+;output:
 ;  rax - sign: 0 values are equal, 1 left value is greater than right value, -1 otherwise
 
 bi_cmp_320_256:
@@ -46,5 +44,3 @@ bi_cmp_320_256:
         ;keep CPU flags
         mov     rax, 1
         ret
-
-end if

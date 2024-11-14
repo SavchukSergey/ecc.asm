@@ -1,6 +1,4 @@
-if ~ definite bi_add_assign_1024_1024
-
-;Adds two bi1024 values
+;Adds two bi1024 values and assigns result to the left bi1024 value
 ;input:
 ;  rcx - pointer to left bi1024 value. The modified value
 ;  rdx - pointer to right bi1024 value
@@ -44,5 +42,3 @@ bi_add_assign_1024_1024:
         setc    al
         movzx   rax, al
         ret
-
-end if

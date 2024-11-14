@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite __bi_try_read_hex
 
 __bi_try_read_hex equ 0

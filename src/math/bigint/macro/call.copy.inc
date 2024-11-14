@@ -1,3 +1,4 @@
+;@docs-ignore
 
 macro Call_Copy bits {
   if bits = 128

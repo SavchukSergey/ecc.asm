@@ -1,10 +1,8 @@
-if ~ definite bi_add_192_192
-
 ;Adds two bi192 values
 ;input:
-;  rcx - left value
-;  rdx - right value
-;  r8 - result value
+;  rcx - pointer to left bi192 value
+;  rdx - pointer to right bi192 value
+;  r8 - pointer to result bi192 value
 ;output:
 ;  rax, CF - set to 1 if overflow
 bi_add_192_192:
@@ -27,5 +25,3 @@ bi_add_192_192:
         setc    al
         movzx   rax, al
         ret
-
-end if

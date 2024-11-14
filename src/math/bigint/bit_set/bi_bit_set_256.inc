@@ -1,8 +1,6 @@
-if ~ definite bi_bit_set_256
-
 ;Sets a bit in bi256 value
 ;input:
-;  rcx - value to change
+;  rcx - pointer to bi256 value to change
 ;  rdx - bit
 bi_bit_set_256:
         mov     rax, rdx
@@ -10,5 +8,3 @@ bi_bit_set_256:
         and     rdx, 0x3f
         bts     qword [rcx + 8 * rax], rdx
         ret
-
-end if

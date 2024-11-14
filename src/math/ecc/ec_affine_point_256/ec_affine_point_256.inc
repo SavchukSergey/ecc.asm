@@ -1,3 +1,5 @@
+;@docs-ignore
+
 if ~ definite ec_affine_point_256
 
 ec_affine_point_256:
