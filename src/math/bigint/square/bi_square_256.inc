@@ -1,7 +1,5 @@
-if ~ definite bi_square_256
-
 ;Squares bi256 value
-;input
+;input:
 ; rcx - pointer to bi256 value
 ; rdx - pointer to bi512 result
 bi_square_256:
@@ -59,4 +57,3 @@ end virtual
 
         add     rsp, .locals_end - .locals_start
         ret
-end if

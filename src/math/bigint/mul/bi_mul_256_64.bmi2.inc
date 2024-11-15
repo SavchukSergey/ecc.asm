@@ -1,13 +1,12 @@
-if ~ definite bi_mul_256_64_bmi2
-
 ;Multiplies bi256 by bi64
 ;input
 ; rcx - left bi256 value
 ; rdx - right bi64 value
 ; r8 - result bi320 value
+
 bi_mul_256_64_bmi2:
-    CheckRegAligned rcx, 'bi_mul_256_64_bmi2 rcx'
-    CheckRegAligned r8, 'bi_mul_256_64_bmi2 r8'
+    CheckRegBi256Alignment rcx, 'bi_mul_256_64_bmi2 rcx'
+    CheckRegBi320Alignment r8, 'bi_mul_256_64_bmi2 r8'
 
         mov     r9, rcx
         mov     rcx, rdx
@@ -38,5 +37,3 @@ bi_mul_256_64_bmi2:
         mov     [r8 + 32], rdx
 
         ret
-
-end if

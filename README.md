@@ -197,7 +197,7 @@ Full list of methods:
 | [bi_mul_128_64_low_128](#bi_mul_128_64_low_128)                        |                                                                                  |
 | [bi_mul_128_128_low_128](#bi_mul_128_128_low_128)                      |                                                                                  |
 | [bi_mul_192_64](#bi_mul_192_64)                                        | Multiplies `bi192` by `bi64`                                                     |
-| [bi_mul_256_64](#bi_mul_256_64)                                        |                                                                                  |
+| [bi_mul_256_64](#bi_mul_256_64)                                        | Multiplies `bi256` value by `bi64` value                                         |
 | [bi_mul_256_128](#bi_mul_256_128)                                      |                                                                                  |
 | [bi_mul_64_64_low_64](#bi_mul_64_64_low_64)                            |                                                                                  |
 | [bi_mul_256_128_low_256](#bi_mul_256_128_low_256)                      |                                                                                  |
@@ -237,9 +237,9 @@ Full list of methods:
 | [bi_rem_384_64](#bi_rem_384_64)                                        |                                                                                  |
 | [bi_rem_384_128](#bi_rem_384_128)                                      |                                                                                  |
 | [bi_rem_384_192](#bi_rem_384_192)                                      | Calculates remainder of `bi384` dividend by `bi192`                              |
-| [bi_rem_384_256](#bi_rem_384_256)                                      |                                                                                  |
-| [bi_rem_384_320](#bi_rem_384_320)                                      |                                                                                  |
-| [bi_rem_384_384](#bi_rem_384_384)                                      |                                                                                  |
+| [bi_rem_384_256](#bi_rem_384_256)                                      | Calculates remainder of `bi384` dividend by `bi256`                              |
+| [bi_rem_384_320](#bi_rem_384_320)                                      | Calculates remainder of `bi384` dividend by `bi320`                              |
+| [bi_rem_384_384](#bi_rem_384_384)                                      | Calculates remainder of `bi384` dividend by `bi384`                              |
 | [bi_rem_448_64](#bi_rem_448_64)                                        |                                                                                  |
 | [bi_rem_448_128](#bi_rem_448_128)                                      |                                                                                  |
 | [bi_rem_448_192](#bi_rem_448_192)                                      |                                                                                  |
@@ -297,9 +297,9 @@ Full list of methods:
 | [bi_shr_assign_512_64](#bi_shr_assign_512_64)                          |                                                                                  |
 | [bi_shr_assign_512_128](#bi_shr_assign_512_128)                        |                                                                                  |
 | [bi_shr_assign_512_256](#bi_shr_assign_512_256)                        |                                                                                  |
-| [bi_square_64](#bi_square_64)                                          |                                                                                  |
-| [bi_square_128](#bi_square_128)                                        |                                                                                  |
-| [bi_square_256](#bi_square_256)                                        |                                                                                  |
+| [bi_square_64](#bi_square_64)                                          | Squares `bi64` value                                                             |
+| [bi_square_128](#bi_square_128)                                        | Squares `bi128` value                                                            |
+| [bi_square_256](#bi_square_256)                                        | Squares `bi256` value                                                            |
 | [bi_sub_128_128](#bi_sub_128_128)                                      |                                                                                  |
 | [bi_sub_192_192](#bi_sub_192_192)                                      |                                                                                  |
 | [bi_sub_256_256](#bi_sub_256_256)                                      |                                                                                  |
@@ -2699,7 +2699,15 @@ Inputs:
 
 ## bi_mul_256_64
 
+Multiplies `bi256` value by `bi64` value
 
+Inputs: 
+
+`rcx` - pointer to left `bi256` value
+
+`rdx` - `bi64` value
+
+`r8` - pointer to result `bi320` value
 
 
 
@@ -2963,19 +2971,43 @@ Inputs:
 
 ## bi_rem_384_256
 
+Calculates remainder of `bi384` dividend by `bi256`
 
+Inputs: 
+
+`rcx` - pointer to `bi384` dividend
+
+`rdx` - pointer to `bi256` divisor
+
+`r8` - pointer to `bi256` remainder
 
 
 
 ## bi_rem_384_320
 
+Calculates remainder of `bi384` dividend by `bi320`
 
+Inputs: 
+
+`rcx` - pointer to `bi384` dividend
+
+`rdx` - pointer to `bi320` divisor
+
+`r8` - pointer to `bi320` remainder
 
 
 
 ## bi_rem_384_384
 
+Calculates remainder of `bi384` dividend by `bi384`
 
+Inputs: 
+
+`rcx` - pointer to `bi384` dividend
+
+`rdx` - pointer to `bi384` divisor
+
+`r8` - pointer to `bi384` remainder
 
 
 
@@ -3347,19 +3379,37 @@ Inputs:
 
 ## bi_square_64
 
+Squares `bi64` value
 
+Inputs: 
+
+`rcx` - left `bi64` value
+
+`rdx` - pointer to result `bi128` value
 
 
 
 ## bi_square_128
 
+Squares `bi128` value
 
+Inputs: 
+
+`rcx` - pointer to `bi128` value
+
+`rdx` - pointer to `bi256` result
 
 
 
 ## bi_square_256
 
+Squares `bi256` value
 
+Inputs: 
+
+`rcx` - pointer to `bi256` value
+
+`rdx` - pointer to `bi512` result
 
 
 

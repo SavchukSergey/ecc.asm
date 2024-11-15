@@ -1,7 +1,5 @@
-if ~ definite bi_square_64
-
-;Multiplies two bi64 values
-;input
+;Squares bi64 value
+;input:
 ;  rcx - left bi64 value
 ;  rdx - pointer to result bi128 value
 bi_square_64:
@@ -14,4 +12,3 @@ bi_square_64:
         mov     [r8 + 8], rdx
 
         ret
-end if

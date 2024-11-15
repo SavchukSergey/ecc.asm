@@ -1,7 +1,5 @@
-if ~ definite bi_square_128
-
 ;Squares bi128 value
-;input
+;input:
 ; rcx - pointer to bi128 value
 ; rdx - pointer to bi256 result
 bi_square_128_basic:
@@ -67,6 +65,4 @@ if BMI2_ENABLED = 1
   bi_square_128 = bi_square_128_bmi2
 else
   bi_square_128 = bi_square_128_basic
-end if
-
 end if
