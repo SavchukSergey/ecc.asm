@@ -300,10 +300,10 @@ Full list of methods:
 | [bi_square_64](#bi_square_64)                                          | Squares `bi64` value                                                             |
 | [bi_square_128](#bi_square_128)                                        | Squares `bi128` value                                                            |
 | [bi_square_256](#bi_square_256)                                        | Squares `bi256` value                                                            |
-| [bi_sub_128_128](#bi_sub_128_128)                                      |                                                                                  |
-| [bi_sub_192_192](#bi_sub_192_192)                                      |                                                                                  |
-| [bi_sub_256_256](#bi_sub_256_256)                                      |                                                                                  |
-| [bi_sub_512_512](#bi_sub_512_512)                                      |                                                                                  |
+| [bi_sub_128_128](#bi_sub_128_128)                                      | Subtracts two `bi128` values                                                     |
+| [bi_sub_192_192](#bi_sub_192_192)                                      | Subtracts two `bi192` values                                                     |
+| [bi_sub_256_256](#bi_sub_256_256)                                      | Subtracts two `bi256` values                                                     |
+| [bi_sub_512_512](#bi_sub_512_512)                                      | Subtracts two `bi512` values                                                     |
 | [bi_sub_assign_128_128](#bi_sub_assign_128_128)                        |                                                                                  |
 | [bi_sub_assign_192_128](#bi_sub_assign_192_128)                        |                                                                                  |
 | [bi_sub_assign_192_192](#bi_sub_assign_192_192)                        |                                                                                  |
@@ -3415,25 +3415,73 @@ Inputs:
 
 ## bi_sub_128_128
 
+Subtracts two `bi128` values
 
+Inputs: 
+
+`rcx` - pointer to left `bi128` value
+
+`rdx` - pointer to right `bi128` value
+
+`r8` - pointer to result `bi128` value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if borrow
 
 
 
 ## bi_sub_192_192
 
+Subtracts two `bi192` values
 
+Inputs: 
+
+`rcx` - pointer to left `bi192` value
+
+`rdx` - pointer to right `bi192` value
+
+`r8` - pointer to result `bi192` value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if borrow
 
 
 
 ## bi_sub_256_256
 
+Subtracts two `bi256` values
 
+Inputs: 
+
+`rcx` - pointer to left `bi256` value
+
+`rdx` - pointer to right `bi256` value
+
+`r8` - pointer to result `bi256` value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if borrow
 
 
 
 ## bi_sub_512_512
 
+Subtracts two `bi512` values
 
+Inputs: 
+
+`rcx` - pointer to left `bi512` value
+
+`rdx` - pointer to right `bi512` value
+
+`r8` - pointer to result `bi512` value
+
+Outputs: 
+
+`rax`, `CF` - set to 1 if borrow
 
 
 

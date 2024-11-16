@@ -11,6 +11,7 @@ virtual at rsp
   AlignLocalsStackFrame
 .locals_end:
 end virtual
+        push    r8 r9
         sub     rsp, .locals_end - .locals_start
 
         PrologCheckStackAligned 'bi_square_256'
@@ -20,40 +21,145 @@ end virtual
         mov     [.value], rcx
         mov     [.result], rdx
 
-        mov     rcx, [.result]
-        call    bi_zero_512
+        xor     rax, rax               ;CF = 0, OF = 0
 
-; low * low (256 bit)
-        mov     rcx, [.value]
-        mov     rdx, [.result]
-        call    bi_square_128
+        mov     r8, rcx
+        mov     r9, rdx
 
-; low * high (256 bit)
-        mov     rcx, [.value]
-        lea     rdx, [rcx + __BIG_INTEGER_BYTES_256 / 2]
-        lea     r8, [.temp]
-        call    bi_mul_128_128
+; d * d
+        mov     rdx, [r8 + 0]
+        mulx    rdx, rax, rdx
+        mov     [r9 + 0], rax
+        mov     [r9 + 8], rdx
 
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        lea     rdx, [.temp]
-        call    bi_add_assign_384_256
+; c * c
+        mov     rdx, [r8 + 8]
+        mulx    rdx, rax, rdx
+        mov     [r9 + 16], rax
+        mov     [r9 + 24], rdx
 
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        lea     rdx, [.temp]
-        call    bi_add_assign_384_256
+; b * b
+        mov     rdx, [r8 + 16]
+        mulx    rdx, rax, rdx
+        mov     [r9 + 32], rax
+        mov     [r9 + 40], rdx
 
-; high * high (256 bit)
-        mov     rcx, [.value]
-        add     rcx, __BIG_INTEGER_BYTES_256 / 2
-        lea     rdx, [.temp]
-        call    bi_square_128
+; a * a
+        mov     rdx, [r8 + 24]
+        mulx    rdx, rax, rdx
+        mov     [r9 + 48], rax
+        mov     [r9 + 56], rdx
 
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_256
-        lea     rdx, [.temp]
-        call    bi_add_assign_256_256
+
+
+; c * d
+        mov     rcx, [r8 + 8]
+        mov     rdx, [r8 + 0]
+        mulx    rdx, rax, rcx
+        adcx    rax, rax
+        adcx    rdx, rdx                   ;CF = carry for [.result + 24]
+        adox    rax, [r9 + 8]
+        adox    rdx, [r9 + 16]             ;OF = carry for [.result + 24]
+        mov     [r9 + 8], rax
+        mov     [r9 + 16], rdx
+
+; a * d
+        mov     rcx, [r8 + 24]
+        mov     rdx, [r8 + 0]
+        mulx    rdx, rax, rcx
+        adcx    rax, rax
+        adcx    rdx, rdx                   ;CF = carry for [.result + 40]
+        adox    rax, [r9 + 24]
+        adox    rdx, [r9 + 32]             ;OF = carry for [.result + 40]
+        mov     [r9 + 24], rax
+        mov     [r9 + 32], rdx
+
+; a * b
+        mov     rcx, [r8 + 24]
+        mov     rdx, [r8 + 16]
+        mulx    rdx, rax, rcx
+        adcx    rax, rax
+        adcx    rdx, rdx                   ;CF = carry for [.result + 56]
+        adox    rax, [r9 + 40]
+        adox    rdx, [r9 + 48]             ;OF = carry for [.result + 56]
+        mov     [r9 + 40], rax
+        mov     [r9 + 48], rdx
+
+        mov     rax, [r9 + 56]
+        mov     rdx, 0
+        adox    rax, rdx
+        adcx    rax, rdx
+        mov     [r9 + 56], rax
+
+        ;OF, CF = 0, because result can never exceed 512 bits
+        ;xor     rax, rax               ;CF = 0, OF = 0
+; b * d
+        mov     rcx, [r8 + 16]
+        mov     rdx, [r8 + 0]
+        mulx    rdx, rax, rcx
+        adcx    rax, rax
+        adcx    rdx, rdx                   ;CF = carry for [.result + 32]
+        adox    rax, [r9 + 16]
+        adox    rdx, [r9 + 24]             ;OF = carry for [.result + 32]
+        mov     [r9 + 16], rax
+        mov     [r9 + 24], rdx
+
+
+; a * c
+        mov     rcx, [r8 + 24]
+        mov     rdx, [r8 + 8]
+        mulx    rdx, rax, rcx
+        adcx    rax, rax
+        adcx    rdx, rdx                   ;CF = carry for [.result + 48]
+        adox    rax, [r9 + 32]
+        adox    rdx, [r9 + 40]             ;OF = carry for [.result + 48]
+        mov     [r9 + 32], rax
+        mov     [r9 + 40], rdx
+
+        mov     rax, [r9 + 48]
+        mov     rdx, 0
+        adox    rax, rdx
+        adcx    rax, rdx
+        mov     [r9 + 48], rax
+
+        mov     rax, [r9 + 56]
+        mov     rdx, 0
+        adox    rax, rdx
+        adcx    rax, rdx
+        mov     [r9 + 56], rax
+
+        ;OF, CF = 0, because result can never exceed 512 bits
+        ;xor     rax, rax               ;CF = 0, OF = 0
+; b * c
+        mov     rcx, [r8 + 16]
+        mov     rdx, [r8 + 8]
+        mulx    rdx, rax, rcx
+        adcx    rax, rax
+        adcx    rdx, rdx                   ;CF = carry for [.result + 40]
+        adox    rax, [r9 + 24]
+        adox    rdx, [r9 + 32]             ;OF = carry for [.result + 40]
+        mov     [r9 + 24], rax
+        mov     [r9 + 32], rdx
+
+
+        mov     rax, [r9 + 40]
+        mov     rdx, 0
+        adox    rax, rdx
+        adcx    rax, rdx
+        mov     [r9 + 40], rax
+
+        mov     rax, [r9 + 48]
+        mov     rdx, 0
+        adox    rax, rdx
+        adcx    rax, rdx
+        mov     [r9 + 48], rax
+
+        mov     rax, [r9 + 56]
+        mov     rdx, 0
+        adox    rax, rdx
+        adcx    rax, rdx
+        mov     [r9 + 56], rax
 
         add     rsp, .locals_end - .locals_start
+        pop     r9 r8
         ret

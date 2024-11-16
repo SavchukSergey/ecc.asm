@@ -1,13 +1,10 @@
-if ~ definite bi_sub_256_256
-
 ;Subtracts two bi256 values
-;input
-;  rcx - left value
-;  rdx - right value
-;  r8 - result value
-;output
-;  rax - set to 1 if borrow
-;  CF - set to 1 if borrow
+;input:
+; rcx - pointer to left bi256 value
+; rdx - pointer to right bi256 value
+; r8 - pointer to result bi256 value
+; output:
+; rax, CF - set to 1 if borrow
 bi_sub_256_256:
         CheckRegBi256Alignment rcx, 'bi_sub_256_256 rcx'
         CheckRegBi256Alignment rdx, 'bi_sub_256_256 rdx'
@@ -32,5 +29,3 @@ bi_sub_256_256:
         setc    al
         movzx   rax, al
         ret
-
-end if

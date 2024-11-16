@@ -1,11 +1,10 @@
-if ~ definite bi_sub_512_512
-
-;Subtracts two bi256 values
-;input
-; rcx - left value
-; rdx - right value
-; r8 - result value
-; rax, CF - set to 1 if overflow
+;Subtracts two bi512 values
+;input:
+; rcx - pointer to left bi512 value
+; rdx - pointer to right bi512 value
+; r8 - pointer to result bi512 value
+; output:
+; rax, CF - set to 1 if borrow
 bi_sub_512_512:
         mov     rax, [rcx]
         sub     rax, [rdx]
@@ -42,5 +41,3 @@ bi_sub_512_512:
         setc    al
         movzx   rax, al
         ret
-
-end if

@@ -1,11 +1,10 @@
-if ~ definite bi_sub_128_128
-
 ;Subtracts two bi128 values
-;input
-; rcx - left value
-; rdx - right value
-; r8 - result value
-; rax, CF - set to 1 if overflow
+;input:
+; rcx - pointer to left bi128 value
+; rdx - pointer to right bi128 value
+; r8 - pointer to result bi128 value
+; output:
+; rax, CF - set to 1 if borrow
 bi_sub_128_128:
         mov     rax, [rcx]
         sub     rax, [rdx]
@@ -16,5 +15,3 @@ bi_sub_128_128:
         setc    al
         movzx   rax, al
         ret
-
-end if

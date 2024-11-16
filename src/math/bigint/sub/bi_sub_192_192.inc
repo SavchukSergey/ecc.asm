@@ -1,13 +1,10 @@
-if ~ definite bi_sub_192_192
-
 ;Subtracts two bi192 values
-;input
-;  rcx - left value
-;  rdx - right value
-;  r8 - result value
-;output
-;  rax - set to 1 if borrow
-;  CF - set to 1 if borrow
+;input:
+; rcx - pointer to left bi192 value
+; rdx - pointer to right bi192 value
+; r8 - pointer to result bi192 value
+; output:
+; rax, CF - set to 1 if borrow
 bi_sub_192_192:
         CheckRegBi192Alignment rcx, 'bi_sub_192_192 rcx'
         CheckRegBi192Alignment rdx, 'bi_sub_192_192 rdx'
@@ -28,5 +25,3 @@ bi_sub_192_192:
         setc    al
         movzx   rax, al
         ret
-
-end if
