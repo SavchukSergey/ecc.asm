@@ -4,148 +4,95 @@
 ; rdx - pointer to right bi256 value
 ; r8 - pointer to result bi512 value
 
-bi_mul_256_256____128_128:
-virtual at rsp
-.locals_start:
-  .temp BigInteger256
-  .left rq 1
-  .right rq 1
-  .result rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
-
-        PrologCheckStackAligned 'bi_mul_256_256'
-        CheckRegBi256Alignment rcx, 'bi_mul_256_256 rcx'
-        CheckRegBi256Alignment rdx, 'bi_mul_256_256 rdx'
-        CheckRegBi512Alignment r8, 'bi_mul_256_256 r8'
-
-        mov     [.left], rcx
-        mov     [.right], rdx
-        mov     [.result], r8
-
-        mov     rcx, [.result]
-        call    bi_zero_512
-
-; b * d (256 bit)
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        mov     r8, [.result]
-        call    bi_mul_128_128
-
-; b * c (256 bit)
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        add     rdx, __BIG_INTEGER_BYTES_256 / 2
-        lea     r8, [.temp]
-        call    bi_mul_128_128
-
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        lea     rdx, [.temp]
-        call    bi_add_assign_384_256
-
-; a * d (256 bit)
-        mov     rcx, [.left]
-        add     rcx, __BIG_INTEGER_BYTES_256 / 2
-        mov     rdx, [.right]
-        lea     r8, [.temp]
-        call    bi_mul_128_128
-
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_128
-        lea     rdx, [.temp]
-        call    bi_add_assign_384_256
-
-; a * c (256 bit)
-        mov     rcx, [.left]
-        add     rcx, __BIG_INTEGER_BYTES_256 / 2
-        mov     rdx, [.right]
-        add     rdx, __BIG_INTEGER_BYTES_256 / 2
-        lea     r8, [.temp]
-        call    bi_mul_128_128
-
-        mov     rcx, [.result]
-        add     rcx, __BIG_INTEGER_BYTES_256
-        lea     rdx, [.temp]
-        call    bi_add_assign_256_256
-
-        add     rsp, .locals_end - .locals_start
-        ret
-
-bi_mul_256_256____256_64:
-virtual at rsp
-.locals_start:
-  .temp BigInteger320
-  .left rq 1
-  .right rq 1
-  .result rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        sub     rsp, .locals_end - .locals_start
-
+bi_mul_256_256:
     PrologCheckStackAligned 'bi_mul_256_128'
     CheckRegBi256Alignment rcx, 'bi_mul_256_128 rcx'
     CheckRegBi256Alignment rdx, 'bi_mul_256_128 rdx'
     CheckRegBi512Alignment r8, 'bi_mul_256_128 r8'
 
-        mov     [.left], rcx
-        mov     [.right], rdx
-        mov     [.result], r8
+        push    rbx r9
 
-        mov     rcx, [.result]
-        mov     qword [rcx + 40], 0
-        mov     qword [rcx + 48], 0
-        mov     qword [rcx + 56], 0
+LEFT_PTR_REG equ rcx
+RIGHT_PTR_REG equ r9
+RESULT_PTR_REG equ r8
+        mov     RIGHT_PTR_REG, rdx
 
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        mov     rdx, [rdx]
-        mov     r8, [.result]
-        call    bi_mul_256_64
+; ld * rd
+        mov     rdx, [RIGHT_PTR_REG + 0]
+        mulx    rdx, rax, [LEFT_PTR_REG + 0]
+        mov     [RESULT_PTR_REG + 0], rax
+        mov     [RESULT_PTR_REG + 8], rdx
 
+; lc * rc
+        mov     rdx, [RIGHT_PTR_REG + 8]
+        mulx    rdx, rax, [LEFT_PTR_REG + 8]
+        mov     [RESULT_PTR_REG + 16], rax
+        mov     [RESULT_PTR_REG + 24], rdx
 
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        mov     rdx, [rdx + 8]
-        lea     r8, [.temp]
-        call    bi_mul_256_64
+; lb * rb
+        mov     rdx, [RIGHT_PTR_REG + 16]
+        mulx    rdx, rax, [LEFT_PTR_REG + 16]
+        mov     [RESULT_PTR_REG + 32], rax
+        mov     [RESULT_PTR_REG + 40], rdx
 
-; result is 384 bit wide (256bit * 64bit * 64bit)
-        mov     rcx, [.result]
-        add     rcx, 8
-        lea     rdx, [.temp]
-        call    bi_add_assign_320_320
+; la * ra
+        mov     rdx, [RIGHT_PTR_REG + 24]
+        mulx    rdx, rax, [LEFT_PTR_REG + 24]
+        mov     [RESULT_PTR_REG + 48], rax
+        mov     [RESULT_PTR_REG + 56], rdx
 
+        mov     rbx, 2
+.loop:
+        xor     rax, rax               ;CF = 0, OF = 0
+; lc * rd
+        mov     rdx, [RIGHT_PTR_REG + 0]
+        mulx    rdx, rax, [LEFT_PTR_REG + 8]
+        adc     [RESULT_PTR_REG + 8], rax
+        adc     [RESULT_PTR_REG + 16], rdx            ;CF = carry for [.result + 24]
 
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        mov     rdx, [rdx + 16]
-        lea     r8, [.temp]
-        call    bi_mul_256_64
+; la * rd
+        mov     rdx, [RIGHT_PTR_REG + 0]
+        mulx    rdx, rax, [LEFT_PTR_REG + 24]
+        adc     [RESULT_PTR_REG + 24], rax
+        adc     [RESULT_PTR_REG + 32], rdx             ;CF = carry for [.result + 40]
 
-; result is 448 bit wide (256bit * 64bit * 64bit * 64bit)
-        mov     rcx, [.result]
-        add     rcx, 16
-        lea     rdx, [.temp]
-        call    bi_add_assign_384_320
+; la * rb
+        mov     rdx, [RIGHT_PTR_REG + 16]
+        mulx    rdx, rax, [LEFT_PTR_REG + 24]
+        adc     [RESULT_PTR_REG + 40], rax
+        adc     [RESULT_PTR_REG + 48], rdx             ;CF = carry for [.result + 56]
+        adc     qword [RESULT_PTR_REG + 56], 0
 
+        ;OF, CF = 0, because result can never exceed 512 bits
+        ;xor     rax, rax               ;CF = 0, OF = 0
+; lb * rd
+        mov     rdx, [RIGHT_PTR_REG + 0]
+        mulx    rdx, rax, [LEFT_PTR_REG + 16]
+        adc     [RESULT_PTR_REG + 16], rax
+        adc     [RESULT_PTR_REG + 24], rdx             ;CF = carry for [.result + 32]
 
-        mov     rcx, [.left]
-        mov     rdx, [.right]
-        mov     rdx, [rdx + 24]
-        lea     r8, [.temp]
-        call    bi_mul_256_64
+; la * rc
+        mov     rdx, [RIGHT_PTR_REG + 8]
+        mulx    rdx, rax, [LEFT_PTR_REG + 24]
+        adc     [RESULT_PTR_REG + 32], rax             ;CF = carry for [.result + 48]
+        adc     [RESULT_PTR_REG + 40], rdx
+        adc     qword [RESULT_PTR_REG + 48], 0
+        adc     qword [RESULT_PTR_REG + 56], 0
 
-        mov     rcx, [.result]
-        add     rcx, 24
-        lea     rdx, [.temp]
-        call    bi_add_assign_320_320
+        ;OF, CF = 0, because result can never exceed 512 bits
+        ;xor     rax, rax               ;CF = 0, OF = 0
+; lb * rc
+        mov     rdx, [RIGHT_PTR_REG + 8]
+        mulx    rdx, rax, [LEFT_PTR_REG + 16]
+        adc     [RESULT_PTR_REG + 24], rax
+        adc     [RESULT_PTR_REG + 32], rdx             ;CF = carry for [.result + 40]
+        adc     qword [RESULT_PTR_REG + 40], 0
+        adc     qword [RESULT_PTR_REG + 48], 0
+        adc     qword [RESULT_PTR_REG + 56], 0
 
-
-        add     rsp, .locals_end - .locals_start
+        xchg    LEFT_PTR_REG, RIGHT_PTR_REG
+        dec     rbx
+        jnz     .loop
+        pop     r9 rbx
         ret
 
-bi_mul_256_256 = bi_mul_256_256____256_64

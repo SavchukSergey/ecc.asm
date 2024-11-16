@@ -3,49 +3,37 @@
 ; rcx - pointer to bi256 value
 ; rdx - pointer to bi512 result
 bi_square_256:
-virtual at rsp
-.locals_start:
-  .temp BigInteger256
-  .value rq 1
-  .result rq 1
-  AlignLocalsStackFrame
-.locals_end:
-end virtual
-        push    r8 r9
-        sub     rsp, .locals_end - .locals_start
+        push    r9
 
         PrologCheckStackAligned 'bi_square_256'
         CheckRegBi256Alignment rcx, 'bi_square_256 rcx'
         CheckRegBi512Alignment rdx, 'bi_square_256 rdx'
 
-        mov     [.value], rcx
-        mov     [.result], rdx
-
         xor     rax, rax               ;CF = 0, OF = 0
 
-        mov     r8, rcx
+VALUE_PTR_REG equ rcx
         mov     r9, rdx
 
 ; d * d
-        mov     rdx, [r8 + 0]
+        mov     rdx, [VALUE_PTR_REG + 0]
         mulx    rdx, rax, rdx
         mov     [r9 + 0], rax
         mov     [r9 + 8], rdx
 
 ; c * c
-        mov     rdx, [r8 + 8]
+        mov     rdx, [VALUE_PTR_REG + 8]
         mulx    rdx, rax, rdx
         mov     [r9 + 16], rax
         mov     [r9 + 24], rdx
 
 ; b * b
-        mov     rdx, [r8 + 16]
+        mov     rdx, [VALUE_PTR_REG + 16]
         mulx    rdx, rax, rdx
         mov     [r9 + 32], rax
         mov     [r9 + 40], rdx
 
 ; a * a
-        mov     rdx, [r8 + 24]
+        mov     rdx, [VALUE_PTR_REG + 24]
         mulx    rdx, rax, rdx
         mov     [r9 + 48], rax
         mov     [r9 + 56], rdx
@@ -53,9 +41,8 @@ end virtual
 
 
 ; c * d
-        mov     rcx, [r8 + 8]
-        mov     rdx, [r8 + 0]
-        mulx    rdx, rax, rcx
+        mov     rdx, [VALUE_PTR_REG + 0]
+        mulx    rdx, rax, [VALUE_PTR_REG + 8]
         adcx    rax, rax
         adcx    rdx, rdx                   ;CF = carry for [.result + 24]
         adox    rax, [r9 + 8]
@@ -64,9 +51,8 @@ end virtual
         mov     [r9 + 16], rdx
 
 ; a * d
-        mov     rcx, [r8 + 24]
-        mov     rdx, [r8 + 0]
-        mulx    rdx, rax, rcx
+        mov     rdx, [VALUE_PTR_REG + 0]
+        mulx    rdx, rax, [VALUE_PTR_REG + 24]
         adcx    rax, rax
         adcx    rdx, rdx                   ;CF = carry for [.result + 40]
         adox    rax, [r9 + 24]
@@ -75,9 +61,8 @@ end virtual
         mov     [r9 + 32], rdx
 
 ; a * b
-        mov     rcx, [r8 + 24]
-        mov     rdx, [r8 + 16]
-        mulx    rdx, rax, rcx
+        mov     rdx, [VALUE_PTR_REG + 16]
+        mulx    rdx, rax, [VALUE_PTR_REG + 24]
         adcx    rax, rax
         adcx    rdx, rdx                   ;CF = carry for [.result + 56]
         adox    rax, [r9 + 40]
@@ -94,9 +79,8 @@ end virtual
         ;OF, CF = 0, because result can never exceed 512 bits
         ;xor     rax, rax               ;CF = 0, OF = 0
 ; b * d
-        mov     rcx, [r8 + 16]
-        mov     rdx, [r8 + 0]
-        mulx    rdx, rax, rcx
+        mov     rdx, [VALUE_PTR_REG + 0]
+        mulx    rdx, rax, [VALUE_PTR_REG + 16]
         adcx    rax, rax
         adcx    rdx, rdx                   ;CF = carry for [.result + 32]
         adox    rax, [r9 + 16]
@@ -106,9 +90,8 @@ end virtual
 
 
 ; a * c
-        mov     rcx, [r8 + 24]
-        mov     rdx, [r8 + 8]
-        mulx    rdx, rax, rcx
+        mov     rdx, [VALUE_PTR_REG + 8]
+        mulx    rdx, rax, [VALUE_PTR_REG + 24]
         adcx    rax, rax
         adcx    rdx, rdx                   ;CF = carry for [.result + 48]
         adox    rax, [r9 + 32]
@@ -131,9 +114,8 @@ end virtual
         ;OF, CF = 0, because result can never exceed 512 bits
         ;xor     rax, rax               ;CF = 0, OF = 0
 ; b * c
-        mov     rcx, [r8 + 16]
-        mov     rdx, [r8 + 8]
-        mulx    rdx, rax, rcx
+        mov     rdx, [VALUE_PTR_REG + 8]
+        mulx    rdx, rax, [VALUE_PTR_REG + 16]
         adcx    rax, rax
         adcx    rdx, rdx                   ;CF = carry for [.result + 40]
         adox    rax, [r9 + 24]
@@ -160,6 +142,5 @@ end virtual
         adcx    rax, rdx
         mov     [r9 + 56], rax
 
-        add     rsp, .locals_end - .locals_start
-        pop     r9 r8
+        pop     r9
         ret
