@@ -12,4 +12,4 @@ struc TestContext {
 
 TestContextReg equ r12
 
-TEST_MEASURE_CHUNK = 20
+TEST_MEASURE_CHUNK = 100
