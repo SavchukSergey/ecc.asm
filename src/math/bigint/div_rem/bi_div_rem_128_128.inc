@@ -30,7 +30,7 @@ bi_div_rem_128_128:
 
     mov     rdx, [r9 + 8]
 ;65 bit arithmetics
-;ffff_ffff / 8001_(0000) = 1_fffc
+;0xffff_ffff_ffff_ffff / 0x8000_0001 = 0x1_ffff_fffc
     mov     rax, rdx
     sub     rax, r11
     cmovnc  rdx, rax
@@ -60,17 +60,19 @@ bi_div_rem_128_128:
     mov     rax, [r9 + 8]
     cmp     rax, [r10 + 8]
     jb      .end
+    ja      .subtract
     mov     rax, [r9 + 0]
     cmp     rax, [r10 + 0]
     jb      .end
 
+.subtract:
     mov     rax, [r10 + 0]
     sub     [r9 + 0], rax
     mov     rax, [r10 + 8]
     sbb     [r9 + 8], rax
 
-    add     qword [r8 + 0], 0
-    adc     qword [r8 + 8], 1
+    add     qword [r8 + 0], 1
+    adc     qword [r8 + 8], 0
 
 ;    jmp     .check_multi  ;todo: check how many iterations are needed
 .end:
