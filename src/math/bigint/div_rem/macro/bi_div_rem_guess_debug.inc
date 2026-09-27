@@ -25,6 +25,10 @@ macro DivRemGuess64_WriteUIntHex bits {
     call    Console_WriteUInt256Hex
   else if bits = 320
     call    Console_WriteUInt320Hex
+  else if bits = 384
+    call    Console_WriteUInt384Hex
+  else if bits = 448
+    call    Console_WriteUInt448Hex
   else if bits = 512
     call    Console_WriteUInt512Hex
   end if

@@ -267,6 +267,28 @@ macro DivRemGuess64_Loop dividend_bits, divisor_bits {
 
         DivRemGuess64_DumpGuess dividend_bits, divisor_bits
 
+;inside the loop remainder is guaranteed to be greater than divisor (its
+;leading zeroes count is lower), but the window estimate can still produce
+;a zero guess when both share the same top 64 bits; delta would then be zero
+;and the loop would never progress - subtract one divisor directly instead
+        cmp     qword [.guess_128], 0
+if DIV_REM_GUESS_QUOTIENT_GUESS_SIZE > 64
+        jne     .guess_nonzero
+        cmp     qword [.guess_128 + 8], 0
+end if
+        jne     .guess_nonzero
+if dividend_bits = divisor_bits
+        mov     rcx, [.remainder]
+else
+        lea     rcx, [.remainder_temp]
+end if
+        mov     rdx, [.divisor]
+        Call_SubAssign dividend_bits, divisor_bits
+        mov     rcx, [.quotient]
+        Call_IncAssign DIV_REM_GUESS_QUOTIENT_ACTUAL_SIZE
+        jmp     .loop
+.guess_nonzero:
+
         DivRemGuess64_CalcDelta dividend_bits, divisor_bits
         DivRemGuess64_DumpDelta dividend_bits, divisor_bits
         DivRemGuess64_ExtendGuess dividend_bits, divisor_bits ;todo: remove?
@@ -293,6 +315,24 @@ macro RemGuess64_Loop dividend_bits, divisor_bits {
         DivRemGuess64_LoopStart dividend_bits, divisor_bits
         DivRemGuess64_ShiftRemainder dividend_bits, divisor_bits
         DivRemGuess64_Guess dividend_bits, divisor_bits
+
+;see DivRemGuess64_Loop: zero guess means no progress, but remainder >
+;divisor is guaranteed here, so subtract one divisor directly
+        cmp     qword [.guess_128], 0
+if DIV_REM_GUESS_QUOTIENT_GUESS_SIZE > 64
+        jne     .guess_nonzero
+        cmp     qword [.guess_128 + 8], 0
+end if
+        jne     .guess_nonzero
+if dividend_bits = divisor_bits
+        mov     rcx, [.remainder]
+else
+        lea     rcx, [.remainder_temp]
+end if
+        mov     rdx, [.divisor]
+        Call_SubAssign dividend_bits, divisor_bits
+        jmp     .loop
+.guess_nonzero:
 
         DivRemGuess64_CalcDelta dividend_bits, divisor_bits
 

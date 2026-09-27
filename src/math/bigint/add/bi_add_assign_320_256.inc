@@ -17,10 +17,8 @@ bi_add_assign_320_256:
         mov     rax, [rdx + 24]
         adc     [rcx + 24], rax
 
-        mov     rax, [rdx + 32]
-        adc     [rcx + 32], rax
-
         mov     rax, 0
+        adc     [rcx + 32], rax
         adc     [rcx + 40], rax
 
         setc    al                 ;rax is cleared before
