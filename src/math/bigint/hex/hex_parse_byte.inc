@@ -26,6 +26,7 @@ hex_parse_byte:
 .error:
         xor     rax, rax
         stc
+        pop     rbx
         ret
 
 end if
