@@ -87,4 +87,30 @@ __bi_mod_tripple_assign_256_test_cases:
   db 'bf3401a7ecd9da0b8990cbb1a2f723b1079e1bb029e94621b5a1ebc753efcfae'
   db '3d9c04f7c68d8e229cb26314e8e56b1316da53107dbbd26520e5c357fbcf76ac'
 
+; boundary zone v ~ 2n/3 and v ~ (2^256+n)/3 where 3v crosses 2^256:
+; the carry out of the tripling must drive a full-width reduction
+  db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa9fffffd73'
+  db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2a'
+
+  db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa9fffffd74'
+  db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2d'
+
+  db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa9fffffd75'
+  db '0000000000000000000000000000000000000000000000000000000000000001'
+
+  db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa9fffffd79'
+  db '000000000000000000000000000000000000000000000000000000000000000d'
+
+  db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa5555540f'
+  db '00000000000000000000000000000000000000000000000000000001000003cf'
+
+  db 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa55555416'
+  db '00000000000000000000000000000000000000000000000000000001000003e4'
+
+  db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2e'
+  db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2c'
+
+  db '55555555555555555555555555555555555555555555555555555554fffffeba'
+  db 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2e'
+
 .end:
