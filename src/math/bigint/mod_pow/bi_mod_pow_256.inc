@@ -3,6 +3,9 @@ if ~ definite bi_mod_pow_256
 bi_mod_pow_256:
 virtual at rsp
   label .locals_start
+    .result_mont BigInteger256
+    .value_mont BigInteger256
+    .ctx rq 20                             ; MontgomeryContext256
     .acc BigInteger256
     .temp BigInteger256
     .value rq 1
@@ -17,6 +20,9 @@ end virtual
         mov     [.exponent], rdx
         mov     [.modulus], r8
         mov     [.result], r9
+
+        test    qword [r8], 1
+        jnz     .montgomery
 
         mov     rcx, [.result]
         call    bi_one_256
@@ -55,6 +61,32 @@ end virtual
         inc     [.bit]
         cmp     [.bit], 256
         jb      .loop
+
+        add     rsp, .locals_end - .locals_start
+        ret
+
+; odd modulus: run the square-and-multiply loop in the Montgomery domain,
+; where each multiplication is a REDC instead of a 512/256 division
+.montgomery:
+        mov     rcx, [.modulus]
+        lea     rdx, [.ctx]
+        call    bi_mont_ctx_256_init
+
+        mov     rcx, [.value]
+        lea     rdx, [.value_mont]
+        lea     r8, [.ctx]
+        call    bi_mont_ctx_256_convert
+
+        lea     rcx, [.value_mont]
+        mov     rdx, [.exponent]
+        lea     r8, [.ctx]
+        lea     r9, [.result_mont]
+        call    bi_mont_ctx_256_pow
+
+        lea     rcx, [.result_mont]
+        mov     rdx, [.result]
+        lea     r8, [.ctx]
+        call    bi_mont_ctx_256_redc_256
 
         add     rsp, .locals_end - .locals_start
         ret
