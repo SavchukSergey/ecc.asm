@@ -101,6 +101,12 @@ end virtual
         mov     r8, [.ctx]
         lea     r9, [.dx]
         call    bi_mont_ctx_256_sub
+
+;dx == 0 means same x coordinate
+;note: ZF after bi_mont_ctx_256_sub -> bi_mod_sub_256_256 is NOT reliable
+;(its epilogue 'add rsp, 8' clears it), so test the value explicitly
+        lea     rcx, [.dx]
+        call    bi_is_zero_256
         jz      .same_x
 
 ;dy = lyz.ModSub(ryz, ctx)
