@@ -70,7 +70,7 @@ bi_rem_128_128:
     mov     rax, [r10 + 8]
     sbb     [r8 + 8], rax
 
-;    jmp     .check_multi  ;todo: check how many iterations are needed
+    jmp     .check_multi
 .end:
 
     pop     r11 r10

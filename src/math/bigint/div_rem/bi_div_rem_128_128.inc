@@ -74,7 +74,7 @@ bi_div_rem_128_128:
     add     qword [r8 + 0], 1
     adc     qword [r8 + 8], 0
 
-;    jmp     .check_multi  ;todo: check how many iterations are needed
+    jmp     .check_multi
 .end:
 
     pop     r11 r10
