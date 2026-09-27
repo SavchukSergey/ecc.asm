@@ -1,27 +1,17 @@
 if ~ definite bi_mont_ctx_256_square
 
+;Squares bi256 value in montgomery form:
+;  result = value * value * 2^-256 mod modulus
+;The fused CIOS multiplication is faster than composing a dedicated
+;256-bit square with a separate REDC pass
+;input:
+;  rcx - pointer to bi256 montgomery value
+;  rdx - pointer to MontgomeryContext256
+;  r8  - pointer to bi256 result (may alias the value)
 bi_mont_ctx_256_square:
-virtual at rsp
-  label .locals_start
-    .ctx rq 1
-    .result rq 1
-    .temp_512 BigInteger512
-  label .locals_end
-end virtual
-        sub     rsp, .locals_end - .locals_start
-
-        mov     [.ctx], rdx
-        mov     [.result], r8
-
-        lea     rdx, [.temp_512]
-        call    bi_square_256 
-
-        lea     rcx, [.temp_512]
-        mov     rdx, [.result]
-        mov     r8, [.ctx]
-        call    bi_mont_ctx_256_redc_512
-
-        add     rsp, .locals_end - .locals_start
-        ret
+        mov     r9, r8
+        mov     r8, rdx
+        mov     rdx, rcx
+        jmp     bi_mont_ctx_256_mul
 
 end if
